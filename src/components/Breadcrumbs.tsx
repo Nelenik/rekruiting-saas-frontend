@@ -4,12 +4,12 @@ import { usePathname } from "next/navigation";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "./ui/breadcrumb";
 import Link from "next/link";
 
-import HomeIcon from '../../public/assets/icons/home.svg?rc';
+import HomeIcon from '@/assets/icons/home.svg?rc';
 import React from "react";
 
 
 interface IBreadcumbsProps {
-  name: string
+  name?: string
 }
 
 const Breadcrumbs = ({ name = 'Company name' }: IBreadcumbsProps) => {
@@ -17,12 +17,13 @@ const Breadcrumbs = ({ name = 'Company name' }: IBreadcumbsProps) => {
 
   //break pathname into parts for breadcrumbs
   const splittedParts = pathname.split('/')
+
+  //this is href to main for profile (companies/[id], users/[id]...)
   const mainPagePart = splittedParts.slice(1, 3).join('/')
   const pathParts = [mainPagePart, ...splittedParts.slice(3)]
 
   //path segment mapping for breadcrumbs in russian
   const segmentMap: Record<string, string> = {
-
     vacancies: 'Вакансии',
     reports: 'Отчеты',
     settings: 'Настройки',
@@ -45,7 +46,6 @@ const Breadcrumbs = ({ name = 'Company name' }: IBreadcumbsProps) => {
                 </BreadcrumbItem>
                 {i !== pathParts.length - 1 && <BreadcrumbSeparator />}
               </React.Fragment>
-
             )
           })}
         </BreadcrumbList>

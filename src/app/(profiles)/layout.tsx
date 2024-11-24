@@ -33,7 +33,7 @@ export default function ProfileLayout({
         <div className="pl-20">
           <Providers>
             <Sidebar />
-            <main className="p-8 flex flex-col gap-5">
+            <main className="p-7 flex flex-col gap-5">
               <Breadcrumbs />
               {children}
             </main>
