@@ -8,7 +8,7 @@ import { ReactNode, useState } from "react";
 // between all requests and means _all_ data gets passed to _all_ users.
 // Besides being bad for performance, this also leaks any sensitive data.
 
-const Provider = ({ children }: { children: ReactNode }) => {
+const Providers = ({ children }: { children: ReactNode }) => {
   // Instead do this, which ensures each request has its own cache:
   const [queryClient] = useState(() => new QueryClient())
   return (
@@ -18,4 +18,4 @@ const Provider = ({ children }: { children: ReactNode }) => {
   );
 }
 
-export default Provider;
+export default Providers;
