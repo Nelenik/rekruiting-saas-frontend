@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 
 export default function Pricing() {
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-900 max-w-screen-xl mx-auto">
+    <section id="pricing" className="py-16 bg-gray-50 dark:bg-gray-900 max-w-screen-xl mx-auto">
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-white mb-4">
           Выберите подходящий тариф
