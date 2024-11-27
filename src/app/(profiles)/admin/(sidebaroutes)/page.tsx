@@ -10,7 +10,7 @@ const AdminPage = () => {
     <div>
       this is the admin main page
       <br />
-      <Link href={'/company'}>link to company</Link>
+      <Link href={'/admin/company'}>link to company</Link>
     </div>
   );
 }

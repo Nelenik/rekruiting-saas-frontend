@@ -8,9 +8,9 @@ import ReportIcon from '@/assets/icons/file.svg?rc'
 
 const companyNavigation = [
   { routeName: 'Главная', href: '/admin', icon: <HomeIcon className="[&>*]:fill-sidebar-foreground" /> },
-  { routeName: 'Вакансии', href: '/company/vacancies', icon: <VacansyIcon className="[&>*]:fill-sidebar-foreground" /> },
-  { routeName: 'Отчеты', href: '/company/reports', icon: <ReportIcon className="[&>*]:fill-sidebar-foreground" /> },
-  { routeName: 'Настройки', href: '/company/settings', icon: <SettingIcon className="[&>*]:fill-sidebar-foreground" /> }
+  { routeName: 'Вакансии', href: '/admin/company/vacancies', icon: <VacansyIcon className="[&>*]:fill-sidebar-foreground" /> },
+  { routeName: 'Отчеты', href: '/admin/company/reports', icon: <ReportIcon className="[&>*]:fill-sidebar-foreground" /> },
+  { routeName: 'Настройки', href: '/admin/company/settings', icon: <SettingIcon className="[&>*]:fill-sidebar-foreground" /> }
 ]
 
 const CompanyLayout = ({ children }: { children: React.ReactNode }) => {

@@ -16,7 +16,7 @@ const Breadcrumbs = ({ name = 'Company name' }: IBreadcumbsProps) => {
   const pathname = usePathname()
 
   //break pathname into parts for breadcrumbs
-  const splittedParts = pathname.split('/')
+  const splittedParts = pathname.split('/').slice(1)
   console.log(splittedParts)
   //this is href to main for profile (companies/[id], users/[id]...)
   const mainPagePart = splittedParts.slice(1, 3).join('/')

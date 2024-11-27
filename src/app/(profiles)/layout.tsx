@@ -15,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "REkrutAI|Company Profile",
+  title: "REkrutAI|Admin Panel",
 };
 
 export default function ProfileLayout({
