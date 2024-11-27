@@ -31,22 +31,22 @@ const useSidebarControl = () => {
     };
   }, []);
 
-  // Close sidebar on outside click
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
-      ) {
-        setIsSidebarOpen(false);
-      }
-    };
+  // // Close sidebar on outside click
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       sidebarRef.current &&
+  //       !sidebarRef.current.contains(event.target as Node)
+  //     ) {
+  //       setIsSidebarOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
   return {
     handleOpen,
     isSidebarOpen,

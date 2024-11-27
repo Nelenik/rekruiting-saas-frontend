@@ -18,9 +18,6 @@ const Breadcrumbs = ({ name = 'Company name' }: IBreadcumbsProps) => {
   //break pathname into parts for breadcrumbs
   const splittedParts = pathname.split('/').slice(1)
   console.log(splittedParts)
-  //this is href to main for profile (companies/[id], users/[id]...)
-  const mainPagePart = splittedParts.slice(1, 3).join('/')
-  const pathParts = [mainPagePart, ...splittedParts.slice(3)]
 
   //path segment mapping for breadcrumbs in russian
   const segmentMap: Record<string, string> = {
@@ -33,7 +30,7 @@ const Breadcrumbs = ({ name = 'Company name' }: IBreadcumbsProps) => {
     <div className="bg-card p-5 rounded-md">
       <Breadcrumb>
         <BreadcrumbList className="gap-1.5 sm:gap-1.5">
-          {pathParts.map((item: string, i: number) => {
+          {/* {pathParts.map((item: string, i: number) => {
             const href = `${pathParts.slice(0, i + 1).join('/')}`
             return (
               <React.Fragment key={i}>
@@ -48,7 +45,7 @@ const Breadcrumbs = ({ name = 'Company name' }: IBreadcumbsProps) => {
                 {i !== pathParts.length - 1 && <BreadcrumbSeparator />}
               </React.Fragment>
             )
-          })}
+          })} */}
         </BreadcrumbList>
       </Breadcrumb>
     </div>

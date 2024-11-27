@@ -5,7 +5,7 @@ import LogoSvg from '@/assets/icons/logo.svg?rc';
 import { Menu } from 'lucide-react'
 import SideBarBtn from "@/components/Buttons/SideBarBtn";
 import { cn } from "@/lib/utils";
-import useSidebarControl from "@/hooks/sidebar-hook";
+import useSidebarControl from "@/hooks/useSidebarControl";
 import {
   Avatar,
   AvatarFallback,

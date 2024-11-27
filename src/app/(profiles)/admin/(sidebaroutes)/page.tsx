@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -9,8 +8,7 @@ const AdminPage = () => {
   return (
     <div>
       this is the admin main page
-      <br />
-      <Link href={'/admin/company'}>link to company</Link>
+
     </div>
   );
 }
