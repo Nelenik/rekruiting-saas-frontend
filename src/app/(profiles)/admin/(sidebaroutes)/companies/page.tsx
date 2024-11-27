@@ -5,7 +5,7 @@ const CompaniesPage = () => {
     <div>
       this is companies Page
       <br />
-      <Link href={'/admin/company/vacancies'}>link to company</Link>
+      <Link href={{ pathname: '/admin/company', query: { companyId: '123' } }}>link to company</Link>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import ReportIcon from '@/assets/icons/file.svg?rc'
 
 const companyNavigation = [
   { routeName: 'В админ панель', href: '/admin', icon: <HomeIcon className="[&>*]:fill-sidebar-foreground" /> },
-  { routeName: 'Вакансии', href: '/admin/company/vacancies', icon: <VacansyIcon className="[&>*]:fill-sidebar-foreground" /> },
+  { routeName: 'Вакансии', href: '/admin/company', icon: <VacansyIcon className="[&>*]:fill-sidebar-foreground" /> },
   { routeName: 'Отчеты', href: '/admin/company/reports', icon: <ReportIcon className="[&>*]:fill-sidebar-foreground" /> },
   { routeName: 'Настройки', href: '/admin/company/settings', icon: <SettingIcon className="[&>*]:fill-sidebar-foreground" /> }
 ]
