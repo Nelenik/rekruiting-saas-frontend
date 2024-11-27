@@ -21,7 +21,7 @@ export interface SidebarRoutes {
 }
 
 interface ISidebarProps {
-  routes: SidebarRoutes[]
+  routes: SidebarRoutes[],
 }
 
 const Sidebar = ({ routes = [] }: ISidebarProps) => {
@@ -46,15 +46,12 @@ const Sidebar = ({ routes = [] }: ISidebarProps) => {
       )}>
         <ul className="space-y-0">
           {routes.map((el) => {
-            console.log(el.href)
             const href = el.href.endsWith('admin') ? el.href : `${el.href}?${searchParams.toString()}`
             return (
               <li key={el.routeName}>
                 <SideBarBtn asChild className="gap-3">
                   <Link className="w-full" href={href}>
                     {el.icon}
-                    {/* <HomeIcon className="[&>*]:fill-sidebar-foreground" />  */}
-
                     {showText && <span className="ml-2">{el.routeName}</span>}
                   </Link>
                 </SideBarBtn>

@@ -1,5 +1,5 @@
 const SettingsPage = () => {
-  return (<div>this is Settings page</div>);
+  return (<div>Настройки страницы компании-клиента</div>);
 }
 
 export default SettingsPage;

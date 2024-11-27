@@ -1,5 +1,5 @@
 const ReportsPage = () => {
-  return (<div>this is reports page</div>);
+  return (<div>Отчеты по компании-клиенту</div>);
 }
 
 export default ReportsPage;

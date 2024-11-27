@@ -7,8 +7,7 @@ export const metadata: Metadata = {
 const AdminPage = () => {
   return (
     <div>
-      this is the admin main page
-
+      Эта страница может быть использована для какой то общей статистики
     </div>
   );
 }
