@@ -15,7 +15,7 @@ const VacancyDetails = () => {
           <FunnelCard name="Контакты" count={125} />
           <ul className="[&>li:not(:last-child)]:mb-2">
             <li>
-              <Link href={`/dashboard/resume/123`}>
+              <Link href={`/dashboard/resume/Ivan Petrov-123`}>
                 <CandidateCard
                   name="Silvia Rotaru"
                   city="Moskow"
