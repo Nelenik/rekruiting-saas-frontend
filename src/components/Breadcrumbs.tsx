@@ -16,16 +16,14 @@ const Breadcrumbs = () => {
 
   //path segment mapping for breadcrumbs in russian
   const segmentMap: Record<string, string> = {
-    company: 'Вакансии',
+    vacancies: 'Вакансии',
     reports: 'Отчеты',
     settings: 'Настройки',
-    companies: 'Компании'
   }
   //define link inner
   const defineLinkInner = (item: string) => {
     const decodedItem = decodeURIComponent(item)
-    // let inner:string|React.ReactNode
-    if (decodedItem === 'admin') {
+    if (decodedItem === 'dashboard') {
       return <HomeIcon width={16} height={16} className="-translate-y-0.5" />
     } else if (segmentMap.hasOwnProperty(decodedItem)) {
       return segmentMap[decodedItem]
