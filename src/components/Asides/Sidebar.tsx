@@ -12,7 +12,6 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { ReactNode } from "react";
-import { useSearchParams } from "next/navigation";
 
 export interface SidebarRoutes {
   routeName: string,
@@ -26,7 +25,6 @@ interface ISidebarProps {
 
 const Sidebar = ({ routes = [] }: ISidebarProps) => {
   const { sidebarRef, handleOpen, isSidebarOpen, showText } = useSidebarControl()
-  const searchParams = useSearchParams()
 
   //temporar
   const userName = 'Петров Дмитрий'
@@ -46,11 +44,10 @@ const Sidebar = ({ routes = [] }: ISidebarProps) => {
       )}>
         <ul className="space-y-0">
           {routes.map((el) => {
-            const href = el.href.endsWith('admin') ? el.href : `${el.href}?${searchParams.toString()}`
             return (
               <li key={el.routeName}>
                 <SideBarBtn asChild className="gap-3">
-                  <Link className="w-full" href={href}>
+                  <Link className="w-full" href={el.href}>
                     {el.icon}
                     {showText && <span className="ml-2">{el.routeName}</span>}
                   </Link>
