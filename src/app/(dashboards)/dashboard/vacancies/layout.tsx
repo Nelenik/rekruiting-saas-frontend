@@ -2,7 +2,7 @@ import VacanciesAside from "@/components/Asides/VacanciesAside";
 
 
 const VacanciesLayout = ({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) => {

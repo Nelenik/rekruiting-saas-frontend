@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "../globals.css";
-import Providers from "../providers";
+import "../../globals.css";
+import Providers from "../../providers";
 import Sidebar from "@/components/Asides/Sidebar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Building2 } from "lucide-react";
@@ -10,12 +10,12 @@ import HomeIcon from '@/assets/icons/home.svg?rc'
 import ReportIcon from '@/assets/icons/file.svg?rc'
 
 const geistSans = localFont({
-  src: "../fonts/GeistVF.woff",
+  src: "../../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "../fonts/GeistMonoVF.woff",
+  src: "../../fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
@@ -33,8 +33,10 @@ const adminNavigation = [
 
 export default function ProfileLayout({
   children,
+  modals
 }: Readonly<{
   children: React.ReactNode;
+  modals: React.ReactNode
 }>) {
   return (
     <html lang="en">
@@ -48,6 +50,7 @@ export default function ProfileLayout({
               <Breadcrumbs />
 
               {children}
+              {modals}
             </div>
 
           </Providers>

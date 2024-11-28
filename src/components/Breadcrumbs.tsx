@@ -16,6 +16,7 @@ const Breadcrumbs = () => {
 
   //path segment mapping for breadcrumbs in russian
   const segmentMap: Record<string, string> = {
+    resume: 'Резюме',
     vacancies: 'Вакансии',
     reports: 'Отчеты',
     settings: 'Настройки',

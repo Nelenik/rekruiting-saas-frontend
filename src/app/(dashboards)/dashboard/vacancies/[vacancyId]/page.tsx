@@ -1,6 +1,7 @@
 import CandidateCard from "@/components/Cards/CandidateCard";
 import FunnelCard from "@/components/Cards/FunnelCard";
 import SummaryCard from "@/components/Cards/SummaryCard";
+import Link from "next/link";
 
 const VacancyDetails = () => {
   return (
@@ -14,12 +15,15 @@ const VacancyDetails = () => {
           <FunnelCard name="Контакты" count={125} />
           <ul className="[&>li:not(:last-child)]:mb-2">
             <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={8}
-              />
+              <Link href={`/dashboard/resume/123`}>
+                <CandidateCard
+                  name="Silvia Rotaru"
+                  city="Moskow"
+                  salary={120000}
+                  rating={8}
+                />
+              </Link>
+
             </li>
             <li>
               <CandidateCard
