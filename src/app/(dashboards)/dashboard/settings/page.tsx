@@ -1,8 +1,6 @@
 const SettingsPage = () => {
   return (
-    <div>
-      Настройки админки
-    </div>
+    <div>Settings page</div>
   );
 }
 

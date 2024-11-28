@@ -1,7 +1,7 @@
 import VacanciesAside from "@/components/Asides/VacanciesAside";
 
 
-const CompanyLayout = ({
+const VacanciesLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -16,4 +16,4 @@ const CompanyLayout = ({
   );
 }
 
-export default CompanyLayout;
+export default VacanciesLayout;
