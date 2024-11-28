@@ -3,48 +3,53 @@
 import { usePathname } from "next/navigation";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "./ui/breadcrumb";
 import Link from "next/link";
-
-import HomeIcon from '@/assets/icons/home.svg?rc';
 import React from "react";
 
+import HomeIcon from '@/assets/icons/home.svg?rc';
 
-interface IBreadcumbsProps {
-  name?: string
-}
 
-const Breadcrumbs = ({ name = 'Company name' }: IBreadcumbsProps) => {
+const Breadcrumbs = () => {
   const pathname = usePathname()
 
   //break pathname into parts for breadcrumbs
-  const splittedParts = pathname.split('/')
-
-  //this is href to main for profile (companies/[id], users/[id]...)
-  const mainPagePart = splittedParts.slice(1, 3).join('/')
-  const pathParts = [mainPagePart, ...splittedParts.slice(3)]
+  const splittedParts = pathname.split('/').slice(1)
 
   //path segment mapping for breadcrumbs in russian
   const segmentMap: Record<string, string> = {
-    vacancies: 'Вакансии',
+    company: 'Вакансии',
     reports: 'Отчеты',
     settings: 'Настройки',
+    companies: 'Компании'
+  }
+  //define link inner
+  const defineLinkInner = (item: string) => {
+    const decodedItem = decodeURIComponent(item)
+    // let inner:string|React.ReactNode
+    if (decodedItem === 'admin') {
+      return <HomeIcon width={16} height={16} className="-translate-y-0.5" />
+    } else if (segmentMap.hasOwnProperty(decodedItem)) {
+      return segmentMap[decodedItem]
+    } else {
+      return decodedItem
+    }
   }
   return (
     <div className="bg-card p-5 rounded-md">
       <Breadcrumb>
         <BreadcrumbList className="gap-1.5 sm:gap-1.5">
-          {pathParts.map((item: string, i: number) => {
-            const href = `${pathParts.slice(0, i + 1).join('/')}`
+          {splittedParts.map((item: string, i: number) => {
+            const href = `${splittedParts.slice(0, i + 1).join('/')}`
             return (
               <React.Fragment key={i}>
 
                 <BreadcrumbItem >
                   <BreadcrumbLink asChild className="inline-flex items-center gap-1">
                     <Link href={`/${href}`}>
-                      {i === 0 ? <><HomeIcon width={16} height={16} /> {name}</> : segmentMap[item]}
+                      {defineLinkInner(item)}
                     </Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                {i !== pathParts.length - 1 && <BreadcrumbSeparator />}
+                {i !== splittedParts.length - 1 && <BreadcrumbSeparator />}
               </React.Fragment>
             )
           })}

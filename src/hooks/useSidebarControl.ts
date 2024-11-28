@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
 const useSidebarControl = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [showText, setShowText] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [showText, setShowText] = useState(true);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const handleOpen = () => {
     setIsSidebarOpen((state) => !state);
@@ -10,7 +10,7 @@ const useSidebarControl = () => {
   //side effect to timeout text on opening
   useEffect(() => {
     if (isSidebarOpen) {
-      const timeout = setTimeout(() => setShowText(true), 50);
+      const timeout = setTimeout(() => setShowText(true), 150);
       return () => clearTimeout(timeout);
     } else {
       setShowText(false);
@@ -31,22 +31,22 @@ const useSidebarControl = () => {
     };
   }, []);
 
-  // Close sidebar on outside click
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
-      ) {
-        setIsSidebarOpen(false);
-      }
-    };
+  // // Close sidebar on outside click
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       sidebarRef.current &&
+  //       !sidebarRef.current.contains(event.target as Node)
+  //     ) {
+  //       setIsSidebarOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
   return {
     handleOpen,
     isSidebarOpen,

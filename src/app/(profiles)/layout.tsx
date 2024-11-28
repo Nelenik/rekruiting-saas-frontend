@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
 import Providers from "../providers";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import Sidebar from "@/components/Sidebar";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -17,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "REkrutAI|Company Profile",
+  title: "REkrutAI|Admin Panel",
 };
 
 export default function ProfileLayout({
@@ -28,17 +26,20 @@ export default function ProfileLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        <div className="pl-20">
+        <main className="w-full flex h-screen overflow-hidden">
           <Providers>
-            <Sidebar />
-            <main className="p-7 flex flex-col gap-5">
+            {/* <Sidebar />
+            <div className="p-6 w-full grid auto-rows-max grid-cols-1 gap-6 h-full overflow-y-auto">
               <Breadcrumbs />
-              {children}
-            </main>
+
+            </div> */}
+            {children}
+
           </Providers>
-        </div>
+
+        </main>
       </body>
     </html>
   );
