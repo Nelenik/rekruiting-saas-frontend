@@ -1,12 +1,15 @@
 import { useParams, usePathname } from "next/navigation";
 import HomeIcon from '@/assets/icons/home.svg?rc';
-import { Params } from "@/types/common";
 
 // This mapping matches routes to breadcrumbs, displaying either static labels or dynamic names extracted from route parameters. 
 //Each new route should be described here for better navigation.
-//This approach does not take into account catch-all segments
 
-const breadcrumbsMapping: { pattern: RegExp, handler: (params?: Params) => string | React.ReactNode }[] = [
+interface IBreadcrumbPattern {
+  pattern: RegExp,
+  handler: (params?: { [key: string]: string | string[] }) => string | React.ReactNode
+}
+
+const breadcrumbsMapping: IBreadcrumbPattern[] = [
   {
     pattern: /^\/dashboard$/,
     handler: () => <HomeIcon width={16} height={16} className="-translate-y-0.5" />
@@ -27,7 +30,12 @@ const breadcrumbsMapping: { pattern: RegExp, handler: (params?: Params) => strin
     pattern: /^\/dashboard\/vacancies\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes - vacancyId
     handler: (params = {}) => {
       const { vacancyId } = params;
-      if (!vacancyId) { return 'Название вакансии' }
+
+      // If we use catch-all segments, the params object may contain fields with an array of strings. 
+      // Here, we check if the field exists and explicitly tell TypeScript that we expect a string.
+
+      if (!vacancyId || typeof vacancyId !== 'string') { return 'Название вакансии' }
+
       //vacancyId has the format "vacancy name-vacancy id." To extract the name for the breadcrumbs, we split the provided parameter.
       const splitted = vacancyId.split('-')
       return decodeURIComponent(splitted[0])
@@ -37,7 +45,7 @@ const breadcrumbsMapping: { pattern: RegExp, handler: (params?: Params) => strin
     pattern: /^\/dashboard\/resume\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - resumeId
     handler: (params = {}) => {
       const { resumeId } = params
-      if (!resumeId) return 'Резюме'
+      if (!resumeId || typeof resumeId !== 'string') return 'Резюме'
       const splitted = resumeId.split('-')
       return decodeURIComponent(splitted[0])
     }
@@ -65,14 +73,21 @@ const breadcrumbsMapping: { pattern: RegExp, handler: (params?: Params) => strin
  * // ]
  * 
  */
-const defineBreadcrumbsPaths = (pathname: string, params: Params): { href: string, label: string | React.ReactNode }[] => {
-  //break pathname into parts for breadcrumbs
+
+type DefineBreadcrumbsPaths = (pathname: string, params: { [key: string]: string | string[] }) => { href: string, label: string | React.ReactNode }[]
+
+const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (pathname, params) => {
+  // Split the pathname into segments to build hierarchical breadcrumb paths.
   const pathSegments = pathname.split('/').slice(1)
   const breadcrumbsPaths: { href: string, label: string | React.ReactNode }[] = []
 
+  // Iterate through each path segment to build breadcrumb paths and match them with patterns.
   pathSegments.forEach((_, i) => {
+    // Create the current path by joining segments up to the current index.
     const currentPath = `/${pathSegments.slice(0, i + 1).join('/')}`
+    // Find a matching pattern in the breadcrumbs mapping for the current path.
     const mathcedPattern = breadcrumbsMapping.find(el => el.pattern.test(currentPath))
+    // If a matching pattern is found, add it to the breadcrumb paths.
     if (mathcedPattern) {
       breadcrumbsPaths.push({
         href: currentPath,
