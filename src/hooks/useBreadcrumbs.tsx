@@ -27,26 +27,26 @@ const breadcrumbsMapping: IBreadcrumbPattern[] = [
     handler: () => 'Настройки'
   },
   {
-    pattern: /^\/dashboard\/vacancies\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes - vacancyId
+    pattern: /^\/dashboard\/vacancies\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes - vacancyDetails
     handler: (params = {}) => {
-      const { vacancyId } = params;
+      const { vacancyDetails } = params;
 
       // If we use catch-all segments, the params object may contain fields with an array of strings. 
       // Here, we check if the field exists and explicitly tell TypeScript that we expect a string.
 
-      if (!vacancyId || typeof vacancyId !== 'string') { return 'Название вакансии' }
+      if (!vacancyDetails || typeof vacancyDetails !== 'string') { return 'Название вакансии' }
 
-      //vacancyId has the format "vacancy name-vacancy id." To extract the name for the breadcrumbs, we split the provided parameter.
-      const splitted = vacancyId.split('-')
+      //vacancyDetails has the format "vacancy name-vacancy id." To extract the name for the breadcrumbs, we split the provided parameter.
+      const splitted = vacancyDetails.split('-')
       return decodeURIComponent(splitted[0])
     }
   },
   {
-    pattern: /^\/dashboard\/resume\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - resumeId
+    pattern: /^\/dashboard\/resume\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - resumeDetails
     handler: (params = {}) => {
-      const { resumeId } = params
-      if (!resumeId || typeof resumeId !== 'string') return 'Резюме'
-      const splitted = resumeId.split('-')
+      const { resumeDetails } = params
+      if (!resumeDetails || typeof resumeDetails !== 'string') return 'Резюме'
+      const splitted = resumeDetails.split('-')
       return decodeURIComponent(splitted[0])
     }
   },

@@ -1,6 +1,6 @@
 "use server";
-import { VacancyBasic } from "@/types/vacancyTypes";
-import { getListRecords } from "./getListRecords";
+import { VacancyBasic, VacancyFull } from "@/types/vacancyTypes";
+import { getListRecords, getRecordById } from "./getRecords";
 import { handleError } from "@/lib/handleErrors";
 
 /**
@@ -23,4 +23,11 @@ export const getBasicVacancies = async (): Promise<VacancyBasic[]> => {
   } catch (error: unknown) {
     return handleError(error);
   }
+};
+
+export const getVacancyRecordById = async (
+  vacancyId: string
+): Promise<VacancyFull> => {
+  const vacancyData = await getRecordById("Vacs", vacancyId);
+  return vacancyData;
 };

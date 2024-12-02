@@ -2,6 +2,7 @@
 
 import { AirtableError } from "@/lib/customErrors";
 import { ListRecordsParams } from "@/types/airtableBase";
+import { VacancyFull } from "@/types/vacancyTypes";
 
 const baseKey = process.env.NEXT_PUBLIC_AIRTABLE_API_KEY;
 const baseUrl = `${process.env.NEXT_PUBLIC_AIRTABLE_ENDPOINT_URL}/${process.env.NEXT_PUBLIC_AIRTABLE_BASE_ID}`;
@@ -47,4 +48,20 @@ export const getListRecords = async <T>(
       ...el.fields, // The fields of the record
     })
   );
+};
+
+export const getRecordById = async (
+  tableNameOrId: string,
+  recordId: string
+): Promise<VacancyFull> => {
+  const response = await fetch(`${baseUrl}/${tableNameOrId}/${recordId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${baseKey}`,
+    },
+  });
+
+  const res = await response.json();
+  return res;
 };

@@ -3,7 +3,10 @@ import FunnelCard from "@/components/Cards/FunnelCard";
 import SummaryCard from "@/components/Cards/SummaryCard";
 import Link from "next/link";
 
-const VacancyDetails = () => {
+const VacancyDetails = ({ params }: { params: { [key: string]: string } }) => {
+  const { vacancyDetails } = params
+  const vacancyId = vacancyDetails.split('-')[1]
+  console.log(vacancyId)
   return (
     <div className="flex gap-6 flex-col">
       <SummaryCard vacancyName="менеджер по продажам" summaryData={
