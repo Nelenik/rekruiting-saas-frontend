@@ -1,11 +1,14 @@
+import { getBasicVacancies } from "@/actions/getData";
 import VacanciesAside from "@/components/Asides/VacanciesAside";
 
 
-const VacanciesLayout = ({
+const VacanciesLayout = async ({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const vacancies = await getBasicVacancies()
+  console.log(vacancies)
   return (
     <div className="flex gap-5 flex-col w-full lg:flex-row">
       <VacanciesAside />

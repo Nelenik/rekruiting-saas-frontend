@@ -1,7 +1,7 @@
 import {
   Card,
 } from "@/components/ui/card"
-import { formatNumber, formatPrice } from "@/utils/formatersIntl";
+import { formatNumber, formatPrice } from "@/lib/utils/formatersIntl";
 
 // import Star from '@/components/Star'
 import { Star } from "lucide-react";

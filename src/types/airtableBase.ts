@@ -11,3 +11,7 @@ export interface ListRecordsParams {
   returnFielsByFieldId?: boolean;
   recordMetadata?: string[];
 }
+export interface AirtableErrorResponse {
+  type: string;
+  message: string;
+}

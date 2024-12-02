@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { getWordEndings } from "@/utils/getWordEnding";
+import { getWordEndings } from "@/lib/utils/getWordEnding";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 

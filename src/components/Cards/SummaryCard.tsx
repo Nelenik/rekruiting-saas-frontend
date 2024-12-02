@@ -4,8 +4,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import CaseIcon from '@/assets/icons/case.svg?rc'
-import { getWordEndings } from "@/utils/getWordEnding"
-import { formatPrice } from "@/utils/formatersIntl"
+import { getWordEndings } from "@/lib/utils/getWordEnding"
+import { formatPrice } from "@/lib/utils/formatersIntl"
 
 interface ISummaryData {
   daysInProcessing: number,
