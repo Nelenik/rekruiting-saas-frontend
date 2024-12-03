@@ -85,3 +85,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.visually-hidden {
+  position: fixed;
+  transform: scale(0);
+  top: -100%;
+}

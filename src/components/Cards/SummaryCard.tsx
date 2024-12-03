@@ -31,7 +31,7 @@ const SummaryCard = ({ vacancyName, summaryData }: ISummaryCard) => {
         <CaseIcon width={32} height={32} className="text-white" />
       </div>
       <div className="grow">
-        <CardTitle className="first-letter:uppercase mb-2 text-lg lg:text-2xl">{vacancyName}</CardTitle>
+        <CardTitle className="mb-2 first-letter:uppercase  typograpghy-h2">{vacancyName}</CardTitle>
         <ul className="
             grid grid-cols-[repeat(auto-fit,_minmax(145px,_1fr))] gap-6
             w-[min(100%,1000px)]
