@@ -7,7 +7,7 @@ const ResumeModal = () => {
   const router = useRouter();
   return (
     <Dialog open={true} onOpenChange={() => router.back()} >
-      <DialogContent className="w-[min(100%,1300px)] h-full bg-white max-w-none translate-x-0 translate-y-0 left-[unset] right-0 top-0">
+      <DialogContent className="w-[min(100%,1300px)] h-full bg-white max-w-none ">
         <div className="visually-hidden">
           <DialogTitle>
             Резюме
