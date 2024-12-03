@@ -38,12 +38,12 @@ const VacancyDetails = async ({ params }: { params: { [key: string]: string } })
                   name="Silvia Rotaru"
                   city="Moskow"
                   salary={120000}
-                  rating={8}
+                  rating={3.5}
                 />
               </Link>
 
             </li>
-            <li>
+            {/* <li>
               <CandidateCard
                 name="Silvia Rotaru"
                 city="Moskow"
@@ -66,10 +66,10 @@ const VacancyDetails = async ({ params }: { params: { [key: string]: string } })
                 salary={120000}
                 rating={8}
               />
-            </li>
+            </li> */}
           </ul>
         </div>
-        <div className="flex gap-6 flex-col">
+        {/* <div className="flex gap-6 flex-col">
           <FunnelCard name="Скрининг" count={26} />
           <ul className="[&>li:not(:last-child)]:mb-2">
             <li>
@@ -77,7 +77,7 @@ const VacancyDetails = async ({ params }: { params: { [key: string]: string } })
                 name="Silvia Rotaru"
                 city="Moskow"
                 salary={120000}
-                rating={8}
+                rating={3.5}
               />
             </li>
             <li>
@@ -131,7 +131,7 @@ const VacancyDetails = async ({ params }: { params: { [key: string]: string } })
               />
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
 
 
