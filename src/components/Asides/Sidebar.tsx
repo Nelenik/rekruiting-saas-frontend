@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import LogoSvg from '@/assets/icons/logo.svg?rc';
-import { Menu } from 'lucide-react'
+import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
 import SideBarBtn from "@/components/Buttons/SideBarBtn";
 import { cn } from "@/lib/utils";
 import useSidebarControl from "@/hooks/useSidebarControl";
@@ -35,12 +35,13 @@ const Sidebar = ({ routes = [] }: ISidebarProps) => {
       <Link href={'/'} className={cn("mb-3 self-start", isSidebarOpen && 'translate-x-3 transition-transform duration-75')}>
         <LogoSvg width={50} height={50} />
       </Link>
-      <SideBarBtn onClick={handleOpen} size={'icon'} className={cn(isSidebarOpen && "rotate-90 self-end", `transition-transform duration-300 mb-8 justify-center `)}>
-        <Menu stroke="white" />
+      <SideBarBtn onClick={handleOpen} size={'icon'} className={cn(isSidebarOpen && "self-end", `transition-transform duration-300 mb-8 justify-center `)}>
+        {isSidebarOpen ? <PanelRightOpen stroke="white" /> : <PanelLeftOpen stroke="white" />}
+        {/* <Menu stroke="white" /> */}
       </SideBarBtn>
       <nav className={cn(
         "mt-6 transition-all ease-in-out duration-300 mb-20",
-        isSidebarOpen ? "w-56" : "w-12"
+        isSidebarOpen ? "w-48" : "w-12"
       )}>
         <ul className="space-y-0">
           {routes.map((el) => {

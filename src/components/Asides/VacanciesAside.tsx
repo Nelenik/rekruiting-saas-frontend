@@ -13,9 +13,9 @@ interface IVacanciesAside {
 
 //for term uses
 const tempMockData = [
-  { id: 1, name: "Менеджер по продажам", days: 3, status: "В работе", },
-  { id: 2, name: "Разарботчик", days: 17, status: "Ожидание", },
-  { id: 3, name: "Web desing", days: 4, status: "Настройка", }
+  { id: 125, name: "Менеджер по продажам", days: 3, status: "В работе", },
+  { id: 236, name: "Разарботчик", days: 17, status: "Ожидание", },
+  { id: 356, name: "Web desing", days: 4, status: "Настройка", }
 ]
 
 
@@ -32,7 +32,7 @@ const VacanciesAside = ({ className }: IVacanciesAside) => {
       <AddVacancyDialog className="self-start " />
       <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] lg:grid-cols-1">
         {tempMockData.map(el => (
-          <Link key={el.id} href={`${cleanedPath}/${el.name}`}>
+          <Link key={el.id} href={`${cleanedPath}/${el.name}-${el.id}`}>
             <VacancyCard vacancyName={el.name} daysInProcessing={el.days} vacancyStatus={el.status} />
           </Link>
         ))}
