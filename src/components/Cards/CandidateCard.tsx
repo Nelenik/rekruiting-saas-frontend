@@ -1,11 +1,9 @@
-// 'use client'
 import {
   Card,
 } from "@/components/ui/card"
 import { formatNumber, formatPrice } from "@/lib/utils/formatersIntl";
 
 import Star from '@/components/Star'
-// import { Star } from "lucide-react";
 import { splitRatingToArr } from "@/lib/utils/splitRatingToArr";
 
 interface ICandidateCard {
@@ -40,20 +38,6 @@ const CandidateCard = ({ name, city, salary, rating }: ICandidateCard) => {
               />
             )
           })}
-          {/* {Array.from({ length: Math.max(Math.ceil(rating), 5) }, (_, i) => {
-            // const isFractional = (i + 1) > rating;
-            // console.log('i+1', (i + 1) > Math.floor(rating))
-            const isIntPart = (i + 1) <= Math.floor(rating)
-
-            return (
-              <Star
-                className={cn('text-yellow-600', !isFractional && 'fill-yellow-600')}
-                key={i}
-                width={12}
-                height={12}
-              />
-            );
-          })} */}
         </div>
       </div>
     </Card>

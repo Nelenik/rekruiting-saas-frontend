@@ -19,6 +19,7 @@ export const vacancyFullSchema = z.object({
   VacID: z.number(),
   VacCrD: z.string(),
   VacLMD: z.string(),
+  VacFile: z.array(z.unknown()),
   "CompanyName (form CompID)": z.array(z.string()),
   MatchCount: z.number(),
   MatchHotCount: z.number(),

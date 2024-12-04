@@ -1,4 +1,7 @@
 'use client'
+
+import { useMemo } from "react";
+
 interface IStarProps {
   fillLeft: number,
   [key: string]: unknown
@@ -18,7 +21,7 @@ const Star = ({ fillLeft, ...props }: IStarProps): JSX.Element => {
   const sanitizedFillLeft = Math.max(0, Math.min(fillLeft, 1));
 
   //A unique identifier is required to prevent conflicts between gradients when multiple instances of the component are used on the same page.
-  const uniqueId = Math.random().toString(36).substring(2, 15)
+  const uniqueId = useMemo(() => Math.random().toString(36).substring(2, 15), [])
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>

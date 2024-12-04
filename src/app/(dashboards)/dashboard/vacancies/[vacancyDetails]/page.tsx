@@ -1,10 +1,9 @@
 import { getVacancyRecordById } from "@/actions/getData";
-import CandidateCard from "@/components/Cards/CandidateCard";
-import FunnelCard from "@/components/Cards/FunnelCard";
 import SummaryCard from "@/components/Cards/SummaryCard";
+import MatchStatusCol from "@/components/MatchStatusCol";
 import { getDaysSinceCreated } from "@/lib/utils/getDaysSinceCreated";
 import { ISummaryData, VacancyFull } from "@/types/vacancyTypes";
-import Link from "next/link";
+import { Suspense } from "react";
 
 const VacancyDetails = async ({ params }: { params: { [key: string]: string } }) => {
   const { vacancyDetails } = params
@@ -23,13 +22,36 @@ const VacancyDetails = async ({ params }: { params: { [key: string]: string } })
     jobReactions: vacancy.MatchHotCount
   }
 
-  console.log(vacancy)
   return (
     <div className="flex gap-6 flex-col">
       <SummaryCard vacancyName={vacancy.VacName} summaryData={summaryData} />
 
       <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
         <div className="flex gap-6 flex-col">
+          <Suspense fallback={<p>Loading...</p>}>
+            <MatchStatusCol vacId={vacancy.VacID} status="Контакт" />
+          </Suspense>
+
+        </div>
+        <div className="flex gap-6 flex-col">
+          <Suspense fallback={<p>Loading...</p>}>
+            <MatchStatusCol vacId={vacancy.VacID} status="Скрининг" />
+          </Suspense>
+        </div>
+        <div className="flex gap-6 flex-col">
+          <Suspense fallback={<p>Loading...</p>}>
+            <MatchStatusCol vacId={vacancy.VacID} status="Собеседование" />
+          </Suspense>
+        </div>
+        <div className="flex gap-6 flex-col">
+          <Suspense fallback={<p>Loading...</p>}>
+            <MatchStatusCol vacId={vacancy.VacID} status="Финал" />
+          </Suspense>
+        </div>
+
+
+
+        {/* <div className="flex gap-6 flex-col">
           <FunnelCard name="Контакты" count={125} />
           <ul className="[&>li:not(:last-child)]:mb-2">
             <li>
@@ -43,14 +65,6 @@ const VacancyDetails = async ({ params }: { params: { [key: string]: string } })
               </Link>
 
             </li>
-            {/* <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={8}
-              />
-            </li>
             <li>
               <CandidateCard
                 name="Silvia Rotaru"
@@ -66,10 +80,18 @@ const VacancyDetails = async ({ params }: { params: { [key: string]: string } })
                 salary={120000}
                 rating={8}
               />
-            </li> */}
+            </li>
+            <li>
+              <CandidateCard
+                name="Silvia Rotaru"
+                city="Moskow"
+                salary={120000}
+                rating={8}
+              />
+            </li>
           </ul>
         </div>
-        {/* <div className="flex gap-6 flex-col">
+        <div className="flex gap-6 flex-col">
           <FunnelCard name="Скрининг" count={26} />
           <ul className="[&>li:not(:last-child)]:mb-2">
             <li>
