@@ -11,7 +11,6 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { IDashboardRoute } from "@/types/types";
-import { useMathcMedia } from "@/hooks/useMatchMedia";
 
 interface IHeaderProps {
   routes: IDashboardRoute[]
@@ -19,8 +18,6 @@ interface IHeaderProps {
 }
 
 const Header = ({ routes = [], className }: IHeaderProps) => {
-  // To check the screen width, we use the custom hook useMatchMedia. If the screen is mobile-sized, we return the header; otherwise, we return null.
-  // const isMobile = useMathcMedia("(max-width: 640px)")
 
   const {
     sidebarRef,
@@ -32,9 +29,6 @@ const Header = ({ routes = [], className }: IHeaderProps) => {
   //temporar
   const userName = 'Петров Дмитрий'
   const userEmail = 'test@gmail.com'
-
-
-  // if (!isMobile) return null
 
   return (
     <header

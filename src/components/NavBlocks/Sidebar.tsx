@@ -12,7 +12,6 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { IDashboardRoute } from "@/types/types";
-import { useMathcMedia } from "@/hooks/useMatchMedia";
 
 interface ISidebarProps {
   routes: IDashboardRoute[],
@@ -20,17 +19,12 @@ interface ISidebarProps {
 }
 
 const Sidebar = ({ routes = [], className }: ISidebarProps) => {
-  //To check the screen width, we use the custom hook useMatchMedia. If the screen is desktop-sized, we return the sidebar; otherwise, we return null.
-  // const isDesktop = useMathcMedia('(min-width: 640px)')
 
   const { sidebarRef, handleToggle, isSidebarOpen } = useSidebarControl({ initial: true })
 
   //temporar
   const userName = 'Петров Дмитрий'
   const userEmail = 'test@gmail.com'
-
-
-  // if (!isDesktop) return null
 
   return (
     <div ref={sidebarRef}
