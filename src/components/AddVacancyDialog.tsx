@@ -15,7 +15,7 @@ const AddVacancyDialog = ({ className }: { className: string }) => {
     <Dialog >
       <DialogTrigger asChild>
         <Button className={cn("bg-blue-700 w-max lg:w-full py-6 text-base", className)}>
-          <CirclePlus />Добавить вакансию
+          <CirclePlus />Добавить <span className="hidden sm:inline">вакансию</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

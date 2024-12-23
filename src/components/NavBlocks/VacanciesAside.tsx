@@ -24,9 +24,9 @@ const VacanciesAside = ({ basicVacancies = [], className }: IVacanciesAside) => 
     : path;
 
   return (
-    <aside className={cn("w-full shrink-0 flex flex-col gap-6 lg:w-60", className)}>
+    <aside className={cn("relative w-full shrink-0 flex flex-col gap-6 lg:w-60", className)}>
       <AddVacancyDialog className="self-start " />
-      <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] lg:grid-cols-1">
+      <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1">
         {basicVacancies.map(vacancy => {
           const { VacName, VacStatus, id, VacCrD } = vacancy
 
@@ -36,12 +36,12 @@ const VacanciesAside = ({ basicVacancies = [], className }: IVacanciesAside) => 
 
           return (
             <Link key={id} href={`${cleanedPath}/${VacName}-${id}`}>
-              <VacancyCard vacancyName={VacName} daysInProcessing={days} vacancyStatus={VacStatus} />
+              <VacancyCard vacancyName={VacName} daysInProcessing={days} vacancyStatus={VacStatus} className='h-full' />
             </Link>
           )
         })}
       </div>
-      <a href="/#">
+      <a href="/#" className='absolute top-3 right-0 lg:static'>
         <ArchiveIcon className="inline mr-2 text-blue-500" /> <span className="underline underline-offset-2 text-blue-500">Архив</span>
       </a>
     </aside>

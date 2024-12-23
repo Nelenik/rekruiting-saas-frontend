@@ -1,5 +1,5 @@
 import { getBasicVacancies } from "@/actions/getData";
-import VacanciesAside from "@/components/Asides/VacanciesAside";
+import VacanciesAside from "@/components/NavBlocks/VacanciesAside";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

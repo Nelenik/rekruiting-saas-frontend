@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../../globals.css";
 import Providers from "../../providers";
-import Sidebar from "@/components/Asides/Sidebar";
+import Sidebar from "@/components/NavBlocks/Sidebar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Building2 } from "lucide-react";
 import SettingIcon from '@/assets/icons/time-settings.svg?rc'
 import HomeIcon from '@/assets/icons/home.svg?rc'
 import ReportIcon from '@/assets/icons/file.svg?rc'
+import { IDashboardRoute } from "@/types/types";
+import Header from "@/components/NavBlocks/Header";
 
 const geistSans = localFont({
   src: "../../fonts/GeistVF.woff",
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
   title: "REkrutAI|Дашборд",
 };
 
-const adminNavigation = [
+const adminNavigation: IDashboardRoute[] = [
   { routeName: 'Главная', href: '/dashboard', icon: <HomeIcon className="[&>*]:fill-sidebar-foreground" /> },
   { routeName: 'Вакансии', href: '/dashboard/vacancies', icon: <Building2 className="[&>*]:stroke-sidebar-foreground" /> },
   { routeName: 'Отчеты', href: '/dashboard/reports', icon: <ReportIcon className="[&>*]:stroke-sidebar-foreground" /> },
@@ -43,9 +45,10 @@ export default function ProfileLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        <main className="w-full flex h-screen overflow-hidden">
-          <Providers>
-            <Sidebar routes={adminNavigation} />
+        <Providers>
+          <Header routes={adminNavigation} className="sm:hidden" />
+          <main className="w-full flex h-screen overflow-hidden">
+            <Sidebar routes={adminNavigation} className="hidden sm:flex" />
             <div className="p-6 w-full grid auto-rows-max grid-cols-1 gap-6 h-full overflow-y-auto">
               <Breadcrumbs />
 
@@ -53,9 +56,9 @@ export default function ProfileLayout({
               {modals}
             </div>
 
-          </Providers>
 
-        </main>
+          </main>
+        </Providers>
       </body>
     </html>
   );

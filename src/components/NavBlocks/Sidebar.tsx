@@ -11,46 +11,49 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
-import { ReactNode } from "react";
-
-export interface SidebarRoutes {
-  routeName: string,
-  href: string,
-  icon: ReactNode
-}
+import { IDashboardRoute } from "@/types/types";
 
 interface ISidebarProps {
-  routes: SidebarRoutes[],
+  routes: IDashboardRoute[],
+  className?: string
 }
 
-const Sidebar = ({ routes = [] }: ISidebarProps) => {
-  const { sidebarRef, handleOpen, isSidebarOpen, showText } = useSidebarControl()
+const Sidebar = ({ routes = [], className }: ISidebarProps) => {
+
+  const { sidebarRef, handleToggle, isSidebarOpen } = useSidebarControl({ initial: true })
 
   //temporar
   const userName = 'Петров Дмитрий'
   const userEmail = 'test@gmail.com'
 
   return (
-    <div ref={sidebarRef} className={cn("flex flex-col items-center px-4 py-6  bg-sidebar text-sidebar-foreground")}>
+    <div ref={sidebarRef}
+      className={
+        cn(
+          "flex flex-col shrink-0 items-center px-4 py-6  bg-sidebar text-sidebar-foreground transition-[width] ease-in-out duration-400 @container",
+          isSidebarOpen ? "w-[14rem]" : "w-[85px]",
+          className)
+      }
+    >
       <Link href={'/'} className={cn("mb-3 self-start", isSidebarOpen && 'translate-x-3 transition-transform duration-75')}>
         <LogoSvg width={50} height={50} />
       </Link>
-      <SideBarBtn onClick={handleOpen} size={'icon'} className={cn(isSidebarOpen && "self-end", `transition-transform duration-300 mb-8 justify-center `)}>
+      <SideBarBtn onClick={handleToggle} size={'icon'} className={cn(isSidebarOpen && "self-end", `transition-transform duration-300 mb-8 justify-center `)}>
         {isSidebarOpen ? <PanelRightOpen stroke="white" /> : <PanelLeftOpen stroke="white" />}
         {/* <Menu stroke="white" /> */}
       </SideBarBtn>
       <nav className={cn(
-        "mt-6 transition-all ease-in-out duration-300 mb-20",
-        isSidebarOpen ? "w-48" : "w-12"
+        "mt-6 w-full",
+
       )}>
         <ul className="space-y-0">
           {routes.map((el) => {
             return (
               <li key={el.routeName}>
-                <SideBarBtn asChild className="gap-3">
-                  <Link className="w-full" href={el.href}>
+                <SideBarBtn asChild className="gap-3 justify-start">
+                  <Link className="w-full " href={el.href}>
                     {el.icon}
-                    {showText && <span className="ml-2">{el.routeName}</span>}
+                    <span className="ml-2 hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">{el.routeName}</span>
                   </Link>
                 </SideBarBtn>
               </li>
@@ -64,12 +67,12 @@ const Sidebar = ({ routes = [] }: ISidebarProps) => {
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback>C</AvatarFallback>
         </Avatar>
-        {showText && <div>
+        <div className="hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">
           <p className="scroll-m-20 text-sm font-semibold tracking-tight mb-0.5 max-w-44 text-muted-foreground">
             {userName}
           </p>
           <a href={`mailto:${userEmail}`} className="text-sm text-muted-foreground">{userEmail}</a>
-        </div>}
+        </div>
       </div>
     </div>
   );
