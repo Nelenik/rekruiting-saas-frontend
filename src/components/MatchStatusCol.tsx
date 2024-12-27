@@ -3,6 +3,7 @@ import { CandidateBasic, MatchStatus } from "@/types/matchTypes";
 import Link from "next/link";
 import CandidateCard from "./Cards/CandidateCard";
 import FunnelCard from "./Cards/FunnelCard";
+import { Suspense } from "react";
 
 interface IMatchStatusColProps {
   vacId: number,
@@ -15,23 +16,26 @@ const MatchStatusCol = async ({ vacId, status }: IMatchStatusColProps) => {
   return (
     <>
       <FunnelCard name={status} count={candidates.length || 0} />
-      <ul className="[&>li:not(:last-child)]:mb-2">
-        {candidates.map((candidate: CandidateBasic) => {
-          return (
-            <li key={candidate.id}>
-              <Link href={`/dashboard/resume/${candidate.CandyName}-${candidate.id}`}>
-                <CandidateCard
-                  name={`${candidate.CandyName}`}
-                  city={`${candidate.CandyCity}`}
-                  salary={candidate.CvSalary[0]}
-                  rating={candidate.MatchPoint}
-                />
-              </Link>
+      <Suspense fallback={<p>Loading...</p>}>
 
-            </li>
-          )
-        })}
-      </ul>
+        <ul className="[&>li:not(:last-child)]:mb-2">
+          {candidates.map((candidate: CandidateBasic) => {
+            return (
+              <li key={candidate.id}>
+                <Link href={`/dashboard/resume/${candidate.CandyName}-${candidate.id}`}>
+                  <CandidateCard
+                    name={`${candidate.CandyName}`}
+                    city={`${candidate.CandyCity}`}
+                    salary={candidate.CvSalary[0]}
+                    rating={candidate.MatchPoint}
+                  />
+                </Link>
+
+              </li>
+            )
+          })}
+        </ul>
+      </Suspense>
     </>
   );
 }

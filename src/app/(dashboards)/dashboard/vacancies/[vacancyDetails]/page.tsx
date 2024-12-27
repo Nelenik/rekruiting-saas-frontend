@@ -3,7 +3,7 @@ import SummaryCard from "@/components/Cards/SummaryCard";
 import MatchStatusCol from "@/components/MatchStatusCol";
 import { getDaysSinceCreated } from "@/lib/utils/getDaysSinceCreated";
 import { ISummaryData, VacancyFull } from "@/types/vacancyTypes";
-import { Suspense } from "react";
+// import { Suspense } from "react";
 
 const VacancyDetails = async ({ params }: { params: { [key: string]: string } }) => {
   const { vacancyDetails } = params
@@ -28,136 +28,25 @@ const VacancyDetails = async ({ params }: { params: { [key: string]: string } })
 
       <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
         <div className="flex gap-6 flex-col">
-          <Suspense fallback={<p>Loading...</p>}>
-            <MatchStatusCol vacId={vacancy.VacID} status="Контакт" />
-          </Suspense>
+          <MatchStatusCol vacId={vacancy.VacID} status="Контакт" />
 
         </div>
         <div className="flex gap-6 flex-col">
-          <Suspense fallback={<p>Loading...</p>}>
-            <MatchStatusCol vacId={vacancy.VacID} status="Скрининг" />
-          </Suspense>
+          <MatchStatusCol vacId={vacancy.VacID} status="Скрининг" />
         </div>
         <div className="flex gap-6 flex-col">
-          <Suspense fallback={<p>Loading...</p>}>
-            <MatchStatusCol vacId={vacancy.VacID} status="Собеседование" />
-          </Suspense>
+          <MatchStatusCol vacId={vacancy.VacID} status="Собеседование" />
         </div>
         <div className="flex gap-6 flex-col">
-          <Suspense fallback={<p>Loading...</p>}>
-            <MatchStatusCol vacId={vacancy.VacID} status="Финал" />
-          </Suspense>
+          <MatchStatusCol vacId={vacancy.VacID} status="Финал" />
         </div>
 
 
 
-        {/* <div className="flex gap-6 flex-col">
-          <FunnelCard name="Контакты" count={125} />
-          <ul className="[&>li:not(:last-child)]:mb-2">
-            <li>
-              <Link href={`/dashboard/resume/Ivan Petrov-123`}>
-                <CandidateCard
-                  name="Silvia Rotaru"
-                  city="Moskow"
-                  salary={120000}
-                  rating={3.5}
-                />
-              </Link>
-
-            </li>
-            <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={8}
-              />
-            </li>
-            <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={8}
-              />
-            </li>
-            <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={8}
-              />
-            </li>
-          </ul>
-        </div>
-        <div className="flex gap-6 flex-col">
-          <FunnelCard name="Скрининг" count={26} />
-          <ul className="[&>li:not(:last-child)]:mb-2">
-            <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={3.5}
-              />
-            </li>
-            <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={8}
-              />
-            </li>
-          </ul>
-        </div>
-        <div className="flex gap-6 flex-col">
-          <FunnelCard name="Собеседования" count={8} />
-          <ul className="[&>li:not(:last-child)]:mb-2">
-            <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={8}
-              />
-            </li>
-            <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={8}
-              />
-            </li>
-          </ul>
-        </div>
-        <div className="flex gap-6 flex-col">
-          <FunnelCard name="Финалисты" count={3} />
-          <ul className="[&>li:not(:last-child)]:mb-1.5">
-            <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={8}
-              />
-            </li>
-            <li>
-              <CandidateCard
-                name="Silvia Rotaru"
-                city="Moskow"
-                salary={120000}
-                rating={8}
-              />
-            </li>
-          </ul>
-        </div> */}
       </div>
 
 
-    </div>
+    </div >
   );
 }
 
