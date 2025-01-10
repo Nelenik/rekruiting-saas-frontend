@@ -1,7 +1,7 @@
 'use client'
 
 import ArchiveIcon from '@/assets/icons/archive.svg?rc';
-import AddVacancyDialog from "../AddVacancyDialog";
+import AddVacancyDialog from "../Modals/AddVacancyDialog";
 import VacancyCard from "../Cards/VacancyCard";
 import { cn } from "@/lib/utils";
 import { useParams, usePathname } from 'next/navigation';
@@ -17,7 +17,6 @@ interface IVacanciesAside {
 const VacanciesAside = ({ basicVacancies = [], className }: IVacanciesAside) => {
   const path = usePathname()
   const params = useParams()
-
   //clean current route from prev vacancy segment
   const cleanedPath = params?.vacancyDetails
     ? path.replace(new RegExp(`\/${params.vacancyDetails}$`), '')

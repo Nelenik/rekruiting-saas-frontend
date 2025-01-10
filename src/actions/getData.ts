@@ -19,6 +19,7 @@ export const getBasicVacancies = async (): Promise<VacancyBasic[]> => {
   try {
     const vacancies = await getListRecords<VacancyBasic[]>("Vacs", {
       fields: ["VacName", "VacID", "VacCrD", "VacStatus"],
+      sort: [{ field: "VacID", direction: "asc" }],
     });
     return vacancies;
   } catch (error: unknown) {

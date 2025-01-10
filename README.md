@@ -40,3 +40,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 For this project is configured svgr/webpack plugin. To import svg as react component use following   `import SvgIcon from *.svg?rc `
 
 For imports without `?rc` suffix is used regular loader
+
+## Commiting
+For commit standardization, refer to [Commitizen CLI](https://github.com/commitizen/cz-cli). Use `git cz` or just `cz` instead of `git commit` when committing. You can also use `git-cz`, which is an alias for `cz`.

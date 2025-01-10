@@ -27,11 +27,11 @@ const CandidateCard = ({ name, city, salary, rating }: ICandidateCard) => {
         </p>
         <div className="flex gap-px">
           {/* Split rating into array to implemet partiall filled star */}
-          {splitRatingToArr(rating).map((num: number, i) => {
+          {splitRatingToArr(rating).map((star: { id: string, fullness: number }, i) => {
             return (
               <Star
                 className='text-yellow-500'
-                fillLeft={num}
+                starOptions={star}
                 key={i}
                 width={12}
                 height={12}

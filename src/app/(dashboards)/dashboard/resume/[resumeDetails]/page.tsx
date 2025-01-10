@@ -1,6 +1,7 @@
 import Resume from "@/components/Pages/Resume";
 
-const ResumePage = () => {
+const ResumePage = ({ params }: { params: { [key: string]: string } }) => {
+  console.log(params);
   return (
     <div>
       <Resume />
