@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button"
+import { CirclePlus } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -7,15 +9,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { cn } from "@/lib/utils";
-import { CirclePlus } from 'lucide-react';
-const AddVacancyDialog = ({ className }: { className: string }) => {
+} from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
+
+export const AddVacancyDialog = ({ className }: { className: string }) => {
   return (
-    <Dialog >
+    <Dialog>
       <DialogTrigger asChild>
-        <Button className={cn("bg-blue-700 w-max lg:w-full py-6 text-base", className)}>
-          <CirclePlus />Добавить <span className="hidden sm:inline">вакансию</span>
+        <Button
+          className={cn(
+            'bg-blue-700 w-max lg:w-full py-6 text-base',
+            className
+          )}
+        >
+          <CirclePlus />
+          Добавить <span className="hidden sm:inline">вакансию</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -26,11 +34,11 @@ const AddVacancyDialog = ({ className }: { className: string }) => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button type="submit" className="bg-blue-700">Добавить</Button>
+          <Button type="submit" className="bg-blue-700">
+            Добавить
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
-}
-
-export default AddVacancyDialog;
+};

@@ -1,53 +1,57 @@
-import { getVacancyRecordById } from "@/actions/getData";
-import SummaryCard from "@/components/Cards/SummaryCard";
-import MatchStatusCol from "@/components/MatchStatusCol";
-import { getDaysSinceCreated } from "@/lib/utils/getDaysSinceCreated";
-import { ISummaryData, VacancyFull } from "@/types/vacancyTypes";
-// import { Suspense } from "react";
+import { FC } from 'react';
 
-const VacancyDetails = async ({ params }: { params: { [key: string]: string } }) => {
-  const { vacancyDetails } = params
-  const vacancyId = vacancyDetails.split('-')[1]
+import { getVacancy } from '@/actions/getData';
+import { SummaryCard } from '@/components/Cards/SummaryCard';
+import { MatchStatusCol } from '@/components/MatchStatusCol';
+import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
+import { EMatchStatus } from '@/shared/types';
 
-  //get vacancy record by id
-  const vacancy: VacancyFull = await getVacancyRecordById(vacancyId)
-  //prepare data for SummaryCard
-  const summaryData: ISummaryData = {
-    daysInProcessing: getDaysSinceCreated(vacancy.VacCrD),
-    salaryOfferFrom: vacancy.VacSalaryFrom,
-    salaryOfferTo: vacancy.VacSalaryTo,
-    salaryMiddle: vacancy.VacSalaryMarket,
-    salaryCandidate: vacancy.VacSalaryCandy,
-    candidatesCount: vacancy.MatchCount,
-    jobReactions: vacancy.MatchHotCount
-  }
+type TProps = {
+  params: { [key: string]: string };
+};
+
+const VacancyDetails: FC<TProps> = async ({ params }) => {
+  const { vacancyDetails } = params;
+  const vacancyId = vacancyDetails.split('-')[1];
+
+  const vacancy = await getVacancy(vacancyId);
 
   return (
     <div className="flex gap-6 flex-col">
-      <SummaryCard vacancyName={vacancy.VacName} summaryData={summaryData} />
+      <SummaryCard
+        vacancyName={vacancy.name}
+        daysInProcessing={getDaysSinceCreated(vacancy.created_at)}
+        salaryOfferFrom={vacancy.salary_from}
+        salaryOfferTo={vacancy.salary_to}
+        salaryMiddle={vacancy.salary_market}
+        salaryCandidate={vacancy.salary_candy}
+        candidatesCount={vacancy.match_count}
+        jobReactions={vacancy.match_hot_count}
+      />
 
       <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
         <div className="flex gap-6 flex-col">
-          <MatchStatusCol vacId={vacancy.VacID} status="Контакт" />
-
+          <MatchStatusCol vacId={vacancy.id} status={EMatchStatus.SCORING} />
         </div>
+
         <div className="flex gap-6 flex-col">
-          <MatchStatusCol vacId={vacancy.VacID} status="Скрининг" />
+          <MatchStatusCol vacId={vacancy.id} status={EMatchStatus.SCREENING} />
         </div>
+
         <div className="flex gap-6 flex-col">
-          <MatchStatusCol vacId={vacancy.VacID} status="Собеседование" />
+          <MatchStatusCol vacId={vacancy.id} status={EMatchStatus.INTERVIEW} />
         </div>
+
         <div className="flex gap-6 flex-col">
-          <MatchStatusCol vacId={vacancy.VacID} status="Финал" />
+          <MatchStatusCol vacId={vacancy.id} status={EMatchStatus.REFUSAL} />
         </div>
 
-
-
+        <div className="flex gap-6 flex-col">
+          <MatchStatusCol vacId={vacancy.id} status={EMatchStatus.OFFER} />
+        </div>
       </div>
-
-
-    </div >
+    </div>
   );
-}
+};
 
 export default VacancyDetails;

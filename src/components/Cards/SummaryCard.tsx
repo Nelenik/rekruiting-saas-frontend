@@ -1,35 +1,39 @@
-import {
-  Card,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card"
-import CaseIcon from '@/assets/icons/case.svg?rc'
-import { getWordEndings } from "@/lib/utils/getWordEnding"
-import { formatPrice } from "@/lib/utils/formatersIntl"
-import { ISummaryData } from "@/types/vacancyTypes"
-import { getSalaryRange } from "@/lib/utils/getSalaryRange"
+import { FC } from 'react';
 
-interface ISummaryCard {
-  vacancyName: string
-  summaryData: ISummaryData
-}
+import { Card, CardDescription, CardTitle } from '@/components/ui/card';
+import CaseIcon from '@/assets/icons/case.svg?rc';
+import { getWordEndings } from '@/lib/utils/getWordEnding';
+import { formatPrice } from '@/lib/utils/formatersIntl';
+import { getSalaryRange } from '@/lib/utils/getSalaryRange';
 
+type TProps = {
+  vacancyName: string;
+  daysInProcessing: number;
+  salaryOfferFrom: number;
+  salaryOfferTo: number;
+  salaryMiddle: number;
+  salaryCandidate: number;
+  candidatesCount: number;
+  jobReactions: number;
+};
 
+export const SummaryCard: FC<TProps> = ({
+  vacancyName,
+  daysInProcessing,
+  salaryOfferFrom,
+  salaryOfferTo,
+  salaryMiddle,
+  salaryCandidate,
+  candidatesCount,
+  jobReactions,
+}) => {
+  const daysString = `${daysInProcessing} ${getWordEndings(daysInProcessing, [
+    'день',
+    'дня',
+    'дней',
+  ])}`;
 
-const SummaryCard = ({ vacancyName, summaryData }: ISummaryCard) => {
-  const {
-    daysInProcessing,
-    salaryOfferFrom,
-    salaryOfferTo,
-    salaryMiddle,
-    salaryCandidate,
-    candidatesCount,
-    jobReactions
-  } = summaryData
-
-  const daysString = `${daysInProcessing} ${getWordEndings(daysInProcessing, ['день', 'дня', 'дней'])}`
-
-  const salaryOfferString = getSalaryRange(salaryOfferFrom, salaryOfferTo)
+  const salaryOfferString = getSalaryRange(salaryOfferFrom, salaryOfferTo);
   const salaryMiddleString = formatPrice(salaryMiddle, 'ru-Ru', 'RUB');
   const salaryCandidateString = formatPrice(salaryCandidate, 'ru-Ru', 'RUB');
 
@@ -38,9 +42,14 @@ const SummaryCard = ({ vacancyName, summaryData }: ISummaryCard) => {
       <div className="p-5 rounded-full bg-emerald-500 self-start">
         <CaseIcon width={32} height={32} className="text-white" />
       </div>
+
       <div className="grow">
-        <CardTitle className="mb-2 first-letter:uppercase  typograpghy-h2">{vacancyName}</CardTitle>
-        <ul className="
+        <CardTitle className="mb-2 first-letter:uppercase  typograpghy-h2">
+          {vacancyName}
+        </CardTitle>
+
+        <ul
+          className="
             grid grid-cols-[repeat(auto-fit,_minmax(145px,_1fr))] gap-6
             w-[min(100%,1000px)]
             [&>li]:flex 
@@ -57,26 +66,31 @@ const SummaryCard = ({ vacancyName, summaryData }: ISummaryCard) => {
             [&>li:not(:first-child):after]:top-1/2 
             [&>li:not(:first-child):after]:-translate-y-1/2"
         >
-          <li >
+          <li>
             <CardDescription>в работе</CardDescription>
             <p>{daysString}</p>
           </li>
+
           <li>
             <CardDescription>оплата</CardDescription>
             <p>{salaryOfferString}</p>
           </li>
+
           <li>
             <CardDescription>средняя по рынку</CardDescription>
             <p>{salaryMiddleString}</p>
           </li>
+
           <li>
             <CardDescription>запросы кандидатов</CardDescription>
             <p>{salaryCandidateString}</p>
           </li>
+
           <li>
             <CardDescription>кандидатов в воронке</CardDescription>
             <p>{candidatesCount}</p>
           </li>
+
           <li>
             <CardDescription>отклики</CardDescription>
             <p>{jobReactions}</p>
@@ -85,6 +99,4 @@ const SummaryCard = ({ vacancyName, summaryData }: ISummaryCard) => {
       </div>
     </Card>
   );
-}
-
-export default SummaryCard;
+};

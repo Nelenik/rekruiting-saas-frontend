@@ -1,43 +1,44 @@
-import { getBasicCandidatesByStatus } from "@/actions/getData";
-import { CandidateBasic, MatchStatus } from "@/types/matchTypes";
-import Link from "next/link";
-import CandidateCard from "./Cards/CandidateCard";
-import FunnelCard from "./Cards/FunnelCard";
-import { Suspense } from "react";
+import { FC, Suspense } from 'react';
+import Link from 'next/link';
 
-interface IMatchStatusColProps {
-  vacId: number,
-  status: MatchStatus
-}
+import { getBasicCandidatesByStatus } from '@/actions/getData';
+import { EMatchStatus } from '@/shared/types';
 
-const MatchStatusCol = async ({ vacId, status }: IMatchStatusColProps) => {
-  const candidates: CandidateBasic[] = await getBasicCandidatesByStatus(vacId, status)
+import { CandidateCard } from './Cards/CandidateCard';
+import { FunnelCard } from './Cards/FunnelCard';
+
+type TProps = {
+  vacId: number;
+  status: EMatchStatus;
+};
+
+export const MatchStatusCol: FC<TProps> = async ({ vacId, status }) => {
+  const candidates = await getBasicCandidatesByStatus(vacId, status);
 
   return (
     <>
       <FunnelCard name={status} count={candidates.length || 0} />
-      <Suspense fallback={<p>Loading...</p>}>
 
+      <Suspense fallback={<p>Loading...</p>}>
         <ul className="[&>li:not(:last-child)]:mb-2">
-          {candidates.map((candidate: CandidateBasic) => {
+          {candidates.map((candidate) => {
             return (
               <li key={candidate.id}>
-                <Link href={`/dashboard/resume/${candidate.CandyName}-${candidate.id}`}>
+                <Link
+                  href={`/dashboard/resume/${candidate.name}-${candidate.id}`}
+                >
                   <CandidateCard
-                    name={`${candidate.CandyName}`}
-                    city={`${candidate.CandyCity}`}
-                    salary={candidate.CvSalary[0]}
-                    rating={candidate.MatchPoint}
+                    name={candidate.name}
+                    city={candidate.city}
+                    salary={candidate.salary}
+                    rating={candidate.match_point}
                   />
                 </Link>
-
               </li>
-            )
+            );
           })}
         </ul>
       </Suspense>
     </>
   );
-}
-
-export default MatchStatusCol;
+};

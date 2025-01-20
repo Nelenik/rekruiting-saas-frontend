@@ -1,50 +1,69 @@
-'use client'
+'use client';
+
+import { FC } from 'react';
+import Link from 'next/link';
+import { useParams, usePathname } from 'next/navigation';
 
 import ArchiveIcon from '@/assets/icons/archive.svg?rc';
-import AddVacancyDialog from "../Modals/AddVacancyDialog";
-import VacancyCard from "../Cards/VacancyCard";
-import { cn } from "@/lib/utils";
-import { useParams, usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { VacancyBasic } from '@/types/vacancyTypes';
+import { cn } from '@/lib/utils';
 import { getTimePartsFromSec } from '@/lib/utils/getTimePartsFromSec';
+import { TVacancyShort } from '@/shared/types';
 
-interface IVacanciesAside {
-  className?: string
-  basicVacancies: VacancyBasic[]
-}
+import { AddVacancyDialog } from '../Modals/AddVacancyDialog';
+import { VacancyCard } from '../Cards/VacancyCard';
 
-const VacanciesAside = ({ basicVacancies = [], className }: IVacanciesAside) => {
-  const path = usePathname()
-  const params = useParams()
-  //clean current route from prev vacancy segment
+type TProps = {
+  className?: string;
+  vacancies: TVacancyShort[];
+};
+
+export const VacanciesAside: FC<TProps> = ({ vacancies, className }) => {
+  const path = usePathname();
+  const params = useParams();
+
   const cleanedPath = params?.vacancyDetails
     ? path.replace(new RegExp(`\/${params.vacancyDetails}$`), '')
     : path;
 
   return (
-    <aside className={cn("relative w-full shrink-0 flex flex-col gap-6 lg:w-60", className)}>
-      <AddVacancyDialog className="self-start " />
-      <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1">
-        {basicVacancies.map(vacancy => {
-          const { VacName, VacStatus, id, VacCrD } = vacancy
+    <aside
+      className={cn(
+        'relative w-full shrink-0 flex flex-col gap-6 lg:w-60',
+        className
+      )}
+    >
+      <AddVacancyDialog className="self-start" />
 
-          //get vacancy timestamp in seconds to transform in days for rendering
-          const vacancyTimestamp = Math.floor((new Date().getTime() - new Date(VacCrD).getTime()) / 1000)
-          const { days } = getTimePartsFromSec(vacancyTimestamp)
+      <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1">
+        {vacancies.map((vacancy) => {
+          const vacancyTimestamp = Math.floor(
+            (new Date().getTime() - new Date(vacancy.created_at).getTime()) /
+              1000
+          );
+          const { days } = getTimePartsFromSec(vacancyTimestamp);
 
           return (
-            <Link key={id} href={`${cleanedPath}/${VacName}-${id}`}>
-              <VacancyCard vacancyName={VacName} daysInProcessing={days} vacancyStatus={VacStatus} className='h-full' />
+            <Link
+              key={vacancy.id}
+              href={`${cleanedPath}/${vacancy.name}-${vacancy.id}`}
+            >
+              <VacancyCard
+                vacancyName={vacancy.name}
+                daysInProcessing={days}
+                vacancyStatus={vacancy.status}
+                className="h-full"
+              />
             </Link>
-          )
+          );
         })}
       </div>
-      <a href="/#" className='absolute top-3 right-0 lg:static'>
-        <ArchiveIcon className="inline mr-2 text-blue-500" /> <span className="underline underline-offset-2 text-blue-500">Архив</span>
+
+      <a href="/#" className="absolute top-3 right-0 lg:static">
+        <ArchiveIcon className="inline mr-2 text-blue-500" />{' '}
+        <span className="underline underline-offset-2 text-blue-500">
+          Архив
+        </span>
       </a>
     </aside>
   );
-}
-
-export default VacanciesAside;
+};
