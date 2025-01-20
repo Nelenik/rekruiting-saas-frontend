@@ -1,7 +1,12 @@
+import AddCompanyModal from "@/components/Modals/AddCompanyModal";
+
 const DashboardMain = () => {
   return (
     <div>
-      main
+      <div className="w-[70%]">
+
+        <AddCompanyModal />
+      </div>
     </div>
   );
 }

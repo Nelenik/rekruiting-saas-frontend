@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { getTimePartsFromSec } from '@/lib/utils/getTimePartsFromSec';
 import { TVacancyShort } from '@/shared/types';
 
-import { AddVacancyDialog } from '../Modals/AddVacancyDialog';
+import { AddVacancyDialog } from '../Modals/AddVacancyModal';
 import { VacancyCard } from '../Cards/VacancyCard';
 
 type TProps = {
@@ -38,7 +38,7 @@ export const VacanciesAside: FC<TProps> = ({ vacancies, className }) => {
         {vacancies.map((vacancy) => {
           const vacancyTimestamp = Math.floor(
             (new Date().getTime() - new Date(vacancy.created_at).getTime()) /
-              1000
+            1000
           );
           const { days } = getTimePartsFromSec(vacancyTimestamp);
 

@@ -18,7 +18,7 @@ export const AddVacancyDialog = ({ className }: { className: string }) => {
       <DialogTrigger asChild>
         <Button
           className={cn(
-            'bg-blue-700 w-max lg:w-full py-6 text-base',
+            'w-max lg:w-full py-6 text-base',
             className
           )}
         >
@@ -34,7 +34,7 @@ export const AddVacancyDialog = ({ className }: { className: string }) => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button type="submit" className="bg-blue-700">
+          <Button type="submit">
             Добавить
           </Button>
         </DialogFooter>
