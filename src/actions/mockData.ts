@@ -1,4 +1,9 @@
-import { EVacancyStatus, TVacancy, TVacancyShort } from "@/shared/types";
+import {
+  EVacancyStatus,
+  TCandidateShort,
+  TVacancy,
+  TVacancyShort,
+} from "@/shared/types";
 
 export const mockVacancies: TVacancyShort[] = [
   {
@@ -33,3 +38,14 @@ export const mockVacancy: TVacancy = {
   match_hot_count: 90,
   created_at: "2025-01-22T09:00:00+01:00",
 };
+
+export const mockCandidateShort: TCandidateShort[] = [
+  {
+    id: 1,
+    name: "Ivanov Ivan",
+    city: "Moskow",
+    salary: 100000,
+    match_point: 5.5,
+    created_at: "2025-01-22T09:00:00+01:00",
+  },
+];
