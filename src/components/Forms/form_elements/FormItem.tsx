@@ -7,7 +7,7 @@ interface IFormItem {
   error?: string | null
 }
 
-const ErrorMessage = ({ message }: { message: string }) => {
+export const ErrorMessage = ({ message }: { message: string }) => {
   return (
     <p className="text-destructive text-xs absolute right-0 top-2">
       {message}

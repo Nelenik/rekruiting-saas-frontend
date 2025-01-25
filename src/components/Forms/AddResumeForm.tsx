@@ -10,68 +10,164 @@ import FormItem from './form_elements/FormItem';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
+import { useFormMutation } from '@/hooks/useFormMutation';
+import { cn } from '@/lib/utils';
 
 export const AddResumeForm: FC = () => {
-  const [state, formAction, pending] = useActionState<TMutationState, FormData>(
-    storeCv,
-    mutationInitialState
-  );
-
-  console.log({ state, formAction, pending });
+  const {
+    formAction,
+    pending,
+    defaultValues,
+    errors,
+    success,
+    onChange
+  } = useFormMutation(storeCv)
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
-        <FormItem labelText="ФИО">
-          <Input placeholder="ФИО" name="candy_name" />
-        </FormItem>
-
-        <FormItem labelText="Название">
-          <Input placeholder="Название" name="name" />
-        </FormItem>
-
-        <FormItem labelText="Опыт">
-          <Input placeholder="Опыт" name="experience_months" />
-        </FormItem>
-
-        <FormItem labelText="Зарплата">
-          <Input placeholder="Зарплата" name="salary" />
-        </FormItem>
-
-        <FormItem labelText="Телефон">
-          <Input placeholder="Телефон" name="candy_phone" />
-        </FormItem>
-
-        <FormItem labelText="Телеграмм">
-          <Input placeholder="Телеграмм" name="candy_tg" />
-        </FormItem>
-
-        <FormItem labelText="Почта">
-          <Input placeholder="Почта" name="candy_email" />
-        </FormItem>
-
-        <FormItem labelText="Локация">
-          <Input placeholder="Локация" name="candy_location" />
-        </FormItem>
-
-        <FormItem labelText="Ссылка на резюме">
-          <Input placeholder="Ссылка на резюме" name="link" />
-        </FormItem>
-
-        <FormItem labelText="Био" className="break-before-column">
-          <Textarea
-            placeholder="Био"
-            name="bio"
-            className="resize-none"
-            rows={9}
+        <FormItem
+          labelText="ФИО"
+          error={errors.candy_name}
+        >
+          <Input
+            placeholder="ФИО"
+            name="candy_name"
+            defaultValue={defaultValues?.candy_name}
+            className={errors?.candy_name && 'ring-2 ring-destructive'}
+            onChange={onChange}
           />
         </FormItem>
 
-        <FormItem labelText="Опыт">
+        <FormItem
+          labelText="Название"
+          error={errors.name}
+        >
+          <Input
+            placeholder="Название"
+            name="name"
+            defaultValue={defaultValues?.name}
+            className={errors?.name && 'ring-2 ring-destructive'}
+            onChange={onChange}
+          />
+        </FormItem>
+
+        <FormItem
+          labelText="Опыт"
+          error={errors.experience_months}
+        >
+          <Input
+            placeholder="Опыт"
+            name="experience_months"
+            defaultValue={defaultValues?.experience_months}
+            className={errors?.experience_months && 'ring-2 ring-destructive'}
+            onChange={onChange}
+          />
+        </FormItem>
+
+        <FormItem
+          labelText="Зарплата"
+          error={errors.salary}
+        >
+          <Input
+            placeholder="Зарплата"
+            name="salary"
+            defaultValue={defaultValues?.salary}
+            className={errors?.salary && 'ring-2 ring-destructive'}
+            onChange={onChange}
+          />
+        </FormItem>
+
+        <FormItem
+          labelText="Телефон"
+          error={errors.candy_phone}
+        >
+          <Input
+            placeholder="Телефон"
+            name="candy_phone"
+            defaultValue={defaultValues?.candy_phone}
+            className={errors?.candy_phone && 'ring-2 ring-destructive'}
+            onChange={onChange}
+          />
+        </FormItem>
+
+        <FormItem
+          labelText="Телеграмм"
+          error={errors.candy_tg}
+        >
+          <Input
+            placeholder="Телеграмм"
+            name="candy_tg"
+            defaultValue={defaultValues?.candy_tg}
+            className={errors?.candy_tg && 'ring-2 ring-destructive'}
+            onChange={onChange}
+          />
+        </FormItem>
+
+        <FormItem
+          labelText="Почта"
+          error={errors.candy_email}
+        >
+          <Input
+            placeholder="Почта"
+            name="candy_email"
+            defaultValue={defaultValues?.candy_email}
+            className={errors?.candy_email && 'ring-2 ring-destructive'}
+            onChange={onChange}
+          />
+        </FormItem>
+
+        <FormItem
+          labelText="Локация"
+          error={errors.candy_location}
+        >
+          <Input
+            placeholder="Локация"
+            name="candy_location"
+            defaultValue={defaultValues?.candy_location}
+            className={errors?.candy_location && 'ring-2 ring-destructive'}
+            onChange={onChange}
+          />
+        </FormItem>
+
+        <FormItem
+          labelText="Ссылка на резюме"
+          error={errors.link}
+        >
+          <Input
+            placeholder="Ссылка на резюме"
+            name="link"
+            defaultValue={defaultValues?.link}
+            className={errors?.link && 'ring-2 ring-destructive'}
+            onChange={onChange}
+          />
+        </FormItem>
+
+        <FormItem
+          labelText="Био"
+          className="break-before-column"
+          error={errors.bio}
+        >
+          <Textarea
+            placeholder="Био"
+            name="bio"
+            rows={9}
+            defaultValue={defaultValues?.bio}
+            className={cn("resize-none", errors?.bio && 'ring-2 ring-destructive')}
+            onChange={onChange}
+          />
+        </FormItem>
+
+        <FormItem
+          labelText="Опыт"
+          error={errors.experience_raw}
+        >
           <Textarea
             placeholder="Опыт"
             name="experience_raw"
-            className="resize-none"
+            defaultValue={defaultValues?.experience_raw}
+            className={cn("resize-none", errors?.experience_raw && 'ring-2 ring-destructive')}
+            onChange={onChange}
             rows={17}
           />
         </FormItem>
@@ -81,7 +177,9 @@ export const AddResumeForm: FC = () => {
         <Button type="button" variant="ghost" className="mr-2">
           Отмена
         </Button>
-        <Button type="submit">Добавить</Button>
+        <Button type="submit">
+          {pending ? 'Добавление...' : 'Добавить'}
+        </Button>
       </div>
     </form>
   );

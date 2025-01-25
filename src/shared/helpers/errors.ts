@@ -1,4 +1,4 @@
-type TValidationMappedErrors = Record<string, string>;
+export type TValidationMappedErrors = Record<string, string>;
 
 type TBadRequestMessage = {
   children: unknown[];
@@ -25,7 +25,7 @@ export const getSyntheticError = (
 ): TError => ({ code: code ?? 0, message, details });
 
 export const extractSyntheticErrorFromApi = (e: TBadRequest | null) => {
-  if (e && e.errorType === 'BAD_REQUEST_EXCEPTION') {
+  if (e && e.errorType === "BAD_REQUEST_EXCEPTION") {
     return getSyntheticError(
       e.errorType,
       400,
