@@ -30,8 +30,6 @@ export const AddCompanyForm: FC<TProps> = ({ tariffs }) => {
     mutationInitialState
   );
 
-  console.log({ state, formAction, pending });
-
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">

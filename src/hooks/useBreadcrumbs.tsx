@@ -1,4 +1,4 @@
-import { useParams, usePathname } from 'next/navigation';
+import { ReadonlyURLSearchParams, useParams, usePathname, useSearchParams } from "next/navigation";
 import HomeIcon from '@/assets/icons/home.svg?rc';
 import { Params } from 'next/dist/server/request/params';
 
@@ -6,8 +6,8 @@ import { Params } from 'next/dist/server/request/params';
 //Each new route should be described here for better navigation.
 
 interface IBreadcrumbPattern {
-  pattern: RegExp;
-  handler: (params?: Params) => string | React.ReactNode;
+  pattern: RegExp,
+  handler: (searchParams?: ReadonlyURLSearchParams) => string | React.ReactNode
 }
 
 const breadcrumbsMapping: IBreadcrumbPattern[] = [
@@ -31,60 +31,36 @@ const breadcrumbsMapping: IBreadcrumbPattern[] = [
   },
   {
     pattern: /^\/dashboard\/vacancies\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes - vacancyDetails
-    handler: (params = {}) => {
-      const { vacancyDetails } = params;
-
-      // If we use catch-all segments, the params object may contain fields with an array of strings.
-      // Here, we check if the field exists and explicitly tell TypeScript that we expect a string.
-
-      if (!vacancyDetails || typeof vacancyDetails !== 'string') {
-        return 'Название вакансии';
-      }
-
-      //vacancyDetails has the format "vacancy name-vacancy id." To extract the name for the breadcrumbs, we split the provided parameter.
-      const splitted = vacancyDetails.split('-');
-      return decodeURIComponent(splitted[0]);
-    },
+    handler: (searchParams) => {
+      const vacancyName = searchParams?.get('vacancyName') || 'Название вакансии'
+      return decodeURIComponent(vacancyName)
+    }
   },
   {
-    pattern: /^\/dashboard\/resume\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes - resumeDetails
-    handler: (params = {}) => {
-      const { resumeDetails } = params;
-      if (!resumeDetails || typeof resumeDetails !== 'string') return 'Резюме';
-      const splitted = resumeDetails.split('-');
-      return decodeURIComponent(splitted[0]);
-    },
+    pattern: /^\/dashboard\/resume\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - resumeDetails
+    handler: (searchParams) => {
+      const resumeName = searchParams?.get('resumeName') || 'Резюме'
+      return decodeURIComponent(resumeName)
+    }
   },
-];
+]
+
+type DefineBreadcrumbsPaths = (pathname: string, searchParams: ReadonlyURLSearchParams) => { href: string, label: string | React.ReactNode }[]
+
 /**
+ * Generates breadcrumb paths for the current route, based on the provided pathname and search parameters.
+ * Each breadcrumb includes an `href` (URL) and a `label` (displayed text or React component).
  *
- * Generates an array of breadcrumb paths based on the given `pathname` and navigation parameters.
+ * @param pathname - The current pathname of the application (e.g., `/dashboard/vacancies/123`). It is used to determine the hierarchical structure of breadcrumbs.
+ * 
+ * @param searchParams - A `ReadonlyURLSearchParams` instance that provides access to query parameters. Used for extracting dynamic values like `vacancyName` or `resumeName`.
  *
- * @param {string} pathname - The current path as a string (e.g., "/home/products/item").
- * @param {ParamsNextNavigation} params - Parameters for navigation, used to dynamically generate breadcrumb labels.
  * @returns An array of breadcrumb objects, where each object contains:
- *   - `href`: The URL segment up to that breadcrumb.
- *   - `label`: The label for the breadcrumb, which can be a string or a ReactNode.
- * @example
- *  const pathname = "/dashboard/vacancies/Manager-125";
- *  const params = {vacancyId: 'Manager-125'}
- *
- * const breadcrumbs = defineBreadcrumbsPaths(pathname, params);
- * // Output:
- * // [
- * //   { href: "dashboard", label: <HomeIcon width={16} height={16} className="-translate-y-0.5" /> },
- * //   { href: "dashboard/vacancies", label: "Вакансии" },
- * //   { href: "dashboard/vacancies/Manager-125", label: "Manager" },
- * // ]
- *
+ *     - `href`: The URL segment corresponding to the breadcrumb (e.g., `/dashboard/vacancies`).
+ *     - `label`: The displayed text or React component for the breadcrumb, as defined in the `breadcrumbsMapping`.
  */
 
-type DefineBreadcrumbsPaths = (
-  pathname: string,
-  params: Params
-) => { href: string; label: string | React.ReactNode }[];
-
-const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (pathname, params) => {
+const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (pathname, searchParams) => {
   // Split the pathname into segments to build hierarchical breadcrumb paths.
   const pathSegments = pathname.split('/').slice(1);
   const breadcrumbsPaths: { href: string; label: string | React.ReactNode }[] =
@@ -102,18 +78,19 @@ const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (pathname, params) => {
     if (mathcedPattern) {
       breadcrumbsPaths.push({
         href: currentPath,
-        label: mathcedPattern.handler(params),
-      });
+        label: mathcedPattern.handler(searchParams)
+      })
     }
   });
   return breadcrumbsPaths;
 };
 
 const useBreadcrumbs = () => {
-  const pathname = usePathname();
-  const params = useParams();
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  console.log(searchParams)
 
-  return defineBreadcrumbsPaths(pathname, params);
-};
+  return defineBreadcrumbsPaths(pathname, searchParams)
+}
 
 export default useBreadcrumbs;

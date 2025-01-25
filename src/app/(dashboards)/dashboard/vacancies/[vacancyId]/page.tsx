@@ -6,15 +6,20 @@ import { MatchStatusCol } from '@/components/MatchStatusCol';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import { EMatchStatus } from '@/shared/types';
 
+//for temp use
+import { mockVacancy } from '@/actions/mockData';
+
 type TProps = {
-  params: { [key: string]: string };
+  params: Promise<{ vacancyId: string }>
 };
 
 const VacancyDetails: FC<TProps> = async ({ params }) => {
-  const { vacancyDetails } = params;
-  const vacancyId = vacancyDetails.split('-')[1];
+  const { vacancyId } = await params;
 
-  const vacancy = await getVacancy(vacancyId);
+  // const vacancy = await getVacancy(vacancyId);
+  // console.log(vacancy)
+
+  const vacancy = mockVacancy
 
   return (
     <div className="flex gap-6 flex-col">

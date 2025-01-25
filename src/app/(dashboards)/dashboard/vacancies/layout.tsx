@@ -4,12 +4,19 @@ import { FC, PropsWithChildren } from 'react';
 import { getVacanciesList } from '@/actions/getData';
 import { VacanciesAside } from '@/components/NavBlocks/VacanciesAside';
 
+// for temp use
+import { mockVacancies } from '@/actions/mockData';
+
 export const metadata: Metadata = {
   title: 'REkrutAI|Вакансии',
 };
 
+
 const VacanciesLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const vacancies = await getVacanciesList();
+  // const vacancies = await getVacanciesList();
+
+  //temp
+  const vacancies = mockVacancies
 
   return (
     <div className="flex gap-10 flex-col w-full lg:gap-5 lg:flex-row">

@@ -6,6 +6,7 @@ import { EMatchStatus } from '@/shared/types';
 
 import { CandidateCard } from './Cards/CandidateCard';
 import { FunnelCard } from './Cards/FunnelCard';
+import { mockCandidateShort } from '@/actions/mockData';
 
 type TProps = {
   vacId: number;
@@ -13,7 +14,9 @@ type TProps = {
 };
 
 export const MatchStatusCol: FC<TProps> = async ({ vacId, status }) => {
-  const candidates = await getBasicCandidatesByStatus(vacId, status);
+  // const candidates = await getBasicCandidatesByStatus(vacId, status);
+
+  const candidates = mockCandidateShort
 
   return (
     <>
@@ -25,7 +28,7 @@ export const MatchStatusCol: FC<TProps> = async ({ vacId, status }) => {
             return (
               <li key={candidate.id}>
                 <Link
-                  href={`/dashboard/resume/${candidate.name}-${candidate.id}`}
+                  href={`/dashboard/resume/${candidate.id}?resumeName=${candidate.name}`}
                 >
                   <CandidateCard
                     name={candidate.name}
