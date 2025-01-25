@@ -32,13 +32,13 @@ export const VacanciesAside: FC<TProps> = ({ vacancies, className }) => {
         className
       )}
     >
-      <AddVacancyModal className="self-start" />
+      <AddVacancyModal className="self-start" vacancyPositions={[]} />
 
       <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1">
         {vacancies.map((vacancy) => {
           const vacancyTimestamp = Math.floor(
             (new Date().getTime() - new Date(vacancy.created_at).getTime()) /
-            1000
+              1000
           );
           const { days } = getTimePartsFromSec(vacancyTimestamp);
 
@@ -58,12 +58,12 @@ export const VacanciesAside: FC<TProps> = ({ vacancies, className }) => {
         })}
       </div>
 
-      <a href="/#" className="absolute top-3 right-0 lg:static">
+      <Link href="/#" className="absolute top-3 right-0 lg:static">
         <ArchiveIcon className="inline mr-2 text-blue-500" />{' '}
         <span className="underline underline-offset-2 text-blue-500">
           Архив
         </span>
-      </a>
+      </Link>
     </aside>
   );
 };

@@ -1,12 +1,11 @@
-import Resume from "@/components/Pages/Resume";
+import Resume from '@/components/Pages/Resume';
 
-const ResumePage = ({ params }: { params: { [key: string]: string } }) => {
-  console.log(params);
+const ResumePage = () => {
   return (
     <div>
       <Resume />
     </div>
   );
-}
+};
 
 export default ResumePage;
