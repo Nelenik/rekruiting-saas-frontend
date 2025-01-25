@@ -13,7 +13,15 @@ import { cn } from '@/lib/utils';
 
 import { AddVacancyForm } from '../Forms/AddVacancyForm';
 
-export const AddVacancyModal: FC<{ className?: string }> = ({ className }) => {
+type TProps = {
+  className?: string;
+  vacancyPositions: string[];
+};
+
+export const AddVacancyModal: FC<TProps> = ({
+  className,
+  vacancyPositions,
+}) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -30,7 +38,7 @@ export const AddVacancyModal: FC<{ className?: string }> = ({ className }) => {
           Заполните информаци по новой вакансии
         </DialogDescription>
 
-        <AddVacancyForm />
+        <AddVacancyForm vacancyPositions={vacancyPositions} />
       </DialogContent>
     </Dialog>
   );

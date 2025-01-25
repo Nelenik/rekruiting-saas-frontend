@@ -40,6 +40,21 @@ export const getVacancy = async (id: number | string): Promise<TVacancy> => {
   }
 };
 
+export const getVacancyPositions = async (): Promise<string[]> => {
+  try {
+    const response = await apiGet<TApiListResponse<string>>(
+      '/vacancy/positions'
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'Не удалось загрузить позиции. Пожалуйста, попробуйте позже.'
+    );
+  }
+};
+
 export const getBasicCandidatesByStatus = async (
   vacId: number,
   status: EMatchStatus

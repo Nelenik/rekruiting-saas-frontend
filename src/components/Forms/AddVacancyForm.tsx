@@ -1,6 +1,11 @@
-import { FC } from 'react';
+'use client';
 
+import { FC, useActionState } from 'react';
+
+import { mutationInitialState } from '@/actions/constants';
 import { storeVacancy } from '@/actions/postData';
+import { TMutationState } from '@/actions/types';
+import { vacancyPositionsDict } from '@/shared/dictionaries';
 
 import { Textarea } from '../ui/textarea';
 import FormItem from './form_elements/FormItem';
@@ -13,83 +18,100 @@ import {
   SelectValue,
 } from '../ui/select';
 import { Button } from '../ui/button';
+import {
+  EVacancyEmployment,
+  EVacancyExperience,
+  EVacancyWorkFormat,
+} from '@/shared/types';
 
-export const AddVacancyForm: FC = () => {
+type TProps = {
+  vacancyPositions: string[];
+};
+
+export const AddVacancyForm: FC<TProps> = ({ vacancyPositions }) => {
+  const [state, formAction, pending] = useActionState<TMutationState, FormData>(
+    storeVacancy,
+    mutationInitialState
+  );
+
+  console.log({ state, formAction, pending });
+
   return (
-    <form action={storeVacancy} className="flex flex-col justify-between grow">
+    <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
         <FormItem labelText="Название вакансии">
-          <Input placeholder="Название вакансии" name="VacName" />
+          <Input placeholder="Название вакансии" name="name" />
         </FormItem>
+
         <FormItem labelText="Позиция">
-          <Select name="VacSpec">
+          <Select name="position">
             <SelectTrigger>
               <SelectValue placeholder="Выберите позицию" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Разработчик">Разработчик</SelectItem>
-              <SelectItem value="Тим лид(рук. команды разработки)">
-                Тим лид(рук. команды разработки)
-              </SelectItem>
-              <SelectItem value="Тестировщик">Тестировщик</SelectItem>
-              <SelectItem value="Продакт\Проджект менеджер">
-                Продакт\Проджект менеджер
-              </SelectItem>
-              <SelectItem value="Аналитик">Аналитик</SelectItem>
-              <SelectItem value="DevOps\SRE">DevOps\SRE</SelectItem>
-              <SelectItem value="Дизайнер">Дизайнер</SelectItem>
-              <SelectItem value="Data Scientist">Data Scientist</SelectItem>
-              <SelectItem value="Тех.поддержка">Тех.поддержка</SelectItem>
+              {vacancyPositions.map((position) => (
+                <SelectItem key={position} value={position}>
+                  {vacancyPositionsDict[position]}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </FormItem>
+
         <FormItem labelText="Обязанности">
           <Textarea
             placeholder="Обязанности"
-            name="VacRec"
+            name="responsibilities"
             className="resize-none"
             rows={9}
-          ></Textarea>
+          />
         </FormItem>
+
         <FormItem labelText="Условия">
           <Textarea
             placeholder="Условия"
-            name="VacCond"
+            name="conditions"
             className="resize-none"
             rows={10}
-          ></Textarea>
+          />
         </FormItem>
+
         <FormItem labelText="Занятость">
-          <Select name="VacEmp">
+          <Select name="employment">
             <SelectTrigger>
               <SelectValue placeholder="Занятость" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Полная">Полная</SelectItem>
-              <SelectItem value="Частичная">Частичная</SelectItem>
-              <SelectItem value="Проект">Проект</SelectItem>
+              <SelectItem value={EVacancyEmployment.FULL}>Полная</SelectItem>
+              <SelectItem value={EVacancyEmployment.PARTIAL}>
+                Частичная
+              </SelectItem>
+              <SelectItem value={EVacancyEmployment.PROJECT}>Проект</SelectItem>
             </SelectContent>
           </Select>
         </FormItem>
+
         <div className="break-before-column">
           <p className="mb-[10px] font-medium">Оплата</p>
           <div className="flex gap-4">
             <FormItem>
-              <Input placeholder="от" name="VacSalaryFrom" />
+              <Input placeholder="от" name="salary_from" />
             </FormItem>
             <FormItem>
-              <Input placeholder="до" name="VacSalaryTo" />
+              <Input placeholder="до" name="salary_to" />
             </FormItem>
           </div>
         </div>
+
         <FormItem labelText="Требования ">
           <Textarea
             placeholder="Требования к кандидату"
-            name="VacSkills"
+            name="skills"
             className="resize-none"
             rows={8}
-          ></Textarea>
+          />
         </FormItem>
+
         <div>
           <p className="mb-[10px] font-medium">Формат работы</p>
           <div className="flex gap-3 items-center justify-between">
@@ -99,8 +121,8 @@ export const AddVacancyForm: FC = () => {
             >
               <Input
                 type="radio"
-                name="VacForm"
-                value={'Офис'}
+                name="work_format"
+                value={EVacancyWorkFormat.OFFICE}
                 className="h-[20px]"
               />
             </FormItem>
@@ -110,8 +132,8 @@ export const AddVacancyForm: FC = () => {
             >
               <Input
                 type="radio"
-                name="VacForm"
-                value={'Удаленно'}
+                name="work_format"
+                value={EVacancyWorkFormat.REMOTE}
                 className="h-[20px]"
               />
             </FormItem>
@@ -121,28 +143,38 @@ export const AddVacancyForm: FC = () => {
             >
               <Input
                 type="radio"
-                name="VacForm"
-                value={'Гибрид'}
+                name="work_format"
+                value={EVacancyWorkFormat.HYBRID}
                 className="h-[20px]"
               />
             </FormItem>
           </div>
         </div>
+
         <FormItem labelText="Опыт">
-          <Select name="VacExp">
+          <Select name="experience">
             <SelectTrigger>
               <SelectValue placeholder="Опыт" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="0-1 год">0-1 год</SelectItem>
-              <SelectItem value="1-3 года">1-3 года</SelectItem>
-              <SelectItem value="3-5 лет">3-5 лет</SelectItem>
-              <SelectItem value="более 5 лет">более 5 лет</SelectItem>
+              <SelectItem value={EVacancyExperience.LESS_THAN_1}>
+                0-1 год
+              </SelectItem>
+              <SelectItem value={EVacancyExperience.FROM_1_TO_3}>
+                1-3 года
+              </SelectItem>
+              <SelectItem value={EVacancyExperience.FROM_3_TO_5}>
+                3-5 лет
+              </SelectItem>
+              <SelectItem value={EVacancyExperience.MORE_THAN_5}>
+                более 5 лет
+              </SelectItem>
             </SelectContent>
           </Select>
         </FormItem>
+
         <FormItem labelText="География">
-          <Select name="VacLoc">
+          <Select name="location">
             <SelectTrigger>
               <SelectValue placeholder="Выбирете город" />
             </SelectTrigger>
@@ -161,7 +193,7 @@ export const AddVacancyForm: FC = () => {
       </div>
 
       <div className="self-end">
-        <Button variant={'ghost'} className="mr-2">
+        <Button variant="ghost" className="mr-2">
           Отмена
         </Button>
         <Button type="submit">Создать</Button>

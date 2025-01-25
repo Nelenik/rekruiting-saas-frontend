@@ -22,3 +22,34 @@ export type TVacancyShort = Pick<
   TVacancy,
   'id' | 'name' | 'status' | 'created_at'
 >;
+
+export enum EVacancyPosition {
+  DEVELOPER = 'developer',
+  TEAM_LEAD = 'team-lead',
+  TESTER = 'tester',
+  PM = 'pm',
+  ANALYST = 'analyst',
+  DEVOPS = 'devops',
+  DESIGNER = 'designer',
+  DATA_SCIENTIST = 'data-scientist',
+  TECHNICAL_SUPPORT = 'technical-support',
+}
+
+export enum EVacancyEmployment {
+  FULL = 'full',
+  PARTIAL = 'partial',
+  PROJECT = 'project',
+}
+
+export enum EVacancyWorkFormat {
+  OFFICE = 'office',
+  REMOTE = 'remote',
+  HYBRID = 'hybrid',
+}
+
+export enum EVacancyExperience {
+  LESS_THAN_1 = 'less-than-1',
+  FROM_1_TO_3 = 'from-1-to-3',
+  FROM_3_TO_5 = 'from-3-to-5',
+  MORE_THAN_5 = 'more-than-5',
+}

@@ -16,7 +16,7 @@ export const apiPost = async <T = unknown>(
 ): Promise<T> => {
   const response = await fetch(API_URL + url, {
     method: 'POST',
-    body,
+    body: JSON.stringify(Object.fromEntries(body)),
     headers: {
       'Content-Type': 'application/json',
     },

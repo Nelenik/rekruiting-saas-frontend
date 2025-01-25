@@ -1,4 +1,6 @@
+import { TError } from '@/shared/helpers';
+
 export type TMutationState = {
   sent: boolean;
-  error: string | null;
+  error: TError | null;
 };
