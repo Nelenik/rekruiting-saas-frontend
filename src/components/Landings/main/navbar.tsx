@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils"; // Utility function for merging class names
 import { Button } from "@/components/ui/button";
-import Logo from "./logo";
+import Logo from "@/components/logo";
 
 
 export default function Navbar() {
