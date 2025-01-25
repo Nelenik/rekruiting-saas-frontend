@@ -193,7 +193,7 @@ export const AddVacancyForm: FC<TProps> = ({ vacancyPositions }) => {
       </div>
 
       <div className="self-end">
-        <Button variant="ghost" className="mr-2">
+        <Button type='button' variant="ghost" className="mr-2">
           Отмена
         </Button>
         <Button type="submit">Создать</Button>

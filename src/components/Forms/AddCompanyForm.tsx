@@ -19,6 +19,8 @@ import {
 } from '../ui/select';
 import DatePicker from './form_elements/DatePicker';
 import { Button } from '../ui/button';
+import { convertFormData } from '@/lib/utils/convertFormData';
+import { cn } from '@/lib/utils';
 
 type TProps = {
   tariffs: TTariff[];
@@ -30,38 +32,47 @@ export const AddCompanyForm: FC<TProps> = ({ tariffs }) => {
     mutationInitialState
   );
 
+  const defaultValues = state.payload ? convertFormData(state.payload) : undefined;
+
+  const errors = state.error?.details
+
+  console.log(state)
+  console.log(defaultValues)
+
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
-        <FormItem labelText="Название">
-          <Input placeholder="Название" name="name" />
+        <FormItem labelText="Название" error={errors?.name}>
+          <Input placeholder="Название" name="name" defaultValue={defaultValues?.name} className={errors?.name && 'border-destructive'} />
         </FormItem>
 
-        <FormItem labelText="Полное наименование">
+        <FormItem labelText="Полное наименование" error={errors?.full_name}>
           <Textarea
             placeholder="Полное наименование"
             name="full_name"
-            className="resize-none"
+            className={cn("resize-none", errors?.full_name && 'border-destructive')}
             rows={9}
+            defaultValue={defaultValues?.full_name}
           />
         </FormItem>
 
-        <FormItem labelText="Описание">
+        <FormItem labelText="Описание" error={errors?.description}>
           <Textarea
             placeholder="Описание организации"
             name="description"
-            className="resize-none"
+            className={cn("resize-none", errors?.description && 'border-destructive')}
             rows={17}
+            defaultValue={defaultValues?.description}
           />
         </FormItem>
 
-        <FormItem labelText="ИНН" className="break-before-column">
-          <Input placeholder="ИНН" name="inn" />
+        <FormItem labelText="ИНН" className="break-before-column" error={errors?.inn}>
+          <Input placeholder="ИНН" name="inn" defaultValue={defaultValues?.inn} className={cn(errors?.inn && 'border-destructive')} />
         </FormItem>
 
-        <FormItem labelText="Тариф">
-          <Select name="rate">
-            <SelectTrigger>
+        <FormItem labelText="Тариф" error={errors?.tariff}>
+          <Select name="rate" defaultValue={defaultValues?.rate}>
+            <SelectTrigger className={cn(errors?.rate && 'border-destructive')}>
               <SelectValue placeholder="Выбранный тарифный план" />
             </SelectTrigger>
 
@@ -75,13 +86,13 @@ export const AddCompanyForm: FC<TProps> = ({ tariffs }) => {
           </Select>
         </FormItem>
 
-        <FormItem labelText="Дата оплаты">
-          <DatePicker nameAttr="rate_at" />
+        <FormItem labelText="Дата оплаты" error={errors?.rate_at}>
+          <DatePicker nameAttr="rate_at" defaultValue={defaultValues?.rate_at} />
         </FormItem>
       </div>
 
       <div className="self-end">
-        <Button variant="ghost" className="mr-2">
+        <Button type='button' variant="ghost" className="mr-2">
           Отмена
         </Button>
 
