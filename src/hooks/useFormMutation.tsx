@@ -15,6 +15,7 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
   );
 
   const [errors, setErrors] = useState<TValidationMappedErrors>({})
+  const [isSuccess, setIsSuccess] = useState(false)
 
   useEffect(() => {
     if (state.error?.details) {
@@ -26,19 +27,20 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
 
   }, [state.error])
 
-  const defaultValues = state.payload ? convertFormData(state.payload) : undefined;
-
-  const success = state.sent && !state.error
+  useEffect(() => {
+    if (state.sent && !state.error) {
+      setIsSuccess(true);
+    }
+  }, [state.sent, state.error])
 
   useEffect(() => {
-    if (success) {
-      console.log('Success, calling onSucces');
+    if (isSuccess) {
       onSucces()
+      setIsSuccess(false)
     }
-  }, [success, onSucces])
+  }, [onSucces, isSuccess])
 
-  console.log(state)
-
+  const defaultValues = state.payload ? convertFormData(state.payload) : undefined;
 
   //Removes the error from the errors object when the user starts entering data.
   const onChange = (e: TOnChangeEvent) => {
@@ -58,7 +60,7 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
     pending,
     defaultValues,
     errors,
-    // success,
+    success: isSuccess,
     onChange
   }
 }

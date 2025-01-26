@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useCallback } from 'react';
+import { FC, Suspense, useCallback } from 'react';
 
 import { storeVacancy } from '@/actions/postData';
 import { vacancyPositionsDict } from '@/shared/dictionaries';
@@ -24,14 +24,20 @@ import {
 import { useFormMutation } from '@/hooks/useFormMutation';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import { getVacancyPositions } from '@/actions/getData';
+import { useQuery } from '@tanstack/react-query';
 
 type TProps = {
-  vacancyPositions: string[];
   closeModal: () => void
 };
 
-export const AddVacancyForm: FC<TProps> = ({ vacancyPositions, closeModal }) => {
+export const AddVacancyForm: FC<TProps> = ({ closeModal }) => {
   const { toast } = useToast()
+
+  const { data: vacancyPositions } = useQuery({
+    queryFn: getVacancyPositions,
+    queryKey: ["vacancy", "positions"]
+  });
 
   const handleSuccess = useCallback(() => {
     closeModal();
@@ -70,7 +76,7 @@ export const AddVacancyForm: FC<TProps> = ({ vacancyPositions, closeModal }) => 
               <SelectValue placeholder="Выберите позицию" />
             </SelectTrigger>
             <SelectContent>
-              {vacancyPositions.map((position) => (
+              {vacancyPositions && vacancyPositions.map((position) => (
                 <SelectItem key={position} value={position}>
                   {vacancyPositionsDict[position]}
                 </SelectItem>

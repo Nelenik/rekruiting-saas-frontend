@@ -51,7 +51,7 @@ export default function Navbar() {
       {/* Authentication Section */}
       <div className="flex items-center space-x-4">
         <Link
-          href="/dashboard"
+          href="#!"
           className="text-black-600 hover:text-red-500 transition-all tracking-wide capitalize"
         >
           Sign In

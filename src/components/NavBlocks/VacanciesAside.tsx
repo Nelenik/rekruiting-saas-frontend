@@ -21,8 +21,8 @@ export const VacanciesAside: FC<TProps> = ({ vacancies, className }) => {
   const path = usePathname();
   const params = useParams();
 
-  const cleanedPath = params?.vacancyDetails
-    ? path.replace(new RegExp(`\/${params.vacancyDetails}$`), '')
+  const cleanedPath = params?.vacancyId
+    ? path.replace(new RegExp(`\/${params.vacancyId}$`), '')
     : path;
 
   return (
@@ -32,13 +32,13 @@ export const VacanciesAside: FC<TProps> = ({ vacancies, className }) => {
         className
       )}
     >
-      <AddVacancyModal className="self-start" vacancyPositions={[]} />
+      <AddVacancyModal className="self-start" />
 
       <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1">
         {vacancies.map((vacancy) => {
           const vacancyTimestamp = Math.floor(
             (new Date().getTime() - new Date(vacancy.created_at).getTime()) /
-              1000
+            1000
           );
           const { days } = getTimePartsFromSec(vacancyTimestamp);
 
@@ -46,7 +46,6 @@ export const VacanciesAside: FC<TProps> = ({ vacancies, className }) => {
             <Link
               key={vacancy.id}
               href={`${cleanedPath}/${vacancy.id}?vacancyName=${vacancy.name}`}
-            // href={`${cleanedPath}/${vacancy.name}-${vacancy.id}`}
             >
               <VacancyCard
                 vacancyName={vacancy.name}

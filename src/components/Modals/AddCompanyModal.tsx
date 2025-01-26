@@ -18,7 +18,7 @@ type TProps = {
   tariffs: TTariff[];
 };
 
-export const AddCompanyModal: FC<TProps> = React.memo(({ tariffs }) => {
+export const AddCompanyModal: FC<TProps> = ({ tariffs }) => {
   const [open, setOpen] = useState<boolean>(false)
   const handleClose = useCallback(() => setOpen(false), [])
   return (
@@ -40,4 +40,4 @@ export const AddCompanyModal: FC<TProps> = React.memo(({ tariffs }) => {
       </DialogContent>
     </Dialog>
   );
-});
+};

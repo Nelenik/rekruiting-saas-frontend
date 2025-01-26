@@ -16,15 +16,14 @@ import { AddVacancyForm } from '../Forms/AddVacancyForm';
 
 type TProps = {
   className?: string;
-  vacancyPositions: string[];
 };
 
 export const AddVacancyModal: FC<TProps> = ({
   className,
-  vacancyPositions,
 }) => {
   const [open, setOpen] = useState<boolean>(false)
   const handleClose = useCallback(() => setOpen(false), [])
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -41,7 +40,7 @@ export const AddVacancyModal: FC<TProps> = ({
           Заполните информаци по новой вакансии
         </DialogDescription>
 
-        <AddVacancyForm vacancyPositions={vacancyPositions} closeModal={handleClose} />
+        <AddVacancyForm closeModal={handleClose} />
       </DialogContent>
     </Dialog>
   );
