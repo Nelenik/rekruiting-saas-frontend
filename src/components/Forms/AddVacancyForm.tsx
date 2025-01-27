@@ -6,7 +6,7 @@ import { storeVacancy } from '@/actions/postData';
 import { vacancyPositionsDict } from '@/shared/dictionaries';
 
 import { Textarea } from '../ui/textarea';
-import FormItem, { ErrorMessage } from './form_elements/FormItem';
+import FormItem, { ErrorMessage } from './form_elmts/FormItem';
 import { Input } from '../ui/input';
 import {
   Select,

@@ -5,7 +5,6 @@ import { FC, useCallback } from 'react';
 import { storeCompany } from '@/actions/postData';
 import { TTariff } from '@/shared/types';
 
-import FormItem from './form_elements/FormItem';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import {
@@ -15,11 +14,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import DatePicker from './form_elements/DatePicker';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
 import { useFormMutation } from '@/hooks/useFormMutation';
 import { useToast } from '@/hooks/use-toast';
+import FormItem from './form_elmts/FormItem';
+import DatePicker from './form_elmts/DatePicker';
 
 type TProps = {
   tariffs: TTariff[];

@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { getBasicCandidatesByStatus } from '@/actions/getData';
 import { EMatchStatus } from '@/shared/types';
 
-import { CandidateCard } from './Cards/CandidateCard';
-import { FunnelCard } from './Cards/FunnelCard';
+import { CandidateCard } from './cards/CandidateCard';
+import { FunnelCard } from './cards/FunnelCard';
 import { mockCandidateShort } from '@/actions/mockData';
 
 type TProps = {

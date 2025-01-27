@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { FC, PropsWithChildren } from 'react';
 
 import { getVacanciesList, getVacancyPositions } from '@/actions/getData';
-import { VacanciesAside } from '@/components/NavBlocks/VacanciesAside';
+import { VacanciesAside } from '@/components/navigation/VacanciesAside';
 
 // mock data
 // import { mockVacancies } from '@/actions/mockData';

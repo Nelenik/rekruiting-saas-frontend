@@ -1,5 +1,5 @@
-import InterceptingModal from '@/components/Modals/InterceptingModal';
-import Resume from '@/components/Pages/Resume';
+import InterceptingModal from '@/components/modals/InterceptingModal';
+import Resume from '@/components/pages/Resume';
 
 const ResumeModal = () => {
   return (

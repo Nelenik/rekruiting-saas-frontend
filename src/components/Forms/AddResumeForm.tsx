@@ -4,7 +4,7 @@ import { FC, useCallback } from 'react';
 
 import { storeCv } from '@/actions/postData';
 
-import FormItem from './form_elements/FormItem';
+import FormItem from './form_elmts/FormItem';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';

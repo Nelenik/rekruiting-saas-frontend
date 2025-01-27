@@ -17,7 +17,7 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         sidebar: {
-          DEFAULT: "hsl(var(--sidebar))",
+          DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
         },
         popover: {
@@ -60,8 +60,28 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      keyframes: {},
-      animation: {},
+      keyframes: {
+        "slide-up": {
+          "0%": {
+            height: "var(--radix-collapsible-content-height)",
+          },
+          "100%": {
+            height: "0px",
+          },
+        },
+        "slide-down": {
+          "0%": {
+            height: "0px",
+          },
+          "100%": {
+            height: "var(--radix-collapsible-content-height)",
+          },
+        },
+      },
+      animation: {
+        "slide-up": "slide-up 200ms ease",
+        "slide-down": "slide-down 200ms ease",
+      },
     },
   },
   plugins: [

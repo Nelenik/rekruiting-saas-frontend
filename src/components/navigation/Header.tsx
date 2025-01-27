@@ -2,7 +2,7 @@
 import Link from "next/link";
 import LogoSvg from '@/assets/icons/logo.svg?rc';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
-import SideBarBtn from "@/components/Buttons/SideBarBtn";
+import SideBarBtn from "@/components/buttons/SideBarBtn";
 import { cn } from "@/lib/utils";
 import useSidebarControl from "@/hooks/useSidebarControl";
 import {
@@ -10,16 +10,16 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
-import { IDashboardRoute } from "@/types/types";
 import { IUser } from "@/shared/types/user";
+import { sidebarConfig } from "@/shared/config/sidebarConfig";
+import { SidebarGroup, SidebarItem } from "./nav_elmts/SidebarItems";
 
 interface IHeaderProps {
-  routes: IDashboardRoute[]
   userData: IUser
   className?: string
 }
 
-const Header = ({ routes = [], userData, className }: IHeaderProps) => {
+const Header = ({ userData, className }: IHeaderProps) => {
 
   const {
     sidebarRef,
@@ -43,22 +43,19 @@ const Header = ({ routes = [], userData, className }: IHeaderProps) => {
         <LogoSvg width={50} height={50} />
       </Link>
       <nav ref={sidebarRef} className={cn(
-        "fixed left-0 top-0 w-[min(100dvw,400px)] h-dvh px-6 py-3 flex flex-col bg-sidebar text-sidebar-foreground z-[900] -translate-x-[150%] transition-transform duration-300 delay-75",
+        "fixed left-0 top-0 w-[min(100dvw,400px)] h-dvh px-6 py-3 flex flex-col bg-sidebar text-sidebar-foreground z-[900] -translate-x-[150%] transition-transform duration-300 delay-75 @container",
         isSidebarOpen && 'translate-x-[unset]'
       )}>
         <SideBarBtn onClick={handleClose} size={'icon'} className="mb-6 ml-auto [&_svg]:w-5 [&_svg]:h-5" >
           <PanelRightOpen stroke="white" />
         </SideBarBtn>
         <ul className="space-y-0">
-          {routes.map((el) => {
+          {sidebarConfig.map((el) => {
             return (
               <li key={el.routeName}>
-                <SideBarBtn asChild className="gap-3 justify-start" onClick={handleClose}>
-                  <Link className="w-full " href={el.href}>
-                    {el.icon}
-                    <span className="ml-2">{el.routeName}</span>
-                  </Link>
-                </SideBarBtn>
+                {el.subMenu ?
+                  <SidebarGroup linkConfig={el} />
+                  : <SidebarItem linkConfig={el} />}
               </li>
             )
           })}

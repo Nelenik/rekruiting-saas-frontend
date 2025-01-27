@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { AddCompanyModal } from '@/components/Modals/AddCompanyModal';
-import { AddResumeModal } from '@/components/Modals/AddResumeModal';
+import { AddCompanyModal } from '@/components/modals/AddCompanyModal';
+import { AddResumeModal } from '@/components/modals/AddResumeModal';
 import { getTariffs } from '@/actions/getData';
 
 const DashboardMain: FC = async () => {

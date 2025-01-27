@@ -1,4 +1,4 @@
-import Resume from "@/components/Pages/Resume";
+import Resume from "@/components/pages/Resume";
 
 
 const ResumePage = async ({ params }: { params: Promise<{ resumeId: string }> }) => {

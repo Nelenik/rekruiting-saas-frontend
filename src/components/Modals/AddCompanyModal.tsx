@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Button } from '../ui/button';
-import { AddCompanyForm } from '../Forms/AddCompanyForm';
+import { AddCompanyForm } from '../forms/AddCompanyForm';
 import React from 'react';
 
 type TProps = {

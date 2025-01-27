@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-import { AddResumeForm } from '../Forms/AddResumeForm';
+import { AddResumeForm } from '../forms/AddResumeForm';
 
 export const AddResumeModal: FC = () => {
   const [open, setOpen] = useState<boolean>(false)

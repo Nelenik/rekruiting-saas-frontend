@@ -9,8 +9,8 @@ import { cn } from '@/lib/utils';
 import { getTimePartsFromSec } from '@/lib/utils/getTimePartsFromSec';
 import { TVacancyShort } from '@/shared/types';
 
-import { AddVacancyModal } from '../Modals/AddVacancyModal';
-import { VacancyCard } from '../Cards/VacancyCard';
+import { AddVacancyModal } from '../modals/AddVacancyModal';
+import { VacancyCard } from '../cards/VacancyCard';
 
 type TProps = {
   className?: string;

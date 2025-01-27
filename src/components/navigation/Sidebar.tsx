@@ -3,7 +3,7 @@
 import Link from "next/link";
 import LogoSvg from '@/assets/icons/logo.svg?rc';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
-import SideBarBtn from "@/components/Buttons/SideBarBtn";
+import SideBarBtn from "@/components/buttons/SideBarBtn";
 import { cn } from "@/lib/utils";
 import useSidebarControl from "@/hooks/useSidebarControl";
 import {
@@ -11,16 +11,16 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
-import { IDashboardRoute } from "@/types/types";
 import { IUser } from "@/shared/types/user";
+import { sidebarConfig } from "@/shared/config/sidebarConfig";
+import { SidebarGroup, SidebarItem } from "./nav_elmts/SidebarItems";
 
 interface ISidebarProps {
-  routes: IDashboardRoute[]
   userData: IUser
   className?: string
 }
 
-const Sidebar = ({ routes = [], userData, className }: ISidebarProps) => {
+const Sidebar = ({ userData, className }: ISidebarProps) => {
 
   const { sidebarRef, handleToggle, isSidebarOpen } = useSidebarControl({ initial: true })
 
@@ -40,22 +40,18 @@ const Sidebar = ({ routes = [], userData, className }: ISidebarProps) => {
       </Link>
       <SideBarBtn onClick={handleToggle} size={'icon'} className={cn(isSidebarOpen && "self-end", `transition-transform duration-300 mb-8 justify-center `)}>
         {isSidebarOpen ? <PanelRightOpen stroke="white" /> : <PanelLeftOpen stroke="white" />}
-        {/* <Menu stroke="white" /> */}
       </SideBarBtn>
       <nav className={cn(
         "mt-6 w-full",
 
       )}>
         <ul className="space-y-0">
-          {routes.map((el) => {
+          {sidebarConfig.map((el) => {
             return (
               <li key={el.routeName}>
-                <SideBarBtn asChild className="gap-3 justify-start">
-                  <Link className="w-full " href={el.href}>
-                    {el.icon}
-                    <span className="ml-2 hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">{el.routeName}</span>
-                  </Link>
-                </SideBarBtn>
+                {el.subMenu ?
+                  <SidebarGroup linkConfig={el} />
+                  : <SidebarItem linkConfig={el} />}
               </li>
             )
           })}
