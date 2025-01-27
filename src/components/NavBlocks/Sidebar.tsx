@@ -12,19 +12,19 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { IDashboardRoute } from "@/types/types";
+import { IUser } from "@/shared/types/user";
 
 interface ISidebarProps {
-  routes: IDashboardRoute[],
+  routes: IDashboardRoute[]
+  userData: IUser
   className?: string
 }
 
-const Sidebar = ({ routes = [], className }: ISidebarProps) => {
+const Sidebar = ({ routes = [], userData, className }: ISidebarProps) => {
 
   const { sidebarRef, handleToggle, isSidebarOpen } = useSidebarControl({ initial: true })
 
-  //temporar
-  const userName = 'Петров Дмитрий'
-  const userEmail = 'test@gmail.com'
+  const { name: userName, email: userEmail } = userData
 
   return (
     <div ref={sidebarRef}

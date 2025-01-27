@@ -28,7 +28,7 @@ export const MatchStatusCol: FC<TProps> = async ({ vacId, status }) => {
             return (
               <li key={candidate.id}>
                 <Link
-                  href={`/dashboard/resume/${candidate.id}?resumeName=${candidate.name}`}
+                  href={`/dashboard/candidate/${candidate.id}?candidateName=${candidate.name}`}
                 >
                   <CandidateCard
                     name={candidate.name}

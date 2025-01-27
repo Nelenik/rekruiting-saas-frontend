@@ -11,13 +11,15 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { IDashboardRoute } from "@/types/types";
+import { IUser } from "@/shared/types/user";
 
 interface IHeaderProps {
   routes: IDashboardRoute[]
+  userData: IUser
   className?: string
 }
 
-const Header = ({ routes = [], className }: IHeaderProps) => {
+const Header = ({ routes = [], userData, className }: IHeaderProps) => {
 
   const {
     sidebarRef,
@@ -26,9 +28,7 @@ const Header = ({ routes = [], className }: IHeaderProps) => {
     isSidebarOpen,
   } = useSidebarControl({ initial: false, closeOutside: true })
 
-  //temporar
-  const userName = 'Петров Дмитрий'
-  const userEmail = 'test@gmail.com'
+  const { name: userName, email: userEmail } = userData
 
   return (
     <header

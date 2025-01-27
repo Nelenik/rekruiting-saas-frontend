@@ -15,6 +15,7 @@ import Providers from '../../providers';
 import '../../globals.css';
 import { Suspense } from 'react';
 import { Toaster } from '@/components/ui/toaster';
+import { getUser } from '@/actions/getData';
 
 const geistSans = localFont({
   src: '../../fonts/GeistVF.woff',
@@ -54,23 +55,26 @@ const adminNavigation: IDashboardRoute[] = [
   },
 ];
 
-export default function ProfileLayout({
+export default async function ProfileLayout({
   children,
   modals,
 }: Readonly<{
   children: React.ReactNode;
   modals: React.ReactNode;
 }>) {
+
+  const userData = await getUser()
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         <Providers>
-          <Header routes={adminNavigation} className="sm:hidden" />
+          <Header routes={adminNavigation} userData={userData} className="sm:hidden" />
 
           <main className="w-full flex h-screen overflow-hidden">
-            <Sidebar routes={adminNavigation} className="hidden sm:flex" />
+            <Sidebar routes={adminNavigation} userData={userData} className="hidden sm:flex" />
 
             <div className="p-6 w-full grid auto-rows-max grid-cols-1 gap-6 h-full overflow-y-auto">
               <Suspense>
