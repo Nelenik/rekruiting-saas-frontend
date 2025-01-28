@@ -4,15 +4,25 @@ interface IFormItem {
   labelText?: string,
   children: React.ReactNode,
   className?: string
+  error?: string | null
 }
 
-const FormItem = ({ labelText, children, className }: IFormItem) => {
+export const ErrorMessage = ({ message }: { message: string }) => {
   return (
-    <label className={cn("flex flex-col gap-2.5", className)}>
+    <p className="text-destructive text-xs absolute right-0 top-2">
+      {message}
+    </p>
+  )
+}
+
+const FormItem = ({ labelText, children, className, error = null }: IFormItem) => {
+  return (
+    <label className={cn("relative flex flex-col gap-2.5", className)}>
       {labelText && <span className="font-medium">
         {labelText}
       </span>}
       {children}
+      {error && <ErrorMessage message={error} />}
     </label>
   );
 }

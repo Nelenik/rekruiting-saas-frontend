@@ -1,4 +1,5 @@
-import { FC } from 'react';
+'use client'
+import { FC, useCallback, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -12,8 +13,10 @@ import {
 import { AddResumeForm } from '../Forms/AddResumeForm';
 
 export const AddResumeModal: FC = () => {
+  const [open, setOpen] = useState<boolean>(false)
+  const handleClose = useCallback(() => setOpen(false), [])
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="w-max lg:w-full py-6 text-base">
           Добавить резюме
@@ -27,7 +30,7 @@ export const AddResumeModal: FC = () => {
           Заполните информаци по резюме кандидата
         </DialogDescription>
 
-        <AddResumeForm />
+        <AddResumeForm closeModal={handleClose} />
       </DialogContent>
     </Dialog>
   );

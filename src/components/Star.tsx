@@ -1,4 +1,5 @@
 'use client'
+import { ReactNode } from 'react';
 
 interface IStarProps {
   starOptions: { fullness: number, id: string },
@@ -21,7 +22,7 @@ interface IStarProps {
  * />
  */
 
-const Star = ({ starOptions, ...props }: IStarProps): JSX.Element => {
+const Star = ({ starOptions, ...props }: IStarProps): ReactNode => {
   // Restrict the values to the range from 0 to 1
   const sanitizedFullness = Math.max(0, Math.min(starOptions.fullness, 1));
 

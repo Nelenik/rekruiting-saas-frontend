@@ -10,7 +10,7 @@ type UseSidebarControl = (options: IMenuOptions) => {
   handleToggle: () => void;
   handleOpen: () => void;
   isSidebarOpen: boolean;
-  sidebarRef: RefObject<HTMLDivElement>;
+  sidebarRef: RefObject<HTMLDivElement | null>;
 };
 
 /**

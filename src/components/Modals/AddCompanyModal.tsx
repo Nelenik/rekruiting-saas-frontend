@@ -1,4 +1,5 @@
-import { FC } from 'react';
+'use client'
+import { FC, useCallback, useState } from 'react';
 
 import { TTariff } from '@/shared/types';
 
@@ -11,14 +12,17 @@ import {
 } from '../ui/dialog';
 import { Button } from '../ui/button';
 import { AddCompanyForm } from '../Forms/AddCompanyForm';
+import React from 'react';
 
 type TProps = {
   tariffs: TTariff[];
 };
 
 export const AddCompanyModal: FC<TProps> = ({ tariffs }) => {
+  const [open, setOpen] = useState<boolean>(false)
+  const handleClose = useCallback(() => setOpen(false), [])
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="w-max lg:w-full py-6 text-base">
           Добавить организацию
@@ -32,7 +36,7 @@ export const AddCompanyModal: FC<TProps> = ({ tariffs }) => {
           Заполние данныее по новой компании
         </DialogDescription>
 
-        <AddCompanyForm tariffs={tariffs} />
+        <AddCompanyForm tariffs={tariffs} closeModal={handleClose} />
       </DialogContent>
     </Dialog>
   );

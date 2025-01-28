@@ -9,6 +9,7 @@
 export const getTimePartsFromSec = (
   totalSeconds: number
 ): { days: number; hours: number; min: number; sec: number } => {
+  totalSeconds = totalSeconds < 0 ? 0 : totalSeconds;
   const days = Math.floor(totalSeconds / (24 * 60 * 60));
   const daysRest = totalSeconds % (24 * 60 * 60);
 

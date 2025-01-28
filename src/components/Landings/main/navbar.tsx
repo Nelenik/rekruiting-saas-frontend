@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils"; // Utility function for merging class names
 import { Button } from "@/components/ui/button";
-import Logo from "./logo";
+import Logo from "@/components/logo";
 
 
 export default function Navbar() {
@@ -51,7 +51,7 @@ export default function Navbar() {
       {/* Authentication Section */}
       <div className="flex items-center space-x-4">
         <Link
-          href="/dashboard"
+          href="#!"
           className="text-black-600 hover:text-red-500 transition-all tracking-wide capitalize"
         >
           Sign In

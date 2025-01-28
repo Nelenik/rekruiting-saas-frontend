@@ -7,7 +7,7 @@ const nextConfig = {
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.('.svg')
+      rule.test?.test?.(".svg")
     );
 
     config.module.rules.push(
@@ -18,13 +18,13 @@ const nextConfig = {
         resourceQuery: /rc/, //use if *.svg?rc (react component)
         use: [
           {
-            loader: '@svgr/webpack',
+            loader: "@svgr/webpack",
             options: {
               svgo: true,
               svgoConfig: {
                 plugins: [
                   {
-                    name: 'preset-default',
+                    name: "preset-default",
                     params: {
                       overrides: {
                         removeViewBox: false,
@@ -41,7 +41,7 @@ const nextConfig = {
       {
         test: /\.svg$/i, // Регулярное выражение для всех SVG
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /rc/] }, // Пропускать, если есть `?rc`
-        type: 'asset/resource', // Стандартная обработка файлов
+        type: "asset/resource", // Стандартная обработка файлов
       }
     );
 

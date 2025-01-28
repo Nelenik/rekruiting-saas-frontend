@@ -13,6 +13,8 @@ import Header from '@/components/NavBlocks/Header';
 import Providers from '../../providers';
 
 import '../../globals.css';
+import { Suspense } from 'react';
+import { Toaster } from '@/components/ui/toaster';
 
 const geistSans = localFont({
   src: '../../fonts/GeistVF.woff',
@@ -71,13 +73,16 @@ export default function ProfileLayout({
             <Sidebar routes={adminNavigation} className="hidden sm:flex" />
 
             <div className="p-6 w-full grid auto-rows-max grid-cols-1 gap-6 h-full overflow-y-auto">
-              <Breadcrumbs />
+              <Suspense>
+                <Breadcrumbs />
+              </Suspense>
 
               {children}
 
               {modals}
             </div>
           </main>
+          <Toaster />
         </Providers>
       </body>
     </html>
