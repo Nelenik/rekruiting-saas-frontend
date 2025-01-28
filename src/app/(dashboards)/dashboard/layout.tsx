@@ -1,16 +1,11 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-import Sidebar from '@/components/navigation/Sidebar';
-import Breadcrumbs from '@/components/Breadcrumbs';
-import Header from '@/components/navigation/Header';
-
 import Providers from '../../providers';
 
 import '../../globals.css';
-import { Suspense } from 'react';
-import { Toaster } from '@/components/ui/toaster';
-import { getUser } from '@/actions/getData';
+import { getCompaniesList, getUser } from '@/actions/getData';
+import { redirect } from 'next/navigation';
 
 const geistSans = localFont({
   src: '../../fonts/GeistVF.woff',
@@ -28,15 +23,11 @@ export const metadata: Metadata = {
 };
 
 
-export default async function ProfileLayout({
+export default async function MainAppLayout({
   children,
-  modals,
 }: Readonly<{
   children: React.ReactNode;
-  modals: React.ReactNode;
 }>) {
-
-  const userData = await getUser()
 
   return (
     <html lang="en">
@@ -44,22 +35,7 @@ export default async function ProfileLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         <Providers>
-          <Header userData={userData} className="sm:hidden" />
-
-          <main className="w-full flex h-screen overflow-hidden">
-            <Sidebar userData={userData} className="hidden sm:flex" />
-
-            <div className="p-6 w-full grid auto-rows-max grid-cols-1 gap-6 h-full overflow-y-auto">
-              <Suspense>
-                <Breadcrumbs />
-              </Suspense>
-
-              {children}
-
-              {modals}
-            </div>
-          </main>
-          <Toaster />
+          {children}
         </Providers>
       </body>
     </html>

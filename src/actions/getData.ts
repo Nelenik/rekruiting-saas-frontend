@@ -12,13 +12,23 @@ import {
 
 import { apiGet } from "./api";
 import { IUser } from "@/shared/types/user";
+import { mockCompanies } from "./mockData";
 
+/*--------Mock data---------- */
 export const getUser = async (): Promise<IUser> => {
   return {
+    id: 1,
     name: "Иванов Иван",
     email: "test@mail.com",
   };
 };
+
+export const getCompaniesList = async (): Promise<
+  { id: number; name: string }[]
+> => {
+  return mockCompanies;
+};
+/*--------------------- */
 
 export const getVacanciesList = async (): Promise<TVacancyShort[]> => {
   try {

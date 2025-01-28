@@ -12,8 +12,9 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { IUser } from "@/shared/types/user";
-import { sidebarConfig } from "@/shared/config/sidebarConfig";
+import { createSidebarConfig } from "@/shared/config/sidebarConfig";
 import { SidebarGroup, SidebarItem } from "./nav_elmts/SidebarItems";
+import { useParams } from "next/navigation";
 
 interface ISidebarProps {
   userData: IUser
@@ -21,6 +22,8 @@ interface ISidebarProps {
 }
 
 const Sidebar = ({ userData, className }: ISidebarProps) => {
+  const { companyId } = useParams<{ companyId: string }>()
+  const sidebarConfig = createSidebarConfig(companyId)
 
   const { sidebarRef, handleToggle, isSidebarOpen } = useSidebarControl({ initial: true })
 

@@ -10,11 +10,11 @@ import { EMatchStatus } from '@/shared/types';
 // import { mockVacancy } from '@/actions/mockData';
 
 type TProps = {
-  params: Promise<{ vacancyId: string }>
+  params: Promise<{ vacancyId: string, companyId: string }>
 };
 
 const VacancyDetails: FC<TProps> = async ({ params }) => {
-  const { vacancyId } = await params;
+  const { companyId, vacancyId } = await params;
 
   const vacancy = await getVacancy(vacancyId);
 
@@ -36,23 +36,23 @@ const VacancyDetails: FC<TProps> = async ({ params }) => {
 
       <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
         <div className="flex gap-6 flex-col">
-          <MatchStatusCol vacId={vacancy.id} status={EMatchStatus.SCORING} />
+          <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.SCORING} />
         </div>
 
         <div className="flex gap-6 flex-col">
-          <MatchStatusCol vacId={vacancy.id} status={EMatchStatus.SCREENING} />
+          <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.SCREENING} />
         </div>
 
         <div className="flex gap-6 flex-col">
-          <MatchStatusCol vacId={vacancy.id} status={EMatchStatus.INTERVIEW} />
+          <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.INTERVIEW} />
         </div>
 
         <div className="flex gap-6 flex-col">
-          <MatchStatusCol vacId={vacancy.id} status={EMatchStatus.REFUSAL} />
+          <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.REFUSAL} />
         </div>
 
         <div className="flex gap-6 flex-col">
-          <MatchStatusCol vacId={vacancy.id} status={EMatchStatus.OFFER} />
+          <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.OFFER} />
         </div>
       </div>
     </div>

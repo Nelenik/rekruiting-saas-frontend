@@ -1,19 +1,19 @@
+import { getTariffs, getUser } from '@/actions/getData';
+import { AddCompanyModal } from '@/components/modals/AddCompanyModal';
 import { FC } from 'react';
 
-import { AddCompanyModal } from '@/components/modals/AddCompanyModal';
-import { AddResumeModal } from '@/components/modals/AddResumeModal';
-import { getTariffs } from '@/actions/getData';
+const MainAppPage: FC = async () => {
+  const userData = await getUser()
 
-const DashboardMain: FC = async () => {
   const tariffs = await getTariffs();
-
   return (
     <div>
       <div className="w-[70%]">
-        Main page
+        У вас нет созданных компаний.
+        <AddCompanyModal tariffs={tariffs} />
       </div>
     </div>
   );
 };
 
-export default DashboardMain;
+export default MainAppPage;

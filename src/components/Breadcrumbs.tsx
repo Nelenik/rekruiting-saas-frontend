@@ -8,12 +8,14 @@ import React from "react";
 // import HomeIcon from '@/assets/icons/home.svg?rc';
 import useBreadcrumbs from "@/hooks/useBreadcrumbs";
 import { cn } from "@/lib/utils";
+import CompanySwitcher from "./CompanySwitcher";
 
 const Breadcrumbs = () => {
   const breadcrumbPaths = useBreadcrumbs()
   return (
     <div className="bg-card p-5 rounded-md">
-      <Breadcrumb>
+      <Breadcrumb className="flex">
+        <CompanySwitcher />
         <BreadcrumbList className="gap-1.5 sm:gap-1.5">
           {breadcrumbPaths.map(({ href, label }, i) => (
             (

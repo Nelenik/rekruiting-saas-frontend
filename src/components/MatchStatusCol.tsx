@@ -11,9 +11,10 @@ import { mockCandidateShort } from '@/actions/mockData';
 type TProps = {
   vacId: number;
   status: EMatchStatus;
+  companyId: string
 };
 
-export const MatchStatusCol: FC<TProps> = async ({ vacId, status }) => {
+export const MatchStatusCol: FC<TProps> = async ({ companyId, vacId, status }) => {
   // const candidates = await getBasicCandidatesByStatus(vacId, status);
 
   const candidates = mockCandidateShort
@@ -28,7 +29,7 @@ export const MatchStatusCol: FC<TProps> = async ({ vacId, status }) => {
             return (
               <li key={candidate.id}>
                 <Link
-                  href={`/dashboard/candidate/${candidate.id}?candidateName=${candidate.name}`}
+                  href={`/dashboard/${companyId}/candidate/${candidate.id}?candidateName=${candidate.name}`}
                 >
                   <CandidateCard
                     name={candidate.name}

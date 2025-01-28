@@ -4,7 +4,30 @@ import {
   TVacancy,
   TVacancyShort,
 } from "@/shared/types";
+import { IUser } from "@/shared/types/user";
 
+export const mockUser: IUser = {
+  id: 1,
+  name: "Иванов Иван",
+  email: "test@mail.com",
+};
+
+export const mockCompanies: { id: number; name: string }[] = [
+  {
+    id: 1,
+    name: "RekrutAI",
+  },
+  {
+    id: 2,
+    name: "Google",
+  },
+  {
+    id: 3,
+    name: "Yandex",
+  },
+];
+
+/*--------------- */
 export const mockVacancies: TVacancyShort[] = [
   {
     id: 1,

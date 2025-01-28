@@ -11,8 +11,9 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { IUser } from "@/shared/types/user";
-import { sidebarConfig } from "@/shared/config/sidebarConfig";
+import { createSidebarConfig } from "@/shared/config/sidebarConfig";
 import { SidebarGroup, SidebarItem } from "./nav_elmts/SidebarItems";
+import { useParams } from "next/navigation";
 
 interface IHeaderProps {
   userData: IUser
@@ -20,6 +21,8 @@ interface IHeaderProps {
 }
 
 const Header = ({ userData, className }: IHeaderProps) => {
+  const { companyId } = useParams<{ companyId: string }>()
+  const sidebarConfig = createSidebarConfig(companyId)
 
   const {
     sidebarRef,
