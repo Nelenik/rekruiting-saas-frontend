@@ -27,6 +27,7 @@ export const getCompaniesList = async (): Promise<
   { id: number; name: string }[]
 > => {
   return mockCompanies;
+  // return [];
 };
 /*--------------------- */
 

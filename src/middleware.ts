@@ -4,7 +4,7 @@ import { getCompaniesList } from "./actions/getData";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname === "/") {
+  if (request.nextUrl.pathname === "/dashboard") {
     const companies = await getCompaniesList();
     if (companies.length) {
       return NextResponse.redirect(
@@ -18,5 +18,5 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: "/",
+  matcher: "/dashboard",
 };

@@ -5,29 +5,32 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbS
 import Link from "next/link";
 import React from "react";
 
-// import HomeIcon from '@/assets/icons/home.svg?rc';
 import useBreadcrumbs from "@/hooks/useBreadcrumbs";
 import { cn } from "@/lib/utils";
-import CompanySwitcher from "./CompanySwitcher";
 
 const Breadcrumbs = () => {
   const breadcrumbPaths = useBreadcrumbs()
   return (
     <div className="bg-card p-5 rounded-md">
-      <Breadcrumb className="flex">
-        <CompanySwitcher />
-        <BreadcrumbList className="gap-1.5 sm:gap-1.5">
+      <Breadcrumb>
+        <BreadcrumbList className="gap-2 sm:gap-2">
           {breadcrumbPaths.map(({ href, label }, i) => (
             (
               <React.Fragment key={i}>
 
                 <BreadcrumbItem >
-                  <BreadcrumbLink asChild className="inline-flex items-center gap-1">
-                    <Link href={`${href}`} className={cn((i === breadcrumbPaths.length - 1) && 'pointer-events-none')}>
-                      {label}
-                    </Link>
+                  {
+                    i == 1 ?
+                      label
+                      : <Link
+                        href={`${href}`}
+                        className={cn((i === breadcrumbPaths.length - 1) && 'pointer-events-none')}
+                      >
+                        {label}
+                      </Link>
+                  }
 
-                  </BreadcrumbLink>
+
                 </BreadcrumbItem>
                 {i !== breadcrumbPaths.length - 1 && <BreadcrumbSeparator />}
               </React.Fragment>
