@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { getVacancy } from '@/actions/getData';
-import { SummaryCard } from '@/components/ards/SummaryCard';
+import { SummaryCard } from '@/components/cards/SummaryCard';
 import { MatchStatusCol } from '@/components/MatchStatusCol';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import { EMatchStatus } from '@/shared/types';

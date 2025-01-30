@@ -1,13 +1,13 @@
-import Advantages from "@/components/andings/main/advantages";
-import DropdownList from "@/components/andings/main/dropdownlist";
-import Feature from "@/components/andings/main/feuture";
-import Footer from "@/components/andings/main/footer";
-import GlobalNetworkSection from "@/components/andings/main/globalnetwork";
-import Hero from "@/components/andings/main/hero";
-import Navbar from "@/components/andings/main/navbar";
-import Pricing from "@/components/andings/main/pricing2";
-import Testimonials from "@/components/andings/main/testimonials";
-import Timeline2 from "@/components/andings/main/timeline";
+import Advantages from "@/components/landings/main/advantages";
+import DropdownList from "@/components/landings/main/dropdownlist";
+import Feature from "@/components/landings/main/feuture";
+import Footer from "@/components/landings/main/footer";
+import GlobalNetworkSection from "@/components/landings/main/globalnetwork";
+import Hero from "@/components/landings/main/hero";
+import Navbar from "@/components/landings/main/navbar";
+import Pricing from "@/components/landings/main/pricing2";
+import Testimonials from "@/components/landings/main/testimonials";
+import Timeline2 from "@/components/landings/main/timeline";
 
 
 
