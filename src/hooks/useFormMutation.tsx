@@ -8,7 +8,7 @@ type TFormMutationAction = (_: TMutationState, body: FormData) => Promise<TMutat
 
 type TOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 
-export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: () => void = () => { }, initialState: TMutationState) => {
+export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: () => void = () => { }, initialState: TMutationState = mutationInitialState) => {
   const [state, formAction, pending] = useActionState<TMutationState, FormData>(
     mutationAction,
     initialState
