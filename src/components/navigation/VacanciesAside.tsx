@@ -10,7 +10,7 @@ import { getTimePartsFromSec } from '@/lib/utils/getTimePartsFromSec';
 import { TVacancyShort } from '@/shared/types';
 
 import { AddVacancyModal } from '../modals/AddVacancyModal';
-import { VacancyCard } from '../cards/VacancyCard';
+import { VacancyCard } from '../ards/VacancyCard';
 
 type TProps = {
   className?: string;

@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import LogoSvg from '@/assets/icons/logo.svg?rc';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
-import SideBarBtn from "@/components/buttons/SideBarBtn";
+import SideBarBtn from "@/components/uttons/SideBarBtn";
 import { cn } from "@/lib/utils";
 import useSidebarControl from "@/hooks/useSidebarControl";
 import {

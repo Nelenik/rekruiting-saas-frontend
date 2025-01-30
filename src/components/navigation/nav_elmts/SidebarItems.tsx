@@ -1,4 +1,4 @@
-import SideBarBtn from "@/components/buttons/SideBarBtn";
+import SideBarBtn from "@/components/uttons/SideBarBtn";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
 import { IDashboardRoute } from "@/shared/types/navigation";
