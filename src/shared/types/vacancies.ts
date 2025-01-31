@@ -8,6 +8,15 @@ export enum EVacancyStatus {
 export type TVacancy = {
   id: number;
   name: string;
+  position: string;
+  responsibilities: string;
+  conditions: string;
+  employment: string;
+  skills: string;
+  work_format: string;
+  experience: string;
+  description: string;
+  location: string;
   salary_from: number;
   salary_to: number;
   salary_candy: number;
@@ -15,7 +24,6 @@ export type TVacancy = {
   status: EVacancyStatus;
   match_count: number;
   match_hot_count: number;
-  location: string;
   created_at: string;
 };
 

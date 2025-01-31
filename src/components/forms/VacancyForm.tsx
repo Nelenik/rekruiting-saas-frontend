@@ -26,6 +26,7 @@ interface IVacancyFormProps {
 
 const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps) => {
   const { companyId } = useParams<{ companyId: string }>()
+
   const { data: vacancyPositions } = useQuery({
     queryFn: getVacancyPositions,
     queryKey: ["vacancy", "positions"]
@@ -56,7 +57,7 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
         <FormItem labelText="Позиция" error={errors.position}>
           <Select
             name="position"
-            defaultValue={defaultValues?.name}
+            defaultValue={defaultValues?.position}
           >
             <SelectTrigger className={errors.position && 'ring-2 ring-destructive'}>
               <SelectValue placeholder="Выберите позицию" />

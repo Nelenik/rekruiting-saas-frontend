@@ -4,29 +4,27 @@ import VacancyForm from "./VacancyForm";
 import { updateVacancy } from "@/actions/updateData";
 import { mutationInitialState } from "@/actions/constants";
 import convertToFormData from "@/lib/utils/convertToFormData";
+import { TVacancy } from "@/shared/types";
 
 interface IEditVacancyForm {
   closeModal: () => void
-  vacancyData: TVacancyData
+  vacancyData: Pick<TVacancy, "id" |
+    "name" |
+    "position" |
+    "responsibilities" |
+    "conditions" |
+    "employment" |
+    "skills" |
+    "work_format" |
+    "experience" |
+    "description" |
+    "location" |
+    "salary_from" |
+    "salary_to" |
+    "salary_candy" |
+    "salary_market">
 }
 
-type TVacancyData = {
-  id: number;
-  name: string;
-  position: string;
-  responsibilities: string;
-  conditions: string,
-  employment: string,
-  skills: string,
-  work_format: string,
-  experience: string,
-  description: string,
-  location: string,
-  salary_from: number;
-  salary_to: number;
-  salary_candy: number;
-  salary_market: number;
-}
 
 const EditVacancyForm = ({ closeModal, vacancyData }: IEditVacancyForm) => {
   const { toast } = useToast()

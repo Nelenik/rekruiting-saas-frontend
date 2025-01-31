@@ -5,6 +5,7 @@ import { SummaryCard } from '@/components/cards/SummaryCard';
 import { MatchStatusCol } from '@/components/MatchStatusCol';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import { EMatchStatus } from '@/shared/types';
+import EditVacancyModal from '@/components/modals/EditVacancyModal';
 
 
 type TProps = {
@@ -15,10 +16,12 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   const { companyId, vacancyId } = await params;
 
   const vacancy = await getVacancy(vacancyId);
+
   console.log('vacancydata', vacancy)
 
   return (
-    <div className="flex gap-6 flex-col">
+    <div className="flex gap-6 flex-col relative">
+      <EditVacancyModal className='absolute top-2 right-2 z-10' triggerView='icon' vacancyData={vacancy} />
       <SummaryCard
         vacancyName={vacancy.name}
         daysInProcessing={getDaysSinceCreated(vacancy.created_at)}

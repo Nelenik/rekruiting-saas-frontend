@@ -21,7 +21,6 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
   const path = usePathname();
   const params = useParams();
   const vacancies = useVacancies()
-  console.log('vacanciesaside', vacancies)
 
   const cleanedPath = params?.vacancyId
     ? path.replace(new RegExp(`\/${params.vacancyId}$`), '')

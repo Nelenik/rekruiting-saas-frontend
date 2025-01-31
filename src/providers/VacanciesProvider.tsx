@@ -6,7 +6,6 @@ import { createContext, ReactNode, useContext } from "react"
 const VacanciesContext = createContext<TVacancyShort[]>([])
 
 export const VacanciesProvider = ({ children, vacancies }: { children: ReactNode, vacancies: TVacancyShort[] }) => {
-  console.log('Vacancies from provider', vacancies)
 
   return (<VacanciesContext.Provider value={vacancies}>
     {children}

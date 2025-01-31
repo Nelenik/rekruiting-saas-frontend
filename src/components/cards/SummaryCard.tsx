@@ -40,7 +40,7 @@ export const SummaryCard: FC<TProps> = ({
 
   return (
     <Card className="w-full py-4 px-6 flex gap-6 relative">
-      <EditVacancyModal className='absolute top-2 right-2' triggerView='icon' />
+
       <div className="p-5 rounded-full bg-emerald-500 self-start">
         <CaseIcon width={32} height={32} className="text-white" />
       </div>

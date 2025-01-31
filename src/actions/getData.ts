@@ -31,9 +31,17 @@ export const getCompaniesList = async (): Promise<
 };
 /*--------------------- */
 
-export const getVacanciesList = async (): Promise<TVacancyShort[]> => {
+export const getVacanciesList = async ({
+  companyId,
+}: { companyId?: number } = {}): Promise<TVacancyShort[]> => {
   try {
-    const response = await apiGet<TApiListResponse<TVacancyShort>>("/vacancy");
+    const qs = new URLSearchParams();
+    if (companyId) {
+      qs.append("company", String(companyId));
+    }
+    const response = await apiGet<TApiListResponse<TVacancyShort>>(
+      "/vacancy?" + qs.toString()
+    );
 
     return response.data;
   } catch (error) {
@@ -43,6 +51,19 @@ export const getVacanciesList = async (): Promise<TVacancyShort[]> => {
     );
   }
 };
+
+// export const getVacanciesList = async (): Promise<TVacancyShort[]> => {
+//   try {
+//     const response = await apiGet<TApiListResponse<TVacancyShort>>("/vacancy");
+
+//     return response.data;
+//   } catch (error) {
+//     console.error(error);
+//     throw new Error(
+//       "Не удалось загрузить вакансии. Пожалуйста, попробуйте позже."
+//     );
+//   }
+// };
 
 export const getVacancy = async (id: number | string): Promise<TVacancy> => {
   try {
