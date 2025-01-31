@@ -1,22 +1,15 @@
 import { Metadata } from 'next';
 import { FC, PropsWithChildren } from 'react';
 
-import { getVacanciesList, getVacancyPositions } from '@/actions/getData';
+import { getVacanciesList } from '@/actions/getData';
 import { VacanciesAside } from '@/components/NavBlocks/VacanciesAside';
-
-// mock data
-// import { mockVacancies } from '@/actions/mockData';
 
 export const metadata: Metadata = {
   title: 'REkrutAI|Вакансии',
 };
 
-
 const VacanciesLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const vacancies = await getVacanciesList();
-
-  //mock
-  // const vacancies = mockVacancies
+  const vacancies = await getVacanciesList({ companyId: 0 });
 
   return (
     <div className="flex gap-10 flex-col w-full lg:gap-5 lg:flex-row">

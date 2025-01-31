@@ -12,9 +12,17 @@ import {
 
 import { apiGet } from './api';
 
-export const getVacanciesList = async (): Promise<TVacancyShort[]> => {
+export const getVacanciesList = async ({
+  companyId,
+}: { companyId?: number } = {}): Promise<TVacancyShort[]> => {
   try {
-    const response = await apiGet<TApiListResponse<TVacancyShort>>('/vacancy');
+    const qs = new URLSearchParams();
+    if (companyId) {
+      qs.append('company', String(companyId));
+    }
+    const response = await apiGet<TApiListResponse<TVacancyShort>>(
+      '/vacancy?' + qs.toString()
+    );
 
     return response.data;
   } catch (error) {
