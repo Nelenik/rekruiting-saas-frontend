@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
-import AddVacancyForm from '../forms/AddVacancyForm';
+import AddVacancyForm from '../app_forms/AddVacancyForm';
 
 
 type TProps = {

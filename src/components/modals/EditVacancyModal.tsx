@@ -2,7 +2,7 @@
 import { useCallback, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { cn } from "@/lib/utils";
-import EditVacancyForm from "../forms/EditVacancyForm";
+import EditVacancyForm from "../app_forms/EditVacancyForm";
 import { Button } from "../ui/button";
 import EditButton from "../buttons/EditButton";
 import { TVacancy } from "@/shared/types";
