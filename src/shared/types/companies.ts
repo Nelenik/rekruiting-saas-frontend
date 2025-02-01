@@ -1,4 +1,4 @@
-export interface ICompany {
+export type TCompany = {
   id: number;
   name: string;
-}
+};

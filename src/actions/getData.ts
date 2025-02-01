@@ -13,6 +13,7 @@ import {
 import { apiGet } from "./api";
 import { IUser } from "@/shared/types/user";
 import { mockCompanies } from "./mockData";
+import { TCompany } from "@/shared/types/companies";
 
 /*--------Mock data---------- */
 export const getUser = async (): Promise<IUser> => {
@@ -23,9 +24,7 @@ export const getUser = async (): Promise<IUser> => {
   };
 };
 
-export const getCompaniesList = async (): Promise<
-  { id: number; name: string }[]
-> => {
+export const getCompaniesList = async () => {
   return mockCompanies;
   // return [];
 };
@@ -33,7 +32,7 @@ export const getCompaniesList = async (): Promise<
 
 export const getVacanciesList = async ({
   companyId,
-}: { companyId?: number } = {}): Promise<TVacancyShort[]> => {
+}: { companyId?: number | string } = {}): Promise<TVacancyShort[]> => {
   try {
     const qs = new URLSearchParams();
     if (companyId) {

@@ -1,13 +1,18 @@
 import { getVacanciesList } from "@/actions/getData";
 import { VacanciesProvider } from "@/providers/VacanciesProvider";
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, ReactNode } from "react";
 
 
 // Next.js will invalidate the cache when a
 // request comes in, at most once every 30 seconds.
 export const revalidate = 30
 
-const VacanciesLayout: FC<PropsWithChildren> = async ({ children }) => {
+interface IVacancyiesLayoutProp extends PropsWithChildren {
+  params: Promise<{ companyId: string }>
+}
+
+const VacanciesLayout: FC<IVacancyiesLayoutProp> = async ({ children, params }) => {
+  const { companyId } = await params
   const vacancies = await getVacanciesList();
   console.log(vacancies)
   return (
