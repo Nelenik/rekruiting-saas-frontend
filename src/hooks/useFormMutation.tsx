@@ -49,7 +49,7 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
       });
       setIsSuccess(false)
     }
-  }, [onSucces, isSuccess, toastMessage])
+  }, [onSucces, isSuccess, toastMessage, toast])
 
   const defaultValues = state.payload ? convertFormData(state.payload) : undefined;
 

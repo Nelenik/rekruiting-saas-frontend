@@ -5,9 +5,7 @@ import { SummaryCard } from '@/components/cards/SummaryCard';
 import { MatchStatusCol } from '@/components/MatchStatusCol';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import { EMatchStatus, TVacancy } from '@/shared/types';
-import EditVacancyModal from '@/components/modals/to_delete/EditVacancyModal';
 import Link from 'next/link';
-import { filterFalsyFields, NonNullableFields } from '@/lib/utils/filterFalsyFields';
 import EditEntityModal from '@/components/modals/EditEntityModal';
 
 
@@ -19,11 +17,6 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   const { companyId, vacancyId } = await params;
 
   const vacancy = await getVacancy(vacancyId);
-
-  //Formats the initial data by removing nullable fields for the editing form.
-  // const filtredVacancy = filterFalsyFields<TVacancy>(vacancy)
-
-  // console.log('filtred vacancydata', filtredVacancy)
 
   return (
     <div className="flex gap-6 flex-col relative">

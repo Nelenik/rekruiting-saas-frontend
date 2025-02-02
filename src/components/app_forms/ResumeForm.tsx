@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
 import { storeCv } from '@/actions/postData';
 
@@ -10,7 +10,6 @@ import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { useFormMutation } from '@/hooks/useFormMutation';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
 import { updateCV } from '@/actions/updateData';
 import { NonNullableFields } from '@/lib/utils/filterFalsyFields';
 import { mutationInitialState } from '@/actions/constants';
