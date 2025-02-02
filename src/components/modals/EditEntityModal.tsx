@@ -3,21 +3,13 @@ import { useState, useCallback, FC } from "react";
 import EditVacancyForm from "../app_forms/EditVacancyForm";
 import EditButton from "../buttons/EditButton";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { NonNullableFields } from "@/lib/utils/filterFalsyFields";
+import { filterFalsyFields, NonNullableFields } from "@/lib/utils/filterFalsyFields";
+import { TVacancy } from "@/shared/types";
 
-/**
- * Props for the `EditEntityModal` component.
- * 
- * @template T - Type of the `initialData` field, defaults to `unknown`.
- * @param className - Optional class name for styling.
- * @param triggerView - View type for the trigger button (`'icon'` or `'default'`).
- * @param initialData - Data to initialize the form with, has non-nullable fields.
- * @param entityType - Type of the entity being edited. Can be `'vacancy'`, `'company'`, `'resume'`, or `'match'`.
- */
-type TProps<T = unknown> = {
+type TProps = {
   className?: string
   triggerView?: 'icon' | 'default'
-  initialData: NonNullableFields<T>
+  initialData: unknown
   entityType: 'vacancy' | 'company' | 'resume' | 'match'
 }
 
@@ -29,19 +21,26 @@ const labels = {
 }
 
 /**
- * Modal component for editing different types of entities.
+ * A generic modal component for editing different entity types (vacancy, company, resume, match).
+ * The modal includes a customizable trigger button and renders the appropriate edit form based on entity type.
  * 
- * This modal displays the appropriate form based on the `entityType` prop.
+ * @template T - The type of initialData being passed to the edit form
  * 
- * @param {TProps<T>} props - Props passed to the component.
- * @returns {JSX.Element} The modal with the correct form to edit the selected entity.
+ * @param props - Component properties
+ * @param props.className - Optional CSS class name to apply to the trigger button
+ * @param props.triggerView - Visual style of the trigger button ('default' | 'icon'), defaults to 'default'
+ * @param props.initialData - Initial data of type T to populate the edit form
+ * @param props.entityType - Type of entity to edit ('vacancy' | 'company' | 'resume' | 'match')
+ * 
+ * @returns JSX Element containing the modal dialog with appropriate edit form
+ * 
  */
 
-const EditEntityModal = <T,>(
+const EditEntityModal = (
   { className,
     triggerView = 'default',
     initialData,
-    entityType }: TProps<T>
+    entityType }: TProps
 
 ): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false)
@@ -50,7 +49,7 @@ const EditEntityModal = <T,>(
   let entity;
   switch (entityType) {
     case 'vacancy':
-      entity = <EditVacancyForm closeModal={handleClose} initialData={initialData} />
+      entity = <EditVacancyForm closeModal={handleClose} initialData={initialData as NonNullableFields<TVacancy>} />
       break;
     case 'company':
       entity = <p>Edift company form</p>

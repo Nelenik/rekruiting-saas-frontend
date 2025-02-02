@@ -4,11 +4,12 @@ import VacancyForm from "./VacancyForm";
 import { updateVacancy } from "@/actions/updateData";
 import { mutationInitialState } from "@/actions/constants";
 import convertToFormData from "@/lib/utils/convertToFormData";
-import { TVacancyForm } from "@/shared/types";
+import { TVacancy } from "@/shared/types";
+import { NonNullableFields } from "@/lib/utils/filterFalsyFields";
 
 interface IEditVacancyForm {
   closeModal: () => void
-  initialData: TVacancyForm
+  initialData: NonNullableFields<TVacancy>
 }
 
 const EditVacancyForm = ({ closeModal, initialData }: IEditVacancyForm) => {
