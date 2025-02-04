@@ -33,7 +33,9 @@ export const getCompaniesList = async (
     : "";
 
   console.log(filterString);
-  return mockCompanies;
+  return mockCompanies.filter(({ name }) =>
+    name.toLowerCase().includes(filters.search?.toLowerCase() || "")
+  );
   // return [];
 };
 

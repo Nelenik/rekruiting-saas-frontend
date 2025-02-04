@@ -53,16 +53,19 @@ const CompanySwitcher = () => {
           <span className="w-0 h-0 border-solid border-x-[5px] border-t-[5px] border-t-muted-foreground/65 border-b-transparent border-x-transparent rotate-0 "></span>
         </a>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full">
+      <DropdownMenuContent className="w-full ">
         <DropdownMenuLabel>Компании клиента</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {companiesList?.map((company) => (
-          <DropdownMenuItem asChild key={company.id}>
-            <Link href={extractNewPath(String(company.id))}>
-              {company.name}
-            </Link>
-          </DropdownMenuItem>
-        ))}
+        <div className="h-[150px] overflow-y-auto ">
+
+          {companiesList?.map((company) => (
+            <DropdownMenuItem asChild key={company.id}>
+              <Link href={extractNewPath(String(company.id))}>
+                {company.name}
+              </Link>
+            </DropdownMenuItem>
+          ))}
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );

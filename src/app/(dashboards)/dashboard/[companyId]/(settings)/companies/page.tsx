@@ -18,7 +18,6 @@ const CompaniesPage = async ({ searchParams }: TProps) => {
   const companies = await getCompaniesList(filters)
   return (
     <div>
-      {filters.search}
       <div className="flex mb-6 items-end">
         <CompaniesFilter />
         <AddEntityModal entityType="company" className=" [&_span]:hidden lg:w-max ml-auto py-2 " />

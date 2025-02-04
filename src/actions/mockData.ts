@@ -44,6 +44,36 @@ export const mockCompanies: TCompany[] = [
     rate: "Третий тариф",
     rate_at: "2025-01-24T20:45:00+01:00",
   },
+  {
+    id: 4,
+    name: "Microsoft",
+    full_name: "Microsoft Corporation",
+    description:
+      "Microsoft is a multinational technology company that develops software, hardware, and services.",
+    inn: "9876543210",
+    rate: "Третий тариф",
+    rate_at: "2025-01-25T15:30:00+01:00",
+  },
+  {
+    id: 5,
+    name: "Apple",
+    full_name: "Apple Inc.",
+    description:
+      "Apple designs, manufactures, and markets consumer electronics, software, and online services.",
+    inn: "1122334455",
+    rate: "Третий тариф",
+    rate_at: "2025-01-26T10:15:00+01:00",
+  },
+  {
+    id: 6,
+    name: "Tesla",
+    full_name: "Tesla, Inc.",
+    description:
+      "Tesla is an electric vehicle and clean energy company known for its innovative products.",
+    inn: "9988776655",
+    rate: "Третий тариф",
+    rate_at: "2025-01-27T14:00:00+01:00",
+  },
 ];
 
 export const mockResume: TResume[] = [
