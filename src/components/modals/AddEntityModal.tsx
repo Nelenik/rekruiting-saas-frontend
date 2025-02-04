@@ -36,7 +36,7 @@ const AddEntityModal: FC<TProps> = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className={cn('w-max lg:w-full py-6 text-base', className)}>
+        <Button className={cn('w-max lg:w-full py-6 text-base flex', className)}>
           <CirclePlus />
           Добавить <span className="hidden sm:inline">{labels[entityType].triggerText}</span>
         </Button>

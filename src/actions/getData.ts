@@ -13,6 +13,8 @@ import {
 import { apiGet } from "./api";
 import { IUser } from "@/shared/types/user";
 import { mockCompanies, mockResume } from "./mockData";
+import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
+import { TCompany } from "@/shared/types/companies";
 
 /*--------Mock data---------- */
 export const getUser = async (): Promise<IUser> => {
@@ -23,7 +25,14 @@ export const getUser = async (): Promise<IUser> => {
   };
 };
 
-export const getCompaniesList = async () => {
+export const getCompaniesList = async (
+  filters: Record<string, string> = {}
+): Promise<TCompany[]> => {
+  const filterString = filters
+    ? new URLSearchParams(filterFalsyFields(filters)).toString()
+    : "";
+
+  console.log(filterString);
   return mockCompanies;
   // return [];
 };

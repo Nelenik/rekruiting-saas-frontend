@@ -21,7 +21,7 @@ export const CompaniesProvider = ({ children }: { children: ReactNode }) => {
   //get user's companies list
   const { data: companiesList = [], isLoading } = useQuery({
     queryKey: ['companies', 'list'],
-    queryFn: getCompaniesList
+    queryFn: () => getCompaniesList()
   })
 
 

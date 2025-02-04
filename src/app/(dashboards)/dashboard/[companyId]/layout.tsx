@@ -32,10 +32,11 @@ export default async function DashboardLayout({
         <Sidebar userData={userData} className="hidden sm:flex" />
 
         <div className="p-6 w-full grid auto-rows-max grid-cols-1 gap-6 h-full overflow-y-auto">
-          <Suspense>
-            <Breadcrumbs />
-          </Suspense>
-
+          <div className="bg-card p-5 rounded-md flex justify-between items-center" id="bcrumbs_container">
+            <Suspense>
+              <Breadcrumbs />
+            </Suspense>
+          </div>
           {children}
 
           {modals}

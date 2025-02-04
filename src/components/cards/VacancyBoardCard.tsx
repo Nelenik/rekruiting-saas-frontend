@@ -18,13 +18,13 @@ const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, salary_
           'w-full py-4 px-6 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200'
         )}
       >
-        <CardHeader className="p-0 mb-2">
+        <CardHeader className="p-0">
           <CardTitle className="text-base">{name}</CardTitle>
         </CardHeader>
-        <p className="leading-7">
-          {location}
+        <p className="leading-7 text-muted-foreground">
+          {location || 'Город неизвестен'}
         </p>
-        <p className="leading-7">
+        <p className="leading-7 text-muted-foreground">
           {getSalaryRange(salary_from, salary_to)}
         </p>
       </Card>

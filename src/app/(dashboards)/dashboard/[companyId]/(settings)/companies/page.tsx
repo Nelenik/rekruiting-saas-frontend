@@ -1,14 +1,30 @@
-import { mockCompanies } from "@/actions/mockData";
+// 'use client'
+import { getCompaniesList } from "@/actions/getData";
+import CompaniesFilter from "@/components/CompaniesFilter";
+import CompaniesTable from "@/components/CompaniesTable";
+import FilterInput from "@/components/app_forms/form_elmts/FilterField";
 import AddEntityModal from "@/components/modals/AddEntityModal";
-import EditEntityModal from "@/components/modals/EditEntityModal";
+import { Input } from "@/components/ui/input";
 
-const CompaniesPage = async () => {
+type TProps = {
+
+  searchParams: Promise<{ [key: string]: string }>
+
+}
+
+const CompaniesPage = async ({ searchParams }: TProps) => {
+  const filters = (await searchParams)
+  console.log('filters', filters)
+  const companies = await getCompaniesList(filters)
   return (
-    <div>Companies page
-      <AddEntityModal entityType="company" />
-      <br />
-      <br />
-      <EditEntityModal initialData={mockCompanies[0]} entityType="company" />
+    <div>
+      {filters.search}
+      <div className="flex mb-6 items-end">
+        <CompaniesFilter />
+        <AddEntityModal entityType="company" className=" [&_span]:hidden lg:w-max ml-auto py-2 " />
+      </div>
+
+      <CompaniesTable companiesList={companies} />
     </div>
   );
 }
