@@ -103,29 +103,12 @@ body {
 
 /* Define the thumb style */
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--sidebar-background)/0.1);
+  background: hsl(var(--primary)/0.1);
   border-radius: 5px;
 }
 
 /* Define the track style */
 ::-webkit-scrollbar-track {
-  background-color: hsl(var(--input));
-  border: 1px solid hsl(var(--input));
+  background-color: hsl(var(--input)/0.3);
   border-radius: 5px;
-}
-
-/* Define the button style */
-/* ::-webkit-scrollbar-button {
-  background-color: hsl(var(--sidebar-background)/0.1);
-  border-radius: 5px;
-  cursor: pointer;
-} */
-
-/* Define the button style when being hovered over  */
-::-webkit-scrollbar-button:hover {
-  background-color: hsl(var(--sidebar-background)/0.3);
-}
-
-.thin-scrollbar::-webkit-scrollbar {
-  width: 3px;
 }

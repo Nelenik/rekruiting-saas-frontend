@@ -2,7 +2,7 @@
 import { EMatchStatus } from "@/shared/types";
 import EditButton from "./buttons/EditButton";
 import { Badge } from "./ui/badge";
-import { FC, useActionState, useRef, useState } from "react";
+import { FC, useActionState, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { matchStatusesDict } from "@/shared/dictionaries";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
@@ -42,20 +42,27 @@ const CandyMatch: FC<TProps> = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false)
 
-  const [localStatus, setLocalStatus] = useState<EMatchStatus>(match_status);
-
-  const [_, confirmAction] = useActionState(updateMatch, { ...mutationInitialState, payload: convertToFormData({ match_status }) })
+  const [status, confirmAction, isPending] = useActionState(
+    updateMatch,
+    {
+      ...mutationInitialState,
+      payload: convertToFormData({ match_status })
+    }
+  )
 
   const formRef = useRef<HTMLFormElement>(null)
+  const defValue = status.payload.get('match_status') as EMatchStatus
 
   const handleConfirm = () => {
     formRef.current?.requestSubmit()
-    setIsEditing(false)
   }
+
+  useEffect(() => {
+    !isPending && setIsEditing(false)
+  }, [isPending])
 
   const handleCancel = () => {
     setIsEditing(false)
-    setLocalStatus(match_status)
   }
 
   return (
@@ -77,8 +84,7 @@ const CandyMatch: FC<TProps> = ({
               <td className="px-4 py-1">
                 {isEditing
                   ? <form action={confirmAction} ref={formRef}>
-                    <Select value={localStatus}
-                      onValueChange={(value) => setLocalStatus(value as EMatchStatus)} name="match_status">
+                    <Select defaultValue={defValue} name="match_status">
                       <SelectTrigger className="w-[180px] focus:ring-0 focus:ring-offset-0 h-8">
                         <SelectValue placeholder="Статус" />
                       </SelectTrigger>
@@ -89,8 +95,8 @@ const CandyMatch: FC<TProps> = ({
                       </SelectContent>
                     </Select>
                   </form>
-                  : <Badge className={cn("py-1 bg-transparent ring-1", badgeColors[localStatus])}>
-                    {matchStatusesDict[localStatus]}
+                  : <Badge className={cn("py-1 bg-transparent ring-1", badgeColors[defValue])}>
+                    {matchStatusesDict[defValue]}
                   </Badge>
                 }
               </td>

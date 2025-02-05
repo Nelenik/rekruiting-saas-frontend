@@ -4,6 +4,7 @@ import { TCompany } from "@/shared/types/companies";
 import { format } from "date-fns";
 import { FC } from "react";
 import { Card } from "./ui/card";
+import EditEntityModal from "./modals/EditEntityModal";
 
 type TProps = {
   companiesList: TCompany[]
@@ -17,7 +18,7 @@ const CompaniesTable: FC<TProps> = ({
       <Table>
         <TableHeader className="bg-background">
           <TableRow>
-            <TableHead>
+            <TableHead className="w-[30%]">
               Название
             </TableHead>
             <TableHead>
@@ -28,6 +29,8 @@ const CompaniesTable: FC<TProps> = ({
             </TableHead>
             <TableHead>
               Дата подключения
+            </TableHead>
+            <TableHead>
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -45,6 +48,9 @@ const CompaniesTable: FC<TProps> = ({
               </TableCell>
               <TableCell className="font-medium text-left text-sm">
                 {format(new Date(company.rate_at), "dd.MM.yyyy")}
+              </TableCell>
+              <TableCell>
+                <EditEntityModal initialData={company} entityType="company" triggerView="icon" />
               </TableCell>
             </TableRow>
           ))}

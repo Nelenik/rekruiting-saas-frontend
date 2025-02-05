@@ -56,7 +56,7 @@ const CompanySwitcher = () => {
       <DropdownMenuContent className="w-full ">
         <DropdownMenuLabel>Компании клиента</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <div className="h-[150px] overflow-y-auto ">
+        <div className="h-[150px] overflow-y-auto [&::-webkit-scrollbar]:w-[4px]">
 
           {companiesList?.map((company) => (
             <DropdownMenuItem asChild key={company.id}>

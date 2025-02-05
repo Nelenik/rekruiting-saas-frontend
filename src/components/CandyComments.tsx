@@ -31,8 +31,9 @@ const CandyComments: FC<TProps> = ({
         <MessageCircleMore className="stroke-muted-foreground" />
         Комментарии
       </h2>
-      <div>
-        <List className="flex flex-col gap-6 max-h-[60vh] overflow-y-auto px-6 pt-6 ring-2 ring-offset-2 ring-slate-100 thin-scrollbar" >
+      <div className="ring-2 rounded-sm ring-offset-2 ring-primary/10">
+        <List className="flex flex-col gap-6 max-h-[60vh] overflow-y-auto px-6 [&::-webkit-scrollbar]:w-[4px]" >
+          <li></li>
           {comments.map((comment, i, array) => (
             <li key={comment.id} className="flex flex-col gap-2 text-sm ">
               <h3 className='font-semibold text-sm'>
@@ -46,7 +47,7 @@ const CandyComments: FC<TProps> = ({
               <p className="text-muted-foreground text-sm">
                 {comment.value}
               </p>
-              {i !== array.length - 1 && <Separator />}
+              {i !== array.length - 1 && <Separator className="bg-primary/10" />}
             </li>
           ))}
           <li ref={scrollToLastComment}></li>
