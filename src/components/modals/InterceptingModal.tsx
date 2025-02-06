@@ -31,7 +31,7 @@ const InterceptingModal = ({ dialogTitle, dialogDescription, children }: IInterc
   const handleClose = useCallback(() => {
     setOpen(false)
     wait(50).then(router.back)
-  }, [])
+  }, [router.back])
   return (
     // <Dialog open={open} onOpenChange={handleClose} >
     //   <DialogContent className="w-[min(100%,1300px)] h-full bg-white max-w-none ">

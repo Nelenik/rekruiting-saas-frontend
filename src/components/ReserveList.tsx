@@ -17,7 +17,7 @@ const ReserveList: FC<TProps> = ({
   return (
     <List className="grow ">
       {resumeList.map((resume) => (
-        <li className="[&:not(:last-child)]:mb-4 text-lg">
+        <li className="[&:not(:last-child)]:mb-4 text-lg" key={resume.id}>
           <Card className="py-2 px-6 flex gap-6 items-center justify-between">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />

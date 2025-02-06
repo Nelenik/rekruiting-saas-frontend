@@ -58,7 +58,9 @@ const CandyMatch: FC<TProps> = ({
   }
 
   useEffect(() => {
-    !isPending && setIsEditing(false)
+    if (!isPending) {
+      setIsEditing(false)
+    }
   }, [isPending])
 
   const handleCancel = () => {
