@@ -80,11 +80,11 @@ const EditEntityModal = <T extends object>(
     //   </DialogContent>
     // </Dialog>
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
+      <SheetTrigger asChild onClick={(e) => e.stopPropagation()}>
         <EditButton isIconView={triggerView === 'icon'} className={className} />
       </SheetTrigger>
 
-      <SheetContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col sm:max-w-none overflow-y-auto">
+      <SheetContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col sm:max-w-none overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         <SheetTitle className="text-3xl">
           {labels[entityType].title}
         </SheetTitle>

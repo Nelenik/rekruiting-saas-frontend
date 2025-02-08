@@ -12,7 +12,7 @@ import {
 
 import { apiGet } from "./api";
 import { IUser } from "@/shared/types/user";
-import { mockCompanies, mockMatchInfo, mockResume } from "./mockData";
+import { mockMatchInfo, mockResume } from "./mockData";
 import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import { TCompany } from "@/shared/types/companies";
 
@@ -27,19 +27,24 @@ export const getUser = async (): Promise<IUser> => {
 };
 
 /* COMPANY */
-/*----Needs to be redone with real data.--- */
 export const getCompaniesList = async (
   filters: Record<string, string> = {}
-): Promise<TCompany[]> => {
-  const filterString = new URLSearchParams(
-    filterFalsyFields(filters)
-  ).toString();
-
-  console.log(filterString);
-  return mockCompanies.filter(({ name }) =>
-    name.toLowerCase().includes(filters.search?.toLowerCase() || "")
-  );
+) => {
   // return [];
+  try {
+    const filterString = new URLSearchParams(
+      filterFalsyFields(filters)
+    ).toString();
+    const response = await apiGet<TApiListResponse<TCompany>>(
+      "/company?" + filterString
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      "Не удалось загрузить список компаний. Пожалуйста, попробуйте позже."
+    );
+  }
 };
 
 /* RESUME */

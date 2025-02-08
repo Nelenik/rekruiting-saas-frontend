@@ -1,19 +1,19 @@
 'use client';
 
-import { format } from 'date-fns';
+import { format, isValid, parseISO } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from '../../ui/input';
 import { cn } from '@/lib/utils';
 
 interface IDatePickerProps {
   nameAttr: string;
-  defaultValue?: string | number | Date;
+  defaultValue?: string;
   isError?: boolean;
 }
 
@@ -24,23 +24,28 @@ const DatePicker = ({
 }: IDatePickerProps) => {
   const [date, setDate] = useState<Date>();
 
+  useEffect(() => {
+    const parsedDate = parseISO(defaultValue);
+    if (isValid(parsedDate)) {
+      setDate(parsedDate);
+    }
+  }, [defaultValue]);
+
   const dateValue =
-    date || defaultValue ? format(date || defaultValue, 'dd.MM.yyyy') : '';
+    date ? format(date, 'dd.MM.yyyy') : "ДД.ММ.ГГГГ";
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Input
-          type="text"
-          value={dateValue}
-          placeholder="ДД.ММ.ГГГГ"
-          name={nameAttr}
-          readOnly
-          className={cn(isError && 'border-destructive')}
-        />
+      <PopoverTrigger className={cn('h-10 w-full rounded-md border border-input bg-none px-3 py-2 text-base text-muted-foreground text-start', isError && 'border-destructive')}>
+        <span >
+          <input type='hidden' value={date ? date.toISOString() : ''} name={nameAttr} />
+          {dateValue}
+        </span>
+
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
+          defaultMonth={date}
           mode="single"
           selected={date}
           onSelect={setDate}

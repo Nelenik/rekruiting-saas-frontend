@@ -11,8 +11,13 @@ import {
 import { apiPost } from "./api";
 import { TMutationState } from "./types";
 
-export const storeCompany = async (_: TMutationState, body: FormData) =>
-  storeEntity("/company", body);
+export const storeCompany = async (_: TMutationState, body: FormData) => {
+  const result = await storeEntity("/company", body);
+  if (!result.error) {
+    revalidatePath("/dashboard/[companyId]/companies", "layout");
+  }
+  return result;
+};
 
 export const storeCv = async (_: TMutationState, body: FormData) =>
   storeEntity("/cv", body);
@@ -29,7 +34,11 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
 const storeEntity = async (url: string, body: FormData) => {
   try {
     const response = await apiPost<boolean | TBadRequest>(url, body);
-
+    console.log("store res", response);
+    console.log(
+      "error cond",
+      response && typeof response === "object" && response.errorType
+    );
     if (response && typeof response === "object" && response.errorType) {
       return {
         sent: true,

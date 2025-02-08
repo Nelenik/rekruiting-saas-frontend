@@ -6,6 +6,7 @@ import { getCompaniesList } from "./actions/getData";
 export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname === "/dashboard") {
     const companies = await getCompaniesList();
+
     if (companies.length) {
       return NextResponse.redirect(
         new URL(`/dashboard/${companies[0].id}`, request.url)

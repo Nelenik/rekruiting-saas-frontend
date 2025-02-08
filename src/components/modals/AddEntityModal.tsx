@@ -57,14 +57,14 @@ const AddEntityModal: FC<TProps> = ({
     //   </DialogContent>
     // </Dialog>
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
+      <SheetTrigger asChild onClick={(e) => e.stopPropagation()}>
         <Button className={cn('w-max lg:w-full py-6 text-base flex', className)}>
           <CirclePlus />
           Добавить <span className="hidden sm:inline">{labels[entityType].triggerText}</span>
         </Button>
       </SheetTrigger>
 
-      <SheetContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col sm:max-w-none overflow-y-auto">
+      <SheetContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col sm:max-w-none overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         <SheetTitle className="text-3xl">
           {labels[entityType].title}
         </SheetTitle>

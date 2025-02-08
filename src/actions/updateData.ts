@@ -25,7 +25,15 @@ export const updateCompany = async (
   companyId: number | string,
   _: TMutationState,
   body: FormData
-) => updateEntity(`/company/${companyId}`, body);
+) => {
+  console.log("compayId", companyId);
+  console.log(Object.fromEntries(body));
+  const result = await updateEntity(`/company/${companyId}`, body);
+  if (!result.error) {
+    revalidatePath("/dashboard/[companyId]/companies/*", "layout");
+  }
+  return result;
+};
 
 export const updateCV = async (
   cvId: number | string,
@@ -38,6 +46,7 @@ const updateEntity = async (url: string, body: FormData) => {
   console.log(Object.fromEntries(body));
   try {
     const response = await apiPut<boolean | TBadRequest>(url, body);
+    console.log("update resp", response);
     if (response && typeof response === "object" && response.errorType) {
       return {
         sent: true,

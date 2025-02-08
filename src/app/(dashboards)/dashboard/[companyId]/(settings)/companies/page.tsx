@@ -14,8 +14,8 @@ type TProps = {
 
 const CompaniesPage = async ({ searchParams }: TProps) => {
   const filters = (await searchParams)
-  console.log('filters', filters)
   const companies = await getCompaniesList(filters)
+  console.log('companies page', companies)
   return (
     <div>
       <div className="flex mb-6 items-end">
