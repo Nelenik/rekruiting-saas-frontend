@@ -68,3 +68,10 @@ export enum EVacancyExperience {
   FROM_3_TO_5 = "from-3-to-5",
   MORE_THAN_5 = "more-than-5",
 }
+
+export enum EVacancyLevel {
+  INTERN = "intern",
+  JUNIOR = "junior",
+  MIDDLE = "middle",
+  SENIOR = "senior",
+}

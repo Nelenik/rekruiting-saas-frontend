@@ -5,7 +5,7 @@ import { Input } from "./ui/input";
 
 const ReserveFilter = () => {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-wrap @3xl:flex-col gap-6">
       <FilterField paramName="spec" render={({ value, onChange }) => (
         <FormItem labelText="Специализация">
           <Input value={value} onChange={onChange} placeholder="Специализация" className="" />

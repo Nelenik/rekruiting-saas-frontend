@@ -1,6 +1,8 @@
+import { ECvStatus } from "../types/resume";
+
 export const workStatusDict = {
-  open: "в поиске",
-  passive: "рассматривает предложения",
-  closed: "не в поиске",
-  offered: "есть оффер",
+  [ECvStatus.LOOKING]: "в поиске",
+  [ECvStatus.CONSIDERING]: "рассматривает предложения",
+  [ECvStatus.NOT_LOOKING]: "не в поиске",
+  [ECvStatus.OFFER]: "есть оффер",
 };

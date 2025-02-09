@@ -26,11 +26,9 @@ export const updateCompany = async (
   _: TMutationState,
   body: FormData
 ) => {
-  console.log("compayId", companyId);
-  console.log(Object.fromEntries(body));
   const result = await updateEntity(`/company/${companyId}`, body);
   if (!result.error) {
-    revalidatePath("/dashboard/[companyId]/companies/*", "layout");
+    revalidatePath("/dashboard/*", "layout");
   }
   return result;
 };
@@ -39,7 +37,13 @@ export const updateCV = async (
   cvId: number | string,
   _: TMutationState,
   body: FormData
-) => updateEntity(`cv/${cvId}`, body);
+) => {
+  const result = await updateEntity(`/cv/${cvId}`, body);
+  if (!result.error) {
+    revalidatePath("/dashboard/[companyId]/reserve", "page");
+  }
+  return result;
+};
 
 //Full entity update (PUT request)
 const updateEntity = async (url: string, body: FormData) => {

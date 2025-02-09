@@ -12,9 +12,10 @@ import {
 
 import { apiGet } from "./api";
 import { IUser } from "@/shared/types/user";
-import { mockMatchInfo, mockResume } from "./mockData";
+import { mockMatchInfo } from "./mockData";
 import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import { TCompany } from "@/shared/types/companies";
+import { TResume } from "@/shared/types/resume";
 
 /* USER */
 /*----Needs to be redone with real data.--- */
@@ -48,9 +49,22 @@ export const getCompaniesList = async (
 };
 
 /* RESUME */
-/*--- Needs to be redone with real data.---- */
-export const getResumeList = async () => {
-  return mockResume;
+export const getResumeList = async (filters: Record<string, string> = {}) => {
+  // return mockResume;
+  try {
+    const filterString = new URLSearchParams(
+      filterFalsyFields(filters)
+    ).toString();
+    const response = await apiGet<TApiListResponse<TResume>>(
+      "/cv?" + filterString
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      "Не удалось загрузить список компаний. Пожалуйста, попробуйте позже."
+    );
+  }
 };
 
 /*VACANCY */

@@ -1,21 +1,24 @@
 import { getResumeList } from "@/actions/getData";
-import { mockResume } from "@/actions/mockData";
 import AddEntityModal from "@/components/modals/AddEntityModal";
-import EditEntityModal from "@/components/modals/EditEntityModal";
 import ReserveFilter from "@/components/ReserveFilter";
 import ReserveList from "@/components/ReserveList";
+import { FC } from "react";
 
-const ReservePage = async () => {
-  const resumeList = await getResumeList()
+type TProps = {
+  searchParams: Promise<{ [key: string]: string }>
+}
+
+const ReservePage: FC<TProps> = async ({ searchParams }) => {
+  const filters = (await searchParams)
+  const resumeList = await getResumeList(filters)
+  console.log(resumeList)
   return (
-    <div className="flex gap-10">
-      <div className="w-[20%] flex flex-col gap-10">
-        <AddEntityModal entityType="resume" />
+    <div className="flex flex-col gap-10 justify-between  @3xl:flex-row">
+      <div className="@3xl:w-[250px] flex flex-col gap-10">
+        <AddEntityModal entityType="resume" className="max-w-[250px]" />
         <ReserveFilter />
       </div>
       <ReserveList resumeList={resumeList} />
-      {/* <EditEntityModal initialData={mockResume[0]} entityType="resume" /> */}
-
     </div>
   );
 }

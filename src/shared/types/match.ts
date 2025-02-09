@@ -5,6 +5,10 @@ export enum EMatchStatus {
   REFUSAL = "refusal",
   OFFER = "offer",
 }
+export enum EMatchType {
+  RESPONSE = "response",
+  SOURCING = "sourcing",
+}
 
 export type TCandidateShort = {
   id: number;

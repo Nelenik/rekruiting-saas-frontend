@@ -38,7 +38,7 @@ const ResumeForm: FC<TProps> = ({
     ...(initialData && { payload: convertToFormData(initialData) })
   }
   //define toast message
-  const toastMessage = type === 'edit' ? 'Данные о компании успешно обновлены' : 'Новая компания успешно сохранена'
+  const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
 
   const { formAction, pending, defaultValues, errors, onChange } =
     useFormMutation(action, closeModal, initialState, toastMessage);

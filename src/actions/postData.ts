@@ -19,8 +19,13 @@ export const storeCompany = async (_: TMutationState, body: FormData) => {
   return result;
 };
 
-export const storeCv = async (_: TMutationState, body: FormData) =>
-  storeEntity("/cv", body);
+export const storeCv = async (_: TMutationState, body: FormData) => {
+  const result = await storeEntity("/cv", body);
+  if (!result.error) {
+    revalidatePath("/dashboard/[companyId]/reserve", "page");
+  }
+  return result;
+};
 
 export const storeVacancy = async (_: TMutationState, body: FormData) => {
   const result = await storeEntity("/vacancy", body);

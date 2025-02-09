@@ -41,7 +41,7 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
         description: toastMessage,
       });
       setIsSuccess(true);
-    } else if (state.sent && state.error) {
+    } else if (state.sent && state.error && !state.error.details) {
       toast({
         variant: 'destructive',
         description: state.error?.message

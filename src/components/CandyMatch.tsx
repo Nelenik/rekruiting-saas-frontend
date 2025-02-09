@@ -51,6 +51,7 @@ const CandyMatch: FC<TProps> = ({
   )
 
   const formRef = useRef<HTMLFormElement>(null)
+
   const defValue = status.payload.get('match_status') as EMatchStatus
 
   const handleConfirm = () => {
