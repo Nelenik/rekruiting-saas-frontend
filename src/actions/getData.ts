@@ -31,7 +31,6 @@ export const getUser = async (): Promise<IUser> => {
 export const getCompaniesList = async (
   filters: Record<string, string> = {}
 ) => {
-  // return [];
   try {
     const filterString = new URLSearchParams(
       filterFalsyFields(filters)
@@ -50,7 +49,6 @@ export const getCompaniesList = async (
 
 /* RESUME */
 export const getResumeList = async (filters: Record<string, string> = {}) => {
-  // return mockResume;
   try {
     const filterString = new URLSearchParams(
       filterFalsyFields(filters)
@@ -139,8 +137,18 @@ export const getBasicCandidatesByStatus = async (
 };
 
 /* ----Needs to be redone with real data.----*/
-export const getCandidateFull = async () => {
+export const getCandidateFull = async (matchId: number) => {
   return mockMatchInfo;
+  // try {
+  //   const response = await apiGet(`/match/${matchId}`);
+  //   console.log("matchfull", response);
+
+  //   return response.data;
+  // } catch (error) {
+  //   throw new Error(
+  //     "Не удалось загрузить кандидата. Пожалуйста, попробуйте позже."
+  //   );
+  // }
 };
 
 /* TARIFFS */

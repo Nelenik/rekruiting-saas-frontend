@@ -14,8 +14,9 @@ const tabsDict = [
 
 ]
 
-const MatchInfo = async () => {
-  const match = await getCandidateFull()
+const MatchInfo = async ({ matchId }: { matchId: number }) => {
+  const match = await getCandidateFull(matchId)
+  console.log(match)
 
   return (
     <div>

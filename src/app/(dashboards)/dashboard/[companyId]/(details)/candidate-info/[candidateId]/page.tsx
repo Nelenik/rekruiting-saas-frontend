@@ -7,7 +7,7 @@ const CandidatePage = async ({ params }: { params: Promise<{ candidateId: string
   console.log('candidate id', candidateId);
   return (
     <div>
-      <MatchInfo />
+      <MatchInfo matchId={Number(candidateId)} />
     </div>
   );
 }
