@@ -5,9 +5,10 @@ import Header from '@/components/navigation/Header';
 
 import { Suspense } from 'react';
 import { Toaster } from '@/components/ui/toaster';
-import { getUser } from '@/actions/getData';
+import { getCompaniesList, getUser } from '@/actions/getData';
 import React from 'react';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs';
+import { CompaniesProvider } from '@/providers/CompaniesProvider';
 
 export const metadata: Metadata = {
   title: 'REkrutAI|Дашборд',
@@ -21,10 +22,11 @@ export default async function DashboardLayout({
   children: React.ReactNode;
   modals: React.ReactNode;
 }>) {
-
   const userData = await getUser()
+
+  const companies = await getCompaniesList({})
   return (
-    <React.Fragment>
+    <CompaniesProvider companiesList={companies}>
       <Header userData={userData} className="md:hidden" />
 
       <main className="w-full flex h-screen overflow-hidden">
@@ -45,6 +47,6 @@ export default async function DashboardLayout({
         </div>
       </main>
       <Toaster />
-    </React.Fragment>
+    </CompaniesProvider>
   );
 }

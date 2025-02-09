@@ -9,26 +9,26 @@ import { createContext, ReactNode, useContext } from "react"
 
 interface CompaniesContextType {
   companiesList: TCompany[];
-  isLoading: boolean;
+  // isLoading: boolean;
   activeCompany: TCompany | null;
 }
 
 export const CompaniesContext = createContext<CompaniesContextType | null>(null)
 
-export const CompaniesProvider = ({ children }: { children: ReactNode }) => {
+export const CompaniesProvider = ({ children, companiesList }: { children: ReactNode, companiesList: TCompany[] }) => {
   const { companyId } = useParams<{ companyId: string }>()
 
   //get user's companies list
-  const { data: companiesList = [], isLoading } = useQuery({
-    queryKey: ['companies', 'list'],
-    queryFn: () => getCompaniesList()
-  })
+  // const { data: companiesList = [], isLoading } = useQuery({
+  //   queryKey: ['companies', 'list'],
+  //   queryFn: () => getCompaniesList()
+  // })
 
 
   //get active company data
   const activeCompany: TCompany | null = companiesList?.find((el: TCompany) => el.id === Number(companyId)) || null
 
-  return (<CompaniesContext.Provider value={{ companiesList, isLoading, activeCompany }}>
+  return (<CompaniesContext.Provider value={{ companiesList, activeCompany }}>
     {children}
   </CompaniesContext.Provider>)
 }

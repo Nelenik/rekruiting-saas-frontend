@@ -7,8 +7,6 @@ import { useVacancies, VacanciesProvider } from '@/providers/VacanciesProvider';
 const VacanciesPage = () => {
   const vacancies = useVacancies()
   return (
-
-
     <div className="flex flex-col items-center justify-center h-full">
       Vacancies board
       <ul className='w-full grid grid-cols-3 gap-4'>
