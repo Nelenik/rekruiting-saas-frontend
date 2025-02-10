@@ -2,9 +2,7 @@
 import { getCompaniesList } from "@/actions/getData";
 import CompaniesFilter from "@/components/CompaniesFilter";
 import CompaniesTable from "@/components/CompaniesTable";
-import FilterInput from "@/components/app_forms/form_elmts/FilterField";
 import AddEntityModal from "@/components/modals/AddEntityModal";
-import { Input } from "@/components/ui/input";
 
 type TProps = {
 
@@ -15,7 +13,7 @@ type TProps = {
 const CompaniesPage = async ({ searchParams }: TProps) => {
   const filters = (await searchParams)
   const companies = await getCompaniesList(filters)
-  console.log('companies page', companies)
+  // console.log('companies page', companies)
   return (
     <div>
       <div className="flex mb-6 items-end">

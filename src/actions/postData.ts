@@ -14,7 +14,7 @@ import { TMutationState } from "./types";
 export const storeCompany = async (_: TMutationState, body: FormData) => {
   const result = await storeEntity("/company", body);
   if (!result.error) {
-    revalidatePath("/dashboard/[companyId]/companies", "layout");
+    revalidatePath("/dashboard/[companyId]", "layout");
   }
   return result;
 };

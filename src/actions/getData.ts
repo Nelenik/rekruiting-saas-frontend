@@ -31,7 +31,6 @@ export const getUser = async (): Promise<IUser> => {
 export const getCompaniesList = async (
   filters: Record<string, string> = {}
 ) => {
-  // return [];
   try {
     const filterString = new URLSearchParams(
       filterFalsyFields(filters)

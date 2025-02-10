@@ -7,7 +7,6 @@ import {
   TBadRequest,
 } from "@/shared/helpers";
 import { apiPut } from "./api";
-import { mockMatchInfo } from "./mockData";
 
 export const updateVacancy = async (
   vacancyId: number | string,
@@ -28,7 +27,7 @@ export const updateCompany = async (
 ) => {
   const result = await updateEntity(`/company/${companyId}`, body);
   if (!result.error) {
-    revalidatePath("/dashboard/*", "layout");
+    revalidatePath("/dashboard/[companyId]", "page");
   }
   return result;
 };
