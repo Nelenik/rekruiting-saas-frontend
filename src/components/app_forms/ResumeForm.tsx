@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
 import { storeCv } from '@/actions/postData';
 
@@ -10,30 +10,38 @@ import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { useFormMutation } from '@/hooks/useFormMutation';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
+import { updateCV } from '@/actions/updateData';
+import { NonNullableFields } from '@/lib/utils/filterFalsyFields';
+import { mutationInitialState } from '@/actions/constants';
+import convertToFormData from '@/lib/utils/convertToFormData';
+import { TResume } from '@/shared/types/resume';
 
-interface IAddResumeFormProps {
-  closeModal: () => void
+type TProps = {
+  type: 'edit' | 'add'
+  initialData?: NonNullableFields<TResume>
+  closeModal?: () => void
 }
 
-export const AddResumeForm: FC<IAddResumeFormProps> = ({ closeModal }) => {
-  const { toast } = useToast()
+const ResumeForm: FC<TProps> = ({
+  type,
+  initialData,
+  closeModal = () => { }
+}) => {
+  //define form action depending of the form type
+  const action = type === 'edit' && initialData
+    ? updateCV.bind(null, initialData.id)
+    : storeCv
 
-  const handleSuccess = useCallback(() => {
-    closeModal();
-    toast({
-      description: 'Резюме успешно создано',
-    });
-  }, [closeModal, toast]);
+  //define initial state
+  const initialState = {
+    ...mutationInitialState,
+    ...(initialData && { payload: convertToFormData(initialData) })
+  }
+  //define toast message
+  const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
 
-  const {
-    formAction,
-    pending,
-    defaultValues,
-    errors,
-    onChange
-  } = useFormMutation(storeCv, handleSuccess)
-
+  const { formAction, pending, defaultValues, errors, onChange } =
+    useFormMutation(action, closeModal, initialState, toastMessage);
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
@@ -64,11 +72,11 @@ export const AddResumeForm: FC<IAddResumeFormProps> = ({ closeModal }) => {
         </FormItem>
 
         <FormItem
-          labelText="Опыт"
+          labelText="Стаж"
           error={errors.experience_months}
         >
           <Input
-            placeholder="Опыт"
+            placeholder="Стаж"
             name="experience_months"
             defaultValue={defaultValues?.experience_months}
             className={errors?.experience_months && 'ring-2 ring-destructive'}
@@ -185,13 +193,15 @@ export const AddResumeForm: FC<IAddResumeFormProps> = ({ closeModal }) => {
       </div>
 
       <div className="self-end">
-        <Button type="button" variant="ghost" className="mr-2">
+        <Button type="button" variant="ghost" className="mr-2" onClick={closeModal}>
           Отмена
         </Button>
         <Button type="submit">
-          {pending ? 'Добавление...' : 'Добавить'}
+          {pending ? 'Сохранение...' : 'Сохранить'}
         </Button>
       </div>
     </form>
   );
-};
+}
+
+export default ResumeForm;

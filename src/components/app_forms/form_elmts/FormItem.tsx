@@ -1,10 +1,12 @@
 import { cn } from "@/lib/utils";
+import { InputHTMLAttributes, PropsWithChildren } from "react";
 
 interface IFormItem {
   labelText?: string,
   children: React.ReactNode,
   className?: string
-  error?: string | null
+  error?: string | null,
+
 }
 
 export const ErrorMessage = ({ message }: { message: string }) => {

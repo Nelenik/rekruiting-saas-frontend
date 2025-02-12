@@ -1,9 +1,8 @@
 'use client';
 
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 
 import { storeCompany } from '@/actions/postData';
-import { TTariff } from '@/shared/types';
 
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
@@ -17,32 +16,49 @@ import {
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
 import { useFormMutation } from '@/hooks/useFormMutation';
-import { useToast } from '@/hooks/use-toast';
 import FormItem from './form_elmts/FormItem';
 import DatePicker from './form_elmts/DatePicker';
+import { useQuery } from '@tanstack/react-query';
+import { getTariffs } from '@/actions/getData';
+import { TCompany } from '@/shared/types/companies';
+import { NonNullableFields } from '@/lib/utils/filterFalsyFields';
+import { updateCompany } from '@/actions/updateData';
+import { mutationInitialState } from '@/actions/constants';
+import convertToFormData from '@/lib/utils/convertToFormData';
 
 type TProps = {
-  tariffs: TTariff[];
-  closeModal: () => void
-};
+  type: 'edit' | 'add'
+  initialData?: NonNullableFields<TCompany>
+  closeModal?: () => void
+}
 
-export const AddCompanyForm: FC<TProps> = ({ tariffs, closeModal }) => {
-  const { toast } = useToast()
+export const CompanyForm: FC<TProps> = ({
+  type,
+  initialData,
+  closeModal = () => { }
+}) => {
 
-  const handleSuccess = useCallback(() => {
-    closeModal();
-    toast({
-      description: 'Компания успешно добавлена',
-    });
-  }, [closeModal, toast]);
+  const { data: tariffs = [] } = useQuery({
+    queryFn: getTariffs,
+    queryKey: ['tariffs']
+  })
 
-  const {
-    formAction,
-    pending,
-    defaultValues,
-    errors,
-    onChange,
-  } = useFormMutation(storeCompany, handleSuccess)
+  //define form action depending of the form type
+  const action = type === 'edit' && initialData
+    ? updateCompany.bind(null, initialData.id)
+    : storeCompany
+
+  //define initial state
+  const initialState = {
+    ...mutationInitialState,
+    ...(initialData && { payload: convertToFormData(initialData) })
+  }
+  //define toast message
+  const toastMessage = type === 'edit' ? 'Данные о компании успешно обновлены' : 'Новая компания успешно сохранена'
+
+  const { formAction, pending, defaultValues, errors, onChange } =
+    useFormMutation(action, closeModal, initialState, toastMessage);
+
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">

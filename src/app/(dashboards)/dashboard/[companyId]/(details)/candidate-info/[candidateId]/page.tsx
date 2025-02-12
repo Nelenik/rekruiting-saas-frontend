@@ -1,3 +1,4 @@
+import MatchInfo from "@/components/pages/MatchInfo";
 import Resume from "@/components/pages/Resume";
 
 
@@ -6,7 +7,7 @@ const CandidatePage = async ({ params }: { params: Promise<{ candidateId: string
   console.log('candidate id', candidateId);
   return (
     <div>
-      <Resume />
+      <MatchInfo matchId={Number(candidateId)} />
     </div>
   );
 }

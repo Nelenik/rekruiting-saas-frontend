@@ -7,6 +7,7 @@ import { EMatchStatus } from '@/shared/types';
 import { CandidateCard } from './cards/CandidateCard';
 import { FunnelCard } from './cards/FunnelCard';
 import { mockCandidateShort } from '@/actions/mockData';
+import { matchStatusesDict } from '@/shared/dictionaries';
 
 type TProps = {
   vacId: number;
@@ -21,7 +22,7 @@ export const MatchStatusCol: FC<TProps> = async ({ companyId, vacId, status }) =
 
   return (
     <>
-      <FunnelCard name={status} count={candidates.length || 0} />
+      <FunnelCard name={matchStatusesDict[status]} count={candidates.length || 0} />
 
       <Suspense fallback={<p>Loading...</p>}>
         <ul className="[&>li:not(:last-child)]:mb-2">

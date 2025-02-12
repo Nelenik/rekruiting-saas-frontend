@@ -37,5 +37,6 @@ export const extractSyntheticErrorFromApi = (e: TBadRequest | null) => {
     );
   }
 
-  return null;
+  // return null;
+  return getSyntheticError("Ошибка сохранения");
 };

@@ -5,6 +5,7 @@ import {
   EVacancyEmployment,
   EVacancyWorkFormat,
   EVacancyExperience,
+  TVacancy,
 } from '@/shared/types';
 import { Button } from '../ui/button';
 import {
@@ -21,23 +22,28 @@ import { getVacancyPositions } from '@/actions/getData';
 import { useQuery } from '@tanstack/react-query';
 import { Input } from '../ui/input';
 import { useParams } from 'next/navigation';
+import { NonNullableFields } from '@/lib/utils/filterFalsyFields';
+import { updateVacancy } from '@/actions/updateData';
+import { storeCompany, storeVacancy } from '@/actions/postData';
+import { mutationInitialState } from '@/actions/constants';
+import convertToFormData from '@/lib/utils/convertToFormData';
 
 type TFormMutationAction = (
   _: TMutationState,
   body: FormData
 ) => Promise<TMutationState>;
 
-interface IVacancyFormProps {
-  action: TFormMutationAction;
-  initialState: TMutationState;
-  handleSuccess: () => void;
+type TProps = {
+  type: 'edit' | 'add'
+  initialData?: NonNullableFields<TVacancy>
+  closeModal?: () => void
 }
 
 const VacancyForm = ({
-  action,
-  initialState,
-  handleSuccess,
-}: IVacancyFormProps) => {
+  type,
+  initialData,
+  closeModal = () => { }
+}: TProps) => {
   const { companyId } = useParams<{ companyId: string }>();
 
   const { data: vacancyPositions } = useQuery({
@@ -45,8 +51,21 @@ const VacancyForm = ({
     queryKey: ['vacancy', 'positions'],
   });
 
+  //define form action depending of the form type
+  const action = type === 'edit' && initialData
+    ? updateVacancy.bind(null, initialData.id)
+    : storeVacancy
+
+  //define initial state
+  const initialState = {
+    ...mutationInitialState,
+    ...(initialData && { payload: convertToFormData(initialData) })
+  }
+  //define toast message
+  const toastMessage = type === 'edit' ? 'Вакансия успешно обновлена' : 'Вакансия успешно сохранена'
+
   const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation(action, handleSuccess, initialState);
+    useFormMutation(action, closeModal, initialState, toastMessage);
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">

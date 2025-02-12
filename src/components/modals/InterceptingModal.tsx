@@ -1,7 +1,9 @@
 'use client'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useCallback, useState } from "react";
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from "../ui/sheet";
+import { wait } from "@/lib/utils/wait";
 
 interface IInterceptingModalProps {
   children: React.ReactNode;
@@ -24,21 +26,39 @@ interface IInterceptingModalProps {
  */
 
 const InterceptingModal = ({ dialogTitle, dialogDescription, children }: IInterceptingModalProps) => {
+  const [open, setOpen] = useState(true)
   const router = useRouter();
+  const handleClose = useCallback(() => {
+    setOpen(false)
+    wait(50).then(router.back)
+  }, [router.back])
   return (
-    <Dialog open={true} onOpenChange={() => router.back()} >
-      <DialogContent className="w-[min(100%,1300px)] h-full bg-white max-w-none ">
+    // <Dialog open={open} onOpenChange={handleClose} >
+    //   <DialogContent className="w-[min(100%,1300px)] h-full bg-white max-w-none ">
+    //     <div className="visually-hidden">
+    //       <DialogTitle>
+    //         {dialogTitle}
+    //       </DialogTitle>
+    //       <DialogDescription>
+    //         {dialogDescription}
+    //       </DialogDescription>
+    //     </div>
+    //     {children}
+    //   </DialogContent>
+    // </Dialog>
+    <Sheet open={open} onOpenChange={handleClose} >
+      <SheetContent className="w-[min(100%,1300px)] h-full bg-white sm:max-w-none overflow-y-auto">
         <div className="visually-hidden">
-          <DialogTitle>
+          <SheetTitle>
             {dialogTitle}
-          </DialogTitle>
-          <DialogDescription>
+          </SheetTitle>
+          <SheetDescription>
             {dialogDescription}
-          </DialogDescription>
+          </SheetDescription>
         </div>
         {children}
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }
 

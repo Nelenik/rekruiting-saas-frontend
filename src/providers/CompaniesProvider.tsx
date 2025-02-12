@@ -1,33 +1,34 @@
 'use client'
 
 import { getCompaniesList } from "@/actions/getData";
-import { ICompany } from "@/shared/types/companies";
+import { TCompany } from "@/shared/types/companies";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { createContext, ReactNode, useContext } from "react"
 
 
 interface CompaniesContextType {
-  companiesList: ICompany[];
-  isLoading: boolean;
-  activeCompany: ICompany | null;
+  companiesList: TCompany[];
+  // isLoading: boolean;
+  activeCompany: TCompany | null;
 }
 
 export const CompaniesContext = createContext<CompaniesContextType | null>(null)
 
-export const CompaniesProvider = ({ children }: { children: ReactNode }) => {
+export const CompaniesProvider = ({ children, companiesList }: { children: ReactNode, companiesList: TCompany[] }) => {
   const { companyId } = useParams<{ companyId: string }>()
 
   //get user's companies list
-  const { data: companiesList = [], isLoading } = useQuery({
-    queryKey: ['companies', 'list'],
-    queryFn: getCompaniesList
-  })
+  // const { data: companiesList = [], isLoading } = useQuery({
+  //   queryKey: ['companies', 'list'],
+  //   queryFn: () => getCompaniesList()
+  // })
+
 
   //get active company data
-  const activeCompany: ICompany | null = companiesList?.find(el => el.id === Number(companyId)) || null
+  const activeCompany: TCompany | null = companiesList?.find((el: TCompany) => el.id === Number(companyId)) || null
 
-  return (<CompaniesContext.Provider value={{ companiesList, isLoading, activeCompany }}>
+  return (<CompaniesContext.Provider value={{ companiesList, activeCompany }}>
     {children}
   </CompaniesContext.Provider>)
 }

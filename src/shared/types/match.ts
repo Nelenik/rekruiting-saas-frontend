@@ -1,9 +1,13 @@
 export enum EMatchStatus {
-  SCORING = 'scoring',
-  SCREENING = 'screening',
-  INTERVIEW = 'interview',
-  REFUSAL = 'refusal',
-  OFFER = 'offer',
+  SCORING = "scoring",
+  SCREENING = "screening",
+  INTERVIEW = "interview",
+  REFUSAL = "refusal",
+  OFFER = "offer",
+}
+export enum EMatchType {
+  RESPONSE = "response",
+  SOURCING = "sourcing",
 }
 
 export type TCandidateShort = {

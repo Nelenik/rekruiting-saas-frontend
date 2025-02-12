@@ -7,11 +7,9 @@ import { useParams, usePathname } from 'next/navigation';
 import ArchiveIcon from '@/assets/icons/archive.svg?rc';
 import { cn } from '@/lib/utils';
 import { getTimePartsFromSec } from '@/lib/utils/getTimePartsFromSec';
-import { TVacancyShort } from '@/shared/types';
-
-import { AddVacancyModal } from '../modals/AddVacancyModal';
 import { VacancyCard } from '../cards/VacancyCard';
 import { useVacancies } from '@/providers/VacanciesProvider';
+import AddEntityModal from '../modals/AddEntityModal';
 
 type TProps = {
   className?: string;
@@ -33,7 +31,8 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
         className
       )}
     >
-      <AddVacancyModal className="self-start" />
+      <AddEntityModal entityType='vacancy' className="self-start" />
+      {/* <AddVacancyModal className="self-start" /> */}
 
       <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1">
         {vacancies.map((vacancy) => {

@@ -1,24 +1,82 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { TMutationState } from "./types";
-import { API_URL } from "@/shared/config";
-import { TBadRequest } from "@/shared/helpers";
+import {
+  extractSyntheticErrorFromApi,
+  getSyntheticError,
+  TBadRequest,
+} from "@/shared/helpers";
+import { apiPut } from "./api";
 
 export const updateVacancy = async (
   vacancyId: number | string,
   _: TMutationState,
   body: FormData
 ) => {
-  console.log("udate");
-  const result = updateEntity(`/vacancy/${vacancyId}`, body);
-  // revalidatePath("/dashboard/[companyId]/vacancies/*");
+  const result = await updateEntity(`/vacancy/${vacancyId}`, body);
+  if (!result.error) {
+    revalidatePath("/dashboard/[companyId]/vacancies/*", "layout");
+  }
   return result;
 };
 
+export const updateCompany = async (
+  companyId: number | string,
+  _: TMutationState,
+  body: FormData
+) => {
+  const result = await updateEntity(`/company/${companyId}`, body);
+  if (!result.error) {
+    revalidatePath("/dashboard/[companyId]", "page");
+  }
+  return result;
+};
+
+export const updateCV = async (
+  cvId: number | string,
+  _: TMutationState,
+  body: FormData
+) => {
+  const result = await updateEntity(`/cv/${cvId}`, body);
+  if (!result.error) {
+    revalidatePath("/dashboard/[companyId]/reserve", "page");
+  }
+  return result;
+};
+
+//Full entity update (PUT request)
 const updateEntity = async (url: string, body: FormData) => {
+  console.log(Object.fromEntries(body));
+  try {
+    const response = await apiPut<boolean | TBadRequest>(url, body);
+    console.log("update resp", response);
+    if (response && typeof response === "object" && response.errorType) {
+      return {
+        sent: true,
+        error: extractSyntheticErrorFromApi(response),
+        payload: body,
+      };
+    }
+  } catch (error) {
+    console.error(error);
+    return {
+      sent: true,
+      error: getSyntheticError("Ошибка сохранения", 500),
+      payload: body,
+    };
+  }
+
+  return {
+    sent: true,
+    error: null,
+  };
+};
+
+export const updateMatch = async (_: TMutationState, body: FormData) => {
   console.log(Object.fromEntries(body));
   return {
     sent: true,
     error: null,
+    payload: body,
   };
 };
