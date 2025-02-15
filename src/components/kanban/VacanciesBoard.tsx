@@ -2,16 +2,15 @@
 
 import { vacancyStatusDict } from "@/shared/dictionaries";
 import { EVacancyStatus, TVacancyShort } from "@/shared/types";
-import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
-import { FC, useCallback, useState } from "react";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
+import { FC, useEffect, useState } from "react";
 import DndColumn from "./DndColumn";
 import DndItem from "./DndItem";
 import VacancyBoardCard from "../cards/VacancyBoardCard";
 import { FunnelCard } from "../cards/FunnelCard";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
-import { groupBy } from "@/lib/utils/groupBy";
-import { sources } from "next/dist/compiled/webpack/webpack";
-import { findItemStatus, hasDraggableData, isValidDragEvent } from "./helpers";
+import { findItemStatus, isValidDragEvent } from "./helpers";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 const columns = [
   {
@@ -33,20 +32,19 @@ const columns = [
 ];
 
 type TProps = {
-  items: TVacancyShort[]
+  groupedItems: Record<string, TVacancyShort[]>
 }
 
 
-const VacanciesBoard: FC<TProps> = ({ items }) => {
-  console.log('board items', items)
-  //group received vacancies by status and used as initial state
-  // const initGroups = groupBy(items, (el) => el.status)
-  const [groups, setGroups] = useState<Record<string, TVacancyShort[]>>(() => groupBy(items, (el) => el.status))
+const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
 
+  const [groups, setGroups] = useState<Record<string, TVacancyShort[]>>(groupedItems)
+
+  useEffect(() => {
+    setGroups(groupedItems)
+  }, [groupedItems])
 
   const [activeItem, setActiveItem] = useState<TVacancyShort | null>(null)
-
-  console.log('board groups', groups)
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
@@ -61,20 +59,24 @@ const VacanciesBoard: FC<TProps> = ({ items }) => {
     const { active, over } = event
     if (!isValidDragEvent(active, over)) return
 
-
+    //check active element and over zone
     const isActiveItem = active.data.current?.type === 'item'
     const isOverItem = over?.data?.current?.type === 'item'
     const isOverColumn = over?.data?.current?.type === 'column'
 
     const sourceColStatus = findItemStatus(groups, String(active.id))
-    const targetColStatus = isOverColumn ? String(over.id) : findItemStatus(groups, String(over?.id))
+
+    const targetColStatus = isOverColumn
+      ? String(over.id)
+      : findItemStatus(groups, String(over?.id))
+
     if (!sourceColStatus || !targetColStatus) return
 
     if (isActiveItem) {
       const draggableItem = activeItem || Object.values(groups).flat().find(vac => String(vac.id) === active.id);
       if (!draggableItem) return
 
-
+      //if element is over column
       if (isOverColumn) {
         setGroups(prev => {
           if (sourceColStatus === targetColStatus) return prev
@@ -87,6 +89,7 @@ const VacanciesBoard: FC<TProps> = ({ items }) => {
           }
         })
       } else if (isOverItem) {
+        //if element is over another element(item, card)
         setGroups(prev => {
 
           const sourceItems = [...prev[sourceColStatus]]
@@ -121,58 +124,53 @@ const VacanciesBoard: FC<TProps> = ({ items }) => {
     setActiveItem(null)
   }
 
-
-  const handleDragOver = useCallback((event: DragOverEvent) => {
-    const { active, over } = event;
-    // console.log('onDragOverEvent', active)
-    // console.log('onDragOverEvent', over)
-  }, [])
-
-
-
   return (
     <DndContext
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      onDragOver={handleDragOver}
       id="unique-dnd-context-id"
     >
-
-      <div className="flex gap-4 w-full overflow-auto p-2 ">
-        {columns.map((col) => (
-          <div
-            key={col.id}
-            className={`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/4 min-w-[200px]`}
-          >
-            <FunnelCard
-              name={col.title}
-              count={groups[col.id]?.length || 0}
-            />
-            <DndColumn
-              id={col.id}
-              className="flex flex-col gap-2 grow"
+      <ScrollArea className="pb-4">
+        <div className="flex gap-4 w-full p-2 ">
+          {columns.map((col) => (
+            <div
+              key={col.id}
+              className={`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/4 min-w-[200px]`}
             >
-              <SortableContext items={(groups[col.id] || []).map(v => String(v.id))}>
+              <FunnelCard
+                name={col.title}
+                count={groups[col.id]?.length || 0}
+              />
+              <DndColumn
+                id={col.id}
+                className="flex flex-col gap-2 grow"
+              >
+                <ScrollArea className="h-[clamp(500px,65vh,800px)] px-2">
+                  <SortableContext items={(groups[col.id] || []).map(v => String(v.id))}>
 
-                {(groups[col.id] || []).map((vacancy: TVacancyShort) => (
-                  <DndItem
-                    id={String(vacancy.id)}
-                    key={vacancy.id}
-                  >
-                    <VacancyBoardCard
-                      id={vacancy.id}
-                      name={vacancy.name}
-                      location={vacancy.location}
-                      salary_from={vacancy.salary_from}
-                      salary_to={vacancy.salary_to}
-                    />
-                  </DndItem>
-                ))}
-              </SortableContext>
-            </DndColumn>
-          </div>
-        ))}
-      </div>
+                    {(groups[col.id] || []).map((vacancy: TVacancyShort) => (
+                      <DndItem
+                        id={String(vacancy.id)}
+                        key={vacancy.id}
+                      >
+                        <VacancyBoardCard
+                          id={vacancy.id}
+                          name={vacancy.name}
+                          location={vacancy.location}
+                          salary_from={vacancy.salary_from}
+                          salary_to={vacancy.salary_to}
+                        />
+                      </DndItem>
+                    ))}
+                  </SortableContext>
+                  <ScrollBar />
+                </ScrollArea>
+              </DndColumn>
+            </div>
+          ))}
+        </div>
+        <ScrollBar orientation="horizontal" className="bg-input/30 h-4 cursor-pointer" />
+      </ScrollArea>
       <DragOverlay>
         {activeItem && (
           <DndItem id={String(activeItem.id)}>
