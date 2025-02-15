@@ -9,7 +9,10 @@
  *
  */
 
-export const groupBy = <T = {}>(array: T[], defineKey: (item: T) => string) => {
+export const groupBy = <T = unknown>(
+  array: T[],
+  defineKey: (item: T) => string
+) => {
   return array.reduce((acc: { [key: string]: T[] }, item) => {
     const groupLabel = defineKey(item);
     (acc[groupLabel] ||= []).push(item);
