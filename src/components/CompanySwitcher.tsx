@@ -1,13 +1,69 @@
 'use client'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCompanies } from "@/providers/CompaniesProvider";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
-import { ChangeEvent, SyntheticEvent, useRef } from "react";
-import { Input } from "./ui/input";
+import { ScrollArea } from "./ui/scroll-area";
+import { Command, CommandInput, CommandItem, CommandList } from "./ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { useEffect, useRef } from "react";
 
+
+const CompanySwitcher = () => {
+  const pathname = usePathname()
+
+  //get companies from companies provider
+  const { companiesList, activeCompany, findCompany, isFetching } = useCompanies()
+
+  const router = useRouter()
+
+  //delay for fetching list on search
+  const delayRef = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (delayRef.current) clearTimeout(delayRef.current);
+    };
+  }, []);
+
+  const handleInput = (value: string) => {
+    if (delayRef.current) clearTimeout(delayRef.current)
+    delayRef.current = setTimeout(() => {
+      findCompany({ name: value })
+    }, 300)
+  }
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild className="[data[state=open] a]:rotate-180">
+        <a className="cursor-pointer flex gap-1 items-center">
+          {activeCompany?.name}
+          <span className="w-0 h-0 border-solid border-x-[5px] border-t-[5px] border-t-muted-foreground/65 border-b-transparent border-x-transparent rotate-0 "></span>
+        </a>
+      </PopoverTrigger>
+      <PopoverContent className="p-0 w-max">
+        <Command shouldFilter={false}>
+          <CommandInput placeholder="Компании клиента" onValueChange={handleInput} />
+          <CommandList >
+            <ScrollArea className="h-unset max-h-[150px]" >
+              {isFetching && <CommandItem className="text-muted-foreground px-4 text-sm">Loading...</CommandItem>}
+              {companiesList?.map((company) => (
+                <CommandItem
+                  className="px-4"
+                  key={company.id}
+                  onSelect={() => router.push(extractNewPath(String(activeCompany?.id), String(company.id), pathname))}
+                >
+                  {company.name}
+                </CommandItem>
+              ))}
+            </ScrollArea>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export default CompanySwitcher
 
 /**
  * Retrieves all available paths for a given company.
@@ -19,6 +75,7 @@ import { Input } from "./ui/input";
  * @param {string} newCompanyId - The ID of the company for which to get the available paths.
  * @returns {string[]} An array of available paths for the given company.
  */
+
 const getAvailablePaths = (newCompanyId: string): string[] => {
   return createSidebarConfig(newCompanyId).reduce((acc: string[], route) => {
     if (route.href) acc.push(route.href);
@@ -27,58 +84,22 @@ const getAvailablePaths = (newCompanyId: string): string[] => {
   }, []);
 };
 
+/**
+ * Extracts a new path by replacing `activeCompanyId` with `newCompanyId` and validating available paths.
+ * 
+ * @param activeCompanyId - The identifier of the currently active company.
+ * @param newCompanyId - The identifier of the new company.
+ * @param currentPathname - The current URL path.
+ * @returns The new path corresponding to `newCompanyId`, or the default `/dashboard/{newCompanyId}` if no match is found.
+ */
 
+const extractNewPath = (activeCompanyId: string, newCompanyId: string, currentPathname: string): string => {
+  const availablePathes = getAvailablePaths(newCompanyId)
+  const currentPath = currentPathname.replace(String(activeCompanyId), newCompanyId)
 
-const CompanySwitcher = () => {
-  const pathname = usePathname()
-
-  //get companies from companies provider
-  const { companiesList, activeCompany, findCompany } = useCompanies()
-
-  const extractNewPath = (newCompanyId: string): string => {
-    const availablePathes = getAvailablePaths(newCompanyId)
-    const currentPath = pathname.replace(String(activeCompany?.id), newCompanyId)
-
-    const match = availablePathes
-      .filter(path => currentPath.startsWith(path))
-      .sort((a, b) => b.length - a.length)[0]
-      || `/dashboard/${newCompanyId}`
-    return match
-
-  }
-
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    findCompany({ name: e.target.value })
-  }
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild className="[data[state=open] a]:rotate-180">
-        <a className="cursor-pointer flex gap-1 items-center">
-          {activeCompany?.name}
-          {/* <ChevronDown size={12} /> */}
-          <span className="w-0 h-0 border-solid border-x-[5px] border-t-[5px] border-t-muted-foreground/65 border-b-transparent border-x-transparent rotate-0 "></span>
-        </a>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full">
-        <DropdownMenuLabel asChild>
-          <Input placeholder="Компании клиента" onChange={handleInput} />
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <ScrollArea className="h-[150px]">
-
-          {companiesList?.map((company) => (
-            <DropdownMenuItem asChild key={company.id}>
-              <Link href={extractNewPath(String(company.id))}>
-                {company.name}
-              </Link>
-            </DropdownMenuItem>
-          ))}
-          <ScrollBar orientation="vertical" className="w-1" />
-        </ScrollArea>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+  const match = availablePathes
+    .filter(path => currentPath.startsWith(path))
+    .sort((a, b) => b.length - a.length)[0]
+    || `/dashboard/${newCompanyId}`
+  return match
 }
-
-export default CompanySwitcher

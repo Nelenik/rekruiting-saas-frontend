@@ -163,7 +163,7 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
                       </DndItem>
                     ))}
                   </SortableContext>
-                  <ScrollBar />
+                  <ScrollBar className="w-2" />
                 </ScrollArea>
               </DndColumn>
             </div>

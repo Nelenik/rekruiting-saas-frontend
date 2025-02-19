@@ -2,15 +2,15 @@
 
 import { getCompaniesList } from "@/actions/getData";
 import { TCompany } from "@/shared/types/companies";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react"
+import { useQuery } from "@tanstack/react-query";
+import { createContext, ReactNode, useContext, useState } from "react"
 
 
 interface CompaniesContextType {
   companiesList: TCompany[];
   activeCompany: TCompany | null;
-  findCompany: (filters: { name: string }) => void
+  findCompany: (filters: { name: string }) => void;
+  isFetching: boolean
 }
 
 export const CompaniesContext = createContext<CompaniesContextType | null>(null)
@@ -27,7 +27,7 @@ type TProps = {
 export const CompaniesProvider = ({ children, companiesPrefetch, activeCompany }: TProps) => {
   const [filters, setFilters] = useState({})
 
-  const { data } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ['companies', filters],
     queryFn: () => getCompaniesList(filters),
     initialData: companiesPrefetch,
@@ -38,7 +38,8 @@ export const CompaniesProvider = ({ children, companiesPrefetch, activeCompany }
   return (<CompaniesContext.Provider value={{
     companiesList: data.data,
     activeCompany,
-    findCompany: (newFilters) => setFilters(newFilters)
+    findCompany: (newFilters) => setFilters(newFilters),
+    isFetching
   }}>
     {children}
   </CompaniesContext.Provider>)
