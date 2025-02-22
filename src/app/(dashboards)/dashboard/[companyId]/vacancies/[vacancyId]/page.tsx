@@ -7,6 +7,7 @@ import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import { EMatchStatus, TVacancy } from '@/shared/types';
 import Link from 'next/link';
 import EditEntityModal from '@/components/modals/EditEntityModal';
+import MatchBoard from '@/components/dnd-boards/MatchBoard';
 
 
 type TProps = {
@@ -40,7 +41,9 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         />
       </Link>
 
-      <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
+      <MatchBoard />
+
+      {/* <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
         <div className="flex gap-6 flex-col">
           <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.SCREENING} />
         </div>
@@ -61,7 +64,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         <div className="flex gap-6 flex-col">
           <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.OFFER} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

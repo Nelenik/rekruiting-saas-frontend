@@ -16,16 +16,44 @@ export const mockUser: IUser = {
   email: "test@mail.com",
 };
 
-export const mockCandidateShort: TCandidateShort[] = [
-  {
-    id: 1,
-    name: "Ivanov Ivan",
-    city: "Moskow",
-    salary: 100000,
-    match_point: 5.5,
-    created_at: "2025-01-22T09:00:00+01:00",
-  },
-];
+export const mockCandidateShort: Record<string, TCandidateShort[]> = {
+  screening: [
+    {
+      id: 1,
+      name: "Ivanov Ivan",
+      city: "Moskow",
+      salary: 100000,
+      match_point: 5.5,
+      created_at: "2025-01-22T09:00:00+01:00",
+    },
+    {
+      id: 2,
+      name: "Sidorov Al",
+      city: "Moskow",
+      salary: 200000,
+      match_point: 3.5,
+      created_at: "2025-01-22T09:00:00+01:00",
+    },
+  ],
+  scoring: [
+    {
+      id: 3,
+      name: "Ivanov Ivan",
+      city: "Moskow",
+      salary: 100000,
+      match_point: 7.5,
+      created_at: "2025-01-22T09:00:00+01:00",
+    },
+    {
+      id: 4,
+      name: "Sidorov Al",
+      city: "Moskow",
+      salary: 200000,
+      match_point: 1.5,
+      created_at: "2025-01-22T09:00:00+01:00",
+    },
+  ],
+};
 
 export type TMatchInfo = {
   id: number;

@@ -1,12 +1,10 @@
 import { FC, Suspense } from 'react';
-import Link from 'next/link';
 
 import { getBasicCandidatesByStatus } from '@/actions/getData';
 import { EMatchStatus } from '@/shared/types';
 
 import { CandidateCard } from './cards/CandidateCard';
 import { FunnelCard } from './cards/FunnelCard';
-import { mockCandidateShort } from '@/actions/mockData';
 import { matchStatusesDict } from '@/shared/dictionaries';
 
 type TProps = {
@@ -16,9 +14,9 @@ type TProps = {
 };
 
 export const MatchStatusCol: FC<TProps> = async ({ companyId, vacId, status }) => {
-  // const candidates = await getBasicCandidatesByStatus(vacId, status);
+  const candidates = await getBasicCandidatesByStatus(vacId, status);
 
-  const candidates = mockCandidateShort
+  // const candidates = mockCandidateShort
 
   return (
     <>
@@ -29,16 +27,13 @@ export const MatchStatusCol: FC<TProps> = async ({ companyId, vacId, status }) =
           {candidates.map((candidate) => {
             return (
               <li key={candidate.id}>
-                <Link
-                  href={`/dashboard/${companyId}/candidate-info/${candidate.id}?name=${candidate.name}`}
-                >
-                  <CandidateCard
-                    name={candidate.name}
-                    city={candidate.city}
-                    salary={candidate.salary}
-                    rating={candidate.match_point}
-                  />
-                </Link>
+                <CandidateCard
+                  id={candidate.id}
+                  name={candidate.name}
+                  city={candidate.city}
+                  salary={candidate.salary}
+                  rating={candidate.match_point}
+                />
               </li>
             );
           })}

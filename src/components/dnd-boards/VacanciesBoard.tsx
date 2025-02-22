@@ -11,6 +11,7 @@ import { FunnelCard } from "../cards/FunnelCard";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { findItemStatus, isValidDragEvent } from "./helpers";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { cn } from "@/lib/utils";
 
 const columns = [
   {
@@ -64,9 +65,9 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
     if (!isValidDragEvent(active, over)) return
 
     //check active element and over zone
-    const isActiveItem = active.data.current?.type === 'item'
-    const isOverItem = over?.data?.current?.type === 'item'
-    const isOverColumn = over?.data?.current?.type === 'column'
+    const isActiveItem = active.data.current?.type === 'vac_item'
+    const isOverItem = over?.data?.current?.type === 'vac_item'
+    const isOverColumn = over?.data?.current?.type === 'vac_column'
 
     const sourceColStatus = findItemStatus(groups, String(active.id))
 
@@ -132,14 +133,14 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
     <DndContext
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      id="unique-dnd-context-id"
+      id="vacanciesboard-context-id"
     >
       <ScrollArea className="pb-4">
         <div className="flex gap-4 w-full p-2 ">
           {columns.map((col) => (
             <div
               key={col.id}
-              className={`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/4 min-w-[200px]`}
+              className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/4 min-w-[200px]`, `w-1/${columns.length}`)}
             >
               <FunnelCard
                 name={col.title}
@@ -147,7 +148,7 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
               />
               <DndDroppable
                 id={col.id}
-                type="column"
+                type="vac_column"
                 className="flex flex-col gap-2 grow"
               >
                 <ScrollArea className="h-[clamp(500px,65vh,800px)] px-2">
@@ -157,7 +158,7 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
                       <DndSortable
                         id={String(vacancy.id)}
                         key={vacancy.id}
-                        type="item"
+                        type="vac_item"
                       >
                         <VacancyBoardCard
                           id={vacancy.id}
@@ -179,7 +180,7 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
       </ScrollArea>
       <DragOverlay>
         {activeItem && (
-          <DndSortable id={String(activeItem.id)} type="item">
+          <DndSortable id={String(activeItem.id)} type="vac_item">
             <VacancyBoardCard
               id={activeItem.id}
               name={activeItem.name}

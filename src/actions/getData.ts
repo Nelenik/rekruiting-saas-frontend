@@ -12,7 +12,7 @@ import {
 
 import { apiGet } from "./api";
 import { IUser } from "@/shared/types/user";
-import { mockMatchInfo } from "./mockData";
+import { mockCandidateShort, mockMatchInfo } from "./mockData";
 import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import { TCompany } from "@/shared/types/companies";
 import { TResume } from "@/shared/types/resume";
@@ -22,6 +22,7 @@ import {
   SVacancyList,
   SVacancyShort,
 } from "@/shared/schemas/vacancies";
+import { wait } from "@/lib/utils/wait";
 
 /* USER */
 /*----Needs to be redone with real data.--- */
@@ -143,21 +144,22 @@ export const getVacancyPositions = async (): Promise<string[]> => {
 
 /* CANDIDATE MATCH */
 export const getBasicCandidatesByStatus = async (
-  vacId: number,
+  vacId: number | string,
   status: EMatchStatus
 ): Promise<TCandidateShort[]> => {
-  try {
-    const response = await apiGet<TApiListResponse<TCandidateShort>>(
-      `/match/candidates?vacancy_id=${vacId}&status=${status}`
-    );
-    console.log("candidate", response);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw new Error(
-      "Не удалось загрузить кандидатов. Пожалуйста, попробуйте позже."
-    );
-  }
+  return wait(200).then(() => mockCandidateShort[status] || []);
+  // try {
+  //   const response = await apiGet<TApiListResponse<TCandidateShort>>(
+  //     `/match/candidates?vacancy_id=${vacId}&status=${status}`
+  //   );
+  //   console.log("candidate", response);
+  //   return response.data;
+  // } catch (error) {
+  //   console.error(error);
+  //   throw new Error(
+  //     "Не удалось загрузить кандидатов. Пожалуйста, попробуйте позже."
+  //   );
+  // }
 };
 
 /* ----Needs to be redone with real data.----*/
