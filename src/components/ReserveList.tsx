@@ -1,17 +1,17 @@
 import { ECvStatus, TResume } from "@/shared/types/resume";
 import List from "./ui/list";
 import { FC } from "react";
-import { Card, CardContent } from "./ui/card";
+import { Card } from "./ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { MapPin } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { workStatusDict } from "@/shared/dictionaries/resume";
 import { formatPrice } from "@/lib/utils/formatersIntl";
-import { format, formatDuration } from "date-fns";
+import { format } from "date-fns";
 import { ru } from "date-fns/locale";
-import { getYYFromMM } from "@/lib/utils/getYYFromMM";
 import { cn } from "@/lib/utils";
 import EditEntityModal from "./modals/EditEntityModal";
+import { getDurationFromMonths } from "@/lib/utils/getDurationFromMonths";
 
 type TProps = {
   resumeList: TResume[]
@@ -52,15 +52,7 @@ const ReserveList: FC<TProps> = ({
             </div>
             <div className="w-[25%]">
               <p>
-                {resume.experience_months
-                  ? `${formatDuration(
-                    getYYFromMM(
-                      resume.experience_months), {
-                    format: ['years', 'months'],
-                    locale: ru
-                  }
-                  )} опыта`
-                  : 'опыт не указан'}
+                {getDurationFromMonths(resume.experience_months)}
               </p>
               <Badge className={cn("py-1 bg-transparent ring-1", badgeColors[resume.status])}>
                 {workStatusDict[resume.status]}

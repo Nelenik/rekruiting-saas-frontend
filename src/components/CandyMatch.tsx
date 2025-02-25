@@ -1,5 +1,5 @@
 'use client'
-import { EMatchStatus } from "@/shared/types";
+import { EMatchStatus, EMatchType } from "@/shared/types";
 import EditButton from "./buttons/EditButton";
 import { Badge } from "./ui/badge";
 import { FC, useActionState, useEffect, useRef, useState } from "react";
@@ -15,8 +15,8 @@ import { useMatchStatuses } from "@/providers/MatchStatusProvider";
 import { TMutationState } from "@/actions/types";
 
 const matchTypeDict = {
-  'sourcing': 'источник',
-  'application': 'отклик'
+  [EMatchType.SOURCING]: 'источник',
+  [EMatchType.RESPONSE]: 'отклик'
 }
 
 const badgeColors: { [key: string]: string } = {
@@ -30,7 +30,7 @@ const badgeColors: { [key: string]: string } = {
 
 type TProps = {
   matchId: string | number,
-  type: "sourcing" | "application",
+  type: EMatchType,
   status_id: number | string
   match_point: number;
   match_summary: string;

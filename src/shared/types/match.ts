@@ -35,7 +35,7 @@ export type TCandidateFull = {
   cv_id: number;
   status_id: number;
   status_rank: number;
-  type: string;
+  type: EMatchType;
   point: number;
   summary: string;
   created_at: string;

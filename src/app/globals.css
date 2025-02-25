@@ -112,3 +112,8 @@ body {
   background-color: hsl(var(--input)/0.3);
   border-radius: 5px;
 }
+
+/* styling for injected bio html */
+.bio a {
+  @apply text-primary
+}
