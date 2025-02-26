@@ -20,7 +20,7 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
   return (
     <div>
       <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 mb-6">
-        {cv.candy_name}
+        {cv.candy_name || 'Имя не указано'}
       </h2>
       <Tabs defaultValue="match" className="w-full ">
         <TabsList className="w-full justify-start gap-3.5 bg-transparent p-0 mb-6 flex-wrap min-h-10 h-[unset]">

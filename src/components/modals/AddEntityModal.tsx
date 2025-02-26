@@ -4,10 +4,11 @@ import { CirclePlus } from "lucide-react";
 import { useState, useCallback, FC } from "react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetOverlay, SheetTitle, SheetTrigger } from "../ui/sheet";
 import VacancyForm from "../app_forms/VacancyForm";
 import { CompanyForm } from "../app_forms/CompanyForm";
 import ResumeForm from "../app_forms/ResumeForm";
+import { createPortal } from "react-dom";
 
 type TProps = {
   className?: string
@@ -56,14 +57,13 @@ const AddEntityModal: FC<TProps> = ({
 
     //   </DialogContent>
     // </Dialog>
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={open} onOpenChange={setOpen} modal={false}>
       <SheetTrigger asChild onClick={(e) => e.stopPropagation()}>
         <Button className={cn('w-max lg:w-full py-6 text-base flex', className)}>
           <CirclePlus />
           Добавить <span className="hidden sm:inline">{labels[entityType].triggerText}</span>
         </Button>
       </SheetTrigger>
-
       <SheetContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col sm:max-w-none overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         <SheetTitle className="text-3xl">
           {labels[entityType].title}
@@ -76,6 +76,15 @@ const AddEntityModal: FC<TProps> = ({
         {entityForm[entityType]}
 
       </SheetContent>
+      {open &&
+        createPortal(
+          <div
+            className="fixed inset-0 bg-black/50 z-40"
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />,
+          document.body
+        )}
     </Sheet>
   );
 }

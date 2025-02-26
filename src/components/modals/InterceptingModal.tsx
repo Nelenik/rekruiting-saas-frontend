@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "../ui/sheet";
 import { wait } from "@/lib/utils/wait";
+import { createPortal } from "react-dom";
 
 interface IInterceptingModalProps {
   children: React.ReactNode;
@@ -46,7 +47,7 @@ const InterceptingModal = ({ dialogTitle, dialogDescription, children }: IInterc
     //     {children}
     //   </DialogContent>
     // </Dialog>
-    <Sheet open={open} onOpenChange={handleClose} >
+    <Sheet open={open} onOpenChange={handleClose} modal={false}>
       <SheetContent className="w-[min(100%,1300px)] h-full bg-white sm:max-w-none overflow-y-auto">
         <div className="visually-hidden">
           <SheetTitle>
@@ -58,6 +59,15 @@ const InterceptingModal = ({ dialogTitle, dialogDescription, children }: IInterc
         </div>
         {children}
       </SheetContent>
+      {open &&
+        createPortal(
+          <div
+            className="fixed inset-0 bg-black/50 z-40"
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />,
+          document.body
+        )}
     </Sheet>
   );
 }

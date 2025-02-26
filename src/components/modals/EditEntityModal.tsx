@@ -10,6 +10,7 @@ import { TCompany } from "@/shared/types/companies";
 import ResumeForm from "../app_forms/ResumeForm";
 import { TResume } from "@/shared/types/resume";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { createPortal } from "react-dom";
 
 type TProps = {
   className?: string
@@ -79,7 +80,7 @@ const EditEntityModal = <T extends object>(
 
     //   </DialogContent>
     // </Dialog>
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={open} onOpenChange={setOpen} modal={false}>
       <SheetTrigger asChild onClick={(e) => e.stopPropagation()}>
         <EditButton isIconView={triggerView === 'icon'} className={className} />
       </SheetTrigger>
@@ -96,6 +97,15 @@ const EditEntityModal = <T extends object>(
         {entityForm[entityType]}
 
       </SheetContent>
+      {open &&
+        createPortal(
+          <div
+            className="fixed inset-0 bg-black/50 z-40"
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />,
+          document.body
+        )}
     </Sheet>
   );
 }
