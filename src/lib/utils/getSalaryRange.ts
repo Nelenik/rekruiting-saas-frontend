@@ -13,8 +13,8 @@ import { formatPrice } from "./formatersIntl";
  * getSalaryOffer(50000, 70000); // "₽50,000-₽70,000"
  */
 export const getSalaryRange = (
-  salaryFrom: number,
-  salaryTo: number
+  salaryFrom: number | null,
+  salaryTo: number | null
 ): string => {
   const salaryFromPrice = formatPrice(salaryFrom, "ru-Ru", "RUB");
   const salaryToPrice = formatPrice(salaryTo, "ru-Ru", "RUB");

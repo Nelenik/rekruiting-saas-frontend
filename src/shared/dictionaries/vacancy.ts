@@ -23,6 +23,7 @@ export const vacancyStatusDict: Record<string, string> = {
   [EVacancyStatus.WORK]: "В работе",
   [EVacancyStatus.PAUSE]: "На паузе",
   [EVacancyStatus.WAIT]: "Ожидание",
+  [EVacancyStatus.UNASSIGNED]: "Не задан",
 };
 
 export const vacancyEpmpoymentDict: Record<string, string> = {

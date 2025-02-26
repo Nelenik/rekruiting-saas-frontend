@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { getWordEndings } from '@/lib/utils/getWordEnding';
 import { cn } from '@/lib/utils';
-import { EVacancyStatus } from '@/shared/types';
+import { EVacancyStatus, TVacancy } from '@/shared/types';
 
 import { Badge } from '../ui/badge';
 import { vacancyStatusDict } from '@/shared/dictionaries';
@@ -13,11 +13,12 @@ const badgeColors: Record<EVacancyStatus, string> = {
   [EVacancyStatus.WORK]: 'bg-blue-300 hover:bg-blue-300/80',
   [EVacancyStatus.PAUSE]: 'bg-gray-500 hover:bg-gray-500/80',
   [EVacancyStatus.WAIT]: 'bg-emerald-400 hover:bg-emerald-400/80',
+  [EVacancyStatus.UNASSIGNED]: 'bg-orange-300 hover:bg-orange-300/80'
 };
 
 
 type TProps = {
-  vacancyName: string;
+  vacancyName: TVacancy['name'];
   daysInProcessing: number;
   vacancyStatus: EVacancyStatus;
   className?: string;
@@ -43,7 +44,7 @@ export const VacancyCard: FC<TProps> = ({
       )}
     >
       <CardHeader className="p-0 mb-2">
-        <CardTitle className="text-base">{vacancyName}</CardTitle>
+        <CardTitle className="text-base">{vacancyName ?? 'Имя неизвестно'}</CardTitle>
       </CardHeader>
 
       <CardFooter className="flex justify-between p-0 text-sm text-muted-foreground">

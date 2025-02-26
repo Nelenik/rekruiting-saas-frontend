@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import ArchiveIcon from '@/assets/icons/archive.svg?rc';
 import { cn } from '@/lib/utils';
@@ -16,14 +16,9 @@ type TProps = {
 };
 
 export const VacanciesAside: FC<TProps> = ({ className }) => {
-  const path = usePathname();
-  const params = useParams();
+  const { companyId } = useParams();
   const vacancies = useVacancies()
-
-  const cleanedPath = params?.vacancyId
-    ? path.replace(new RegExp(`\/${params.vacancyId}$`), '')
-    : path;
-
+  const cleanedPath = `/dashboard/${companyId}/vacancies`
   return (
     <aside
       className={cn(
@@ -32,7 +27,6 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
       )}
     >
       <AddEntityModal entityType='vacancy' className="self-start" />
-      {/* <AddVacancyModal className="self-start" /> */}
 
       <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1">
         {vacancies.map((vacancy) => {

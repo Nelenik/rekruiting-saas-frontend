@@ -4,7 +4,9 @@ import {
   EMatchStatus,
   TApiListResponse,
   TApiSuccessResponse,
+  TCandidateFull,
   TCandidateShort,
+  TMatchStatus,
   TTariff,
   TVacancy,
   TVacancyShort,
@@ -12,10 +14,17 @@ import {
 
 import { apiGet } from "./api";
 import { IUser } from "@/shared/types/user";
-import { mockMatchInfo } from "./mockData";
+import { mockCandidateShort, mockMatchInfo } from "./mockData";
 import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import { TCompany } from "@/shared/types/companies";
 import { TResume } from "@/shared/types/resume";
+import { z } from "zod";
+import {
+  SVacancy,
+  SVacancyList,
+  SVacancyShort,
+} from "@/shared/schemas/vacancies";
+import { wait } from "@/lib/utils/wait";
 
 /* USER */
 /*----Needs to be redone with real data.--- */
@@ -96,7 +105,7 @@ export const getVacanciesList = async ({
       "/vacancy?" + qs.toString()
     );
 
-    return response.data;
+    return SVacancyList.parse(response.data);
   } catch (error) {
     console.error(error);
     throw new Error(
@@ -111,7 +120,7 @@ export const getVacancy = async (id: number | string): Promise<TVacancy> => {
       `/vacancy/${id}`
     );
 
-    return response.data;
+    return SVacancy.parse(response.data);
   } catch (error) {
     console.error(error);
     throw new Error(
@@ -136,10 +145,26 @@ export const getVacancyPositions = async (): Promise<string[]> => {
 };
 
 /* CANDIDATE MATCH */
+
+export const getMatchStatuses = async () => {
+  try {
+    const response = await apiGet<TApiListResponse<TMatchStatus>>(
+      `/match/statuses`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(
+      "Не удалось загрузить статусы мэтчей. Пожалуйста, попробуйте позже."
+    );
+  }
+};
+
 export const getBasicCandidatesByStatus = async (
-  vacId: number,
-  status: EMatchStatus
+  vacId: number | string,
+  status: string
 ): Promise<TCandidateShort[]> => {
+  // return wait(9000).then(() => mockCandidateShort[status] || []);
   try {
     const response = await apiGet<TApiListResponse<TCandidateShort>>(
       `/match/candidates?vacancy_id=${vacId}&status=${status}`
@@ -154,19 +179,19 @@ export const getBasicCandidatesByStatus = async (
   }
 };
 
-/* ----Needs to be redone with real data.----*/
 export const getCandidateFull = async (matchId: number) => {
-  return mockMatchInfo;
-  // try {
-  //   const response = await apiGet(`/match/${matchId}`);
-  //   console.log("matchfull", response);
+  // return mockMatchInfo;
+  try {
+    const response = await apiGet<TApiSuccessResponse<TCandidateFull>>(
+      `/match/${matchId}`
+    );
 
-  //   return response.data;
-  // } catch (error) {
-  //   throw new Error(
-  //     "Не удалось загрузить кандидата. Пожалуйста, попробуйте позже."
-  //   );
-  // }
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      "Не удалось загрузить информацию о кандидате. Пожалуйста, попробуйте позже."
+    );
+  }
 };
 
 /* TARIFFS */

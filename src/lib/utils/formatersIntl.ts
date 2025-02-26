@@ -26,11 +26,13 @@ type CurrencyCode =
  * formatPrice(1234.5, "ru-RU", "RUB"); // "1 234,50 ₽"
  */
 export const formatPrice = (
-  price: number,
+  price: number | null,
   locale: Intl.LocalesArgument,
   currency: CurrencyCode,
   minFractionDigits?: number
 ): string => {
+  if (price === null) return "не указано ₽";
+
   const formatter = new Intl.NumberFormat(locale, {
     style: "currency",
     currency: currency,

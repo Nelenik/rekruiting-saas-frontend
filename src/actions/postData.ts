@@ -38,11 +38,6 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
 const storeEntity = async (url: string, body: FormData) => {
   try {
     const response = await apiPost<boolean | TBadRequest>(url, body);
-    console.log("store res", response);
-    console.log(
-      "error cond",
-      response && typeof response === "object" && response.errorType
-    );
     if (response && typeof response === "object" && response.errorType) {
       return {
         sent: true,

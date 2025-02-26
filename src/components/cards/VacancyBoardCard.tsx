@@ -19,7 +19,7 @@ const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, salary_
         )}
       >
         <CardHeader className="p-0">
-          <CardTitle className="text-base">{name}</CardTitle>
+          <CardTitle className="text-base">{name ?? 'Имя неизвестно'}</CardTitle>
         </CardHeader>
         <p className="leading-7 text-muted-foreground">
           {location || 'Город неизвестен'}

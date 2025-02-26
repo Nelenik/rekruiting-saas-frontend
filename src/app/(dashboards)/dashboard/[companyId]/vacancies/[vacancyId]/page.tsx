@@ -2,11 +2,10 @@ import { FC } from 'react';
 
 import { getVacancy } from '@/actions/getData';
 import { SummaryCard } from '@/components/cards/SummaryCard';
-import { MatchStatusCol } from '@/components/MatchStatusCol';
-import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
-import { EMatchStatus, TVacancy } from '@/shared/types';
+import { TVacancy } from '@/shared/types';
 import Link from 'next/link';
 import EditEntityModal from '@/components/modals/EditEntityModal';
+import MatchBoard from '@/components/dnd-boards/MatchBoard';
 
 
 type TProps = {
@@ -17,7 +16,6 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   const { companyId, vacancyId } = await params;
 
   const vacancy = await getVacancy(vacancyId);
-  console.log(vacancy)
 
   return (
     <div className="flex gap-6 flex-col relative">
@@ -27,10 +25,13 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         entityType='vacancy'
       />
 
-      <Link href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}>
+      <Link
+        scroll={false}
+        href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}
+      >
         <SummaryCard
           vacancyName={vacancy.name}
-          daysInProcessing={getDaysSinceCreated(vacancy.created_at)}
+          createdAt={vacancy.created_at}
           salaryOfferFrom={vacancy.salary_from}
           salaryOfferTo={vacancy.salary_to}
           salaryMiddle={vacancy.salary_market}
@@ -40,7 +41,9 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         />
       </Link>
 
-      <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
+      <MatchBoard />
+
+      {/* <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
         <div className="flex gap-6 flex-col">
           <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.SCREENING} />
         </div>
@@ -61,7 +64,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         <div className="flex gap-6 flex-col">
           <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.OFFER} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

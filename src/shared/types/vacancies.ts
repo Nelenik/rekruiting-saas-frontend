@@ -1,42 +1,49 @@
+import { z } from "zod";
+import { SVacancy, SVacancyShort } from "../schemas/vacancies";
+
 export enum EVacancyStatus {
   SETTING = "setting",
   WORK = "work",
   PAUSE = "pause",
   WAIT = "wait",
+  UNASSIGNED = "unassigned",
 }
 
-export type TVacancy = {
-  id: number;
-  name: string;
-  position: string;
-  responsibilities: string;
-  conditions: string;
-  employment: string;
-  skills: string;
-  work_format: string;
-  experience: string;
-  description: string;
-  location: string;
-  salary_from: number;
-  salary_to: number;
-  salary_candy: number;
-  salary_market: number;
-  status: EVacancyStatus;
-  match_count: number;
-  match_hot_count: number;
-  created_at: string;
-};
+export type TVacancy = z.infer<typeof SVacancy>;
+export type TVacancyShort = z.infer<typeof SVacancyShort>;
 
-export type TVacancyShort = Pick<
-  TVacancy,
-  | "id"
-  | "name"
-  | "status"
-  | "created_at"
-  | "location"
-  | "salary_from"
-  | "salary_to"
->;
+// export type TVacancy = {
+//   id: number;
+//   name: string;
+//   position: string;
+//   responsibilities: string;
+//   conditions: string;
+//   employment: string;
+//   skills: string;
+//   work_format: string;
+//   experience: string;
+//   description: string;
+//   location: string;
+//   salary_from: number;
+//   salary_to: number;
+//   salary_candy: number;
+//   salary_market: number;
+//   status: EVacancyStatus;
+//   match_count: number;
+//   match_hot_count: number;
+//   created_at: string;
+// };
+
+// export type TVacancyShort = Pick<
+//   TVacancy,
+//   | "id"
+//   | "name"
+//   | "status"
+//   | "created_at"
+//   | "location"
+//   | "salary_from"
+//   | "salary_to"
+// >;
 
 export enum EVacancyPosition {
   DEVELOPER = "developer",

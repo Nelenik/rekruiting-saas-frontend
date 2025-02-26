@@ -24,7 +24,7 @@ import { Input } from '../ui/input';
 import { useParams } from 'next/navigation';
 import { NonNullableFields } from '@/lib/utils/filterFalsyFields';
 import { updateVacancy } from '@/actions/updateData';
-import { storeCompany, storeVacancy } from '@/actions/postData';
+import { storeVacancy } from '@/actions/postData';
 import { mutationInitialState } from '@/actions/constants';
 import convertToFormData from '@/lib/utils/convertToFormData';
 

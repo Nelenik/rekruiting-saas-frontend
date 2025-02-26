@@ -34,7 +34,6 @@ export const CompaniesProvider = ({ children, companiesPrefetch, activeCompany }
     enabled: Object.values(filters).some(Boolean)
   })
 
-
   return (<CompaniesContext.Provider value={{
     companiesList: data.data,
     activeCompany,

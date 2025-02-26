@@ -2,10 +2,10 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useCompanies } from "@/providers/CompaniesProvider";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
-import { ScrollArea } from "./ui/scroll-area";
 import { Command, CommandInput, CommandItem, CommandList } from "./ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useEffect, useRef } from "react";
+import { ScrollArea } from "./ui/scroll-area";
 
 
 const CompanySwitcher = () => {
@@ -43,20 +43,21 @@ const CompanySwitcher = () => {
       <PopoverContent className="p-0 w-max">
         <Command shouldFilter={false}>
           <CommandInput placeholder="Компании клиента" onValueChange={handleInput} />
-          <CommandList >
-            <ScrollArea className="h-unset max-h-[150px]" >
+          <ScrollArea>
+            <CommandList className="max-h-[150px] overflow-visible">
               {isFetching && <CommandItem className="text-muted-foreground px-4 text-sm">Loading...</CommandItem>}
               {companiesList?.map((company) => (
                 <CommandItem
+                  value={String(company.id)}
                   className="px-4"
                   key={company.id}
-                  onSelect={() => router.push(extractNewPath(String(activeCompany?.id), String(company.id), pathname))}
+                  onSelect={(value) => router.push(extractNewPath(String(activeCompany?.id), value, pathname))}
                 >
                   {company.name}
                 </CommandItem>
               ))}
-            </ScrollArea>
-          </CommandList>
+            </CommandList>
+          </ScrollArea>
         </Command>
       </PopoverContent>
     </Popover>

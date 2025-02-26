@@ -1,6 +1,4 @@
 'use client'
-
-// import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 
@@ -11,7 +9,6 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from 
 const Breadcrumbs = () => {
   const breadcrumbPaths = useBreadcrumbs()
   return (
-    // <div className="bg-card p-5 rounded-md flex" id="bcrumbs_container">
     <Breadcrumb>
       <BreadcrumbList className="gap-2 sm:gap-2">
         {breadcrumbPaths.map(({ href, label }, i) => (
@@ -38,7 +35,6 @@ const Breadcrumbs = () => {
         ))}
       </BreadcrumbList>
     </Breadcrumb>
-    // </div>
   );
 }
 

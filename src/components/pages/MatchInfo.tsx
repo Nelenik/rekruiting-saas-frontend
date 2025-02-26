@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getCandidateFull } from "@/actions/getData";
 import CandyInfo from "../CandyInfo";
-import CandyMatch from "../CandyMatch";
 import CandyComments from "../CandyComments";
+import CandyMatch from "../CandyMatch";
 
 const tabsDict = [
   { value: 'match', text: 'Мэтч' },
@@ -15,13 +15,12 @@ const tabsDict = [
 ]
 
 const MatchInfo = async ({ matchId }: { matchId: number }) => {
-  const match = await getCandidateFull(matchId)
-  console.log(match)
+  const { type, point, status_id, summary, cv } = await getCandidateFull(matchId)
 
   return (
     <div>
       <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 mb-6">
-        Иванов Иван Иванович
+        {cv.candy_name || 'Имя не указано'}
       </h2>
       <Tabs defaultValue="match" className="w-full ">
         <TabsList className="w-full justify-start gap-3.5 bg-transparent p-0 mb-6 flex-wrap min-h-10 h-[unset]">
@@ -33,28 +32,27 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
         </TabsList>
 
         <TabsContent value="match" className="m-0 @container">
-          {/* <Match candidate={candidateMatchInfo} /> */}
-          <div className="grid grid-cols-1 auto-rows-auto @3xl:grid-cols-3 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 auto-rows-auto @3xl:grid-cols-[35%_30%_1fr] gap-x-6 gap-y-10">
             <CandyInfo
-              role={match.cv.role}
-              work_status={match.cv.status}
-              location={match.cv.location}
-              phone={match.cv.phone}
-              email={match.cv.email}
-              link={match.cv.link}
-              bio={match.cv.bio}
-              total_experience={match.cv.total_experience}
-              last_experience={match.cv.last_experience}
-              skills={match.cv.skills}
+              role={cv.name}
+              work_status={cv.status}
+              location={cv.candy_location}
+              phone={cv.candy_phone}
+              email={cv.candy_email}
+              link={cv.link}
+              bio={cv.bio}
+              experience_descr={cv.experience_raw}
+              skills={null}
             />
             <CandyMatch
-              type={match.type}
-              match_status={match.match_status}
-              match_point={match.match_point}
-              match_summary={match.match_summary}
-              cv_summary={match.cv.summary}
+              matchId={matchId}
+              type={type}
+              status_id={status_id}
+              match_point={point}
+              match_summary={summary}
+              cv_summary={cv.summary}
             />
-            <CandyComments comments={match.comments} />
+            <CandyComments comments={[]} />
           </div>
         </TabsContent>
 

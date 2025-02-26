@@ -1,4 +1,6 @@
-const convertToFormData = (data: Record<string, string | number | boolean>) => {
+const convertToFormData = (
+  data: Record<string, string | number | boolean | null>
+) => {
   const result = new FormData();
   for (const [key, value] of Object.entries(data)) {
     if (value !== undefined) {

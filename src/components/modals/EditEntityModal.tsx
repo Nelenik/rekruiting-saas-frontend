@@ -1,7 +1,6 @@
 'use client'
 import { useState, useCallback, FC } from "react";
 import EditButton from "../buttons/EditButton";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { filterFalsyFields, NonNullableFields } from "@/lib/utils/filterFalsyFields";
 import { TVacancy } from "@/shared/types";
 import VacancyForm from "../app_forms/VacancyForm";
@@ -10,6 +9,7 @@ import { TCompany } from "@/shared/types/companies";
 import ResumeForm from "../app_forms/ResumeForm";
 import { TResume } from "@/shared/types/resume";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { createPortal } from "react-dom";
 
 type TProps = {
   className?: string
@@ -54,32 +54,14 @@ const EditEntityModal = <T extends object>(
   const filtredInitial = filterFalsyFields<T>(initialData as T)
 
   const entityForm = {
-    vacancy: <VacancyForm type="edit" closeModal={handleClose} initialData={filtredInitial as TVacancy} />,
+    vacancy: <VacancyForm type="edit" closeModal={handleClose} initialData={filtredInitial as NonNullableFields<TVacancy>} />,
     company: <CompanyForm type="edit" closeModal={handleClose} initialData={filtredInitial as NonNullableFields<TCompany>} />,
     resume: <ResumeForm type="edit" closeModal={handleClose} initialData={filtredInitial as NonNullableFields<TResume>} />,
     match: <p>match form</p>
   }
 
   return (
-    // <Dialog open={open} onOpenChange={setOpen}>
-    //   <DialogTrigger asChild>
-    //     <EditButton isIconView={triggerView === 'icon'} className={className} />
-    //   </DialogTrigger>
-
-    //   <DialogContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col">
-    //     <DialogTitle className="text-3xl">
-    //       {labels[entityType].title}
-    //     </DialogTitle>
-
-    //     <DialogDescription className="visually-hidden">
-    //       {labels[entityType].descr}
-    //     </DialogDescription>
-
-    //     {entityForm[entityType]}
-
-    //   </DialogContent>
-    // </Dialog>
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={open} onOpenChange={setOpen} modal={false}>
       <SheetTrigger asChild onClick={(e) => e.stopPropagation()}>
         <EditButton isIconView={triggerView === 'icon'} className={className} />
       </SheetTrigger>
@@ -96,6 +78,15 @@ const EditEntityModal = <T extends object>(
         {entityForm[entityType]}
 
       </SheetContent>
+      {open &&
+        createPortal(
+          <div
+            className="fixed inset-0 bg-black/50 z-40"
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />,
+          document.body
+        )}
     </Sheet>
   );
 }

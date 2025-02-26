@@ -5,21 +5,25 @@ import CaseIcon from '@/assets/icons/case.svg?rc';
 import { getWordEndings } from '@/lib/utils/getWordEnding';
 import { formatPrice } from '@/lib/utils/formatersIntl';
 import { getSalaryRange } from '@/lib/utils/getSalaryRange';
+import { TVacancy } from '@/shared/types';
+import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
+
 
 type TProps = {
-  vacancyName: string;
-  daysInProcessing: number;
-  salaryOfferFrom: number;
-  salaryOfferTo: number;
-  salaryMiddle: number;
-  salaryCandidate: number;
-  candidatesCount: number;
-  jobReactions: number;
+  vacancyName: TVacancy['name'];
+  createdAt: TVacancy['created_at'];
+  salaryOfferFrom: TVacancy['salary_from'];
+  salaryOfferTo: TVacancy['salary_to'];
+  salaryMiddle: TVacancy['salary_market'];
+  salaryCandidate: TVacancy['salary_candy'];
+  candidatesCount: TVacancy['match_count'];
+  jobReactions: TVacancy['match_hot_count'];
 };
+
 
 export const SummaryCard: FC<TProps> = ({
   vacancyName,
-  daysInProcessing,
+  createdAt,
   salaryOfferFrom,
   salaryOfferTo,
   salaryMiddle,
@@ -27,6 +31,7 @@ export const SummaryCard: FC<TProps> = ({
   candidatesCount,
   jobReactions,
 }) => {
+  const daysInProcessing = getDaysSinceCreated(createdAt)
   const daysString = `${daysInProcessing} ${getWordEndings(daysInProcessing, [
     'день',
     'дня',
@@ -46,7 +51,7 @@ export const SummaryCard: FC<TProps> = ({
 
       <div className="grow">
         <CardTitle className="mb-2 first-letter:uppercase  typograpghy-h2">
-          {vacancyName}
+          {vacancyName ?? 'Имя неизвестно'}
         </CardTitle>
 
         <ul

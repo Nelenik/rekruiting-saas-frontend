@@ -44,9 +44,24 @@ export const updateCV = async (
   return result;
 };
 
+export const updateMatch = async (
+  matchId: number | string,
+  // _: TMutationState,
+  body: FormData
+) => {
+  const result = await updateEntity(`/match/${matchId}`, body);
+  if (!result.error) {
+    revalidatePath("/dashboard/[companyId]/vacancies/[vacancyId]", "page");
+    revalidatePath(
+      "/dashboard/[companyId]/candidate-info/[candidateId]",
+      "page"
+    );
+  }
+  return result;
+};
+
 //Full entity update (PUT request)
 const updateEntity = async (url: string, body: FormData) => {
-  console.log(Object.fromEntries(body));
   try {
     const response = await apiPut<boolean | TBadRequest>(url, body);
     console.log("update resp", response);
@@ -69,14 +84,5 @@ const updateEntity = async (url: string, body: FormData) => {
   return {
     sent: true,
     error: null,
-  };
-};
-
-export const updateMatch = async (_: TMutationState, body: FormData) => {
-  console.log(Object.fromEntries(body));
-  return {
-    sent: true,
-    error: null,
-    payload: body,
   };
 };
