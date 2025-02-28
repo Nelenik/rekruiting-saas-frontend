@@ -3,6 +3,7 @@ import { FunnelCard } from "@/components/cards/FunnelCard";
 import { cn } from "@/lib/utils";
 import { TCandidateShort } from "@/shared/types";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { GripVertical } from "lucide-react";
 import { FC } from "react";
 
 type TProps = {
@@ -10,11 +11,18 @@ type TProps = {
   candidates: TCandidateShort[] | null
   className: string
 }
+
+/**
+ * An abstraction for MatchCol component without the Sortable wrapper, DnD Kit recommends not using components with useSortable inside DndOverlay
+ * 
+ */
+
 const MatchColAbstraction: FC<TProps> = ({
   title, candidates, className
 }) => {
   return (
-    <div className={cn(`flex flex-col gap-6 ring-2 bg-background ring-offset-4 rounded-lg ring-border  min-w-[256px]`, className)}>
+    <div className={cn(`relative flex flex-col gap-6 ring-2 bg-background ring-offset-4 rounded-lg ring-border  min-w-[256px] cursor-grabbing`, className)}>
+      <GripVertical className="absolute left-1 top-2 z-[100] stroke-muted-foreground" />
       <FunnelCard
         name={title}
         count={candidates?.length || 0}

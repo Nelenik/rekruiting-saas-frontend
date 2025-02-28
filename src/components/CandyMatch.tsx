@@ -14,6 +14,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { matchTypeDict } from "@/shared/dictionaries";
 import { useToast } from "@/hooks/use-toast";
 import SpinnerTwo from '@/assets/icons/spinner2.svg?rc'
+import { useUpdateMatch } from "@/hooks/useUpdateMatch";
 
 
 
@@ -27,7 +28,7 @@ const badgeColors: { [key: string]: string } = {
 } as const
 
 type TProps = {
-  matchId: string | number,
+  matchId: number,
   type: EMatchType,
   status_id: TMatchStatus["id"]
   match_point: TCandidateFull["point"];
@@ -44,8 +45,8 @@ const CandyMatch: FC<TProps> = ({
   cv_summary,
 }) => {
   const matchStatuses = useMatchStatuses()
-  const queryClient = useQueryClient()
-  const { toast } = useToast()
+
+  const { isPending, startUpdating } = useUpdateMatch(matchId, status_id)
 
   const initStatusId = String(status_id)
 
@@ -53,34 +54,23 @@ const CandyMatch: FC<TProps> = ({
 
   const [isEditing, setIsEditing] = useState(false)
 
-  const updateMatchWithId = updateMatch.bind(null, matchId)
-  const [isPending, startTransition] = useTransition()
 
-  const formRef = useRef<HTMLFormElement>(null)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
+    startUpdating(formData)
 
-    startTransition(async () => {
-      const { error } = await updateMatchWithId(formData);
-      if (!error) {
-        queryClient.invalidateQueries({ queryKey: ['matchCol'] });
-      } else {
-        toast({
-          variant: 'destructive',
-          description: "Ошибка при обновлении данных"
-        });
-      }
-      setIsEditing(false);
-    });
+    setIsEditing(false);
   };
 
   const handleCancel = () => {
     setIsEditing(false)
   }
 
+  // formRef is used to trigger submitting outside the form
+  const formRef = useRef<HTMLFormElement>(null)
   const handleConfirm = () => {
     formRef.current?.requestSubmit()
   }
@@ -102,7 +92,7 @@ const CandyMatch: FC<TProps> = ({
             <ConfirmButton onClick={handleConfirm} />
           </>}
 
-          {isPending && <SpinnerTwo className="fill-primary/70 w-4 inline-block" />}
+          {!isEditing && isPending && <SpinnerTwo className="fill-primary/70 w-4 inline-block" />}
         </span>
 
         <h2 className="scroll-m-20 text-lg font-semibold tracking-tight">

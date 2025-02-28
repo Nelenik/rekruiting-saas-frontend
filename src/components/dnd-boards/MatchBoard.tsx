@@ -12,6 +12,7 @@ import { useMatchStatuses } from "@/providers/MatchStatusProvider";
 import DndSortable from "../dnd/DndSortable";
 import { CandidateCard } from "../cards/CandidateCard";
 import MatchColAbstraction from "./boards-elems/MatchColAbstraction";
+import { GripVertical } from "lucide-react";
 
 const MatchBoard = () => {
   const { vacancyId } = useParams()
@@ -24,12 +25,13 @@ const MatchBoard = () => {
   const queries = useQueries({
     queries: columns.map((col) => ({
       refetchOnWindowFocus: false,
-      queryKey: ['matchCol', col.key],
+      queryKey: ['matchCol', col.id],
       queryFn: () => getBasicCandidatesByStatus(vacancyId as string, col.key),
 
     })),
 
   })
+
 
   //activeColumn and acitveItem state for DndOverlay
   const [activeColumn, setActiveColumn] = useState<TMatchStatus | null>(null)
@@ -88,7 +90,7 @@ const MatchBoard = () => {
         <ScrollBar orientation="horizontal" className="bg-input/30 h-4 cursor-pointer" />
       </ScrollArea>
 
-      <DragOverlay>
+      <DragOverlay dropAnimation={{ easing: 'linear' }}>
         {
           activeColumn && (
             <MatchColAbstraction
@@ -99,13 +101,16 @@ const MatchBoard = () => {
           )
         }
         {activeItem && (
-          <CandidateCard
-            id={activeItem.id}
-            name={activeItem.name}
-            city={activeItem.city}
-            salary={activeItem.salary}
-            rating={activeItem.match_point}
-          />
+          <div className="relative cursor-grabbing">
+            <GripVertical className="absolute left-1 top-2 z-[100] stroke-muted-foreground" />
+            <CandidateCard
+              id={activeItem.id}
+              name={activeItem.name}
+              city={activeItem.city}
+              salary={activeItem.salary}
+              rating={activeItem.match_point}
+            />
+          </div>
         )}
 
       </DragOverlay>

@@ -63,7 +63,7 @@ const DndSortable: FC<TProps> = ({ children, id, dndData, asChild = false, class
       style={style}
       {...props}
     >
-      <Button variant={'ghost'} {...attributes} {...listeners} className="absolute left-1 top-2 z-[100] p-1 h-max cursor-grab">
+      <Button variant={'ghost'} {...attributes} {...listeners} className="absolute left-1 top-2 z-[10] p-1 h-max cursor-grab">
         <GripVertical className="stroke-muted-foreground" />
       </Button >
       {children}
