@@ -5,10 +5,11 @@ import { formatPrice } from "@/lib/utils/formatersIntl";
 import { vacancyEpmpoymentDict, vacancyExperienceDict, vacancyPositionsDict, vacancyStatusDict, vacancyWorkFormatDict } from "@/shared/dictionaries";
 import { vacancyBadgeColors } from "@/shared/dictionaries/badgeColors";
 import CompanyOverview from "./vacancy_elmts/CompanyOverview";
-
+import TextFormatter from "../TextFormatter";
 
 const VacancyInfo = async ({ vacancyId }: { vacancyId: number }) => {
 
+  const vacancyData = await getVacancy(vacancyId)
   const {
     name,
     status,
@@ -18,10 +19,15 @@ const VacancyInfo = async ({ vacancyId }: { vacancyId: number }) => {
     experience,
     work_format,
     position,
-    employment
-  } = await getVacancy(vacancyId)
-  console.log(work_format)
+    employment,
+    skills,
+    responsibilities,
+    conditions,
+    description
+  } = vacancyData
+
   return (
+
     <div>
       <h2 className="scroll-m-20 text-3xl font-bold tracking-tight first:mt-0 mb-6 flex items-start gap-4">
         {name || 'Имя не указано'}
@@ -51,6 +57,32 @@ const VacancyInfo = async ({ vacancyId }: { vacancyId: number }) => {
           </p>
         </div>
         <CompanyOverview className="w-1/2" />
+      </div>
+      <div className="grid grid-cols-2 gap-x-7 gap-y-3 text-base text-muted-foreground">
+        <section>
+          <h3 className="text-lg text-foreground font-semibold mb-4">
+            Требования
+          </h3>
+          <TextFormatter text={skills || 'Нет информации'} />
+        </section>
+        <section>
+          <h3 className="text-lg text-foreground font-semibold mb-4">
+            Обязанности
+          </h3>
+          <TextFormatter text={responsibilities || 'Нет информации'} />
+        </section>
+        <section>
+          <h3 className="text-lg text-foreground font-semibold mb-4">
+            Условия
+          </h3>
+          <TextFormatter text={conditions || 'Нет информации'} />
+        </section>
+        <section>
+          <h3 className="text-lg text-foreground font-semibold mb-4">
+            Дополнительно
+          </h3>
+          <TextFormatter text={description || 'Нет информации'} />
+        </section>
       </div>
     </div>
   );

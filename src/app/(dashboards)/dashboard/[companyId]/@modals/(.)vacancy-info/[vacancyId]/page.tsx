@@ -10,6 +10,7 @@ const VacancyDetailsModal = async ({ params }: { params: Promise<{ vacancyId: st
       dialogDescription="Подробная информация о вакансии"
     >
       <VacancyInfo vacancyId={Number(vacancyId)} />
+
     </InterceptingModal>
   );
 };

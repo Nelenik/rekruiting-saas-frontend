@@ -3,9 +3,9 @@
 import { useCompanies } from "@/providers/CompaniesProvider";
 import CaseIcon from '@/assets/icons/case.svg?rc';
 import { cn } from "@/lib/utils";
+
 const CompanyOverview = ({ className }: { className?: string }) => {
   const { activeCompany } = useCompanies()
-  console.log(activeCompany)
 
   return (
     <div className={cn('py-4 px-6 rounded-md bg-indigo-100', className)}>
@@ -16,7 +16,7 @@ const CompanyOverview = ({ className }: { className?: string }) => {
         {activeCompany?.name}
       </h3>
       <p className="text-base text-muted-foreground">
-        {activeCompany?.description || 'jgdkdkdfjdk'}
+        {activeCompany?.description || ''}
       </p>
     </div>
   );

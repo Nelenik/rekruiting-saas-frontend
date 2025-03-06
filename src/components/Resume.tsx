@@ -1,5 +1,5 @@
 import { PhoneCall, Mail, FileUser, Dot } from 'lucide-react'
-import List from '../ui/list';
+import List from './ui/list';
 
 // interface IResumeProps {
 

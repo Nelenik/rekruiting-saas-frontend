@@ -183,7 +183,7 @@ const VacancyForm = ({
 
         <FormItem labelText="Описание" error={errors.description}>
           <Textarea
-            placeholder="Требования к кандидату"
+            placeholder="Описание "
             name="description"
             className={cn(
               'resize-none',
