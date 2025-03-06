@@ -36,13 +36,15 @@ type TFormMutationAction = (
 type TProps = {
   type: 'edit' | 'add'
   initialData?: NonNullableFields<TVacancy>
-  closeModal?: () => void
+  onSuccess?: () => void
+  onCancel?: () => void
 }
 
 const VacancyForm = ({
   type,
   initialData,
-  closeModal = () => { }
+  onSuccess = () => { },
+  onCancel = () => { }
 }: TProps) => {
   const { companyId } = useParams<{ companyId: string }>();
 
@@ -65,7 +67,7 @@ const VacancyForm = ({
   const toastMessage = type === 'edit' ? 'Вакансия успешно обновлена' : 'Вакансия успешно сохранена'
 
   const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation(action, closeModal, initialState, toastMessage);
+    useFormMutation(action, onSuccess, initialState, toastMessage);
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
@@ -292,7 +294,7 @@ const VacancyForm = ({
       </div>
 
       <div className="self-end">
-        <Button type="button" variant="ghost" className="mr-2">
+        <Button type="button" variant="ghost" className="mr-2" onClick={onCancel}>
           Отмена
         </Button>
         <Button type="submit">{pending ? 'Сохранение...' : 'Сохранить'}</Button>

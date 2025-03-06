@@ -53,9 +53,9 @@ const EditEntityModal = <T extends object>(
   const filtredInitial = filterFalsyFields<T>(initialData as T)
 
   const entityForm = {
-    vacancy: <VacancyForm type="edit" closeModal={handleClose} initialData={filtredInitial as NonNullableFields<TVacancy>} />,
-    company: <CompanyForm type="edit" closeModal={handleClose} initialData={filtredInitial as NonNullableFields<TCompany>} />,
-    resume: <ResumeForm type="edit" closeModal={handleClose} initialData={filtredInitial as NonNullableFields<TResume>} />,
+    vacancy: <VacancyForm type="edit" onSuccess={handleClose} onCancel={handleClose} initialData={filtredInitial as NonNullableFields<TVacancy>} />,
+    company: <CompanyForm type="edit" onSuccess={handleClose} onCancel={handleClose} initialData={filtredInitial as NonNullableFields<TCompany>} />,
+    resume: <ResumeForm type="edit" onSuccess={handleClose} onCancel={handleClose} initialData={filtredInitial as NonNullableFields<TResume>} />,
     match: <p>match form</p>
   }
 

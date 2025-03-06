@@ -4,7 +4,7 @@ import { Button, ButtonProps } from "../ui/button";
 import { PenLine } from "lucide-react";
 
 interface IEditButtonProps extends ButtonProps {
-  isIconView: boolean
+  isIconView?: boolean
 }
 const EditButton = ({ isIconView = false, className, ...props }: IEditButtonProps) => {
   if (!isIconView) {

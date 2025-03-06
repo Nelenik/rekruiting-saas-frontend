@@ -27,15 +27,17 @@ import { mutationInitialState } from '@/actions/constants';
 import convertToFormData from '@/lib/utils/convertToFormData';
 
 type TProps = {
-  type: 'edit' | 'add'
-  initialData?: NonNullableFields<TCompany>
-  closeModal?: () => void
+  type: 'edit' | 'add',
+  initialData?: NonNullableFields<TCompany>,
+  onSuccess?: () => void,
+  onCancel?: () => void,
 }
 
 export const CompanyForm: FC<TProps> = ({
   type,
   initialData,
-  closeModal = () => { }
+  onSuccess = () => { },
+  onCancel = () => { }
 }) => {
 
   const { data: tariffs = [] } = useQuery({
@@ -57,7 +59,7 @@ export const CompanyForm: FC<TProps> = ({
   const toastMessage = type === 'edit' ? 'Данные о компании успешно обновлены' : 'Новая компания успешно сохранена'
 
   const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation(action, closeModal, initialState, toastMessage);
+    useFormMutation(action, onSuccess, initialState, toastMessage);
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
@@ -143,7 +145,7 @@ export const CompanyForm: FC<TProps> = ({
           type='button'
           variant="ghost"
           className="mr-2"
-          onClick={closeModal}
+          onClick={onCancel}
         >
           Отмена
         </Button>

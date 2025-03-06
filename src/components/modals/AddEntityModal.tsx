@@ -28,9 +28,9 @@ const AddEntityModal: FC<TProps> = ({
   const handleClose = useCallback(() => setOpen(false), [])
 
   const entityForm = {
-    vacancy: <VacancyForm type="add" closeModal={handleClose} />,
-    company: <CompanyForm type="add" closeModal={handleClose} />,
-    resume: <ResumeForm type="add" closeModal={handleClose} />,
+    vacancy: <VacancyForm type="add" onSuccess={handleClose} onCancel={handleClose} />,
+    company: <CompanyForm type="add" onSuccess={handleClose} onCancel={handleClose} />,
+    resume: <ResumeForm type="add" onSuccess={handleClose} onCancel={handleClose} />,
   }
 
   return (

@@ -43,29 +43,6 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
       </Link>
 
       <MatchBoard />
-
-      {/* <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
-        <div className="flex gap-6 flex-col">
-          <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.SCREENING} />
-        </div>
-
-        <div className="flex gap-6 flex-col">
-          <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.SCORING} />
-        </div>
-
-
-        <div className="flex gap-6 flex-col">
-          <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.INTERVIEW} />
-        </div>
-
-        <div className="flex gap-6 flex-col">
-          <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.REFUSAL} />
-        </div>
-
-        <div className="flex gap-6 flex-col">
-          <MatchStatusCol companyId={companyId} vacId={vacancy.id} status={EMatchStatus.OFFER} />
-        </div>
-      </div> */}
     </div>
   );
 };

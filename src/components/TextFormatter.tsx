@@ -12,7 +12,7 @@ import sanitize from "sanitize-html";
  */
 
 const TextFormatter = ({ text, className }: { text: string, className?: string }) => {
-  const cleanedText = sanitize(text)
+  const cleanedText = sanitize(text).replace(/\r\n/g, '\n')
 
   const regexp = /^([A-ZА-ЯЁ][^:\n]+):/g
   const blocks = cleanedText.split(/\n{2,}/).map((block, id) => {
@@ -25,7 +25,7 @@ const TextFormatter = ({ text, className }: { text: string, className?: string }
     return (
       <p
         key={id}
-        className={cn('text-muted-foreground', className)}
+        className={cn('text-muted-foreground mb-2', className)}
         dangerouslySetInnerHTML={{ __html: replaced }}
       ></p>
     )

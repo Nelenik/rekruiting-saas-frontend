@@ -19,13 +19,15 @@ import { TResume } from '@/shared/types/resume';
 type TProps = {
   type: 'edit' | 'add'
   initialData?: NonNullableFields<TResume>
-  closeModal?: () => void
+  onSuccess?: () => void
+  onCancel?: () => void
 }
 
 const ResumeForm: FC<TProps> = ({
   type,
   initialData,
-  closeModal = () => { }
+  onSuccess = () => { },
+  onCancel = () => { }
 }) => {
   //define form action depending of the form type
   const action = type === 'edit' && initialData
@@ -41,7 +43,7 @@ const ResumeForm: FC<TProps> = ({
   const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
 
   const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation(action, closeModal, initialState, toastMessage);
+    useFormMutation(action, onSuccess, initialState, toastMessage);
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
@@ -193,7 +195,7 @@ const ResumeForm: FC<TProps> = ({
       </div>
 
       <div className="self-end">
-        <Button type="button" variant="ghost" className="mr-2" onClick={closeModal}>
+        <Button type="button" variant="ghost" className="mr-2" onClick={onCancel}>
           Отмена
         </Button>
         <Button type="submit">
