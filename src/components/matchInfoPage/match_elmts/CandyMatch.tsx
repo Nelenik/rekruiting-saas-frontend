@@ -125,7 +125,7 @@ const CandyMatch: FC<TProps> = ({
                     </Select>
                     : <StatusBadge
                       className={cn(
-                        initStatusData ? matchBadgeColors[initStatusData.key] : matchBadgeColors.default
+                        initStatusData ? matchBadgeColors[initStatusData.key] : matchBadgeColors.default, 'py-[5px] px-2'
                       )}
                     >
                       {initStatusData?.name}

@@ -3,6 +3,8 @@ import { getCandidateFull } from "@/actions/getData";
 import CandyInfo from "./match_elmts/CandyInfo";
 import CandyMatch from "./match_elmts/CandyMatch";
 import CandyComments from "./match_elmts/CandyComments";
+import CandyExperience from "./match_elmts/CandyExperience";
+import TextFormatter from "../TextFormatter";
 
 const tabsDict = [
   { value: 'match', text: 'Мэтч' },
@@ -16,7 +18,7 @@ const tabsDict = [
 
 const MatchInfo = async ({ matchId }: { matchId: number }) => {
   const { type, point, status_id, summary, cv } = await getCandidateFull(matchId)
-
+  console.log(cv)
   return (
     <div>
       <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 mb-6">
@@ -41,7 +43,7 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
               email={cv.candy_email}
               link={cv.link}
               bio={cv.bio}
-              experience_descr={cv.experience_raw}
+              experience_duration={cv.experience_months}
               skills={null}
             />
             <CandyMatch
@@ -56,11 +58,18 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
           </div>
         </TabsContent>
 
-        {/* <TabsContent value="experience">Experience, coming soon...</TabsContent>
+        <TabsContent value="experience">
+          {
+            cv.experience
+              ? <CandyExperience experience={cv.experience} />
+              : <TextFormatter text={cv.experience_raw} />
+          }
+        </TabsContent>
+
         <TabsContent value="screening">Скрининг, coming soon...</TabsContent>
         <TabsContent value="interview">Собеседование, coming soon...</TabsContent>
         <TabsContent value="raport">Отчет, coming soon...</TabsContent>
-        <TabsContent value="similar">Похожие, coming soon...</TabsContent> */}
+        <TabsContent value="similar">Похожие, coming soon...</TabsContent>
       </Tabs>
     </div>
   );

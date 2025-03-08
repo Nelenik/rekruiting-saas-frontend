@@ -26,7 +26,7 @@ export type TResume = {
   summary: string;
   experience_months: number;
   experience_raw: string; //experience descr
-  // experience: unknown;
+  experience: unknown[];
   candy_name: string;
   candy_photo: string;
   candy_email: string;

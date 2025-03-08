@@ -5,6 +5,7 @@ import { ECvStatus, TResume } from "@/shared/types/resume";
 
 import List from "@/components/ui/list";
 import TextFormatter from "@/components/TextFormatter";
+import { getDurationFromMonths } from "@/lib/utils/getDurationFromMonths";
 
 
 type TProps = {
@@ -15,8 +16,8 @@ type TProps = {
   email: TResume["candy_email"];
   link: TResume["link"];
   bio: TResume["bio"];
-  experience_descr: TResume["experience_raw"];
-  skills: string | null
+  experience_duration: TResume["experience_months"];
+  skills: [] | null
 }
 
 const CandyInfo: FC<TProps> = ({
@@ -27,7 +28,7 @@ const CandyInfo: FC<TProps> = ({
   email,
   link,
   bio,
-  experience_descr,
+  experience_duration,
   skills,
 }) => {
 
@@ -68,13 +69,17 @@ const CandyInfo: FC<TProps> = ({
 
       <div>
         <h2 className='font-semibold mb-2 text-lg'>Обо мне</h2>
-        <TextFormatter text={bio} className="bio text-muted-foreground text-sm [&:not(:last-child)]:mb-4" />
+        <TextFormatter text={bio} className="bio text-muted-foreground text-sm" />
       </div>
 
       <div className='bg-indigo-100 py-3 px-6 rounded-lg '>
         <h2 className='text-lg font-semibold mb-2'>Стаж</h2>
         <p className="text-muted-foreground text-sm">
-          {experience_descr || 'Не указан'}
+          {
+            experience_duration
+              ? getDurationFromMonths(experience_duration)
+              : 'Не указан'
+          }
         </p>
       </div>
 
@@ -82,7 +87,7 @@ const CandyInfo: FC<TProps> = ({
         <h2 className='text-lg font-semibold mb-2'>Навыки</h2>
         <List className='flex gap-3'>
           {
-            skills && skills.split(',').map(el => (<li key={el} className='bg-indigo-100 rounded-md py-1 px-3.5 text-sm'>{el}</li>)) || <span className="text-muted-foreground text-sm">не указано</span>
+            skills && skills.map(el => (<li key={el} className='bg-indigo-100 rounded-md py-1 px-3.5 text-sm'>{el}</li>)) || <span className="text-muted-foreground text-sm">не указано</span>
           }
         </List>
       </div>

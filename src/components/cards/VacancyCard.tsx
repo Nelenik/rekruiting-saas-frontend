@@ -45,7 +45,7 @@ export const VacancyCard: FC<TProps> = ({
 
         <StatusBadge
           className={
-            cn(vacancyBadgeColors[vacancyStatus])
+            cn(vacancyBadgeColors[vacancyStatus], 'py-0 px-1')
           }
         >
           {vacancyStatusDict[vacancyStatus].toLowerCase()}
