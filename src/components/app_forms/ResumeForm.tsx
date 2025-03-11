@@ -15,6 +15,7 @@ import { NonNullableFields } from '@/lib/utils/filterFalsyFields';
 import { mutationInitialState } from '@/actions/constants';
 import convertToFormData from '@/lib/utils/convertToFormData';
 import { TResume } from '@/shared/types/resume';
+import { removeField } from '@/lib/utils/removeField';
 
 type TProps = {
   type: 'edit' | 'add'
@@ -34,10 +35,14 @@ const ResumeForm: FC<TProps> = ({
     ? updateCV.bind(null, initialData.id)
     : storeCv
 
+  //remove the field "experience" (shoul find a better solution, may be made universal converToFormData function)
+
+  const cleanedInitialData = initialData && removeField(initialData, ['experience'])
+
   //define initial state
   const initialState = {
     ...mutationInitialState,
-    ...(initialData && { payload: convertToFormData(initialData) })
+    ...(cleanedInitialData && { payload: convertToFormData(cleanedInitialData) })
   }
   //define toast message
   const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'

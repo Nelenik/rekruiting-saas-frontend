@@ -27,6 +27,7 @@ import { updateVacancy } from '@/actions/updateData';
 import { storeVacancy } from '@/actions/postData';
 import { mutationInitialState } from '@/actions/constants';
 import convertToFormData from '@/lib/utils/convertToFormData';
+import { removeField } from '@/lib/utils/removeField';
 
 type TFormMutationAction = (
   _: TMutationState,
@@ -58,10 +59,14 @@ const VacancyForm = ({
     ? updateVacancy.bind(null, initialData.id)
     : storeVacancy
 
+  //remove the field "status" (shoul find a better solution, may be made universal converToFormData function)
+
+  const cleanedInitialData = initialData && removeField(initialData, ['status', 'matchStatuses'])
+
   //define initial state
   const initialState = {
     ...mutationInitialState,
-    ...(initialData && { payload: convertToFormData(initialData) })
+    ...(cleanedInitialData && { payload: convertToFormData(cleanedInitialData) })
   }
   //define toast message
   const toastMessage = type === 'edit' ? 'Вакансия успешно обновлена' : 'Вакансия успешно сохранена'
