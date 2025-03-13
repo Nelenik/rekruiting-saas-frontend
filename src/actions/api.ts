@@ -1,5 +1,6 @@
 "use server";
 
+import { parseFormData } from "@/lib/utils/parseFormData";
 import { API_URL } from "@/shared/config";
 
 export const apiGet = async <T = unknown>(url: string): Promise<T> => {
@@ -15,9 +16,12 @@ export const apiPost = async <T = unknown>(
   url: string,
   body: FormData
 ): Promise<T> => {
+  // Parse a `FormData` object into a structured JavaScript object
+  const parsedFormData = parseFormData(body);
+
   const response = await fetch(API_URL + url, {
     method: "POST",
-    body: JSON.stringify(Object.fromEntries(body)),
+    body: JSON.stringify(parsedFormData),
     headers: {
       "Content-Type": "application/json",
     },
@@ -30,23 +34,15 @@ export const apiPut = async <T = unknown>(
   url: string,
   body: FormData
 ): Promise<T> => {
+  // Parse a `FormData` object into a structured JavaScript object
+  const parsedFormData = parseFormData(body);
+
   const response = await fetch(API_URL + url, {
     method: "PUT",
-    body: JSON.stringify(Object.fromEntries(body)),
+    body: JSON.stringify(parsedFormData),
     headers: {
       "Content-Type": "application/json",
     },
   });
   return response.json();
 };
-
-/**
- * 
-GET /api/v1/company - список компаний
-GET /api/v1/company/123 - Компания по ид
-GET /api/v1/cv - список резюме
-GET /api/v1/cv/123 - резюме по ид
-GET /api/v1/match/123 - мэтч по ид
-PUT /api/v1/match/123 - редактирование статуса и баллов мэтча
-
- */

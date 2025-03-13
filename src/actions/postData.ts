@@ -28,6 +28,10 @@ export const storeCv = async (_: TMutationState, body: FormData) => {
 };
 
 export const storeVacancy = async (_: TMutationState, body: FormData) => {
+  for (let i = 1; i <= 5; i++) {
+    body.append("matchStatuses[]", `${i}`);
+  }
+
   const result = await storeEntity("/vacancy", body);
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/vacancies", "layout");

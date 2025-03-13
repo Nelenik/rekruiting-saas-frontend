@@ -1,6 +1,6 @@
 import { mutationInitialState } from "@/actions/constants";
 import { TMutationState } from "@/actions/types";
-import { convertFormData } from "@/lib/utils/convertFormData";
+import { parseFormData } from "@/lib/utils/parseFormData";
 import { TValidationMappedErrors } from "@/shared/helpers";
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { useToast } from "./use-toast";
@@ -50,7 +50,7 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
     return () => setIsSuccess(false)
   }, [state.sent, state.error, toastMessage, onSucces, toast])
 
-  const defaultValues = state.payload ? convertFormData(state.payload) : undefined;
+  const defaultValues = state.payload ? parseFormData<Record<string, string>>(state.payload) : undefined;
 
   //Removes the error from the errors object when the user starts entering data.
   const onChange = (e: TOnChangeEvent) => {
