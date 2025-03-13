@@ -50,7 +50,7 @@ export type TVacancyShort = Pick<
   | "salary_to"
 >;
 
-export type TVacancyUpdate = Omit<
+export type TVacancyEdit = Omit<
   TVacancy,
   | "id"
   | "created_at"

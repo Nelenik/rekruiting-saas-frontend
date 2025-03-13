@@ -39,9 +39,6 @@ const CandyMatch: FC<TProps> = ({
 
   const initStatusId = String(statusData.id)
 
-
-
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
