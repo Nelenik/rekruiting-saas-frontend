@@ -1,4 +1,4 @@
-export const removeField = <T extends object, K extends keyof T>(
+export const omitFields = <T extends object, K extends keyof T>(
   object: T,
   fieldNames: K[]
 ): Omit<T, K> => {

@@ -3,12 +3,8 @@ import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { TCandidateShort, TMatchStatus } from "@/shared/types";
 import MatchCol from "./boards_elmts/MatchCol";
-import { useQueries } from "@tanstack/react-query";
-import { getBasicCandidatesByStatus } from "@/actions/getData";
-import { useParams } from "next/navigation";
 import { FC, useMemo, useState } from "react";
 import { SortableContext } from "@dnd-kit/sortable";
-// import { useMatchStatuses } from "@/providers/AppStatusesProvider";
 import DndSortable from "../dnd/DndSortable";
 import { CandidateCard } from "../cards/CandidateCard";
 import MatchColAbstraction from "./boards_elmts/MatchColAbstraction";
@@ -22,8 +18,6 @@ type TProps = {
 }
 
 const MatchBoard: FC<TProps> = ({ match_statuses }) => {
-  // const { vacancyId } = useParams()
-
   const [columns, setColumns] = useState(match_statuses.map(el => el.status))
 
   const columnsIds = useMemo(() => columns.map(col => col.id), [columns])

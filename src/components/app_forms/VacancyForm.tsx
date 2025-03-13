@@ -27,7 +27,7 @@ import { updateVacancy } from '@/actions/updateData';
 import { storeVacancy } from '@/actions/postData';
 import { mutationInitialState } from '@/actions/constants';
 import convertToFormData from '@/lib/utils/convertToFormData';
-import { removeField } from '@/lib/utils/removeField';
+import { omitFields } from '@/lib/utils/omitFields';
 
 type TFormMutationAction = (
   _: TMutationState,
@@ -61,7 +61,7 @@ const VacancyForm = ({
 
   //!!!! remove the fields "status" and "matchStatuses" (should find a better solution, may be made universal convertToFormData function)
 
-  const cleanedInitialData = initialData && removeField(initialData, ['status', 'matchStatuses'])
+  const cleanedInitialData = initialData && omitFields(initialData, ['status', 'matchStatuses'])
 
   //define initial state
   const initialState = {

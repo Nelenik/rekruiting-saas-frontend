@@ -3,7 +3,7 @@ import { CandidateCard } from "@/components/cards/CandidateCard";
 import { FunnelCard } from "@/components/cards/FunnelCard";
 import DndSortable from "@/components/dnd/DndSortable";
 import { SortableContext } from "@dnd-kit/sortable";
-import { FC, Suspense, useMemo } from "react";
+import { FC, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";

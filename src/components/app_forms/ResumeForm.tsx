@@ -15,7 +15,7 @@ import { NonNullableFields } from '@/lib/utils/filterFalsyFields';
 import { mutationInitialState } from '@/actions/constants';
 import convertToFormData from '@/lib/utils/convertToFormData';
 import { TResume } from '@/shared/types/resume';
-import { removeField } from '@/lib/utils/removeField';
+import { omitFields } from '@/lib/utils/omitFields';
 
 type TProps = {
   type: 'edit' | 'add'
@@ -37,7 +37,7 @@ const ResumeForm: FC<TProps> = ({
 
   //remove the field "experience" (shoul find a better solution, may be made universal converToFormData function)
 
-  const cleanedInitialData = initialData && removeField(initialData, ['experience'])
+  const cleanedInitialData = initialData && omitFields(initialData, ['experience'])
 
   //define initial state
   const initialState = {
