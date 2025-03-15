@@ -41,9 +41,9 @@ export const SummaryCard: FC<TProps> = ({
     'дней',
   ])}`;
 
-  const salaryOfferString = getSalaryRange(salary_from, salary_to);
-  const salaryMiddleString = formatPrice(salary_market, 'ru-Ru', 'RUB');
-  const salaryCandidateString = formatPrice(salary_candy, 'ru-Ru', 'RUB');
+  const salaryOfferString = getSalaryRange(salary_from || 0, salary_to || 0);
+  const salaryMiddleString = formatPrice(salary_market || 0, 'ru-Ru', 'RUB');
+  const salaryCandidateString = formatPrice(salary_candy || 0, 'ru-Ru', 'RUB');
 
   return (
     <Card className="w-full py-4 px-6 flex gap-6 relative">

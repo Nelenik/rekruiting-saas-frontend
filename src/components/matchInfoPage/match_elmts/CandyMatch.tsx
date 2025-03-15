@@ -44,7 +44,7 @@ const CandyMatch: FC<TProps> = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    startMatchUpd(formData, statusData.id)
+    startMatchUpd(formData)
 
     setIsEditing(false);
   };
@@ -127,9 +127,9 @@ const CandyMatch: FC<TProps> = ({
                 <td className="px-4 py-1">
                   {isEditing ?
                     <Input
+                      placeholder={String(match_point)}
                       className="w-[180px] focus-visible:ring-0 [&:not(.ring-destructive)]:focus-visible:ring-offset-0 h-7 bg-transparent focus-visible:bg-indigo-50"
                       name="point"
-                      defaultValue={String(match_point ?? '')}
                     />
                     : <>{match_point}</>}
 

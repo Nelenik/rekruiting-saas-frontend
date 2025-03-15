@@ -78,9 +78,9 @@ const matchSt = [
 
 const MatchInfo = async ({ matchId }: { matchId: number }) => {
   // const { type, point, status_id, summary, cv } = await getCandidateFull(matchId)
-  const { type, point, status, summary, cv, vacancy } = await getCandidateFull(101)
+  const { type, point, status, summary, cv, vacancy } = await getCandidateFull(matchId)
 
-  const matchStatuses: Pick<TStatus, 'id' | 'name'>[] = (vacancy.matchStatuses || matchSt).map(({ status }) => ({ id: status.id, name: status.name }))
+  const matchStatuses: Pick<TStatus, 'id' | 'name'>[] = (vacancy.matchStatuses).map(({ status }) => ({ id: status.id, name: status.name }))
 
   console.log(cv)
   return (

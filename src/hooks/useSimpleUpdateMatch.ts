@@ -9,15 +9,14 @@ export const useSimpleUpdateMatch = (matchId: number) => {
 
   const queryClient = useQueryClient();
 
-  const startMatchUpd = (newMatchData: FormData, initialStatusId: number) => {
+  const startMatchUpd = (newMatchData: FormData) => {
     startTransition(async () => {
       if (!matchId) return;
-      const newStatusId = newMatchData.get("status_id");
 
       const updateMatchWithId = updateMatch.bind(null, matchId);
 
       //Request to server
-      const { error } = await updateMatchWithId(newMatchData);
+      const { error } = await updateMatchWithId(null, newMatchData);
 
       if (error) {
         toast({
@@ -26,15 +25,9 @@ export const useSimpleUpdateMatch = (matchId: number) => {
         });
         return;
       }
-
-      await Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: ["matchByStatus", initialStatusId],
-        }),
-        queryClient.invalidateQueries({
-          queryKey: ["matchByStatus", newStatusId],
-        }),
-      ]);
+      await queryClient.invalidateQueries({
+        queryKey: ["matchByStatus"],
+      });
     });
   };
   return {

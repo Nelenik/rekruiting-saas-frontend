@@ -48,7 +48,7 @@ export const useOptimisticUpdateMatch = (matchId?: number) => {
       }
 
       //Request to server
-      const { error } = await updateMatchWithId(newMatchFormData);
+      const { error } = await updateMatchWithId(null, newMatchFormData);
 
       if (error && shouldUpdateOptimistic) {
         queryClient.setQueryData(
