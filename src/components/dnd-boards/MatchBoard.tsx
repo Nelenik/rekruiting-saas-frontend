@@ -12,6 +12,7 @@ import { GripVertical } from "lucide-react";
 import { useUpdateMatch } from "@/hooks/useUpdateMatch";
 import { cn } from "@/lib/utils";
 import { TStatus } from "@/shared/types/statuses";
+import { useOptimisticUpdateMatch } from "@/hooks/useOptimisticUpdateMatch";
 
 type TProps = {
   match_statuses: TMatchStatus[]
@@ -28,7 +29,7 @@ const MatchBoard: FC<TProps> = ({ match_statuses }) => {
   const [activeItem, setActiveItem] = useState<TCandidateShort | null>(null);
 
   // update match hook
-  const { startMatchUpd } = useUpdateMatch(activeItem?.id)
+  const { startMatchUpd } = useOptimisticUpdateMatch(activeItem?.id)
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
