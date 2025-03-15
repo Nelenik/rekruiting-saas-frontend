@@ -50,7 +50,9 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
     return () => setIsSuccess(false)
   }, [state.sent, state.error, toastMessage, onSucces, toast])
 
-  const defaultValues = state.payload ? parseFormData<Record<string, string>>(state.payload) : undefined;
+  const defaultValues = state.payload && state.payload instanceof FormData
+    ? parseFormData<Record<string, string>>(state.payload)
+    : undefined;
 
   //Removes the error from the errors object when the user starts entering data.
   const onChange = (e: TOnChangeEvent) => {

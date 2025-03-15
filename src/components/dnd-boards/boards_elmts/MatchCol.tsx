@@ -28,6 +28,8 @@ const MatchCol: FC<TProps> = ({ status_id, title, className }) => {
 
   const candidatesIds = useMemo(() => (candidates || []).map(candy => String(candy.id)), [candidates])
 
+  console.log(candidates)
+
   return (
 
     <div className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border  min-w-[256px] bg-background`, className)}>

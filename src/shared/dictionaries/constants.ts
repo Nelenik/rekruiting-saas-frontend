@@ -1,15 +1,27 @@
-import { EMatchStatus } from "../types";
-
-export const matchBadgeColors: { [key: string]: string } = {
-  [EMatchStatus.SCREENING]:
-    "ring-primary text-primary hover:text-white hover:bg-primary/70",
-  [EMatchStatus.SCORING]:
-    "ring-yellow-400 text-yellow-400 hover:text-white hover:bg-yellow-400/70",
-  [EMatchStatus.INTERVIEW]:
-    "ring-orange-500 text-orange-500 hover:text-white hover:bg-orange-500/70",
-  [EMatchStatus.REFUSAL]:
-    "ring-destructive text-destructive hover:text-white hover:bg-destructive/70",
-  [EMatchStatus.OFFER]:
-    "ring-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-400/70",
-  default: "ring-gray-400 text-gray-400 hover:text-white hover:bg-gray-400/70",
-} as const;
+export const DEFAULT_MATCH_STATUSES = [
+  // {
+  //   name: "Скрининг",
+  //   color: "#fb923c",
+  //   rank: 1,
+  // },
+  {
+    name: "Скоринг",
+    color: "#facc15",
+    rank: 2,
+  },
+  {
+    name: "Собеседование",
+    color: "#60a5fa",
+    rank: 3,
+  },
+  {
+    name: "Отказ",
+    color: "#fb7185",
+    rank: 4,
+  },
+  {
+    name: "Оффер",
+    color: "#34d399",
+    rank: 5,
+  },
+];

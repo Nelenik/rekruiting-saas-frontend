@@ -87,7 +87,7 @@ export const useUpdateMatch = (matchId?: number) => {
       }
 
       //Request to server
-      const { error } = await updateMatchWithId(newMatchData);
+      const { error } = await updateMatchWithId(null, newMatchData);
 
       if (error) {
         if (shouldUpdateOptimistic) {

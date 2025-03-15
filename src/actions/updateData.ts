@@ -60,8 +60,11 @@ export const updateMatch = async (
   return result;
 };
 
-export const updateStatus = async (statusKey: string, body: FormData) => {
-  const result = await updateEntity(`/statuses/${statusKey}`, body);
+export const updateStatus = async (
+  statusId: string | number,
+  body: FormData
+) => {
+  const result = await updateEntity(`/status/${statusId}`, body);
   return result;
 };
 
