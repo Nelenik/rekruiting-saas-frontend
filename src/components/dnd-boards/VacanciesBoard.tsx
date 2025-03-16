@@ -14,28 +14,6 @@ import { cn } from "@/lib/utils";
 import { useVacaniesBoard } from "../../hooks/useVacanciesBoard";
 import { useStatuses } from "@/providers/AppStatusesProvider";
 
-const columns = [
-  {
-    id: 'unassigned',
-    title: '"Не задан"'
-  },
-  {
-    id: 'setting',
-    title: 'Настройка'
-  },
-  {
-    id: 'work',
-    title: 'В работе'
-  },
-  {
-    id: 'wait',
-    title: 'Ожидание'
-  },
-  {
-    id: 'pause',
-    title: "На паузе"
-  },
-];
 
 type TProps = {
   groupedItems: Record<string, TVacancyShort[]>

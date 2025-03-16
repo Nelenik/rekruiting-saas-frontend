@@ -6,7 +6,6 @@ import {
   TApiSuccessResponse,
   TCandidateFull,
   TCandidateShort,
-  TMatchStatus,
   TTariff,
   TVacancy,
   TVacancyShort,
@@ -18,8 +17,6 @@ import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import { TCompany } from "@/shared/types/companies";
 import { TResume } from "@/shared/types/resume";
 import { TStatus } from "@/shared/types/statuses";
-// import { z } from "zod";
-// import { SVacancy, SVacancyList } from "@/shared/schemas/vacancies";
 
 /* USER */
 /*----Needs to be redone with real data.--- */
@@ -180,6 +177,7 @@ export const getCandidateFull = async (matchId: number) => {
 
     return response.data;
   } catch (error) {
+    console.error(error);
     throw new Error(
       "Не удалось загрузить информацию о кандидате. Пожалуйста, попробуйте позже."
     );

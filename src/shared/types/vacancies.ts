@@ -1,18 +1,5 @@
-import { z } from "zod";
-// import { SVacancy, SVacancyShort } from "../schemas/vacancies";
 import { TStatus } from "./statuses";
 import { TMatchStatus } from "./match";
-
-// export enum EVacancyStatus {
-//   SETTING = "setting",
-//   WORK = "work",
-//   PAUSE = "pause",
-//   WAIT = "wait",
-//   UNASSIGNED = "unassigned",
-// }
-
-// export type TVacancy = z.infer<typeof SVacancy>;
-// export type TVacancyShort = z.infer<typeof SVacancyShort>;
 
 export type TVacancy = {
   id: number;
@@ -49,13 +36,6 @@ export type TVacancyShort = Pick<
   | "salary_from"
   | "salary_to"
 >;
-
-// export type TVacancyMatchBoard = Omit<
-//   TVacancy,
-//   "created_at" | "match_hot_count" | "match_count" | "status" | "status_id"
-// >;
-
-// export type TVacancyEdit = Omit<TVacancyMatchBoard, "matchStatuses" | "id">;
 
 export enum EVacancyPosition {
   DEVELOPER = "developer",

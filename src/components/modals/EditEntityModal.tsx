@@ -1,5 +1,5 @@
 'use client'
-import { useState, useCallback, FC } from "react";
+import { useState, useCallback } from "react";
 import EditButton from "../buttons/EditButton";
 import { filterFalsyFields, NonNullableFields } from "@/lib/utils/filterFalsyFields";
 import { TVacancy } from "@/shared/types";

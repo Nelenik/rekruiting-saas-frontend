@@ -4,7 +4,6 @@ import CompaniesFilter from "@/components/CompaniesFilter";
 import CompaniesTable from "@/components/CompaniesTable";
 import AddEntityModal from "@/components/modals/AddEntityModal";
 import Paginate from "@/components/navigation/Paginate";
-import { Suspense } from "react";
 
 type TProps = {
 

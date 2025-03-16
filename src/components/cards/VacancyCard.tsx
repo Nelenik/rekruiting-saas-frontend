@@ -5,9 +5,6 @@ import { getWordEndings } from '@/lib/utils/getWordEnding';
 import { cn } from '@/lib/utils';
 import { TVacancy } from '@/shared/types';
 
-// import { vacancyStatusDict } from '@/shared/dictionaries';
-import StatusBadge from '@/components/StatusBadge';
-
 
 type TProps = {
   vacancyName: TVacancy['name'];
@@ -19,7 +16,6 @@ type TProps = {
 export const VacancyCard: FC<TProps> = ({
   vacancyName,
   daysInProcessing,
-  vacancyStatus,
   className,
 }) => {
   const daysString = `${daysInProcessing} ${getWordEndings(daysInProcessing, [

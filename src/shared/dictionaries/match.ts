@@ -1,4 +1,4 @@
-import { EMatchStatus, EMatchType } from "../types";
+import { EMatchType } from "../types";
 
 export const matchTypeDict = {
   [EMatchType.SOURCING]: "источник",

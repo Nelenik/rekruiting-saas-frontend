@@ -7,7 +7,7 @@ type TProps = {
   experience: TResume['experience']
 }
 
-const CandyExperience: FC<TProps> = ({ experience }) => {
+const CandyExperience: FC<TProps> = ({ }) => {
   return (
     <List className='columns-1 sm:columns-2 min-h-[80vh] gap-6'>
       {Array.from({ length: 6 }, (_, i) => (

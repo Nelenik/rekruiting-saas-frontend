@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useCallback, useMemo } from 'react';
+import { FC } from 'react';
 
 import { storeCompany } from '@/actions/postData';
 

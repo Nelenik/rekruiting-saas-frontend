@@ -1,6 +1,6 @@
 import { getVacanciesList } from "@/actions/getData";
 import { VacanciesProvider } from "@/providers/VacanciesProvider";
-import { FC, PropsWithChildren, ReactNode } from "react";
+import { FC, PropsWithChildren } from "react";
 
 
 // Next.js will invalidate the cache when a

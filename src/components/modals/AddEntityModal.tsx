@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { CirclePlus } from "lucide-react";
 import { useState, useCallback, FC } from "react";
 import { Button } from "../ui/button";
-import { Sheet, SheetContent, SheetDescription, SheetOverlay, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet";
 import VacancyForm from "../app_forms/VacancyForm";
 import { CompanyForm } from "../app_forms/CompanyForm";
 import ResumeForm from "../app_forms/ResumeForm";

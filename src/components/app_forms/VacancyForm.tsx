@@ -17,7 +17,6 @@ import {
 } from '../ui/select';
 import { Textarea } from '../ui/textarea';
 import FormItem, { ErrorMessage } from './form_elmts/FormItem';
-import { TMutationState } from '@/actions/types';
 import { getVacancyPositions } from '@/actions/getData';
 import { useQuery } from '@tanstack/react-query';
 import { Input } from '../ui/input';
@@ -28,11 +27,6 @@ import { storeVacancy } from '@/actions/postData';
 import { mutationInitialState } from '@/actions/constants';
 import convertToFormData from '@/lib/utils/convertToFormData';
 import { omitFields } from '@/lib/utils/omitFields';
-
-type TFormMutationAction = (
-  _: TMutationState,
-  body: FormData
-) => Promise<TMutationState>;
 
 type TProps = {
   type: 'edit' | 'add'

@@ -3,7 +3,7 @@ import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { TCandidateShort } from "@/shared/types";
 import MatchCol from "./boards_elmts/MatchCol";
-import { FC, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { SortableContext } from "@dnd-kit/sortable";
 import DndSortable from "../dnd/DndSortable";
 import { CandidateCard } from "../cards/CandidateCard";
@@ -89,7 +89,7 @@ const MatchBoard = () => {
 
           <SortableContext items={columnsIds}>
 
-            {columns.map((col, index) => (
+            {columns.map((col) => (
               <DndSortable
                 key={col.id}
                 sortableId={col.id}

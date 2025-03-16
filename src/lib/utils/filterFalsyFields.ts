@@ -19,7 +19,7 @@ export function filterFalsyFields<T extends object>(
 ): NonNullableFields<T> {
   return Object.fromEntries(
     Object.entries(obj).filter(
-      ([_, value]) => value !== null && value !== undefined
+      ([, value]) => value !== null && value !== undefined
     )
   ) as NonNullableFields<T>;
 }

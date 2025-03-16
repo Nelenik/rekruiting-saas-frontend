@@ -1,10 +1,10 @@
-import { getUser } from '@/actions/getData';
+// import { getUser } from '@/actions/getData';
 import AddEntityModal from '@/components/modals/AddEntityModal';
 import { Card } from '@/components/ui/card';
 import { FC } from 'react';
 
 const MainAppPage: FC = async () => {
-  const userData = await getUser()
+  // const userData = await getUser()
 
   return (
     <div>

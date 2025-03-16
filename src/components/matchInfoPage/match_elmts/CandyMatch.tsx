@@ -1,12 +1,10 @@
 'use client'
-import { EMatchStatus, EMatchType, TCandidateFull, TMatchStatus } from "@/shared/types";
+import { EMatchType, TCandidateFull, TMatchStatus } from "@/shared/types";
 import { FC, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-// import { useMatchStatuses } from "@/providers/AppStatusesProvider";
 import { TResume } from "@/shared/types/resume";
 import { matchTypeDict } from "@/shared/dictionaries";
 import SpinnerTwo from '@/assets/icons/spinner2.svg?rc'
-import { useUpdateMatch } from "@/hooks/useUpdateMatch";
 import CancelButton from "@/components/buttons/CancelButton";
 import ConfirmButton from "@/components/buttons/ConfirmButton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";

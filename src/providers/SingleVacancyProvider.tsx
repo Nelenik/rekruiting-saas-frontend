@@ -42,7 +42,7 @@ export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNo
   const [columns, setColumns] = useState(initColumns);
 
   //transition to update column position
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   //save the initial columns state to return to it if is needed
   const prevColumnsState = useRef(columns);
