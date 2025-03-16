@@ -13,7 +13,7 @@ import { Button } from "../ui/button"
 type TProps = {
   type: 'edit' | 'add'
   initialData?: NonNullableFields<TStatus>
-  onSuccess?: () => void
+  onSuccess?: (newStatus: TStatus) => void
   onCancel?: () => void
 }
 
@@ -44,14 +44,14 @@ const StatusForm: FC<TProps> = (
     useFormMutation(
       action,
       (state) => {
-        onSuccess()
+        onSuccess(state.payload as TStatus)
       },
       initialState,
       toastMessage
     );
 
   return (
-    <form action={formAction}>
+    <form action={formAction} className="p-3 flex flex-col gap-6">
       <FormItem
         labelText="Имя статуса"
         error={errors.name}
@@ -75,14 +75,14 @@ const StatusForm: FC<TProps> = (
           name="color"
           defaultValue={defaultValues?.color || '#F5F5DC'}
           className={errors?.color && 'ring-2 ring-destructive'}
-          onChange={onChange}
         />
       </FormItem>
+      <input type="hidden" name="rank" defaultValue={defaultValues?.rank || 0} />
       <div className="self-end">
-        <Button type="button" variant="ghost" className="mr-2" onClick={onCancel}>
+        <Button type="button" variant="ghost" className="mr-2 border border-transparent hover:border-background" onClick={onCancel}>
           Отмена
         </Button>
-        <Button type="submit">
+        <Button type="submit" variant={'outline'} className="bg-transparent border-primary/50 hover:bg-primary/70 hover:text-white">
           {pending ? 'Сохранение...' : 'Сохранить'}
         </Button>
       </div>

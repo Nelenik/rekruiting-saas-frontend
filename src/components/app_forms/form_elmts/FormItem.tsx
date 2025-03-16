@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { InputHTMLAttributes, PropsWithChildren } from "react";
 
 interface IFormItem {
   labelText?: string,
@@ -19,13 +18,13 @@ export const ErrorMessage = ({ message }: { message: string }) => {
 
 const FormItem = ({ labelText, children, className, error = null }: IFormItem) => {
   return (
-    <label className={cn("relative flex flex-col gap-2.5", className)}>
+    <div className={cn("relative flex flex-col gap-2.5", className)}>
       {labelText && <span className="font-medium">
         {labelText}
       </span>}
       {children}
       {error && <ErrorMessage message={error} />}
-    </label>
+    </div>
   );
 }
 

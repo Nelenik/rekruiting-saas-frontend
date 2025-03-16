@@ -6,8 +6,7 @@ import { TVacancy } from '@/shared/types';
 import Link from 'next/link';
 import EditEntityModal from '@/components/modals/EditEntityModal';
 import MatchBoard from '@/components/dnd-boards/MatchBoard';
-import { pickAndFilter } from '@/lib/utils/pickAndFilter';
-import { omitFields } from '@/lib/utils/omitFields';
+import { SingleVacancyProvider } from '@/providers/SingleVacancyProvider';
 
 
 type TProps = {
@@ -18,29 +17,27 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   const { companyId, vacancyId } = await params;
 
   const vacancy = await getVacancy(vacancyId);
-  console.log('vacancy', vacancy)
 
   return (
-    <div className="flex gap-6 flex-col relative">
-      <EditEntityModal<TVacancy>
-        className='absolute top-0 right-0 z-10' triggerView='icon'
-        initialData={vacancy}
-        entityType='vacancy'
-      />
+    <SingleVacancyProvider vacancy={vacancy}>
 
-      <Link
-        scroll={false}
-        href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}
-      >
-        <SummaryCard
-          summaryData={
-            pickAndFilter(vacancy, ['name', 'created_at', 'salary_from', 'salary_to', 'salary_market', 'salary_candy', 'match_count', 'match_hot_count', 'status'])
-          }
+      <div className="flex gap-6 flex-col relative">
+        <EditEntityModal<TVacancy>
+          className='absolute top-0 right-0 z-10' triggerView='icon'
+          initialData={vacancy}
+          entityType='vacancy'
         />
-      </Link>
 
-      <MatchBoard matchBoardData={omitFields(vacancy, ["created_at", "match_hot_count", "match_count", "status", "status_id"])} />
-    </div>
+        <Link
+          scroll={false}
+          href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}
+        >
+          <SummaryCard />
+        </Link>
+
+        <MatchBoard />
+      </div>
+    </SingleVacancyProvider>
   );
 };
 

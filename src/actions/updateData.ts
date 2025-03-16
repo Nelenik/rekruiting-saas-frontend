@@ -7,6 +7,7 @@ import {
   TBadRequest,
 } from "@/shared/helpers";
 import { apiPut } from "./api";
+import { parseFormData } from "@/lib/utils/parseFormData";
 
 export const updateVacancy = async (
   vacancyId: number | string,
@@ -66,6 +67,9 @@ export const updateStatus = async (
   body: FormData
 ) => {
   const result = await updateEntity(`/status/${statusId}`, body);
+  if (!result.error) {
+    return { ...result, payload: parseFormData(body) };
+  }
   return result;
 };
 
@@ -80,6 +84,10 @@ const updateEntity = async (url: string, body: FormData) => {
         payload: body,
       };
     }
+    return {
+      sent: true,
+      error: null,
+    };
   } catch (error) {
     console.error(error);
     return {
@@ -89,8 +97,8 @@ const updateEntity = async (url: string, body: FormData) => {
     };
   }
 
-  return {
-    sent: true,
-    error: null,
-  };
+  // return {
+  //   sent: true,
+  //   error: null,
+  // };
 };

@@ -40,20 +40,18 @@ export const useFormMutation = (
 
   //handle successful or not submit
   useEffect(() => {
-    if (state.sent && !state.error) {
-      onSucces(state)
-      toast({
-        description: toastMessage,
-      });
-      setIsSuccess(true);
-    } else if (state.sent && state.error && !state.error.details) {
-      toast({
-        variant: 'destructive',
-        description: state.error?.message
-      })
+    if (state.sent) {
+      if (!state.error) {
+        onSucces(state);
+        toast({ description: toastMessage });
+        setIsSuccess(true);
+      } else if (!state.error.details) {
+        toast({ variant: "destructive", description: state.error?.message });
+        setIsSuccess(false);
+      }
     }
     return () => setIsSuccess(false)
-  }, [state.sent, state.error, toastMessage, onSucces, toast, state])
+  }, [toastMessage, onSucces, toast, state])
 
   const defaultValues = state.payload && state.payload instanceof FormData
     ? parseFormData<Record<string, string>>(state.payload)

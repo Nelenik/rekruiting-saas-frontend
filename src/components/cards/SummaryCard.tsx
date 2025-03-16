@@ -1,4 +1,4 @@
-import { FC } from 'react';
+'use client'
 
 import { Card, CardDescription, CardTitle } from '@/components/ui/card';
 import CaseIcon from '@/assets/icons/case.svg?rc';
@@ -9,19 +9,19 @@ import { TVacancy } from '@/shared/types';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import StatusBadge from '../StatusBadge';
 import { cn } from '@/lib/utils';
+import { useSingleVacancy } from '@/providers/SingleVacancyProvider';
 
 
-type TVacancySummary = Pick<TVacancy, 'name' | 'created_at' | 'salary_from' | 'salary_to' | 'salary_market' | 'salary_candy' | 'match_count' | 'match_hot_count' | 'status'>
+// type TVacancySummary = Pick<TVacancy, 'name' | 'created_at' | 'salary_from' | 'salary_to' | 'salary_market' | 'salary_candy' | 'match_count' | 'match_hot_count' | 'status'>
 
 
-type TProps = {
-  summaryData: TVacancySummary
-}
+// type TProps = {
+//   summaryData: TVacancySummary
+// }
 
 
-export const SummaryCard: FC<TProps> = ({
-  summaryData
-}) => {
+export const SummaryCard = () => {
+  const { vacancy } = useSingleVacancy()
   const {
     created_at,
     salary_candy,
@@ -32,7 +32,7 @@ export const SummaryCard: FC<TProps> = ({
     match_count,
     match_hot_count,
     status: vacancyStatus
-  } = summaryData
+  } = vacancy
 
   const daysInProcessing = getDaysSinceCreated(created_at)
   const daysString = `${daysInProcessing} ${getWordEndings(daysInProcessing, [

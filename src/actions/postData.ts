@@ -38,6 +38,7 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
   //Create default statuses for the vacancy. If unsuccessful, return the vacancy body to avoid resetting the form.
   const statuses = await Promise.all(newVacancyStatuses);
   const hasError = statuses.some((result) => result.error);
+  console.log("statuses", statuses);
   if (hasError) {
     return {
       sent: true,
@@ -62,7 +63,10 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
   return result;
 };
 
-export const storeStatus = async (_: TMutationState | null, body: FormData) => {
+export const storeStatus = async (
+  _: TMutationState | null,
+  body: FormData
+): Promise<TMutationState<TStatus>> => {
   const result = await storeEntity<TStatus>("/status", body, true);
   return result;
 };
@@ -95,6 +99,7 @@ const storeEntity = async <T = unknown>(
         error: null,
       };
     }
+
     return {
       sent: true,
       error: null,

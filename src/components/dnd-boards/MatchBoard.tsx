@@ -1,7 +1,7 @@
 'use client'
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { TCandidateShort, TVacancyMatchBoard } from "@/shared/types";
+import { TCandidateShort } from "@/shared/types";
 import MatchCol from "./boards_elmts/MatchCol";
 import { FC, useMemo, useState } from "react";
 import { SortableContext } from "@dnd-kit/sortable";
@@ -12,16 +12,11 @@ import { GripVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TStatus } from "@/shared/types/statuses";
 import { useOptimisticUpdateMatch } from "@/hooks/useOptimisticUpdateMatch";
-import { useMatchBoardsColumns } from "@/hooks/useMatchBoardsColumns";
+import { useSingleVacancy } from "@/providers/SingleVacancyProvider";
 
-type TProps = {
-  matchBoardData: TVacancyMatchBoard
-}
+const MatchBoard = () => {
 
-const MatchBoard: FC<TProps> = ({ matchBoardData }) => {
-  const { matchStatuses, id: vacancyId, ...vacancyData } = matchBoardData
-
-  const { columns, isUpdating, moveColumn } = useMatchBoardsColumns(matchStatuses, vacancyId, vacancyData)
+  const { columns, moveColumn } = useSingleVacancy()
 
   const columnsIds = useMemo(() => columns.map(col => col.id), [columns])
 
@@ -101,6 +96,7 @@ const MatchBoard: FC<TProps> = ({ matchBoardData }) => {
                 dndData={{ type: "match_column", column: col }}
               >
                 <MatchCol
+                  color={col.color}
                   status_id={col.id}
                   title={col.name}
                   className={cn(`w-1/${columns.length}`)}
