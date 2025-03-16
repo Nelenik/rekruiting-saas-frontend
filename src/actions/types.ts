@@ -1,7 +1,7 @@
 import { TError } from "@/shared/helpers";
 
-export type TMutationState = {
+export type TMutationState<T = unknown> = {
   sent: boolean;
   error: TError | null;
-  payload?: FormData;
+  payload?: FormData | T;
 };

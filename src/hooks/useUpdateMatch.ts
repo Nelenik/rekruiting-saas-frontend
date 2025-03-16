@@ -9,19 +9,21 @@ import { TCandidateShort } from "@/shared/types";
  * Custom hook to handle the update of a match's status, with optimistic UI updates and error handling.
  * It allows updating the match's status either via a form data object or a new status ID.
  *
- * The hook provides a function `startUpdating` to initiate the update and manage the optimistic update
- * and error recovery. It also returns a flag `isPending` to indicate if the update operation is in progress.
+ * The hook provides a function `startMatchUpd` to initiate the update and manage the optimistic update
+ * and error recovery. It also returns a flag `isUpdating` to indicate if the update operation is in progress.
  *
  * @param matchId - The ID of the match to be updated.
- * @param initialStatusId - The initial status ID of the match before the update.
  *
  * @returns An object containing:
- *   - `isPending`: A boolean indicating if the update process is pending.
- *   - `startUpdating`: A function to initiate the update process, accepting either FormData or a new status ID.
+ *   - `isUpdating`: A boolean indicating if the update process is pending.
+ *   - `startMatchUpd`: A function to initiate the update process, accepting either FormData or a new status ID,
+ *                      and the initial status ID of the match.
  *
  * @example
- * const { isPending, startUpdating } = useUpdateMatch(matchId, initialStatusId);
- * startUpdating(newStatusId);
+ * const { isUpdating, startMatchUpd } = useUpdateMatch(matchId);
+ * startMatchUpd(newStatusId, initialStatusId);
+ * // Or with form data
+ * startMatchUpd(formData, initialStatusId);
  *
  * @throws Will handle errors by showing a toast message and reverting the changes if the update fails.
  */
@@ -85,7 +87,7 @@ export const useUpdateMatch = (matchId?: number) => {
       }
 
       //Request to server
-      const { error } = await updateMatchWithId(newMatchData);
+      const { error } = await updateMatchWithId(null, newMatchData);
 
       if (error) {
         if (shouldUpdateOptimistic) {

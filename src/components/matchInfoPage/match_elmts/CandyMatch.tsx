@@ -13,6 +13,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import EditButton from "@/components/buttons/EditButton";
 import StatusBadge from "@/components/StatusBadge";
 import { TStatus } from "@/shared/types/statuses";
+import { useSimpleUpdateMatch } from "@/hooks/useSimpleUpdateMatch";
+import { Input } from "@/components/ui/input";
 
 type TProps = {
   matchId: number,
@@ -34,19 +36,15 @@ const CandyMatch: FC<TProps> = ({
   cv_summary,
 }) => {
 
-  const { isUpdating, startMatchUpd } = useUpdateMatch(matchId)
+  const { isUpdating, startMatchUpd } = useSimpleUpdateMatch(matchId)
   const [isEditing, setIsEditing] = useState(false)
 
   const initStatusId = String(statusData.id)
 
-
-
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const formData = new FormData(e.currentTarget);
-    startMatchUpd(formData, statusData.id)
+    startMatchUpd(formData)
 
     setIsEditing(false);
   };
@@ -127,7 +125,14 @@ const CandyMatch: FC<TProps> = ({
               <tr>
                 <td >Балл:</td>
                 <td className="px-4 py-1">
-                  {match_point}
+                  {isEditing ?
+                    <Input
+                      placeholder={String(match_point)}
+                      className="w-[180px] focus-visible:ring-0 [&:not(.ring-destructive)]:focus-visible:ring-offset-0 h-7 bg-transparent focus-visible:bg-indigo-50"
+                      name="point"
+                    />
+                    : <>{match_point}</>}
+
                 </td>
               </tr>
             </tbody>

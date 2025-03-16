@@ -1,4 +1,4 @@
-import { FC } from 'react';
+'use client'
 
 import { Card, CardDescription, CardTitle } from '@/components/ui/card';
 import CaseIcon from '@/assets/icons/case.svg?rc';
@@ -9,43 +9,41 @@ import { TVacancy } from '@/shared/types';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import StatusBadge from '../StatusBadge';
 import { cn } from '@/lib/utils';
+import { useSingleVacancy } from '@/providers/SingleVacancyProvider';
 
 
-type TProps = {
-  vacancyName: TVacancy['name'];
-  createdAt: TVacancy['created_at'];
-  salaryOfferFrom: TVacancy['salary_from'];
-  salaryOfferTo: TVacancy['salary_to'];
-  salaryMiddle: TVacancy['salary_market'];
-  salaryCandidate: TVacancy['salary_candy'];
-  candidatesCount: TVacancy['match_count'];
-  jobReactions: TVacancy['match_hot_count'];
-  vacancyStatus: TVacancy["status"];
-};
+// type TVacancySummary = Pick<TVacancy, 'name' | 'created_at' | 'salary_from' | 'salary_to' | 'salary_market' | 'salary_candy' | 'match_count' | 'match_hot_count' | 'status'>
 
 
+// type TProps = {
+//   summaryData: TVacancySummary
+// }
 
-export const SummaryCard: FC<TProps> = ({
-  vacancyName,
-  createdAt,
-  salaryOfferFrom,
-  salaryOfferTo,
-  salaryMiddle,
-  salaryCandidate,
-  candidatesCount,
-  jobReactions,
-  vacancyStatus
-}) => {
-  const daysInProcessing = getDaysSinceCreated(createdAt)
+
+export const SummaryCard = () => {
+  const { vacancy } = useSingleVacancy()
+  const {
+    created_at,
+    salary_candy,
+    salary_from,
+    salary_to,
+    salary_market,
+    name: vacancyName,
+    match_count,
+    match_hot_count,
+    status: vacancyStatus
+  } = vacancy
+
+  const daysInProcessing = getDaysSinceCreated(created_at)
   const daysString = `${daysInProcessing} ${getWordEndings(daysInProcessing, [
     'день',
     'дня',
     'дней',
   ])}`;
 
-  const salaryOfferString = getSalaryRange(salaryOfferFrom, salaryOfferTo);
-  const salaryMiddleString = formatPrice(salaryMiddle, 'ru-Ru', 'RUB');
-  const salaryCandidateString = formatPrice(salaryCandidate, 'ru-Ru', 'RUB');
+  const salaryOfferString = getSalaryRange(salary_from || 0, salary_to || 0);
+  const salaryMiddleString = formatPrice(salary_market || 0, 'ru-Ru', 'RUB');
+  const salaryCandidateString = formatPrice(salary_candy || 0, 'ru-Ru', 'RUB');
 
   return (
     <Card className="w-full py-4 px-6 flex gap-6 relative">
@@ -102,12 +100,12 @@ export const SummaryCard: FC<TProps> = ({
 
           <li>
             <CardDescription>кандидатов в воронке</CardDescription>
-            <p>{candidatesCount}</p>
+            <p>{match_count}</p>
           </li>
 
           <li>
             <CardDescription>отклики</CardDescription>
-            <p>{jobReactions}</p>
+            <p>{match_hot_count}</p>
           </li>
         </ul>
       </div>

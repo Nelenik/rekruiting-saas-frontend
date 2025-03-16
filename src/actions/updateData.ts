@@ -7,10 +7,11 @@ import {
   TBadRequest,
 } from "@/shared/helpers";
 import { apiPut } from "./api";
+import { parseFormData } from "@/lib/utils/parseFormData";
 
 export const updateVacancy = async (
   vacancyId: number | string,
-  _: TMutationState,
+  _: TMutationState | null,
   body: FormData
 ) => {
   const result = await updateEntity(`/vacancy/${vacancyId}`, body);
@@ -47,7 +48,7 @@ export const updateCV = async (
 
 export const updateMatch = async (
   matchId: number | string,
-  // _: TMutationState,
+  _: TMutationState | null,
   body: FormData
 ) => {
   const result = await updateEntity(`/match/${matchId}`, body);
@@ -60,8 +61,15 @@ export const updateMatch = async (
   return result;
 };
 
-export const updateStatus = async (statusKey: string, body: FormData) => {
-  const result = await updateEntity(`/statuses/${statusKey}`, body);
+export const updateStatus = async (
+  statusId: string | number,
+  _: TMutationState | null,
+  body: FormData
+) => {
+  const result = await updateEntity(`/status/${statusId}`, body);
+  if (!result.error) {
+    return { ...result, payload: parseFormData(body) };
+  }
   return result;
 };
 
@@ -76,6 +84,10 @@ const updateEntity = async (url: string, body: FormData) => {
         payload: body,
       };
     }
+    return {
+      sent: true,
+      error: null,
+    };
   } catch (error) {
     console.error(error);
     return {
@@ -85,8 +97,8 @@ const updateEntity = async (url: string, body: FormData) => {
     };
   }
 
-  return {
-    sent: true,
-    error: null,
-  };
+  // return {
+  //   sent: true,
+  //   error: null,
+  // };
 };

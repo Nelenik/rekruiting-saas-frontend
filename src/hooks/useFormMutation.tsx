@@ -1,6 +1,6 @@
 import { mutationInitialState } from "@/actions/constants";
 import { TMutationState } from "@/actions/types";
-import { convertFormData } from "@/lib/utils/convertFormData";
+import { parseFormData } from "@/lib/utils/parseFormData";
 import { TValidationMappedErrors } from "@/shared/helpers";
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { useToast } from "./use-toast";
@@ -9,7 +9,12 @@ type TFormMutationAction = (_: TMutationState, body: FormData) => Promise<TMutat
 
 type TOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 
-export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: () => void = () => { }, initialState: TMutationState = mutationInitialState, toastMessage: string) => {
+export const useFormMutation = (
+  mutationAction: TFormMutationAction,
+  onSucces: (state: TMutationState) => void = () => { },
+  initialState: TMutationState = mutationInitialState,
+  toastMessage: string
+) => {
 
   const { toast } = useToast();
 
@@ -35,22 +40,22 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
 
   //handle successful or not submit
   useEffect(() => {
-    if (state.sent && !state.error) {
-      onSucces()
-      toast({
-        description: toastMessage,
-      });
-      setIsSuccess(true);
-    } else if (state.sent && state.error && !state.error.details) {
-      toast({
-        variant: 'destructive',
-        description: state.error?.message
-      })
+    if (state.sent) {
+      if (!state.error) {
+        onSucces(state);
+        toast({ description: toastMessage });
+        setIsSuccess(true);
+      } else if (!state.error.details) {
+        toast({ variant: "destructive", description: state.error?.message });
+        setIsSuccess(false);
+      }
     }
     return () => setIsSuccess(false)
-  }, [state.sent, state.error, toastMessage, onSucces, toast])
+  }, [toastMessage, onSucces, toast, state])
 
-  const defaultValues = state.payload ? convertFormData(state.payload) : undefined;
+  const defaultValues = state.payload && state.payload instanceof FormData
+    ? parseFormData<Record<string, string>>(state.payload)
+    : undefined;
 
   //Removes the error from the errors object when the user starts entering data.
   const onChange = (e: TOnChangeEvent) => {

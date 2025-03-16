@@ -1,14 +1,17 @@
+'use client'
 import { CandidateCard } from "@/components/cards/CandidateCard";
 import { FunnelCard } from "@/components/cards/FunnelCard";
 import { cn } from "@/lib/utils";
 import { TCandidateShort } from "@/shared/types";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { useQueryClient } from "@tanstack/react-query";
 import { GripVertical } from "lucide-react";
 import { FC } from "react";
 
 type TProps = {
   title: string
-  candidates: TCandidateShort[] | null
+  status_id: number
+  // candidates: TCandidateShort[] | null
   className: string
 }
 
@@ -18,8 +21,11 @@ type TProps = {
  */
 
 const MatchColAbstraction: FC<TProps> = ({
-  title, candidates, className
+  title, status_id, className
 }) => {
+  const queryClient = useQueryClient()
+  const candidates: TCandidateShort[] | undefined = queryClient.getQueryData(['matchByStatus', status_id])
+
   return (
     <div className={cn(`relative flex flex-col gap-6 ring-2 bg-background ring-offset-4 rounded-lg   min-w-[256px] cursor-grabbing`, className)}>
       <GripVertical className="absolute left-1 top-2 z-[100] stroke-muted-foreground" />

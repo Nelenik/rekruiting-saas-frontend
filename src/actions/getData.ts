@@ -162,7 +162,7 @@ export const getBasicCandidatesByStatus = async (
       `/match/candidates?vacancy_id=${vacId}&status_id=${statusId}`
     );
     console.log(response.data, "candy list");
-    return response.data;
+    return response.data.toSorted((a, b) => a.id - b.id);
   } catch (error) {
     console.error(error);
     throw new Error(

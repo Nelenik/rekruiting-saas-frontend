@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 
 import '../../globals.css';
 import QueryProvider from '@/providers/QueryProvider';
+import { Suspense } from 'react';
 
 const geistSans = localFont({
   src: '../../fonts/GeistVF.woff',
@@ -32,6 +33,7 @@ export default async function MainAppLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         <QueryProvider>
+
           {children}
         </QueryProvider>
       </body>

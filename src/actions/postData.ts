@@ -10,6 +10,9 @@ import {
 
 import { apiPost } from "./api";
 import { TMutationState } from "./types";
+import { DEFAULT_MATCH_STATUSES } from "@/shared/dictionaries/constants";
+import convertToFormData from "@/lib/utils/convertToFormData";
+import { TStatus } from "@/shared/types/statuses";
 
 export const storeCompany = async (_: TMutationState, body: FormData) => {
   const result = await storeEntity("/company", body);
@@ -28,6 +31,31 @@ export const storeCv = async (_: TMutationState, body: FormData) => {
 };
 
 export const storeVacancy = async (_: TMutationState, body: FormData) => {
+  const newVacancyStatuses = DEFAULT_MATCH_STATUSES.map((el) =>
+    storeStatus(null, convertToFormData(el))
+  );
+
+  //Create default statuses for the vacancy. If unsuccessful, return the vacancy body to avoid resetting the form.
+  const statuses = await Promise.all(newVacancyStatuses);
+  const hasError = statuses.some((result) => result.error);
+  console.log("statuses", statuses);
+  if (hasError) {
+    return {
+      sent: true,
+      error: getSyntheticError("Ошибка при создании статусов для вакансии"),
+      payload: body,
+    };
+  }
+
+  // If successful, append status IDs to the form data and save vacancy. The status_id = 1 (Скрининг) is temporarily unchangeable, as all the generated matches are linked to it
+  body.append("matchStatuses[]", `1`);
+
+  statuses.forEach((item) => {
+    if (item.payload && "id" in item.payload) {
+      body.append("matchStatuses[]", `${item.payload.id}`);
+    }
+  });
+
   const result = await storeEntity("/vacancy", body);
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/vacancies", "layout");
@@ -35,16 +63,47 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
   return result;
 };
 
-const storeEntity = async (url: string, body: FormData) => {
+export const storeStatus = async (
+  _: TMutationState | null,
+  body: FormData
+): Promise<TMutationState<TStatus>> => {
+  const result = await storeEntity<TStatus>("/status", body, true);
+  return result;
+};
+
+/* STORE ENTITY */
+
+const storeEntity = async <T = unknown>(
+  url: string,
+  body: FormData,
+  enableResData: boolean = false
+) => {
   try {
-    const response = await apiPost<boolean | TBadRequest>(url, body);
-    if (response && typeof response === "object" && response.errorType) {
+    type TGoodRequest = {
+      success: boolean;
+      data: T;
+    };
+    const response = await apiPost<TGoodRequest | TBadRequest>(url, body);
+
+    if (response && "errorType" in response) {
       return {
         sent: true,
         error: extractSyntheticErrorFromApi(response),
         payload: body,
       };
     }
+    if (response && enableResData) {
+      return {
+        sent: true,
+        payload: response.data as T,
+        error: null,
+      };
+    }
+
+    return {
+      sent: true,
+      error: null,
+    };
   } catch (error) {
     console.error(error);
     return {
@@ -54,8 +113,8 @@ const storeEntity = async (url: string, body: FormData) => {
     };
   }
 
-  return {
-    sent: true,
-    error: null,
-  };
+  // return {
+  //   sent: true,
+  //   error: null,
+  // };
 };

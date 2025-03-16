@@ -8,7 +8,7 @@ import { useMemo } from 'react';
 
 const VacanciesPage = () => {
   const vacancies = useVacancies()
-  console.log(vacancies)
+
   const groupedVacs = useMemo(() => groupBy(vacancies, (el) => String(el.status_id)), [vacancies])
 
   return (

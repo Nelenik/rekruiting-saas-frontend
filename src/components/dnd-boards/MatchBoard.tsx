@@ -1,52 +1,34 @@
 'use client'
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { TCandidateShort, TMatchStatus } from "@/shared/types";
+import { TCandidateShort } from "@/shared/types";
 import MatchCol from "./boards_elmts/MatchCol";
-import { useQueries } from "@tanstack/react-query";
-import { getBasicCandidatesByStatus } from "@/actions/getData";
-import { useParams } from "next/navigation";
 import { FC, useMemo, useState } from "react";
 import { SortableContext } from "@dnd-kit/sortable";
-// import { useMatchStatuses } from "@/providers/AppStatusesProvider";
 import DndSortable from "../dnd/DndSortable";
 import { CandidateCard } from "../cards/CandidateCard";
 import MatchColAbstraction from "./boards_elmts/MatchColAbstraction";
 import { GripVertical } from "lucide-react";
-import { useUpdateMatch } from "@/hooks/useUpdateMatch";
 import { cn } from "@/lib/utils";
 import { TStatus } from "@/shared/types/statuses";
+import { useOptimisticUpdateMatch } from "@/hooks/useOptimisticUpdateMatch";
+import { useSingleVacancy } from "@/providers/SingleVacancyProvider";
 
-type TProps = {
-  match_statuses: TMatchStatus[]
-}
+const MatchBoard = () => {
 
-const MatchBoard: FC<TProps> = ({ match_statuses }) => {
-  const { vacancyId } = useParams()
-
-  const [columns, setColumns] = useState(match_statuses.map(el => el.status))
+  const { columns, moveColumn } = useSingleVacancy()
 
   const columnsIds = useMemo(() => columns.map(col => col.id), [columns])
-
-  //query all the matches by status
-  const queries = useQueries({
-    queries: columns.map((col) => ({
-      refetchOnWindowFocus: false,
-      queryKey: ['matchByStatus', col.id],
-      queryFn: () => getBasicCandidatesByStatus(vacancyId as string, col.id),
-      enabled: true
-    })),
-
-  })
 
   //activeColumn and acitveItem state for DndOverlay
   const [activeColumn, setActiveColumn] = useState<TStatus | null>(null)
 
   const [activeItem, setActiveItem] = useState<TCandidateShort | null>(null);
 
-  // update match hook
-  const { startMatchUpd } = useUpdateMatch(activeItem?.id)
+  // update match status hook
+  const { startMatchUpd } = useOptimisticUpdateMatch(activeItem?.id)
 
+  /****DND HANDLERS *****/
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
     const data = active.data.current;
@@ -91,8 +73,9 @@ const MatchBoard: FC<TProps> = ({ match_statuses }) => {
       }
 
       startMatchUpd(targetStatusId, initialStatusId)
+    } else if (isActiveColumn) {
+      moveColumn(active.id, over.id)
     }
-
   }
 
   return (
@@ -106,19 +89,18 @@ const MatchBoard: FC<TProps> = ({ match_statuses }) => {
 
           <SortableContext items={columnsIds}>
 
-            {queries.map((query, index) => (
+            {columns.map((col, index) => (
               <DndSortable
-                key={columns[index].id}
-                sortableId={columns[index].id}
-                dndData={{ type: "match_column", column: columns[index] }}
+                key={col.id}
+                sortableId={col.id}
+                dndData={{ type: "match_column", column: col }}
               >
                 <MatchCol
-                  status={columns[index].name}
-                  status_id={columns[index].id}
-                  title={columns[index].name}
-                  isLoading={query.isFetching}
-                  candidates={query.data || null}
+                  color={col.color}
+                  status_id={col.id}
+                  title={col.name}
                   className={cn(`w-1/${columns.length}`)}
+                  isEditable={col.id !== 1}
                 />
               </DndSortable>
             ))}
@@ -134,7 +116,7 @@ const MatchBoard: FC<TProps> = ({ match_statuses }) => {
           activeColumn && (
             <MatchColAbstraction
               title={activeColumn.name}
-              candidates={queries[activeColumn.rank - 1].data || null}
+              status_id={activeColumn.id}
               className={`w-1/${columns.length}`}
             />
           )
