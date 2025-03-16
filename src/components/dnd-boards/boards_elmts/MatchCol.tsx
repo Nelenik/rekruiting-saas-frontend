@@ -3,20 +3,79 @@ import { CandidateCard } from "@/components/cards/CandidateCard";
 import { FunnelCard } from "@/components/cards/FunnelCard";
 import DndSortable from "@/components/dnd/DndSortable";
 import { SortableContext } from "@dnd-kit/sortable";
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { getBasicCandidatesByStatus } from "@/actions/getData";
 import { useParams } from "next/navigation";
 
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, MoveLeft, MoveRight } from "lucide-react";
+import StatusForm from "@/components/app_forms/StatusForm";
+
 type TProps = {
   status_id: number
   title: string
   className: string
+  isEditable?: boolean
 }
 
-const MatchCol: FC<TProps> = ({ status_id, title, className }) => {
+const ColumnPopover = ({ className }: { className: string }) => {
+  const [selectedAction, setSelectedAction] = useState<'add' | 'edit' | null>(null)
+
+  const renderPopoverContent = () => {
+    switch (selectedAction) {
+      case 'add':
+        return (
+          <StatusForm type='add' onSuccess={() => { }} onCancel={() => setSelectedAction(null)} />
+        )
+      case 'edit':
+        return (
+          <StatusForm type='edit' onSuccess={() => { }} onCancel={() => setSelectedAction(null)} />
+        )
+      default:
+        return (
+          <ul>
+            <li>
+              <Button onClick={() => setSelectedAction('add')}>
+                <MoveLeft />
+                Добавить слева
+              </Button>
+            </li>
+            <li>
+              <Button onClick={() => setSelectedAction('add')}>
+                <MoveRight />
+                Добавить слева
+              </Button>
+            </li>
+            <li>
+              <Button onClick={() => setSelectedAction('edit')}>Редактировать</Button>
+            </li>
+            <li>
+              <Button onClick={() => { }}>Удалить</Button>
+            </li>
+          </ul>
+        )
+    }
+  }
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild className={cn(className)}>
+        <Button variant="ghost">
+          <ChevronDown />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        {renderPopoverContent()}
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+const MatchCol: FC<TProps> = ({ status_id, title, className, isEditable = true }) => {
   const { vacancyId } = useParams()
 
   const { data: candidates, isLoading } = useQuery({

@@ -62,6 +62,7 @@ export const updateMatch = async (
 
 export const updateStatus = async (
   statusId: string | number,
+  _: TMutationState | null,
   body: FormData
 ) => {
   const result = await updateEntity(`/status/${statusId}`, body);

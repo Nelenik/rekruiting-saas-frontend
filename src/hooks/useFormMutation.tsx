@@ -9,7 +9,12 @@ type TFormMutationAction = (_: TMutationState, body: FormData) => Promise<TMutat
 
 type TOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 
-export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: () => void = () => { }, initialState: TMutationState = mutationInitialState, toastMessage: string) => {
+export const useFormMutation = (
+  mutationAction: TFormMutationAction,
+  onSucces: (state: TMutationState) => void = () => { },
+  initialState: TMutationState = mutationInitialState,
+  toastMessage: string
+) => {
 
   const { toast } = useToast();
 
@@ -36,7 +41,7 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
   //handle successful or not submit
   useEffect(() => {
     if (state.sent && !state.error) {
-      onSucces()
+      onSucces(state)
       toast({
         description: toastMessage,
       });
@@ -48,7 +53,7 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
       })
     }
     return () => setIsSuccess(false)
-  }, [state.sent, state.error, toastMessage, onSucces, toast])
+  }, [state.sent, state.error, toastMessage, onSucces, toast, state])
 
   const defaultValues = state.payload && state.payload instanceof FormData
     ? parseFormData<Record<string, string>>(state.payload)
