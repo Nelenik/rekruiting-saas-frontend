@@ -6,7 +6,8 @@ import { API_URL } from "@/shared/config";
 export const apiGet = async <T = unknown>(url: string): Promise<T> => {
   const response = await fetch(API_URL + url, {
     method: "GET",
-    cache: "force-cache",
+    cache: "no-store",
+    // cache: "force-cache",
   });
 
   return response.json();
@@ -21,6 +22,7 @@ export const apiPost = async <T = unknown>(
 
   const response = await fetch(API_URL + url, {
     method: "POST",
+    cache: "no-store",
     body: JSON.stringify(parsedFormData),
     headers: {
       "Content-Type": "application/json",
@@ -39,6 +41,7 @@ export const apiPut = async <T = unknown>(
 
   const response = await fetch(API_URL + url, {
     method: "PUT",
+    cache: "no-store",
     body: JSON.stringify(parsedFormData),
     headers: {
       "Content-Type": "application/json",

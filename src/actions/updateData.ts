@@ -17,6 +17,7 @@ export const updateVacancy = async (
   const result = await updateEntity(`/vacancy/${vacancyId}`, body);
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/vacancies", "layout");
+    revalidatePath("/dashboard/[companyId]/vacancies/[vacancyId]", "layout");
     revalidatePath("/dashboard/[companyId]/vacancy-info/[vacancyId]", "page");
   }
   return result;

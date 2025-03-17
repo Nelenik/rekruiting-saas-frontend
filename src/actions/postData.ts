@@ -59,6 +59,8 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
   const result = await storeEntity("/vacancy", body);
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/vacancies", "layout");
+    revalidatePath("/dashboard/[companyId]/vacancies/[vacancyId]", "layout");
+    revalidatePath("/dashboard/[companyId]/vacancy-info/[vacancyId]", "page");
   }
   return result;
 };
