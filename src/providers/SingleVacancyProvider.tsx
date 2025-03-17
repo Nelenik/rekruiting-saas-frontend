@@ -7,7 +7,8 @@ import { omitFields } from "@/lib/utils/omitFields"
 import { TVacancy } from "@/shared/types"
 import { TStatus } from "@/shared/types/statuses"
 import { arrayMove } from "@dnd-kit/sortable"
-import { createContext, ReactNode, useCallback, useContext, useMemo, useRef, useState, useTransition } from "react"
+import { useQueryClient } from "@tanstack/react-query"
+import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState, useTransition } from "react"
 
 type TVacancyContext = {
   vacancy: TVacancy,
@@ -26,6 +27,12 @@ type TVacancyEdit = Omit<
 const VacancyContext = createContext<TVacancyContext | null>(null)
 
 export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNode, vacancy: TVacancy }) => {
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    queryClient.resetQueries({ queryKey: ['matchByStatus'] });
+  }, [queryClient, vacancy.id]);
 
   //extract fields which are necessary for vacancy updating
   const vacancyEditData: TVacancyEdit = useMemo(() =>
