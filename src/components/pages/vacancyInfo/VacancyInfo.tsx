@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/utils/formatersIntl";
 import { vacancyEpmpoymentDict, vacancyExperienceDict, vacancyPositionsDict, vacancyWorkFormatDict } from "@/shared/dictionaries";
-import CompanyOverview from "./vacancy_elmts/CompanyOverview";
+import CompanyOverview from "./elmts/CompanyOverview";
 import TextFormatter from "../../shared/TextFormatter";
 import { TVacancy } from "@/shared/types";
 import { useState } from "react";
