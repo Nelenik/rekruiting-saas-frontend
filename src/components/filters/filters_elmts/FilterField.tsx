@@ -34,7 +34,7 @@ type TProps = {
 
 
 
-const FilterInput: FC<TProps> = ({
+const FilterField: FC<TProps> = ({
   paramName,
   render
 }) => {
@@ -61,4 +61,4 @@ const FilterInput: FC<TProps> = ({
   return <>{render({ value, onChange: handleChange })}</>
 }
 
-export default FilterInput;
+export default FilterField;

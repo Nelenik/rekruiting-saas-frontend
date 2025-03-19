@@ -75,7 +75,12 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
     const response = await apiGet<TApiListResponse<TResume>>(
       "/cv?" + filterString
     );
-    return response.data;
+    console.log(response.data);
+    return {
+      data: response.data,
+      total: response.total,
+      currentPage: response.page,
+    };
   } catch (error) {
     console.error(error);
     throw new Error(

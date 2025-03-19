@@ -1,6 +1,6 @@
 import { getResumeList } from "@/actions/getData";
 import AddEntityModal from "@/components/modals/AddEntityModal";
-import ReserveFilter from "@/components/ReserveFilter";
+import ReserveFilter from "@/components/filters/ReserveFilter";
 import ReserveList from "@/components/ReserveList";
 import { FC } from "react";
 
@@ -9,8 +9,11 @@ type TProps = {
 }
 
 const ReservePage: FC<TProps> = async ({ searchParams }) => {
+
   const filters = (await searchParams)
-  const resumeList = await getResumeList(filters)
+
+  const { data: resumeList = [] } = await getResumeList(filters)
+
   console.log(resumeList)
   return (
     <div className="flex flex-col gap-10 justify-between  @3xl:flex-row">

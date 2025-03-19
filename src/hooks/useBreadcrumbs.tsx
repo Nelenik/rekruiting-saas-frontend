@@ -1,6 +1,6 @@
 import { ReadonlyURLSearchParams, usePathname, useSearchParams } from "next/navigation";
 import HomeIcon from '@/assets/icons/home.svg?rc';
-import CompanySwitcher from "@/components/CompanySwitcher";
+import CompanySwitcher from "@/components/navigation/nav_elmts/CompanySwitcher";
 
 // This mapping matches routes to breadcrumbs, displaying either static labels or dynamic names extracted from route parameters.
 //Each new route should be described here for better navigation.

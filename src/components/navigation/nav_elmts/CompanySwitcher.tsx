@@ -2,10 +2,10 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useCompanies } from "@/providers/CompaniesProvider";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
-import { Command, CommandInput, CommandItem, CommandList } from "./ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Command, CommandInput, CommandItem, CommandList } from "../../ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { useEffect, useRef } from "react";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea } from "../../ui/scroll-area";
 
 
 const CompanySwitcher = () => {

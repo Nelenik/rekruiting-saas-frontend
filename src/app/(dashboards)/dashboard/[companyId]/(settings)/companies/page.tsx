@@ -1,7 +1,7 @@
 // 'use client'
 import { getCompaniesList } from "@/actions/getData";
-import CompaniesFilter from "@/components/CompaniesFilter";
 import CompaniesTable from "@/components/CompaniesTable";
+import CompaniesFilter from "@/components/filters/CompaniesFilter";
 import AddEntityModal from "@/components/modals/AddEntityModal";
 import Paginate from "@/components/navigation/Paginate";
 

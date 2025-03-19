@@ -30,10 +30,10 @@ const ReserveList: FC<TProps> = ({
 }) => {
 
   return (
-    <List className="self-start grow grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] auto-rows-auto gap-4">
+    <List className="self-start grow flex flex-col gap-4 ">
       {resumeList.map((resume) => (
-        <li className="text-lg" key={resume.id}>
-          <Card className="py-2 px-6 flex gap-6 items-center justify-between h-full relative">
+        <li className="text-lg w-[min(100%,850px)] mx-auto" key={resume.id}>
+          <Card className="py-2 px-6 min-h-[102px] flex gap-6 items-center justify-between h-full relative">
 
             <Avatar >
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />

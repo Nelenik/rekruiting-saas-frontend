@@ -1,6 +1,6 @@
 'use client'
 
-import FilterField from "./app_forms/form_elmts/FilterField";
+import FilterField from "./filters/filters_elmts/FilterField";
 import { Input } from "./ui/input";
 
 const CompaniesFilter = () => {
