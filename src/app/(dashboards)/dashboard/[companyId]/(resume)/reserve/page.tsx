@@ -14,7 +14,6 @@ const ReservePage: FC<TProps> = async ({ searchParams }) => {
 
   const { data: resumeList = [] } = await getResumeList(filters)
 
-  console.log(resumeList)
   return (
     <div className="flex flex-col gap-10 justify-between  @3xl:flex-row">
       <div className="@3xl:w-[250px] flex flex-col gap-10">

@@ -1,99 +1,176 @@
 'use client'
-import FilterField from "./filters_elmts/FilterField";
-import FormItem from "../app_forms/form_elmts/FormItem";
-import { Input } from "../ui/input";
-import PositionSelect from "../shared/PositionSelect";
-import CancelButton from "../buttons/CancelButton";
-import { Button } from "../ui/button";
 import { FilterX } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import FormItem from "../app_forms/form_elmts/FormItem";
+import CancelButton from "../buttons/CancelButton";
+import PositionSelect from "../shared/PositionSelect";
+import { Button } from "../ui/button";
+import Filters from "./filters_elmts/Filters";
+import { Input } from "../ui/input";
+import { cn } from "@/lib/utils";
+
+const defaultState = {
+  position: '',
+  salary_from: '',
+  salary_to: '',
+  location: ''
+}
 
 const ReserveFilter = () => {
-  const router = useRouter()
-  const pathname = usePathname()
-  const handleResetAll = () => {
-    router.push(pathname)
-  }
+
   return (
-    <div className="flex flex-wrap @3xl:flex-col gap-6">
-      <FilterField
-        paramName="position"
-        render={({ value, onValueChange, onClick }) => (
-          <FormItem labelText="Специализация">
-            <CancelButton
-              onClick={onClick}
-              className="absolute right-0 top-0"
-            />
-            <PositionSelect
-              value={String(value)}
-              onValueChange={onValueChange}
-              className="bg-white"
-            />
-          </FormItem>
-        )} />
+    <Filters
+      className="flex flex-wrap @3xl:flex-col gap-6"
+      render={({ filters, updateFilter }) => {
+        return (
+          <>
+            <FormItem labelText="Специализация">
+              <CancelButton
+                onClick={() => updateFilter({ position: '' })}
+                className="absolute right-0 top-0 z-10"
+              />
+              <PositionSelect
+                value={filters.position || ''}
+                onValueChange={(value: string) => updateFilter({ 'position': value })}
+                className="bg-white"
+              />
+            </FormItem>
 
-      <FilterField
-        paramName="salary_from"
-        render={({ value, onValueChange, onClick }) => (
-          <FormItem labelText="Зарплата от">
-            <CancelButton
-              onClick={onClick}
-              className="absolute right-0 top-0"
-            />
-            <Input
-              value={value}
-              onChange={(e) => onValueChange?.(e.target.value)}
-              placeholder="Зарплата от"
+            <FormItem labelText="Зарплата от">
+              <CancelButton
+                onClick={() => updateFilter({ salary_from: '' })}
+                className="absolute right-0 top-0 z-10"
+              />
+              <Input
+                value={filters.salary_from || ''}
+                onChange={(e) => {
+                  updateFilter({ salary_from: e.target.value })
+                }}
+                placeholder="Зарплата от"
+              />
+            </FormItem>
 
-              className=""
-            />
-          </FormItem>
-        )} />
+            <FormItem labelText="Зарплата до">
+              <CancelButton
+                onClick={() => updateFilter({ salary_to: '' })}
+                className="absolute right-0 top-0 z-10"
+              />
+              <Input
+                value={filters.salary_to || ''}
+                onChange={(e) => updateFilter({ salary_to: e.target.value })}
+                placeholder="Зарплата до"
+              />
+            </FormItem>
 
-      <FilterField
-        paramName="salary_to"
-        render={({ value, onValueChange, onClick }) => (
-          <FormItem labelText="Зарплата до">
-            <CancelButton
-              onClick={onClick}
-              className="absolute right-0 top-0"
-            />
-            <Input
-              value={value}
-              onChange={(e) => onValueChange?.(e.target.value)}
-              placeholder="Зарплата до"
+            <FormItem labelText="География">
+              <CancelButton
+                onClick={() => updateFilter({ location: '' })}
+                className="absolute right-0 top-0 z-10"
+              />
+              <Input
+                value={filters.location || ''}
+                onChange={(e) => updateFilter({ location: e.target.value })}
+                placeholder="География"
 
-              className=""
-            />
-          </FormItem>
-        )} />
+                className=""
+              />
+            </FormItem>
 
-      <FilterField
-        paramName="location"
-        render={({ value, onValueChange, onClick }) => (
-          <FormItem labelText="География">
-            <CancelButton
-              onClick={onClick}
-              className="absolute right-0 top-0"
-            />
-            <Input
-              value={value}
-              onChange={(e) => onValueChange?.(e.target.value)}
-              placeholder="География"
+            <Button
+              onClick={() => {
+                updateFilter(defaultState)
+              }}
+              variant={'outline'}
+              className={cn(
+                'ring-2 ring-input ring-offset-1 border-none',
+                "hover:bg-input"
+              )}
+            >
+              <FilterX /> Сбросить
+            </Button>
+          </>
 
-              className=""
-            />
-          </FormItem>
-        )} />
-      <Button
-        onClick={handleResetAll}
-        variant={'ghost'}
-        className="hover:bg-input"
-      >
-        <FilterX /> Сбросить все
-      </Button>
-    </div>
-  );
+        )
+      }}
+    />
+  )
 }
 
 export default ReserveFilter;
+
+// const ReserveFilter = () => {
+//   const router = useRouter()
+//   const pathname = usePathname()
+//   const handleResetAll = useCallback(() => {
+//     router.push(pathname)
+//   }, [pathname, router])
+//   return (
+//     <div className="flex flex-wrap @3xl:flex-col gap-6">
+//       <FilterField
+//         enableResetField
+//         paramName="position"
+//         render={({ value, onValueChange }) => (
+//           <FormItem labelText="Специализация">
+//             <PositionSelect
+//               value={value}
+//               onValueChange={onValueChange}
+//               className="bg-white"
+//             />
+//           </FormItem>
+//         )} />
+
+//       <FilterField
+//         enableResetField
+//         paramName="salary_from"
+//         render={({ value, onValueChange }) => (
+//           <FormItem labelText="Зарплата от">
+//             <Input
+//               value={value}
+//               onChange={(e) => onValueChange?.(e.target.value)}
+//               placeholder="Зарплата от"
+
+//               className=""
+//             />
+//           </FormItem>
+//         )} />
+
+//       <FilterField
+//         enableResetField
+//         paramName="salary_to"
+//         render={({ value, onValueChange }) => (
+//           <FormItem labelText="Зарплата до">
+//             <Input
+//               value={value}
+//               onChange={(e) => onValueChange?.(e.target.value)}
+//               placeholder="Зарплата до"
+
+//               className=""
+//             />
+//           </FormItem>
+//         )} />
+
+//       <FilterField
+//         enableResetField
+//         paramName="location"
+//         render={({ value, onValueChange }) => (
+//           <FormItem labelText="География">
+//             <Input
+//               value={value}
+//               onChange={(e) => onValueChange?.(e.target.value)}
+//               placeholder="География"
+
+//               className=""
+//             />
+//           </FormItem>
+//         )} />
+//       <Button
+//         onClick={handleResetAll}
+//         variant={'ghost'}
+//         className="hover:bg-input"
+//       >
+//         <FilterX /> Сбросить все
+//       </Button>
+//     </div>
+//   );
+// }
+
+// export default ReserveFilter;
