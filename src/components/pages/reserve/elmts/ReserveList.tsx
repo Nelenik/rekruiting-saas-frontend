@@ -13,8 +13,8 @@ import { cn } from "@/lib/utils";
 import EditEntityModal from "../../../modals/EditEntityModal";
 import { getDurationFromMonths } from "@/lib/utils/getDurationFromMonths";
 import Loader from "@/components/shared/Loader";
-import { useInfiniteScroll } from "./useInfiniteScroll";
-import ScrollUpBtn from "./ScrollUpBtn";
+import { useInfiniteScroll } from "../../../../hooks/useInfiniteScroll";
+import ScrollUpBtn from "@/components/buttons/ScrollUpBtn";
 
 
 const badgeColors = {
@@ -41,15 +41,6 @@ const ReserveList = () => {
   return (
     <div className="self-start grow pb-10">
       <ScrollUpBtn onClick={handleScrollUp} />
-      {/* <Button
-        onClick={handleScrollUp}
-        variant={'outline'}
-        className={cn(
-          "p-0 border-primary w-10 aspect-square rounded-full fixed bottom-4 right-4 z-10 bg-transparent",
-          "hover:bg-primary/70 [&:hover_svg]:text-white"
-        )}>
-        <CircleChevronUp className="text-primary" />
-      </Button> */}
       <div
         ref={firstElementRef}
         data-id="topBoundary"

@@ -262,7 +262,7 @@ const VacancyForm = ({
             <SelectTrigger
               className={cn(errors.location && 'ring-2 ring-destructive')}
             >
-              <SelectValue placeholder="Выбирете город" />
+              <SelectValue placeholder="Выберите город" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Москва">Москва</SelectItem>

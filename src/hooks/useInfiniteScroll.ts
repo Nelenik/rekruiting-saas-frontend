@@ -27,7 +27,7 @@ export const useInfiniteScroll = () => {
 
       node.scrollIntoView({
         block: direction ? "start" : "end",
-        behavior: "auto",
+        behavior: "smooth",
         inline: "nearest",
       });
     },
@@ -100,9 +100,11 @@ export const useInfiniteScroll = () => {
       entries.forEach(async (entry) => {
         const el = entry.target as HTMLElement;
         if (!entry.isIntersecting) return;
+        console.log("Intersecting element:", el.dataset.id);
         if (el.dataset.id === "topBoundary" && hasPreviousPage) {
           await fetchPreviousPage();
         } else if (el.dataset.id === "bottomBoundary" && hasNextPage) {
+          console.log("next page");
           await fetchNextPage();
         }
       });
@@ -118,6 +120,7 @@ export const useInfiniteScroll = () => {
 
   // This effect initializes the Intersection Observer for the top and bottom elements.
   useEffect(() => {
+    if (resumeList.length === 0) return;
     const observer = new IntersectionObserver(handleIntersection, {
       root: scrollContainerRef.current,
       threshold: 0.5,
@@ -133,21 +136,23 @@ export const useInfiniteScroll = () => {
     return () => {
       observer?.disconnect();
     };
-  }, [handleIntersection, scrollContainerRef]);
+  }, [handleIntersection, scrollContainerRef, resumeList]);
 
   // This block handles scrolling back to the first page and updating the query cache.
   const queryClient = useQueryClient();
   const handleScrollUp = async () => {
-    const firstPage = await getResumeList(filters);
-    queryClient.setQueryData(["reserve-infinite-list", filters], {
-      pages: [firstPage],
-      pageParams: [
-        {
-          page: 1,
-          direction: false, //'end'
-        },
-      ],
-    });
+    queryClient.resetQueries({ queryKey: ["reserve-infinite-list", filters] });
+
+    // const firstPage = await getResumeList(filters);
+    // queryClient.setQueryData(["reserve-infinite-list", filters], {
+    //   pages: [firstPage],
+    //   pageParams: [
+    //     {
+    //       page: 1,
+    //       direction: false, //'end'
+    //     },
+    //   ],
+    // });
   };
 
   return {
