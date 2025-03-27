@@ -35,12 +35,12 @@ const ReserveList = () => {
     isFetchingPreviousPage,
     scrollToElementRef,
     indexTo,
-    handleScrollUp
+    resetToFirstPage
   } = useInfiniteScroll()
 
   return (
     <div className="self-start grow pb-10">
-      <ScrollUpBtn onClick={handleScrollUp} />
+      <ScrollUpBtn onClick={resetToFirstPage} />
       <div
         ref={firstElementRef}
         data-id="topBoundary"
@@ -104,7 +104,7 @@ const ReserveList = () => {
       <div
         ref={lastElementRef}
         data-id="bottomBoundary"
-        className="min-h-2 relative"
+        className="relative min-h-3"
       >
         {isFetchingNextPage && <Loader />}
       </div>

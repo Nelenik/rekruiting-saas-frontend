@@ -72,7 +72,6 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
     const filterString = new URLSearchParams(
       filterFalsyFields(filters)
     ).toString();
-    console.log(filters);
     const response = await apiGet<TApiListResponse<TResume>>(
       "/cv?" + filterString
     );
@@ -163,7 +162,6 @@ export const getBasicCandidatesByStatus = async (
     const response = await apiGet<TApiListResponse<TCandidateShort>>(
       `/match/candidates?vacancy_id=${vacId}&status_id=${statusId}`
     );
-    console.log(response.data, "candy list");
     return response.data.toSorted((a, b) => a.id - b.id);
   } catch (error) {
     console.error(error);

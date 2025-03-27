@@ -5,6 +5,54 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+/**
+ * Custom hook to fetch and manage an infinite list of resumes.
+ *
+ * @param {Record<string, string>} filters - An object containing filter parameters for the request.
+ * @returns {UseInfiniteQueryResult<TData, TError>} - The infinite query result object from React Query.
+ *
+ * This hook:
+ * - Fetches resume data based on provided filters.
+ * - Implements infinite scrolling with pagination.
+ * - Determines the next and previous pages dynamically.
+ * - Caches fetched data for 5 minutes (`gcTime`).
+ * - Uses `staleTime: 0` to always fetch fresh data when refetching.
+ *
+ * Pagination behavior:
+ * - `getNextPageParam`: Increments the page number unless the total pages are reached.
+ * - `getPreviousPageParam`: Decrements the page number unless already at the first page.
+ * - `select`: Flattens the response to return only the `data` array.
+ */
+const useInfiniteData = (filters: Record<string, string>) =>
+  useInfiniteQuery({
+    queryKey: ["reserve-infinite-list", filters],
+    queryFn: async ({ pageParam }) => {
+      const result = await getResumeList({
+        ...filters,
+        page: String(pageParam),
+      });
+      return result;
+    },
+    getNextPageParam: (lastPage) => {
+      const { total, currentPage = 1 } = lastPage;
+      const pagesCount = total ? Math.ceil(total / CV_PER_PAGE) : 1;
+      const next = currentPage + 1;
+      if (next > pagesCount) return null;
+      return next;
+    },
+    getPreviousPageParam: (firstPage) => {
+      const { currentPage = 1 } = firstPage;
+      const prev = currentPage - 1;
+      if (prev < 1) return null;
+      return prev;
+    },
+    initialPageParam: 1,
+    staleTime: 0,
+    gcTime: 5 * 60 * 1000,
+    maxPages: 5,
+    select: ({ pages }) => pages.flatMap((page) => page.data || []),
+  });
+
 export const useInfiniteScroll = () => {
   const { scrollContainerRef } = useScrollContainer();
   const firstElementRef = useRef<HTMLDivElement | null>(null);
@@ -15,6 +63,17 @@ export const useInfiniteScroll = () => {
     () => Object.fromEntries(searchParams.entries()),
     [searchParams]
   );
+
+  // Infinite query hook to handle fetching resumes.
+  const {
+    data: resumeList = [],
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+    hasNextPage,
+    hasPreviousPage,
+    fetchNextPage,
+    fetchPreviousPage,
+  } = useInfiniteData(filters);
 
   // The direction state controls the scroll behavior (start vs. end).
   // If direction is false, it scrolls to the "end"; if true, it scrolls to the "start".
@@ -27,61 +86,11 @@ export const useInfiniteScroll = () => {
 
       node.scrollIntoView({
         block: direction ? "start" : "end",
-        behavior: "smooth",
-        inline: "nearest",
+        behavior: "auto",
       });
     },
     [direction, scrollContainerRef]
   );
-
-  // Infinite query hook to handle fetching resumes.
-  const {
-    data: resumeList = [],
-    isFetchingNextPage,
-    isFetchingPreviousPage,
-    hasNextPage,
-    hasPreviousPage,
-    fetchNextPage,
-    fetchPreviousPage,
-  } = useInfiniteQuery({
-    queryKey: ["reserve-infinite-list", filters],
-    queryFn: async ({ pageParam }) => {
-      const { page, direction } = pageParam;
-      setDirection(direction);
-      const result = await getResumeList({
-        ...filters,
-        page: String(page),
-      });
-      return result;
-    },
-    getNextPageParam: (lastPage) => {
-      const { total, currentPage = 1 } = lastPage;
-      const pagesCount = total ? Math.ceil(total / CV_PER_PAGE) : 1;
-      const next = currentPage + 1;
-      if (next > pagesCount) return null;
-      return {
-        page: next,
-        direction: false, //'end'
-      };
-    },
-    getPreviousPageParam: (firstPage) => {
-      const { currentPage = 1 } = firstPage;
-      const prev = currentPage - 1;
-      if (prev < 1) return null;
-      return {
-        page: prev,
-        direction: true, //'start'
-      };
-    },
-    initialPageParam: {
-      page: 1,
-      direction: false, //'end'
-    },
-    staleTime: 0,
-    gcTime: 5 * 60 * 1000,
-    maxPages: 5,
-    select: ({ pages }) => pages.flatMap((page) => page.data || []),
-  });
 
   // This effect decides which element to scroll to based on the direction.
   useEffect(() => {
@@ -92,6 +101,7 @@ export const useInfiniteScroll = () => {
   }, [direction, resumeList]);
 
   // Intersection Observer callback to handle when top or bottom of the list is visible.
+
   const handleIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       const root = scrollContainerRef.current;
@@ -99,12 +109,12 @@ export const useInfiniteScroll = () => {
 
       entries.forEach(async (entry) => {
         const el = entry.target as HTMLElement;
-        if (!entry.isIntersecting) return;
-        console.log("Intersecting element:", el.dataset.id);
+        if (!entry.isIntersecting || el.dataset.ignore) return;
         if (el.dataset.id === "topBoundary" && hasPreviousPage) {
+          setDirection(true);
           await fetchPreviousPage();
         } else if (el.dataset.id === "bottomBoundary" && hasNextPage) {
-          console.log("next page");
+          setDirection(false);
           await fetchNextPage();
         }
       });
@@ -120,10 +130,9 @@ export const useInfiniteScroll = () => {
 
   // This effect initializes the Intersection Observer for the top and bottom elements.
   useEffect(() => {
-    if (resumeList.length === 0) return;
+    if (!resumeList.length) return;
     const observer = new IntersectionObserver(handleIntersection, {
       root: scrollContainerRef.current,
-      threshold: 0.5,
     });
 
     if (firstElementRef.current) {
@@ -136,24 +145,28 @@ export const useInfiniteScroll = () => {
     return () => {
       observer?.disconnect();
     };
-  }, [handleIntersection, scrollContainerRef, resumeList]);
+  }, [handleIntersection, resumeList.length, scrollContainerRef]);
 
-  // This block handles scrolling back to the first page and updating the query cache.
+  // This block resets query cache to first page with coresponding filters.
   const queryClient = useQueryClient();
-  const handleScrollUp = async () => {
-    queryClient.resetQueries({ queryKey: ["reserve-infinite-list", filters] });
+  const resetToFirstPage = useCallback(async () => {
+    setDirection(false);
+    const firstPage = await getResumeList({ ...filters, page: "1" });
 
-    // const firstPage = await getResumeList(filters);
-    // queryClient.setQueryData(["reserve-infinite-list", filters], {
-    //   pages: [firstPage],
-    //   pageParams: [
-    //     {
-    //       page: 1,
-    //       direction: false, //'end'
-    //     },
-    //   ],
-    // });
-  };
+    if (firstElementRef.current)
+      firstElementRef.current.dataset.ignore = "true";
+    if (lastElementRef.current) lastElementRef.current.dataset.ignore = "true";
+
+    queryClient.setQueryData(["reserve-infinite-list", filters], {
+      pages: [firstPage],
+      pageParams: [1],
+    });
+    setTimeout(() => {
+      if (firstElementRef.current)
+        delete firstElementRef.current.dataset.ignore;
+      if (lastElementRef.current) delete lastElementRef.current.dataset.ignore;
+    }, 100);
+  }, [filters, queryClient]);
 
   return {
     resumeList,
@@ -163,6 +176,6 @@ export const useInfiniteScroll = () => {
     lastElementRef,
     indexTo,
     scrollToElementRef,
-    handleScrollUp,
+    resetToFirstPage,
   };
 };
