@@ -23,7 +23,7 @@ const Paginate = ({ currentPage, totalItems, itemsPerPage = COMPANIES_PER_PAGE, 
   if (next > pagesCount) next -= 1
 
   const getHref = (pageNum: number): string => {
-    return pageNum === 1 ? `${updateQueryString(searchParams, 'page')}` : `${updateQueryString(searchParams, 'page', pageNum)}`
+    return pageNum === 1 ? `${updateQueryString(searchParams, { 'page': '' })}` : `${updateQueryString(searchParams, { 'page': pageNum })}`
   }
 
   if (pagesCount === 1) {

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import { Badge } from "./ui/badge";
 import { FC, ReactNode } from "react";
+import { Badge } from "../ui/badge";
 
 type TProps = {
   color?: string,

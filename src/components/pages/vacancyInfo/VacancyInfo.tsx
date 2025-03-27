@@ -1,15 +1,15 @@
 'use client'
-import StatusBadge from "@/components/StatusBadge";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/utils/formatersIntl";
 import { vacancyEpmpoymentDict, vacancyExperienceDict, vacancyPositionsDict, vacancyWorkFormatDict } from "@/shared/dictionaries";
-import CompanyOverview from "./vacancy_elmts/CompanyOverview";
-import TextFormatter from "../TextFormatter";
+import CompanyOverview from "./elmts/CompanyOverview";
+import TextFormatter from "../../shared/TextFormatter";
 import { TVacancy } from "@/shared/types";
 import { useState } from "react";
-import VacancyForm from "../app_forms/VacancyForm";
+import VacancyForm from "../../app_forms/VacancyForm";
 import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
-import EditButton from "../buttons/EditButton";
+import EditButton from "../../buttons/EditButton";
+import StatusBadge from "@/components/shared/StatusBadge";
 
 const VacancyInfo = ({ vacancy }: { vacancy: TVacancy }) => {
   const [isEdit, setIsEdit] = useState(false)

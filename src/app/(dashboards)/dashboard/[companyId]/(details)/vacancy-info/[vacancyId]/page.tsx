@@ -1,5 +1,5 @@
 import { getVacancy } from "@/actions/getData";
-import VacancyInfo from "@/components/vacancyInfoPage/VacancyInfo";
+import VacancyInfo from "@/components/pages/vacancyInfo/VacancyInfo";
 import Link from "next/link";
 import { Link as LinkIcon } from 'lucide-react'
 

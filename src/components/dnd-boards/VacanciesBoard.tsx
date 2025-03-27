@@ -30,8 +30,6 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
     groups
   } = useVacaniesBoard(groupedItems)
 
-  console.log('groups', Object.entries(groups))
-
   return (
     <DndContext
       onDragStart={handleDragStart}

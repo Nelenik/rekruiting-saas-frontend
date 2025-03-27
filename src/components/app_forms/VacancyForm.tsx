@@ -1,6 +1,6 @@
 import { useFormMutation } from '@/hooks/useFormMutation';
 import { cn } from '@/lib/utils';
-import { vacancyPositionsDict } from '@/shared/dictionaries';
+// import { vacancyPositionsDict } from '@/shared/dictionaries';
 import {
   EVacancyEmployment,
   EVacancyWorkFormat,
@@ -17,8 +17,8 @@ import {
 } from '../ui/select';
 import { Textarea } from '../ui/textarea';
 import FormItem, { ErrorMessage } from './form_elmts/FormItem';
-import { getVacancyPositions } from '@/actions/getData';
-import { useQuery } from '@tanstack/react-query';
+// import { getVacancyPositions } from '@/actions/getData';
+// import { useQuery } from '@tanstack/react-query';
 import { Input } from '../ui/input';
 import { useParams } from 'next/navigation';
 import { NonNullableFields } from '@/lib/utils/filterFalsyFields';
@@ -27,6 +27,7 @@ import { storeVacancy } from '@/actions/postData';
 import { mutationInitialState } from '@/actions/constants';
 import convertToFormData from '@/lib/utils/convertToFormData';
 import { omitFields } from '@/lib/utils/omitFields';
+import PositionSelect from '../shared/PositionSelect';
 
 type TProps = {
   type: 'edit' | 'add'
@@ -42,11 +43,6 @@ const VacancyForm = ({
   onCancel = () => { }
 }: TProps) => {
   const { companyId } = useParams<{ companyId: string }>();
-
-  const { data: vacancyPositions } = useQuery({
-    queryFn: getVacancyPositions,
-    queryKey: ['vacancy', 'positions'],
-  });
 
   //define form action depending of the form type
   const action = type === 'edit' && initialData
@@ -84,21 +80,11 @@ const VacancyForm = ({
         </FormItem>
 
         <FormItem labelText="Позиция" error={errors.position}>
-          <Select name="position" defaultValue={defaultValues?.position}>
-            <SelectTrigger
-              className={errors.position && 'ring-2 ring-destructive'}
-            >
-              <SelectValue placeholder="Выберите позицию" />
-            </SelectTrigger>
-            <SelectContent>
-              {vacancyPositions &&
-                vacancyPositions.map((position) => (
-                  <SelectItem key={position} value={position}>
-                    {vacancyPositionsDict[position]}
-                  </SelectItem>
-                ))}
-            </SelectContent>
-          </Select>
+          <PositionSelect
+            name="position"
+            defaultValue={defaultValues?.position}
+            className={errors.position && 'ring-2 ring-destructive'}
+          />
         </FormItem>
 
         <FormItem labelText="Обязанности" error={errors.responsibilities}>
@@ -276,7 +262,7 @@ const VacancyForm = ({
             <SelectTrigger
               className={cn(errors.location && 'ring-2 ring-destructive')}
             >
-              <SelectValue placeholder="Выбирете город" />
+              <SelectValue placeholder="Выберите город" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Москва">Москва</SelectItem>

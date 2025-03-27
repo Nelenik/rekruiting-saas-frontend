@@ -31,6 +31,7 @@ export const CompaniesProvider = ({ children, companiesPrefetch, activeCompany }
     queryKey: ['companies', filters],
     queryFn: () => getCompaniesList(filters),
     initialData: companiesPrefetch,
+    staleTime: 0,
     enabled: Object.values(filters).some(Boolean)
   })
 

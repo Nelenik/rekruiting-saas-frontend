@@ -1,11 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getCandidateFull } from "@/actions/getData";
-import CandyInfo from "./match_elmts/CandyInfo";
-import CandyMatch from "./match_elmts/CandyMatch";
-import CandyComments from "./match_elmts/CandyComments";
-import CandyExperience from "./match_elmts/CandyExperience";
-import TextFormatter from "../TextFormatter";
+import CandyInfo from "./elmts/CandyInfo";
+import CandyMatch from "./elmts/CandyMatch";
+import CandyComments from "./elmts/CandyComments";
+import CandyExperience from "./elmts/CandyExperience";
 import { TStatus } from "@/shared/types/statuses";
+import TextFormatter from "@/components/shared/TextFormatter";
 
 const tabsDict = [
   { value: 'match', text: 'Мэтч' },

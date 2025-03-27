@@ -75,11 +75,15 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
     const response = await apiGet<TApiListResponse<TResume>>(
       "/cv?" + filterString
     );
-    return response.data;
+    return {
+      data: response.data,
+      total: response.total,
+      currentPage: response.page,
+    };
   } catch (error) {
     console.error(error);
     throw new Error(
-      "Не удалось загрузить список компаний. Пожалуйста, попробуйте позже."
+      "Не удалось загрузить резервный список. Пожалуйста, попробуйте позже."
     );
   }
 };
@@ -158,7 +162,6 @@ export const getBasicCandidatesByStatus = async (
     const response = await apiGet<TApiListResponse<TCandidateShort>>(
       `/match/candidates?vacancy_id=${vacId}&status_id=${statusId}`
     );
-    console.log(response.data, "candy list");
     return response.data.toSorted((a, b) => a.id - b.id);
   } catch (error) {
     console.error(error);

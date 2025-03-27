@@ -4,7 +4,7 @@ import { workStatusDict } from "@/shared/dictionaries/resume";
 import { ECvStatus, TResume } from "@/shared/types/resume";
 
 import List from "@/components/ui/list";
-import TextFormatter from "@/components/TextFormatter";
+import TextFormatter from "@/components/shared/TextFormatter";
 import { getDurationFromMonths } from "@/lib/utils/getDurationFromMonths";
 
 

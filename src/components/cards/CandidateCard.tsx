@@ -2,7 +2,7 @@
 import { Card } from '@/components/ui/card';
 import { formatNumber, formatPrice } from '@/lib/utils/formatersIntl';
 
-import Star from '@/components/Star';
+import Star from '@/components/shared/Star';
 import { splitRatingToArr } from '@/lib/utils/splitRatingToArr';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';

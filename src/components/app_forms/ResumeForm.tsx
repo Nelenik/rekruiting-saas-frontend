@@ -80,12 +80,14 @@ const ResumeForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Стаж"
+          labelText="Стаж (в месяцах)"
           error={errors.experience_months}
         >
           <Input
             placeholder="Стаж"
             name="experience_months"
+            title="Введите только цифры"
+            pattern="[0-9]+"
             defaultValue={defaultValues?.experience_months}
             className={errors?.experience_months && 'ring-2 ring-destructive'}
             onChange={onChange}
@@ -98,6 +100,8 @@ const ResumeForm: FC<TProps> = ({
         >
           <Input
             placeholder="Зарплата"
+            title="Введите только цифры"
+            pattern="[0-9]+"
             name="salary"
             defaultValue={defaultValues?.salary}
             className={errors?.salary && 'ring-2 ring-destructive'}

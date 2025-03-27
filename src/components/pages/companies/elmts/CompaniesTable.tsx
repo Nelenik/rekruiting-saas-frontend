@@ -1,10 +1,12 @@
 'use client'
+import EditEntityModal from "@/components/modals/EditEntityModal";
+import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { TCompany } from "@/shared/types/companies";
 import { format } from "date-fns";
 import { FC } from "react";
-import { Card } from "./ui/card";
-import EditEntityModal from "./modals/EditEntityModal";
+// import { Card } from "./ui/card";
+// import EditEntityModal from "./modals/EditEntityModal";
 
 type TProps = {
   companiesList: TCompany[]

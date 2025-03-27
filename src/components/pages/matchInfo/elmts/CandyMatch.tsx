@@ -9,10 +9,10 @@ import CancelButton from "@/components/buttons/CancelButton";
 import ConfirmButton from "@/components/buttons/ConfirmButton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import EditButton from "@/components/buttons/EditButton";
-import StatusBadge from "@/components/StatusBadge";
 import { TStatus } from "@/shared/types/statuses";
 import { useSimpleUpdateMatch } from "@/hooks/useSimpleUpdateMatch";
 import { Input } from "@/components/ui/input";
+import StatusBadge from "@/components/shared/StatusBadge";
 
 type TProps = {
   matchId: number,

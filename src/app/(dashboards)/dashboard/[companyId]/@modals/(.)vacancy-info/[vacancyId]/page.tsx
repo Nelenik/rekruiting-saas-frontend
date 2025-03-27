@@ -1,6 +1,6 @@
 import { getVacancy } from '@/actions/getData';
 import InterceptingModal from '@/components/modals/InterceptingModal';
-import VacancyInfo from '@/components/vacancyInfoPage/VacancyInfo';
+import VacancyInfo from '@/components/pages/vacancyInfo/VacancyInfo';
 
 const VacancyDetailsModal = async ({ params }: { params: Promise<{ vacancyId: string }> }) => {
   const { vacancyId } = await params

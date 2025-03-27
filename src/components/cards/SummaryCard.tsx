@@ -6,9 +6,9 @@ import { getWordEndings } from '@/lib/utils/getWordEnding';
 import { formatPrice } from '@/lib/utils/formatersIntl';
 import { getSalaryRange } from '@/lib/utils/getSalaryRange';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
-import StatusBadge from '../StatusBadge';
 import { cn } from '@/lib/utils';
 import { useSingleVacancy } from '@/providers/SingleVacancyProvider';
+import StatusBadge from '../shared/StatusBadge';
 
 export const SummaryCard = () => {
   const { vacancy } = useSingleVacancy()
