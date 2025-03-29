@@ -55,16 +55,23 @@ const breadcrumbsMapping: IBreadcrumbPattern[] = [
     handler: () => 'Резюме: Поиск',
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/candidate-info\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - candidateId
+    pattern: /^\/dashboard\/([^\/]+)\/candidateDetails\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - candidateId
     handler: (searchParams) => {
       const name = searchParams?.get('name') || 'Кандидат'
       return decodeURIComponent(name)
     }
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/vacancy-info\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - candidateId
+    pattern: /^\/dashboard\/([^\/]+)\/vacancyDetails\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - vacancyId
     handler: (searchParams) => {
       const name = searchParams?.get('name') || 'Название вакансии'
+      return decodeURIComponent(name)
+    }
+  },
+  {
+    pattern: /^\/dashboard\/([^\/]+)\/cvDetails\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - cvId
+    handler: (searchParams) => {
+      const name = searchParams?.get('name') || 'Резюме'
       return decodeURIComponent(name)
     }
   },

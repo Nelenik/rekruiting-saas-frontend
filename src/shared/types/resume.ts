@@ -18,7 +18,7 @@ export enum ECvCandyGender {
   FEMALE = "female",
 }
 
-export type TExperience = {
+export type TWorkExperience = {
   id: number;
   cv_id: number;
   title: string | null;
@@ -42,7 +42,7 @@ export type TResume = {
   summary: string;
   experience_months: number;
   experience_raw: string; //experience descr
-  experience: TExperience[];
+  experience: TWorkExperience[];
   candy_name: string;
   candy_photo: string;
   candy_email: string;

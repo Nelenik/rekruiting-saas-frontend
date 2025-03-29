@@ -27,7 +27,7 @@ export const CandidateCard = ({
   return (
     <Link
       scroll={false}
-      href={`/dashboard/${companyId}/candidate-info/${id}?name=${name}`}
+      href={`/dashboard/${companyId}/candidateDetails/${id}?name=${name}`}
     >
       <Card className="w-full min-w-[240px] py-4 px-6 hover:shadow-md transform hover:-translate-y-1 transition-all duration-200">
         <h3 className="text-base font-regular">

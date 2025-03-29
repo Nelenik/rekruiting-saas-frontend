@@ -6,6 +6,7 @@ import { ECvStatus, TResume } from "@/shared/types/resume";
 import List from "@/components/ui/list";
 import TextFormatter from "@/components/shared/TextFormatter";
 import { getDurationFromMonths } from "@/lib/utils/getDurationFromMonths";
+import { cn } from "@/lib/utils";
 
 
 type TProps = {
@@ -18,9 +19,10 @@ type TProps = {
   bio: TResume["bio"];
   experience_duration: TResume["experience_months"];
   skills: [] | null
+  className?: string
 }
 
-const CandyInfo: FC<TProps> = ({
+const CandidateInfo: FC<TProps> = ({
   role,
   work_status,
   location,
@@ -30,12 +32,13 @@ const CandyInfo: FC<TProps> = ({
   bio,
   experience_duration,
   skills,
+  className
 }) => {
 
 
 
   return (
-    <div className=" flex flex-col gap-6 ">
+    <div className={cn(" flex flex-col gap-6 ", className)}>
       <h2 className="scroll-m-20 text-lg font-semibold tracking-tight">
         {role}
       </h2>
@@ -95,5 +98,5 @@ const CandyInfo: FC<TProps> = ({
   );
 }
 
-export default CandyInfo;
+export default CandidateInfo;
 

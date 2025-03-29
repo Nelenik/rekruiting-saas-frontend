@@ -1,7 +1,7 @@
 import InterceptingModal from '@/components/modals/InterceptingModal';
 import MatchInfo from '@/components/pages/matchInfo/MatchInfo';
 
-const ResumeModal = async ({ params }: { params: Promise<{ candidateId: string }> }) => {
+const CandidateDetailsModal = async ({ params }: { params: Promise<{ candidateId: string }> }) => {
   const { candidateId } = await params;
   return (
     <InterceptingModal
@@ -13,4 +13,4 @@ const ResumeModal = async ({ params }: { params: Promise<{ candidateId: string }
   );
 };
 
-export default ResumeModal;
+export default CandidateDetailsModal;

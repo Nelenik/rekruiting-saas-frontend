@@ -1,6 +1,6 @@
 import MatchInfo from "@/components/pages/matchInfo/MatchInfo";
 
-const CandidatePage = async ({ params }: { params: Promise<{ candidateId: string }> }) => {
+const CandidateDetailsPage = async ({ params }: { params: Promise<{ candidateId: string }> }) => {
   const { candidateId } = await params;
   return (
     <div>
@@ -9,4 +9,4 @@ const CandidatePage = async ({ params }: { params: Promise<{ candidateId: string
   );
 }
 
-export default CandidatePage;
+export default CandidateDetailsPage;

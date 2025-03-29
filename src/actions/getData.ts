@@ -88,6 +88,18 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
   }
 };
 
+export const getResumeById = async (id: number | string): Promise<TResume> => {
+  try {
+    const response = await apiGet<TApiSuccessResponse<TResume>>(`/cv/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      "Не удалось загрузить резюме. Пожалуйста, попробуйте позже."
+    );
+  }
+};
+
 /*VACANCY */
 export const getVacanciesList = async ({
   companyId,

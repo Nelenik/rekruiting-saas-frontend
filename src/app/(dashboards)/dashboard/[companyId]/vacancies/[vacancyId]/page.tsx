@@ -30,7 +30,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
 
         <Link
           scroll={false}
-          href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}
+          href={`/dashboard/${companyId}/vacancyDetails/${vacancyId}?name=${vacancy.name}`}
         >
           <SummaryCard />
         </Link>

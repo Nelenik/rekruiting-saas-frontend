@@ -1,11 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getCandidateFull } from "@/actions/getData";
-import CandyInfo from "./elmts/CandyInfo";
 import CandyMatch from "./elmts/CandyMatch";
 import CandyComments from "./elmts/CandyComments";
-import CandyExperience from "./elmts/CandyExperience";
 import { TStatus } from "@/shared/types/statuses";
 import TextFormatter from "@/components/shared/TextFormatter";
+import WorkExperienceList from "@/components/shared/resume/WorkExperienceList";
+import CandidateInfo from "../../shared/resume/CandidateInfo";
 
 const tabsDict = [
   { value: 'match', text: 'Мэтч' },
@@ -18,12 +18,10 @@ const tabsDict = [
 ]
 
 const MatchInfo = async ({ matchId }: { matchId: number }) => {
-  // const { type, point, status_id, summary, cv } = await getCandidateFull(matchId)
   const { type, point, status, summary, cv, vacancy } = await getCandidateFull(matchId)
 
   const matchStatuses: Pick<TStatus, 'id' | 'name'>[] = (vacancy.matchStatuses).map(({ status }) => ({ id: status.id, name: status.name }))
 
-  console.log(cv)
   return (
     <div>
       <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 mb-6">
@@ -40,7 +38,7 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
 
         <TabsContent value="match" className="m-0 @container">
           <div className="grid grid-cols-1 auto-rows-auto @3xl:grid-cols-[35%_30%_1fr] gap-x-6 gap-y-10">
-            <CandyInfo
+            <CandidateInfo
               role={cv.name}
               work_status={cv.status}
               location={cv.candy_location}
@@ -64,11 +62,11 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
           </div>
         </TabsContent>
 
-        <TabsContent value="experience">
+        <TabsContent value="experience" className="@container">
           {
             cv.experience
-              ? <CandyExperience experience={cv.experience} />
-              : <TextFormatter text={cv.experience_raw} />
+              ? <WorkExperienceList experience={cv.experience} />
+              : <TextFormatter text={cv.experience_raw || 'Данные об опыте отсутствуют'} />
           }
         </TabsContent>
 
