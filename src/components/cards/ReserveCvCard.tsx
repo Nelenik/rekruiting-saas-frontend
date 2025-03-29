@@ -32,7 +32,6 @@ const ReserveCvCard: FC<TProps> = ({
   const { companyId } = useParams()
   return (
     <Link
-      onClick={() => console.log('clicked link')}
       scroll={false}
       href={`/dashboard/${companyId}/cvDetails/${resume.id}?name=${resume.name}`}
     >

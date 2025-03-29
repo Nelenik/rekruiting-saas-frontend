@@ -25,16 +25,26 @@ const Filters: FC<TProps> = ({
 
   const [filters, setFilters] = useState(initialFilters);
 
+  //reset filters when the pathname changes
+  useEffect(() => {
+    setFilters(initialFilters)
+  }, [initialFilters, pathname])
+
   // Debounce to update url
   useEffect(() => {
 
+    //If the filters didn't change, stop the effect, added to avoid side effects when is used intercepting modal
+    if (JSON.stringify(filters) === JSON.stringify(initialFilters)) {
+      return;
+    }
+
     const handler = setTimeout(() => {
       const newQS = updateQueryString(searchParams, filters);
-      router.push(`${pathname}?${newQS}`);
+      router.replace(`${pathname}?${newQS}`, { scroll: false });
     }, 300);
 
     return () => clearTimeout(handler);
-  }, [filters, pathname, router, searchParams]);
+  }, [filters, initialFilters, pathname, router, searchParams]);
 
   //Update filter function
   const updateFilter = useCallback((filterValues: Record<string, string>) => {
