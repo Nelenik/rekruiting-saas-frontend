@@ -28,8 +28,12 @@ export const apiPost = async <T = unknown>(
       "Content-Type": "application/json",
     },
   });
-
-  return response.json();
+  const data = await response.json();
+  //added this control because on 500 status data is withou "success" field
+  if (response.status === 500) {
+    return { success: false, ...data };
+  }
+  return data;
 };
 
 export const apiPut = async <T = unknown>(
@@ -47,5 +51,10 @@ export const apiPut = async <T = unknown>(
       "Content-Type": "application/json",
     },
   });
-  return response.json();
+  const data = await response.json();
+  //added this control because on 500 status data is withou "success" field
+  if (response.status === 500) {
+    return { success: false, ...data };
+  }
+  return data;
 };

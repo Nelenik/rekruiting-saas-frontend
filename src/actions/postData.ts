@@ -13,6 +13,7 @@ import { TMutationState } from "./types";
 import { DEFAULT_MATCH_STATUSES } from "@/shared/dictionaries/constants";
 import convertToFormData from "@/lib/utils/convertToFormData";
 import { TStatus } from "@/shared/types/statuses";
+import { TComment } from "@/shared/types/comments";
 
 export const storeCompany = async (_: TMutationState, body: FormData) => {
   const result = await storeEntity("/company", body);
@@ -38,7 +39,6 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
   //Create default statuses for the vacancy. If unsuccessful, return the vacancy body to avoid resetting the form.
   const statuses = await Promise.all(newVacancyStatuses);
   const hasError = statuses.some((result) => result.error);
-  console.log("statuses", statuses);
   if (hasError) {
     return {
       sent: true,
@@ -73,6 +73,15 @@ export const storeStatus = async (
   return result;
 };
 
+export const storeMatchComment = async (
+  matchId: string | number,
+  _: TMutationState | null,
+  body: FormData
+) => {
+  const result = await storeEntity<TComment>(`/match/${matchId}/comment`, body);
+  return result;
+};
+
 /* STORE ENTITY */
 
 const storeEntity = async <T = unknown>(
@@ -86,8 +95,10 @@ const storeEntity = async <T = unknown>(
       data: T;
     };
     const response = await apiPost<TGoodRequest | TBadRequest>(url, body);
+    console.log("storeEntity respons", response);
 
     if (response && "errorType" in response) {
+      //Returns in payload previously entered data to prevent form reset.
       return {
         sent: true,
         error: extractSyntheticErrorFromApi(response),
@@ -108,6 +119,7 @@ const storeEntity = async <T = unknown>(
     };
   } catch (error) {
     console.error(error);
+    console.log("works error", error);
     return {
       sent: true,
       error: getSyntheticError("Ошибка сохранения", 500),

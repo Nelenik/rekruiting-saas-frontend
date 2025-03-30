@@ -28,30 +28,31 @@ export const useFormMutation = (
   const [errors, setErrors] = useState<TValidationMappedErrors>({})
   const [isSuccess, setIsSuccess] = useState(false)
 
+  //Handle whether the submission is successful or not.
   useEffect(() => {
-    if (state.error?.details) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        ...state.error?.details,
-      }));
-    }
-
-  }, [state.error])
-
-  //handle successful or not submit
-  useEffect(() => {
-    if (state.sent) {
-      if (!state.error) {
-        onSucces(state);
-        toast({ description: toastMessage });
-        setIsSuccess(true);
-      } else if (!state.error.details) {
+    if (state.sent && state.error) {
+      if (state.error.details) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          ...state.error?.details,
+        }));
+      } else {
         toast({ variant: "destructive", description: state.error?.message });
-        setIsSuccess(false);
       }
+      // setIsSuccess(false);
+    } else if (state.sent && state.error === null) {
+      toast({ description: toastMessage });
+      setIsSuccess(true);
     }
-    return () => setIsSuccess(false)
-  }, [toastMessage, onSucces, toast, state])
+
+  }, [state.error, state.sent, toast, toastMessage])
+
+  useEffect(() => {
+    if (isSuccess) {
+      onSucces(state)
+    }
+  }, [state, onSucces, isSuccess])
+
 
   const defaultValues = state.payload && state.payload instanceof FormData
     ? parseFormData<Record<string, string>>(state.payload)
@@ -70,6 +71,7 @@ export const useFormMutation = (
     });
   }
 
+  console.log('is success', isSuccess)
   return {
     formAction,
     pending,

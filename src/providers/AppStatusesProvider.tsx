@@ -31,7 +31,7 @@ export const AppStatusesProvider: FC<TProps> = ({ children, initialStatuses }) =
 export const useStatuses = () => {
   const context = useContext(AppStatusesContext)
   if (!context) {
-    throw new Error('useCompanies must be used within CompaniesProvider')
+    throw new Error('useStatuses must be used within CompaniesProvider')
   }
   return context
 }

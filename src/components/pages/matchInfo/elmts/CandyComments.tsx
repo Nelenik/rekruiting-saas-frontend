@@ -1,17 +1,13 @@
 'use client'
 import List from "@/components/ui/list";
 import { Separator } from "@/components/ui/separator";
+import { TComment } from "@/shared/types/comments";
 import { format } from "date-fns";
 import { MessageCircleMore } from "lucide-react";
 import { FC, useCallback } from "react";
 
 type TProps = {
-  comments: {
-    id: number;
-    author: string;
-    created_at: string; //iso;
-    value: string;
-  }[]
+  comments: TComment[]
 }
 
 const CandyComments: FC<TProps> = ({
@@ -37,15 +33,12 @@ const CandyComments: FC<TProps> = ({
           {comments.map((comment, i, array) => (
             <li key={comment.id} className="flex flex-col gap-2 text-sm ">
               <h3 className='font-semibold text-sm'>
-                <span className="mr-3">
-                  {comment.author}
-                </span>
                 <span>
                   {format(new Date(comment.created_at), 'dd.MM.yyyy')}
                 </span>
               </h3>
               <p className="text-muted-foreground text-sm">
-                {comment.value}
+                {comment.content}
               </p>
               {i !== array.length - 1 && <Separator className="bg-primary/10" />}
             </li>

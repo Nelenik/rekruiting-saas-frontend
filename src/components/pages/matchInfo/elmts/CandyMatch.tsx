@@ -13,6 +13,7 @@ import { TStatus } from "@/shared/types/statuses";
 import { useSimpleUpdateMatch } from "@/hooks/useSimpleUpdateMatch";
 import { Input } from "@/components/ui/input";
 import StatusBadge from "@/components/shared/StatusBadge";
+import TextFormatter from "@/components/shared/TextFormatter";
 
 type TProps = {
   matchId: number,
@@ -143,7 +144,7 @@ const CandyMatch: FC<TProps> = ({
           Саммори по мэтчу
         </h2>
         <p className='text-muted-foreground text-sm'>
-          {match_summary || 'Отсутствует'}
+          <TextFormatter text={match_summary || 'Отсутствует'} />
         </p>
       </div>
 
@@ -152,7 +153,7 @@ const CandyMatch: FC<TProps> = ({
           Саммори по резюме
         </h2>
         <p className='text-muted-foreground text-sm'>
-          {cv_summary || 'Отсутствует'}
+          <TextFormatter text={cv_summary || 'Отсутствует'} />
         </p>
       </div>
     </div>
