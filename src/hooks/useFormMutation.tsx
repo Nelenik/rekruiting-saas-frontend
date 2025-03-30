@@ -9,11 +9,24 @@ type TFormMutationAction = (_: TMutationState, body: FormData) => Promise<TMutat
 
 type TOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 
-export const useFormMutation = (
+type TFromMutationOptions = {
   mutationAction: TFormMutationAction,
-  onSucces: (state: TMutationState) => void = () => { },
-  initialState: TMutationState = mutationInitialState,
-  toastMessage: string
+  onSuccess?: (state: TMutationState) => void,
+  initialState?: TMutationState,
+  toastMessage?: string | null
+}
+
+export const useFormMutation = (
+  {
+    mutationAction,
+    onSuccess = () => { },
+    initialState = mutationInitialState,
+    toastMessage = null
+  }: TFromMutationOptions
+  // mutationAction: TFormMutationAction,
+  // onSucces: (state: TMutationState) => void = () => { },
+  // initialState: TMutationState = mutationInitialState,
+  // toastMessage: string | null = null
 ) => {
 
   const { toast } = useToast();
@@ -41,7 +54,9 @@ export const useFormMutation = (
       }
       // setIsSuccess(false);
     } else if (state.sent && state.error === null) {
-      toast({ description: toastMessage });
+      if (toastMessage) {
+        toast({ description: toastMessage });
+      }
       setIsSuccess(true);
     }
 
@@ -49,9 +64,9 @@ export const useFormMutation = (
 
   useEffect(() => {
     if (isSuccess) {
-      onSucces(state)
+      onSuccess(state)
     }
-  }, [state, onSucces, isSuccess])
+  }, [state, onSuccess, isSuccess])
 
 
   const defaultValues = state.payload && state.payload instanceof FormData
@@ -71,7 +86,6 @@ export const useFormMutation = (
     });
   }
 
-  console.log('is success', isSuccess)
   return {
     formAction,
     pending,

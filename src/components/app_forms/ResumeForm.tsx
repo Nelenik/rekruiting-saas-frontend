@@ -48,7 +48,12 @@ const ResumeForm: FC<TProps> = ({
   const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
 
   const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation(action, onSuccess, initialState, toastMessage);
+    useFormMutation({
+      mutationAction: action,
+      onSuccess,
+      initialState,
+      toastMessage
+    });
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">

@@ -47,12 +47,12 @@ const StatusForm: FC<TProps> = (
   }, [onSuccess])
 
   const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation(
-      action,
-      memoizedOnSuccess,
+    useFormMutation({
+      mutationAction: action,
+      onSuccess: memoizedOnSuccess,
       initialState,
       toastMessage
-    );
+    });
 
 
   return (
@@ -63,7 +63,8 @@ const StatusForm: FC<TProps> = (
       >
         <Input
           placeholder="Имя статуса"
-          // required
+          title="Только пробельные символы недопустимы"
+          required
           pattern="^(?!\s*$).+"
           name="name"
           defaultValue={defaultValues?.name}

@@ -95,7 +95,6 @@ const storeEntity = async <T = unknown>(
       data: T;
     };
     const response = await apiPost<TGoodRequest | TBadRequest>(url, body);
-    console.log("storeEntity respons", response);
 
     if (response && "errorType" in response) {
       //Returns in payload previously entered data to prevent form reset.
@@ -119,7 +118,6 @@ const storeEntity = async <T = unknown>(
     };
   } catch (error) {
     console.error(error);
-    console.log("works error", error);
     return {
       sent: true,
       error: getSyntheticError("Ошибка сохранения", 500),
