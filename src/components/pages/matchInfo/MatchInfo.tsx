@@ -1,11 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getCandidateFull } from "@/actions/getData";
 import CandyMatch from "./elmts/CandyMatch";
-import CandyComments from "./elmts/CandyComments";
 import { TStatus } from "@/shared/types/statuses";
 import TextFormatter from "@/components/shared/TextFormatter";
 import WorkExperienceList from "@/components/shared/resume/WorkExperienceList";
 import CandidateInfo from "../../shared/resume/CandidateInfo";
+import MatchComments from "./elmts/MatchComments";
 
 const tabsDict = [
   { value: 'match', text: 'Мэтч' },
@@ -18,6 +18,7 @@ const tabsDict = [
 ]
 
 const MatchInfo = async ({ matchId }: { matchId: number }) => {
+
   const { type, point, status, summary, cv, vacancy } = await getCandidateFull(matchId)
 
   const matchStatuses: Pick<TStatus, 'id' | 'name'>[] = (vacancy.matchStatuses).map(({ status }) => ({ id: status.id, name: status.name }))
@@ -58,7 +59,7 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
               match_summary={summary}
               cv_summary={cv.summary}
             />
-            <CandyComments comments={[]} />
+            <MatchComments matchId={matchId} />
           </div>
         </TabsContent>
 

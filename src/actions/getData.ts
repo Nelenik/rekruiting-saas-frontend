@@ -224,7 +224,11 @@ export const getMatchCommentList = async (
     const response = await apiGet<TApiListResponse<TComment>>(
       `/match/${matchId}/comment?page=${page}`
     );
-    return response.data;
+    return {
+      data: response.data,
+      total: response.total,
+      currentPage: response.page,
+    };
   } catch (error) {
     console.error(error);
     throw new Error(

@@ -143,18 +143,14 @@ const CandyMatch: FC<TProps> = ({
         <h2 className="scroll-m-20 mb-3 text-lg font-semibold tracking-tight">
           Саммори по мэтчу
         </h2>
-        <p className='text-muted-foreground text-sm'>
-          <TextFormatter text={match_summary || 'Отсутствует'} />
-        </p>
+        <TextFormatter text={match_summary || 'Отсутствует'} className="text-muted-foreground text-sm" />
       </div>
 
       <div className="min-h-40">
         <h2 className="scroll-m-20 mb-3 text-lg font-semibold tracking-tight">
           Саммори по резюме
         </h2>
-        <p className='text-muted-foreground text-sm'>
-          <TextFormatter text={cv_summary || 'Отсутствует'} />
-        </p>
+        <TextFormatter text={cv_summary || 'Отсутствует'} className="text-muted-foreground text-sm" />
       </div>
     </div>
   );

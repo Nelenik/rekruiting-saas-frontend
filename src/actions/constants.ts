@@ -8,3 +8,5 @@ export const mutationInitialState: TMutationState = {
 export const COMPANIES_PER_PAGE = 50;
 
 export const CV_PER_PAGE = 10;
+
+export const MATCH_COMMENTS_PER_PAGE = 10;

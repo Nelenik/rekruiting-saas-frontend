@@ -23,10 +23,6 @@ export const useFormMutation = (
     initialState = mutationInitialState,
     toastMessage = null
   }: TFromMutationOptions
-  // mutationAction: TFormMutationAction,
-  // onSucces: (state: TMutationState) => void = () => { },
-  // initialState: TMutationState = mutationInitialState,
-  // toastMessage: string | null = null
 ) => {
 
   const { toast } = useToast();
