@@ -49,15 +49,6 @@ const CommentsList: FC<TProps> = ({
     }
   }
 
-  // // ref callback to scroll coments to last message
-  // const scrollToLastComment = useCallback((node: HTMLLIElement) => {
-  //   node?.scrollIntoView({
-  //     behavior: 'smooth',
-  //     block: 'end',
-  //     inline: 'nearest'
-  //   })
-  // }, [])
-
   return (
     <div className="ring-2 rounded-sm ring-offset-2 ring-primary/10">
       <ScrollArea className="h-[60vh] ">

@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   title: 'REkrutAI|Дашборд',
 };
 
+// robots: {
+//   index: false,
+//   follow: false,
+// }
+
 
 export default async function MainAppLayout({
   children,

@@ -50,7 +50,7 @@ const CommentsForm: FC<TProps> = ({
         name="content"
         defaultValue={defaultValues?.content}
         className={cn(
-          "resize-none border-none ",
+          "ring-2 rounded-sm ring-offset-2 ring-primary/10 resize-none border-none",
           "focus-visible:ring-input"
         )}
         onKeyDown={handleKeydown}
