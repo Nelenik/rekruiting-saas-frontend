@@ -59,7 +59,12 @@ export const CompanyForm: FC<TProps> = ({
   const toastMessage = type === 'edit' ? 'Данные о компании успешно обновлены' : 'Новая компания успешно сохранена'
 
   const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation(action, onSuccess, initialState, toastMessage);
+    useFormMutation({
+      mutationAction: action,
+      onSuccess,
+      initialState,
+      toastMessage
+    });
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">

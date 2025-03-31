@@ -9,11 +9,20 @@ type TFormMutationAction = (_: TMutationState, body: FormData) => Promise<TMutat
 
 type TOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 
-export const useFormMutation = (
+type TFromMutationOptions = {
   mutationAction: TFormMutationAction,
-  onSucces: (state: TMutationState) => void = () => { },
-  initialState: TMutationState = mutationInitialState,
-  toastMessage: string
+  onSuccess?: (state: TMutationState) => void,
+  initialState?: TMutationState,
+  toastMessage?: string | null
+}
+
+export const useFormMutation = (
+  {
+    mutationAction,
+    onSuccess = () => { },
+    initialState = mutationInitialState,
+    toastMessage = null
+  }: TFromMutationOptions
 ) => {
 
   const { toast } = useToast();
@@ -28,30 +37,33 @@ export const useFormMutation = (
   const [errors, setErrors] = useState<TValidationMappedErrors>({})
   const [isSuccess, setIsSuccess] = useState(false)
 
+  //Handle whether the submission is successful or not.
   useEffect(() => {
-    if (state.error?.details) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        ...state.error?.details,
-      }));
-    }
-
-  }, [state.error])
-
-  //handle successful or not submit
-  useEffect(() => {
-    if (state.sent) {
-      if (!state.error) {
-        onSucces(state);
-        toast({ description: toastMessage });
-        setIsSuccess(true);
-      } else if (!state.error.details) {
+    if (state.sent && state.error) {
+      if (state.error.details) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          ...state.error?.details,
+        }));
+      } else {
         toast({ variant: "destructive", description: state.error?.message });
-        setIsSuccess(false);
       }
+      // setIsSuccess(false);
+    } else if (state.sent && state.error === null) {
+      if (toastMessage) {
+        toast({ description: toastMessage });
+      }
+      setIsSuccess(true);
     }
-    return () => setIsSuccess(false)
-  }, [toastMessage, onSucces, toast, state])
+
+  }, [state.error, state.sent, toast, toastMessage])
+
+  useEffect(() => {
+    if (isSuccess) {
+      onSuccess(state)
+    }
+  }, [state, onSuccess, isSuccess])
+
 
   const defaultValues = state.payload && state.payload instanceof FormData
     ? parseFormData<Record<string, string>>(state.payload)

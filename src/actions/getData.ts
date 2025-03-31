@@ -17,6 +17,7 @@ import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import { TCompany } from "@/shared/types/companies";
 import { TResume } from "@/shared/types/resume";
 import { TStatus } from "@/shared/types/statuses";
+import { TComment } from "@/shared/types/comments";
 
 /* USER */
 /*----Needs to be redone with real data.--- */
@@ -28,7 +29,7 @@ export const getUser = async (): Promise<IUser> => {
   };
 };
 
-/* COMPANY */
+/*******COMPANY*******/
 export const getCompaniesList = async (
   filters: Record<string, string> = {}
 ) => {
@@ -66,7 +67,7 @@ export const getCompany = async (id: number | string) => {
   }
 };
 
-/* RESUME */
+/******RESUME******/
 export const getResumeList = async (filters: Record<string, string> = {}) => {
   try {
     const filterString = new URLSearchParams(
@@ -100,7 +101,7 @@ export const getResumeById = async (id: number | string): Promise<TResume> => {
   }
 };
 
-/*VACANCY */
+/******VACANCY******/
 export const getVacanciesList = async ({
   companyId,
 }: { companyId?: number | string } = {}): Promise<TVacancyShort[]> => {
@@ -152,19 +153,7 @@ export const getVacancyPositions = async (): Promise<string[]> => {
   }
 };
 
-/* CANDIDATE MATCH */
-
-export const getStatuses = async () => {
-  try {
-    const response = await apiGet<TApiListResponse<TStatus>>(`/status`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw new Error(
-      "Не удалось загрузить статусы мэтчей. Пожалуйста, попробуйте позже."
-    );
-  }
-};
+/******CANDIDATE MATCH******/
 
 export const getBasicCandidatesByStatus = async (
   vacId: number | string,
@@ -199,7 +188,7 @@ export const getCandidateFull = async (matchId: number) => {
   }
 };
 
-/* TARIFFS */
+/******TARIFFS******/
 export const getTariffs = async (): Promise<TTariff[]> => {
   try {
     const response = await apiGet<TApiListResponse<TTariff>>("/tariffs");
@@ -209,6 +198,41 @@ export const getTariffs = async (): Promise<TTariff[]> => {
     console.error(error);
     throw new Error(
       "Не удалось загрузить тарифы. Пожалуйста, попробуйте позже."
+    );
+  }
+};
+
+/******STATUSES******/
+export const getStatuses = async () => {
+  try {
+    const response = await apiGet<TApiListResponse<TStatus>>(`/status`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      "Не удалось загрузить статусы. Пожалуйста, попробуйте позже."
+    );
+  }
+};
+
+/*******COMMENTS FOR MATCH******/
+export const getMatchCommentList = async (
+  matchId: number | string,
+  page: number
+) => {
+  try {
+    const response = await apiGet<TApiListResponse<TComment>>(
+      `/match/${matchId}/comment?page=${page}`
+    );
+    return {
+      data: response.data,
+      total: response.total,
+      currentPage: response.page,
+    };
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      "Не удалось загрузить комментарии к мэтчу. Пожалуйста, попробуйте позже."
     );
   }
 };

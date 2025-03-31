@@ -35,8 +35,6 @@ const CandidateInfo: FC<TProps> = ({
   className
 }) => {
 
-
-
   return (
     <div className={cn(" flex flex-col gap-6 ", className)}>
       <h2 className="scroll-m-20 text-lg font-semibold tracking-tight">
@@ -65,7 +63,7 @@ const CandidateInfo: FC<TProps> = ({
           <Mail width={16} height={16} />
           {email || '-'}
         </a>
-        <a href={`${link}`} target="_blank" className='text-blue-700 inline-flex gap-2 items-center underline underline-offset-2 text-sm'>
+        <a href={`${link || "javascript:void(0)"}`} target="_blank" className='text-blue-700 inline-flex gap-2 items-center underline underline-offset-2 text-sm'>
           <FileUser width={16} height={16} />
           Резюме</a>
       </div>

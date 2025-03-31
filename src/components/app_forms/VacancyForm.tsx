@@ -62,7 +62,12 @@ const VacancyForm = ({
   const toastMessage = type === 'edit' ? 'Вакансия успешно обновлена' : 'Вакансия успешно сохранена'
 
   const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation(action, onSuccess, initialState, toastMessage);
+    useFormMutation({
+      mutationAction: action,
+      onSuccess,
+      initialState,
+      toastMessage
+    });
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
