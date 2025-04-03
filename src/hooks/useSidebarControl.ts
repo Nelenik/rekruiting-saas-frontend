@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, RefObject } from 'react';
+import { useState, useRef, useEffect, RefObject } from "react";
 
 interface IMenuOptions {
   initial: boolean;
@@ -10,7 +10,7 @@ type UseSidebarControl = (options: IMenuOptions) => {
   handleToggle: () => void;
   handleOpen: () => void;
   isSidebarOpen: boolean;
-  sidebarRef: RefObject<HTMLDivElement>;
+  sidebarRef: RefObject<HTMLDivElement | null>;
 };
 
 /**
@@ -79,9 +79,9 @@ const useSidebarControl: UseSidebarControl = ({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [closeOutside]);
   return {

@@ -7,9 +7,9 @@ const VacanciesContext = createContext<TVacancyShort[]>([])
 
 export const VacanciesProvider = ({ children, vacancies }: { children: ReactNode, vacancies: TVacancyShort[] }) => {
 
-  return (<VacanciesContext.Provider value={vacancies}>
+  return (<VacanciesContext value={vacancies}>
     {children}
-  </VacanciesContext.Provider>)
+  </VacanciesContext>)
 }
 
 export const useVacancies = () => {

@@ -107,9 +107,9 @@ export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNo
     setColumns(prev => prev.map(col => col.id === currentId ? { ...col, ...changes } : col))
   }, [])
 
-  return (<VacancyContext.Provider value={{ vacancy, columns, moveColumn, addColumn, deleteColumn, updateColumn }}>
+  return (<VacancyContext value={{ vacancy, columns, moveColumn, addColumn, deleteColumn, updateColumn }}>
     {children}
-  </VacancyContext.Provider>)
+  </VacancyContext>)
 }
 
 export const useSingleVacancy = () => {

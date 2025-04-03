@@ -22,9 +22,9 @@ export const AppStatusesProvider: FC<TProps> = ({ children, initialStatuses }) =
   })
 
   return (
-    <AppStatusesContext.Provider value={appStatuses || []}>
+    <AppStatusesContext value={appStatuses || []}>
       {children}
-    </AppStatusesContext.Provider>
+    </AppStatusesContext>
   )
 }
 

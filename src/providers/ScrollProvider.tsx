@@ -8,20 +8,20 @@ import React, {
 } from 'react';
 
 interface ScrollContextType {
-  scrollContainerRef: React.RefObject<HTMLDivElement>;
+  scrollContainerRef: React.RefObject<HTMLDivElement | null>;
 }
 
 const ScrollContext = createContext<ScrollContextType | undefined>(undefined);
 
 export const ScrollProvider: React.FC<{ children: ReactNode, className: string }> = ({ children, className }) => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <ScrollContext.Provider value={{ scrollContainerRef }}>
+    <ScrollContext value={{ scrollContainerRef }}>
       <div ref={scrollContainerRef} className={cn(className)}>
         {children}
       </div>
-    </ScrollContext.Provider>
+    </ScrollContext>
   );
 };
 

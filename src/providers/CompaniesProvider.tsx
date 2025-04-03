@@ -35,14 +35,14 @@ export const CompaniesProvider = ({ children, companiesPrefetch, activeCompany }
     enabled: Object.values(filters).some(Boolean)
   })
 
-  return (<CompaniesContext.Provider value={{
+  return (<CompaniesContext value={{
     companiesList: data.data,
     activeCompany,
     findCompany: (newFilters) => setFilters(newFilters),
     isFetching
   }}>
     {children}
-  </CompaniesContext.Provider>)
+  </CompaniesContext>)
 }
 
 export const useCompanies = () => {

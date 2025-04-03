@@ -46,7 +46,7 @@ const EditEntityModal = <T extends object>(
     initialData,
     entityType }: TProps
 
-): JSX.Element => {
+) => {
   const [open, setOpen] = useState<boolean>(false)
   const handleClose = useCallback(() => setOpen(false), [])
 
