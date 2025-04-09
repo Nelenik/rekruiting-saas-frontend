@@ -1,6 +1,6 @@
 import { cn } from "@/shared/lib/utils";
 import { Check } from "lucide-react";
-import { Button, ButtonProps } from "../../shadcn/button";
+import { Button, ButtonProps } from "../shadcn/button";
 
 
 

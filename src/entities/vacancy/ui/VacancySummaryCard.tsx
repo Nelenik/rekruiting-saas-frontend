@@ -7,7 +7,7 @@ import { formatSalaryRange } from '@/shared/lib/formatters/formatSalaryRange';
 import { formatWordEndings } from '@/shared/lib/formatters/formatWordEndings';
 import { useSingleVacancy } from '@/shared/providers/SingleVacancyProvider';
 import { cn } from '@/shared/lib/utils';
-import { StatusBadge } from '@/shared/ui/custom/StatusBadge';
+import { StatusBadge } from '@/shared/ui/StatusBadge';
 import { Card, CardDescription, CardTitle } from '@/shared/ui/shadcn/card';
 
 export const VacancySummaryCard = () => {

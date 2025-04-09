@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { Badge } from "../shadcn/badge";
+import { Badge } from "./shadcn/badge";
 import { cn } from "@/shared/lib/utils";
 
 type TProps = {

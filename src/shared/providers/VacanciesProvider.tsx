@@ -15,7 +15,7 @@ export const VacanciesProvider = ({ children, vacancies }: { children: ReactNode
 export const useVacancies = () => {
   const context = useContext(VacanciesContext)
   if (!context) {
-    throw new Error('useCompanies must be used within CompaniesProvider')
+    throw new Error('useVacancies must be used within VacanciesProvider')
   }
   return context
 }

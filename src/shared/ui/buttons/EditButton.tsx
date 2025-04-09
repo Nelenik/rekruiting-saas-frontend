@@ -1,6 +1,6 @@
 'use client'
 import { PenLine } from "lucide-react";
-import { Button, ButtonProps } from "../../shadcn/button";
+import { Button, ButtonProps } from "../shadcn/button";
 import { cn } from "@/shared/lib/utils";
 
 interface IEditButtonProps extends ButtonProps {

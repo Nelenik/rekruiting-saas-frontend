@@ -1,6 +1,6 @@
 import { CvInfoBlock } from "@/entities/cv/ui/CvInfoBlock";
 import { getResumeById } from "@/shared/api/getData";
-import { TextFormatter } from "@/shared/ui/custom/TextFormatter";
+import { TextFormatter } from "@/shared/ui/TextFormatter";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/shadcn/tabs";
 import { WorkExperienceList } from "@/widgets/experience-list";
 

@@ -3,7 +3,7 @@ import { FileUser, Mail, PhoneCall } from "lucide-react";
 import { FC } from "react";
 import { workStatusDict } from "../lib/dictionary";
 import { cn } from "@/shared/lib/utils";
-import { TextFormatter } from "@/shared/ui/custom/TextFormatter";
+import { TextFormatter } from "@/shared/ui/TextFormatter";
 import { formatDurationFromMonths } from "@/shared/lib/formatters/formatDurationFromMonths";
 import List from "@/shared/ui/shadcn/list";
 

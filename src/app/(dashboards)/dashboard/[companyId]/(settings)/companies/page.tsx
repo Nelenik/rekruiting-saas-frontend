@@ -3,8 +3,10 @@
 import { AddEntity } from "@/features/mutate-entity"
 import { Paginate } from "@/features/pagination"
 import { getCompaniesList } from "@/shared/api/getData"
+import { TableSkeleton } from "@/shared/ui/skeletons/TableSkeleton"
 import { CompaniesTable } from "@/widgets/companies-table"
 import { CompaniesFilter } from "@/widgets/filters/ui/CompaniesFilter"
+import { Suspense } from "react"
 
 type TProps = {
 
@@ -17,15 +19,18 @@ const CompaniesPage = async ({ searchParams }: TProps) => {
   const { data: companies, total = null } = await getCompaniesList(filters)
   return (
     <div>
-      <div className="flex mb-6 items-end">
-        <CompaniesFilter />
-        <AddEntity
-          entityType="company"
-          className=" [&_span]:hidden lg:w-max ml-auto py-2 "
-        />
-      </div>
-      <CompaniesTable companiesList={companies} />
-      <Paginate currentPage={Number(filters.page) || 1} totalItems={total} className='mt-6' />
+      <Suspense fallback={<TableSkeleton />}>
+        <div className="flex mb-6 items-end">
+          <CompaniesFilter />
+          <AddEntity
+            entityType="company"
+            className=" [&_span]:hidden lg:w-max ml-auto py-2 "
+          />
+        </div>
+
+        <CompaniesTable companiesList={companies} />
+        <Paginate currentPage={Number(filters.page) || 1} totalItems={total} className='mt-6' />
+      </Suspense>
     </div>
   );
 }

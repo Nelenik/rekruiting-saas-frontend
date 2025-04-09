@@ -1,5 +1,5 @@
 import { CvDetails } from "@/pages-layer/cv-details";
-import InterceptingModal from "@/shared/ui/custom/modals/InterceptingModal";
+import InterceptingModal from "@/shared/ui/modals/InterceptingModal";
 
 const CvDetailsModal = async ({ params }: { params: Promise<{ cvId: string }> }) => {
   const { cvId } = await params;

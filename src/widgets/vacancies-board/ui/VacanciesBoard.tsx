@@ -10,7 +10,7 @@ import { cn } from "@/shared/lib/utils"
 import { useVacaniesBoard } from "../model/useVacanciesBoard"
 import { VacancyBoardCard } from "@/entities/vacancy/ui/VacancyBoardCard"
 import { TVacancyShort } from "@/shared/api/types"
-import { FunnelCard } from "@/shared/ui/custom/FunnelCard"
+import { FunnelCard } from "@/shared/ui/FunnelCard"
 
 
 type TProps = {
@@ -41,7 +41,7 @@ export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
             return (
               <div
                 key={id}
-                className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/5 min-w-[200px]`)}
+                className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/5 min-w-[250px]`)}
               >
                 <FunnelCard
                   name={colName}

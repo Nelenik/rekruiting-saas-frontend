@@ -9,7 +9,7 @@ import { NonNullableFields } from "@/shared/lib/object_manipulations/filterFalsy
 import { omitFields } from "@/shared/lib/object_manipulations/omitFields"
 import { cn } from "@/shared/lib/utils"
 import { useFormMutation } from "@/shared/model/hooks/useFormMutation"
-import FormItem, { ErrorMessage } from "@/shared/ui/custom/FormItem"
+import FormItem, { ErrorMessage } from "@/shared/ui/FormItem"
 import { Button } from "@/shared/ui/shadcn/button"
 import { Input } from "@/shared/ui/shadcn/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/shadcn/select"

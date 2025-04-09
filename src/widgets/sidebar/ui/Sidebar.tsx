@@ -8,7 +8,7 @@ import { createSidebarConfig } from "@/shared/config/sidebarConfig";
 import { useParams } from "next/navigation";
 import { SidebarGroup, SidebarItem } from "./SidebarItems";
 import useSidebarControl from "@/shared/model/hooks/useSidebarControl";
-import SideBarBtn from "@/shared/ui/custom/buttons/SideBarBtn";
+import SideBarBtn from "@/shared/ui/buttons/SideBarBtn";
 import { cn } from "@/shared/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/shadcn/avatar";
 
