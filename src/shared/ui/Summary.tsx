@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { TextFormatter } from "@/shared/ui/custom/TextFormatter";
+import { TextFormatter } from "@/shared/ui/TextFormatter";
 
 type TProps = {
   title: string,

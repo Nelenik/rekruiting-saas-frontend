@@ -1,11 +1,11 @@
 'use client'
 import { FilterX } from "lucide-react";
 import { UrlFilterManager } from "@/features/manage-url-filters";
-import { CancelButton } from "@/shared/ui/custom/buttons/CancelButton";
+import { CancelButton } from "@/shared/ui/buttons/CancelButton";
 import { Input } from "@/shared/ui/shadcn/input";
 import { Button } from "@/shared/ui/shadcn/button";
 import { cn } from "@/shared/lib/utils";
-import FormItem from "@/shared/ui/custom/FormItem";
+import FormItem from "@/shared/ui/FormItem";
 import { PositionSelect } from "@/entities/vacancy";
 
 const defaultState = {

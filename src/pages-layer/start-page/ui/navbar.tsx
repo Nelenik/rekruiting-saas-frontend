@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/shadcn/button";
-import { Logo } from "@/shared/ui/custom/Logo";
+import { Logo } from "@/shared/ui/Logo";
 
 
 export default function Navbar() {

@@ -4,8 +4,8 @@ import { CvForm } from "@/entities/cv"
 import { VacancyForm } from "@/entities/vacancy"
 import { TCompany, TResume, TVacancy } from "@/shared/api/types"
 import { filterFalsyFields, NonNullableFields } from "@/shared/lib/object_manipulations/filterFalsyFields"
-import { EditButton } from "@/shared/ui/custom/buttons/EditButton"
-import { SheetModal } from "@/shared/ui/custom/modals/SheetModal"
+import { EditButton } from "@/shared/ui/buttons/EditButton"
+import { SheetModal } from "@/shared/ui/modals/SheetModal"
 import { useCallback } from "react"
 
 type TProps = {

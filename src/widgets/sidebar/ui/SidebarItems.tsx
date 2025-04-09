@@ -1,6 +1,6 @@
 import { IDashboardRoute } from "@/shared/config/sidebarConfig";
 import { cn } from "@/shared/lib/utils";
-import SideBarBtn from "@/shared/ui/custom/buttons/SideBarBtn";
+import SideBarBtn from "@/shared/ui/buttons/SideBarBtn";
 import { Collapsible, CollapsibleTrigger } from "@/shared/ui/shadcn/collapsible";
 import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import { ChevronDown } from "lucide-react";

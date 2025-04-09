@@ -67,6 +67,7 @@ export const useInfiniteScroll = () => {
   // Infinite query hook to handle fetching resumes.
   const {
     data: resumeList = [],
+    isLoading,
     isFetchingNextPage,
     isFetchingPreviousPage,
     hasNextPage,
@@ -170,6 +171,7 @@ export const useInfiniteScroll = () => {
 
   return {
     resumeList,
+    isLoading,
     isFetchingNextPage,
     isFetchingPreviousPage,
     firstElementRef,

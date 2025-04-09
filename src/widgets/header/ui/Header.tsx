@@ -8,7 +8,7 @@ import { SidebarGroup, SidebarItem } from "../../sidebar/ui/SidebarItems";
 import { useParams } from "next/navigation";
 import { cn } from '@/shared/lib/utils';
 import useSidebarControl from '@/shared/model/hooks/useSidebarControl';
-import SideBarBtn from '@/shared/ui/custom/buttons/SideBarBtn';
+import SideBarBtn from '@/shared/ui/buttons/SideBarBtn';
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/avatar';
 
 interface IHeaderProps {

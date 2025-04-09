@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { formatNumber, formatPrice } from '@/shared/lib/formatters/formatersIntl';
 import { splitRatingToArr } from '@/shared/lib/splitRatingToArr';
-import { Star } from '@/shared/ui/custom/Star';
+import { Star } from '@/shared/ui/Star';
 import { Card } from '@/shared/ui/shadcn/card';
 import { TCandidateShort } from '@/shared/api/types';
 

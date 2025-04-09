@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { Button, ButtonProps } from "../../shadcn/button";
+import { Button, ButtonProps } from "../shadcn/button";
 
 const SideBarBtn = ({ children, className, ...props }: ButtonProps) => {
   return (

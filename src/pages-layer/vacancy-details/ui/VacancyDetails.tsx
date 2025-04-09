@@ -5,11 +5,11 @@ import { TVacancy } from "@/shared/api/types";
 import { vacancyEpmpoymentDict, vacancyExperienceDict, vacancyWorkFormatDict } from "@/shared/dictionaries";
 import { formatPrice } from "@/shared/lib/formatters/formatersIntl";
 import { filterFalsyFields } from "@/shared/lib/object_manipulations/filterFalsyFields";
-import { EditButton } from "@/shared/ui/custom/buttons/EditButton";
-import { StatusBadge } from "@/shared/ui/custom/StatusBadge";
+import { EditButton } from "@/shared/ui/buttons/EditButton";
+import { StatusBadge } from "@/shared/ui/StatusBadge";
 import { useState } from "react";
 import CompanyOverview from "./CompanyOverview";
-import { TextFormatter } from "@/shared/ui/custom/TextFormatter";
+import { TextFormatter } from "@/shared/ui/TextFormatter";
 import { cn } from "@/shared/lib/utils";
 
 export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {

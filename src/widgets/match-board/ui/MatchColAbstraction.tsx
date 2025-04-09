@@ -6,7 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { GripVertical } from "lucide-react";
 import { FC } from "react";
 import { CandidateCard } from "./CandidateCard";
-import { FunnelCard } from "@/shared/ui/custom/FunnelCard";
+import { FunnelCard } from "@/shared/ui/FunnelCard";
 
 type TProps = {
   title: string

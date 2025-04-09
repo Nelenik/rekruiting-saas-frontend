@@ -9,8 +9,8 @@ import convertToFormData from '@/shared/lib/object_manipulations/convertToFormDa
 import { NonNullableFields } from '@/shared/lib/object_manipulations/filterFalsyFields';
 import { cn } from '@/shared/lib/utils';
 import { useFormMutation } from '@/shared/model/hooks/useFormMutation';
-import DatePicker from '@/shared/ui/custom/DatePicker';
-import FormItem from '@/shared/ui/custom/FormItem';
+import DatePicker from '@/shared/ui/DatePicker';
+import FormItem from '@/shared/ui/FormItem';
 import { Button } from '@/shared/ui/shadcn/button';
 import { Input } from '@/shared/ui/shadcn/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/ui/shadcn/select';
@@ -54,7 +54,9 @@ export const CompanyForm: FC<TProps> = ({
   const { formAction, pending, defaultValues, errors, onChange } =
     useFormMutation({
       mutationAction: action,
-      onSuccess,
+      onSuccess: () => {
+        onSuccess()
+      },
       initialState,
       toastMessage
     });

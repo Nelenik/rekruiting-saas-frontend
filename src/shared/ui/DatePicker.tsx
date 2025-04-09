@@ -3,9 +3,9 @@
 import { Popover } from '@radix-ui/react-popover';
 import { format, isValid, parseISO } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { PopoverContent, PopoverTrigger } from '../shadcn/popover';
+import { PopoverContent, PopoverTrigger } from './shadcn/popover';
 import { cn } from '@/shared/lib/utils';
-import { Calendar } from '../shadcn/calendar';
+import { Calendar } from './shadcn/calendar';
 
 interface IDatePickerProps {
   nameAttr: string;

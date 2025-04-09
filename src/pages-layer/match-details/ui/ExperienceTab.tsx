@@ -1,5 +1,5 @@
 import { TWorkExperience } from "@/shared/api/types";
-import { TextFormatter } from "@/shared/ui/custom/TextFormatter";
+import { TextFormatter } from "@/shared/ui/TextFormatter";
 import { WorkExperienceList } from "@/widgets/experience-list";
 
 type Props = {

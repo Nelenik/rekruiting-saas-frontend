@@ -2,7 +2,7 @@
 import { wait } from "@/shared/lib/wait";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
-import { SheetContent, SheetTitle, SheetDescription, Sheet } from "../../shadcn/sheet";
+import { SheetContent, SheetTitle, SheetDescription, Sheet } from "../shadcn/sheet";
 
 interface IInterceptingModalProps {
   children: React.ReactNode;

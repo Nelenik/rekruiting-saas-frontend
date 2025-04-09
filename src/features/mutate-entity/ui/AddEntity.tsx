@@ -2,7 +2,7 @@
 import { VacancyForm } from "@/entities/vacancy";
 import { CvForm } from "@/entities/cv";
 import { CompanyForm } from "@/entities/company";
-import { SheetModal } from "@/shared/ui/custom/modals/SheetModal";
+import { SheetModal } from "@/shared/ui/modals/SheetModal";
 import { Button } from "@/shared/ui/shadcn/button";
 import { CirclePlus } from "lucide-react";
 import { cn } from "@/shared/lib/utils";

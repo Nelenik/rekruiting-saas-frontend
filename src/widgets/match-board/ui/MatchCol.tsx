@@ -9,7 +9,8 @@ import { ColActionMenu } from "./ColActionMenu";
 import { ScrollArea } from "@/shared/ui/shadcn/scroll-area";
 import { DndSortable } from "@/features/dnd";
 import { CandidateCard } from "./CandidateCard";
-import { FunnelCard } from "@/shared/ui/custom/FunnelCard";
+import { FunnelCard } from "@/shared/ui/FunnelCard";
+import { BoardListSkeleton } from "@/shared/ui/BoardSkeleton";
 
 type TProps = {
   color: string
@@ -37,8 +38,8 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
       <FunnelCard
         color={color}
         className="relative"
-        name={title}
         isLoading={isLoading}
+        name={title}
         count={candidates?.length || 0}
       >
         {isEditable && <ColActionMenu currentColId={status_id} className='absolute top-1 right-1' />}
@@ -51,7 +52,7 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
         >
           {
             isLoading
-              ? <p className="text-muted-foreground text-sm text-center">Loading...</p>
+              ? <BoardListSkeleton count={5} />
               :
               <SortableContext items={candidatesIds}>
                 {(candidates || [])?.map((candidate) => (

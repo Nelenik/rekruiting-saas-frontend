@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode, useCallback, useState } from "react"
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../../shadcn/sheet"
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../shadcn/sheet"
 
 type TProps = {
   children: {

@@ -2,14 +2,16 @@
 
 import { ScrollUpBtn } from "@/features/scrollup-btn";
 import { useInfiniteScroll } from "../model/useInfiniteScroll";
-import { Loader } from "@/shared/ui/custom/Loader";
+import { Loader } from "@/shared/ui/Loader";
 import List from "@/shared/ui/shadcn/list";
 import { CvCard } from "@/entities/cv";
 import { EditEntity } from "@/features/mutate-entity";
+import { CvListSkeleton } from "@/shared/ui/CvListSkeleton";
 
 export const CvList = () => {
   const {
     resumeList,
+    isLoading,
     firstElementRef,
     lastElementRef,
     isFetchingNextPage,
@@ -18,6 +20,12 @@ export const CvList = () => {
     indexTo,
     resetToFirstPage
   } = useInfiniteScroll()
+
+  if (isLoading) {
+    return (
+      <CvListSkeleton />
+    )
+  }
 
   return (
     <div className="self-start grow pb-10">

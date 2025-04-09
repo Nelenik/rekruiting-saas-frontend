@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import SpinnerOne from '@/assets/icons/spinner1.svg?rc'
 import { cn } from '@/shared/lib/utils';
-import { Card, CardDescription, CardTitle } from '../shadcn/card';
+import { Card, CardDescription, CardTitle } from './shadcn/card';
 
 
 

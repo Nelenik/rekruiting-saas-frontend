@@ -1,7 +1,7 @@
 import { CvInfoBlock } from "@/entities/cv/ui/CvInfoBlock";
 import { EditableMatchView } from "@/features/editable-matchview/ui/EditableMatchView";
 import { TCandidateFull } from "@/shared/api/types";
-import { Summary } from "@/shared/ui/custom/Summary";
+import { Summary } from "@/shared/ui/Summary";
 import { MatchComments } from "@/widgets/match-comments";
 
 type Props = {
