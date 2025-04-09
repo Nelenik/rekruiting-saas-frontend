@@ -1,0 +1,19 @@
+{
+  "out": "docs/",
+  "entryPointStrategy": "expand",
+  "entryPoints": [
+    "./src/widgets",
+    "./src/features",
+    "./src/entities",
+    "./src/shared"
+  ],
+  "excludeInternal": false,
+  "tsconfig": "./tsconfig.json",
+  "categoryOrder": ["Widgets","Features", "Entities",  "Shared"],
+  "sort": ["source-order"],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx","**/node_modules/**", "src/shared/ui/shadcn/*.*", "**/app/**"],
+  "name": "RecrutAI documentation",
+  "includeHierarchySummary":false,
+  "plugin": [ "typedoc-plugin-missing-exports"],
+  "categorizeByGroup": true
+}

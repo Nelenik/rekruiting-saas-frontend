@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getCompaniesList } from "./actions/getData";
+import { getCompaniesList } from "./shared/api/getData";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {

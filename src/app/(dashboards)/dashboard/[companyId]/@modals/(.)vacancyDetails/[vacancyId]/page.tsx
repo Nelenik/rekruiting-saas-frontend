@@ -1,6 +1,6 @@
-import { getVacancy } from '@/actions/getData';
-import InterceptingModal from '@/components/modals/InterceptingModal';
-import VacancyInfo from '@/components/pages/vacancyInfo/VacancyInfo';
+import { VacancyDetails } from "@/pages-layer/vacancy-details";
+import { getVacancy } from "@/shared/api/getData";
+import InterceptingModal from "@/shared/ui/custom/modals/InterceptingModal";
 
 const VacancyDetailsModal = async ({ params }: { params: Promise<{ vacancyId: string }> }) => {
   const { vacancyId } = await params
@@ -12,7 +12,7 @@ const VacancyDetailsModal = async ({ params }: { params: Promise<{ vacancyId: st
       dialogTitle="Название вакансии"
       dialogDescription="Подробная информация о вакансии"
     >
-      <VacancyInfo vacancy={vacancy} />
+      <VacancyDetails vacancy={vacancy} />
 
     </InterceptingModal>
   );

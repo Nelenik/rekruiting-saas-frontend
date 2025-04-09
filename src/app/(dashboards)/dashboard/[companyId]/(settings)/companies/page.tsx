@@ -1,9 +1,10 @@
 // 'use client'
-import { getCompaniesList } from "@/actions/getData";
-import CompaniesFilter from "@/components/filters/CompaniesFilter";
-import AddEntityModal from "@/components/modals/AddEntityModal";
-import Paginate from "@/components/navigation/Paginate";
-import CompaniesTable from "@/components/pages/companies/elmts/CompaniesTable";
+
+import { AddEntity } from "@/features/mutate-entity"
+import { Paginate } from "@/features/pagination"
+import { getCompaniesList } from "@/shared/api/getData"
+import { CompaniesTable } from "@/widgets/companies-table"
+import { CompaniesFilter } from "@/widgets/filters/ui/CompaniesFilter"
 
 type TProps = {
 
@@ -18,7 +19,10 @@ const CompaniesPage = async ({ searchParams }: TProps) => {
     <div>
       <div className="flex mb-6 items-end">
         <CompaniesFilter />
-        <AddEntityModal entityType="company" className=" [&_span]:hidden lg:w-max ml-auto py-2 " />
+        <AddEntity
+          entityType="company"
+          className=" [&_span]:hidden lg:w-max ml-auto py-2 "
+        />
       </div>
       <CompaniesTable companiesList={companies} />
       <Paginate currentPage={Number(filters.page) || 1} totalItems={total} className='mt-6' />

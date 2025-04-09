@@ -1,7 +1,7 @@
-import { getVacancy } from "@/actions/getData";
-import VacancyInfo from "@/components/pages/vacancyInfo/VacancyInfo";
 import Link from "next/link";
 import { Link as LinkIcon } from 'lucide-react'
+import { getVacancy } from "@/shared/api/getData";
+import { VacancyDetails } from "@/pages-layer/vacancy-details";
 
 const VacancyDetailsPage = async ({ params }: { params: Promise<{ vacancyId: string, companyId: string }> }) => {
   const { vacancyId, companyId } = await params;
@@ -18,7 +18,7 @@ const VacancyDetailsPage = async ({ params }: { params: Promise<{ vacancyId: str
         Перейти к мэтчу
         <LinkIcon className="h-[1cap]" />
       </Link>
-      <VacancyInfo vacancy={vacancy} />
+      <VacancyDetails vacancy={vacancy} />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 'use client'
-import VacanciesBoard from '@/components/dnd-boards/VacanciesBoard';
-import AddEntityModal from '@/components/modals/AddEntityModal';
-import { groupBy } from '@/lib/utils/groupBy';
-import { useVacancies } from '@/providers/VacanciesProvider';
+import { AddEntity } from '@/features/mutate-entity';
+import { groupBy } from '@/shared/lib/array_manipulations/groupBy';
+import { useVacancies } from '@/shared/providers/VacanciesProvider';
+import { VacanciesBoard } from '@/widgets/vacancies-board';
 import { useMemo } from 'react';
 
 
@@ -13,7 +13,7 @@ const VacanciesPage = () => {
 
   return (
     <div className="flex flex-col gap-6 h-full">
-      <AddEntityModal entityType='vacancy' className="lg:w-max ml-auto" />
+      <AddEntity entityType='vacancy' className="lg:w-max ml-auto" />
       <VacanciesBoard groupedItems={groupedVacs} />
     </div>
   );

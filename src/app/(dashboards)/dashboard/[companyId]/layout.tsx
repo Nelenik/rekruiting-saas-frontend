@@ -1,16 +1,14 @@
+import { getCompaniesList, getCompany, getStatuses, getUser } from '@/shared/api/getData';
+import { AppStatusesProvider } from '@/shared/providers/AppStatusesProvider';
+import { CompaniesProvider } from '@/shared/providers/CompaniesProvider';
+import { ScrollProvider } from '@/shared/providers/ScrollProvider';
+import { Toaster } from '@/shared/ui/shadcn/toaster';
+import { Breadcrumbs } from '@/widgets/breadcrumbs';
+import { Header } from '@/widgets/header';
+import { Sidebar } from '@/widgets/sidebar';
 import type { Metadata } from 'next';
-
-import Sidebar from '@/components/navigation/Sidebar';
-import Header from '@/components/navigation/Header';
-
 import { Suspense } from 'react';
-import { Toaster } from '@/components/ui/toaster';
-import { getCompaniesList, getCompany, getStatuses, getUser } from '@/actions/getData';
-import React from 'react';
-import Breadcrumbs from '@/components/navigation/Breadcrumbs';
-import { CompaniesProvider } from '@/providers/CompaniesProvider';
-import { AppStatusesProvider } from '@/providers/AppStatusesProvider';
-import { ScrollProvider } from '@/providers/ScrollProvider';
+
 
 export const metadata: Metadata = {
   title: 'REkrutAI|Дашборд',

@@ -1,6 +1,6 @@
-import AddEntityModal from "@/components/modals/AddEntityModal";
-import ReserveFilter from "@/components/filters/ReserveFilter";
-import ReserveList from "@/components/pages/reserve/elmts/ReserveList";
+import { AddEntity } from "@/features/mutate-entity";
+import { CvList } from "@/widgets/cv-list";
+import { ReserveFilter } from "@/widgets/filters/ui/ReserveFilter";
 import { FC } from "react";
 
 type TProps = {
@@ -12,10 +12,10 @@ const ReservePage: FC<TProps> = async () => {
   return (
     <div className="flex flex-col gap-10 justify-between  @3xl:flex-row">
       <div className="@3xl:w-[250px] shrink-0 flex flex-col gap-10">
-        <AddEntityModal entityType="resume" className="max-w-[250px]" />
+        <AddEntity entityType="cv" className="max-w-[250px]" />
         <ReserveFilter />
       </div>
-      <ReserveList />
+      <CvList />
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import { getVacanciesList } from "@/actions/getData";
-import { VacanciesProvider } from "@/providers/VacanciesProvider";
+import { getVacanciesList } from "@/shared/api/getData";
+import { VacanciesProvider } from "@/shared/providers/VacanciesProvider";
 import { FC, PropsWithChildren } from "react";
 
 

@@ -1,4 +1,4 @@
-import { VacanciesAside } from "@/components/navigation/VacanciesAside";
+import { VacanciesAside } from "@/widgets/vacancies-aside";
 import { FC, PropsWithChildren } from "react";
 
 const VacancyMatchLayout: FC<PropsWithChildren> = ({ children }) => {

@@ -1,12 +1,11 @@
 import { FC } from 'react';
-
-import { getVacancy } from '@/actions/getData';
-import { SummaryCard } from '@/components/cards/SummaryCard';
-import { TVacancy } from '@/shared/types';
 import Link from 'next/link';
-import EditEntityModal from '@/components/modals/EditEntityModal';
-import MatchBoard from '@/components/dnd-boards/MatchBoard';
-import { SingleVacancyProvider } from '@/providers/SingleVacancyProvider';
+import { getVacancy } from '@/shared/api/getData';
+import { SingleVacancyProvider } from '@/shared/providers/SingleVacancyProvider';
+import { MatchBoard } from '@/widgets/match-board';
+import { VacancySummaryCard } from '@/entities/vacancy';
+import { EditEntity } from '@/features/mutate-entity';
+import { TVacancy } from '@/shared/api/types';
 
 
 type TProps = {
@@ -22,7 +21,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
     <SingleVacancyProvider vacancy={vacancy}>
 
       <div className="flex gap-6 flex-col relative">
-        <EditEntityModal<TVacancy>
+        <EditEntity<TVacancy>
           className='absolute top-0 right-0 z-10' triggerView='icon'
           initialData={vacancy}
           entityType='vacancy'
@@ -32,7 +31,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
           scroll={false}
           href={`/dashboard/${companyId}/vacancyDetails/${vacancyId}?name=${vacancy.name}`}
         >
-          <SummaryCard />
+          <VacancySummaryCard />
         </Link>
 
         <MatchBoard />

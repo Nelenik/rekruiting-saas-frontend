@@ -1,8 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rekrut - Recruitment Management System
 
-## Getting Started
+A modern recruitment management system built with Next.js 15, React 19, and TypeScript.
 
-First, run the development server:
+## 🚀 Features
+
+- Modern UI with Tailwind CSS and Shadcn UI components
+- Drag-and-drop functionality with dnd-kit
+- Date handling with date-fns
+- Command palette interface with cmdk
+- Type-safe development with TypeScript
+- SVG component support with SVGR
+- Commit standardization with Commitizen
+
+## 📋 Prerequisites
+
+- Node.js (LTS version recommended)
+- npm, yarn, or pnpm
+- Git
+
+## 🛠️ Installation
+
+1. Clone the repository:
+```bash
+git clone [repository-url]
+cd rekrutai-fe
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+## 🚀 Development
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -10,36 +45,77 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📦 Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - Starts the development server
+- `npm run build` - Builds the application for production
+- `npm run start` - Runs the production build
+- `npm run lint` - Runs ESLint to check code quality
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## 🎨 Styling
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project uses:
+- Tailwind CSS for utility-first styling
+- Shadcn UI for accessible components
+- Tailwind Merge for class name management
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Development Guidelines
 
-## Deploy on Vercel
+### SVG Usage
+- To import SVG as a React component: `import SvgIcon from '*.svg?rc'`
+- For regular SVG imports, use without the `?rc` suffix
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Committing Changes
+This project uses Commitizen for standardized commit messages. Instead of `git commit`, use:
+```bash
+git cz
+# or
+cz
+# or
+git-cz
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Project Architecture (FSD)
 
-## Useful
+- **`pages-layer`** — Page-level components composed of widgets, features, and entities.. 
+- **`widgets`** — Composite components (e.g., `Header`, `Sidebar`).  
+- **`features`** — Features dependent on business logic (e.g., `Auth`, `Profile`).  
+- **`entities`** — Business entities (e.g., `User`, `Product`).  
+- **`shared`** — Shared utilities, API, styles.  
 
-For this project is configured svgr/webpack plugin. To import svg as react component use following   `import SvgIcon from *.svg?rc `
+> The `app` directory contains only Next.js routing and is not documented.
 
-For imports without `?rc` suffix is used regular loader
+### Generating Documentation
 
-## Commiting
-For commit standardization, refer to [Commitizen CLI](https://github.com/commitizen/cz-cli). Use `git cz` or just `cz` instead of `git commit` when committing. You can also use `git-cz`, which is an alias for `cz`.
+1. Generate API documentation:
+```bash
+npm run docs
+```
+
+2. View documentation locally (requires global `serve`):
+```bash
+npm run serve:docs
+```
+
+The documentation will be available at [http://localhost:5000](http://localhost:5000).
+
+### Contributing to Documentation
+
+When contributing to the documentation:
+1. Use JSDoc comments for all exported functions and components
+2. Include usage examples in component documentation
+3. Update relevant README files when making significant changes
+4. Follow the established documentation structure
+
+## 📚Docs
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://react.dev)
+- [Tailwind CSS Documentation](https://v3.tailwindcss.com/docs/installation)
+- [Shadcn UI Documentation](https://ui.shadcn.com/docs)
+

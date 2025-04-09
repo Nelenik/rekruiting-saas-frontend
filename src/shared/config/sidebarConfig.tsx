@@ -1,5 +1,13 @@
 import { HomeIcon, Building2, Search, Star, BriefcaseBusiness, Users, FileText, FileUser, Settings } from "lucide-react";
-import { IDashboardRoute } from "../types/navigation";
+import { ReactNode } from "react";
+
+export interface IDashboardRoute {
+  routeName: string;
+  href: string;
+  icon?: ReactNode;
+  subMenu?: IDashboardRoute[];
+}
+
 
 /**
 * Creates a configuration array for the dashboard sidebar navigation

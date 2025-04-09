@@ -1,5 +1,5 @@
-import InterceptingModal from '@/components/modals/InterceptingModal';
-import MatchInfo from '@/components/pages/matchInfo/MatchInfo';
+import { MatchDetails } from '@/pages-layer/match-details';
+import InterceptingModal from '@/shared/ui/custom/modals/InterceptingModal';
 
 const MatchDetailsModal = async ({ params }: { params: Promise<{ matchId: string }> }) => {
   const { matchId } = await params;
@@ -8,7 +8,7 @@ const MatchDetailsModal = async ({ params }: { params: Promise<{ matchId: string
       dialogTitle="Резюме"
       dialogDescription="Подробная информация о кандидате"
     >
-      <MatchInfo matchId={Number(matchId)} />
+      <MatchDetails matchId={Number(matchId)} />
     </InterceptingModal>
   );
 };

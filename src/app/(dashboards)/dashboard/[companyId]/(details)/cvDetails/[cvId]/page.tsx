@@ -1,10 +1,10 @@
-import ReserveInfo from "@/components/pages/reserveInfo/ReserveInfo";
+import { CvDetails } from "@/pages-layer/cv-details";
 
 const CvDetailsPage = async ({ params }: { params: Promise<{ cvId: string }> }) => {
   const { cvId } = await params;
   return (
     <div>
-      <ReserveInfo cvId={Number(cvId)} />
+      <CvDetails cvId={Number(cvId)} />
     </div>
   );
 }

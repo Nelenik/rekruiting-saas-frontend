@@ -1,12 +1,14 @@
 {
-  "name": "rekrut-update",
+  "name": "rekrutai-fe",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "rm -rf .next && next dev",
+    "build": "rm -rf .next && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docs": "typedoc",
+    "serve:docs": "serve ./docs -p 5000"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -51,6 +53,8 @@
     "eslint-config-next": "15.1.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "typedoc": "^0.28.2",
+    "typedoc-plugin-missing-exports": "^4.0.0",
     "typescript": "^5"
   },
   "config": {

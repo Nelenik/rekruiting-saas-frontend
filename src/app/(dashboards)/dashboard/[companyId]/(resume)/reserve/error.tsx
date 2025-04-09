@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/shadcn/button';
 import { usePathname } from 'next/navigation'
 
 export default function Error(
@@ -16,7 +16,7 @@ export default function Error(
     <div>
       <h2>Что-то пошло не так!</h2>
       <Button
-        onClick={() => window.location.href = pathname}
+        onClick={() => window.location.href = pathname || '/'}
       >
         Вернуться
       </Button>
