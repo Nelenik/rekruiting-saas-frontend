@@ -117,3 +117,20 @@ body {
 .bio a {
   @apply text-primary
 }
+
+/* tooltip for grip button on draggable cards */
+.group:hover>.tooltip::after, .group:hover>.tooltip::before {
+  @apply opacity-100
+}
+
+.tooltip::after, .tooltip::before {
+  @apply opacity-0 transition-opacity duration-700 delay-300
+}
+
+.tooltip::after {
+  @apply content-[attr(data-tooltip)] absolute top-[calc(100%_+_11px)] left-0 z-10 bg-primary/30 text-white text-xs p-1 rounded-lg
+}
+
+.tooltip::before {
+  @apply content-[''] absolute top-[100%] left-[50%] -translate-x-[50%] w-0 h-0 border-solid border-r-[5px] border-b-[11px] border-l-[5px] border-l-transparent border-r-transparent border-b-primary/30
+}

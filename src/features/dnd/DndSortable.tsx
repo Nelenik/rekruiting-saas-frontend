@@ -9,7 +9,8 @@ import { Button } from "@/shared/ui/shadcn/button";
 type TProps = HTMLAttributes<HTMLDivElement> & {
   asChild?: boolean,
   sortableId: string | number,
-  dndData?: Record<string, unknown>
+  dndData?: Record<string, unknown>,
+  enableGrip?: boolean
 }
 
 /**
@@ -24,6 +25,7 @@ type TProps = HTMLAttributes<HTMLDivElement> & {
  * @param {string} props.type - Type identifier for the sortable content
  * @param {boolean} [props.asChild=false] - When true, renders as a Slot component instead of a div
  * @param {string} [props.className] - Additional CSS classes to apply to the container
+ * @param {boolean} [props.enableGrip] - Enable grip for sortable element, by default setted for false
  * 
  * @example
  * ```tsx
@@ -40,7 +42,15 @@ type TProps = HTMLAttributes<HTMLDivElement> & {
  * - Typically used within a container that manages the sorting logic and order
  */
 
-export const DndSortable: FC<TProps> = ({ children, sortableId, dndData, asChild = false, className, ...props }) => {
+export const DndSortable: FC<TProps> = ({
+  children,
+  sortableId,
+  dndData,
+  asChild = false,
+  enableGrip = false,
+  className,
+  ...props
+}) => {
 
   const { attributes, listeners, setNodeRef, transform, isDragging } = useSortable({
     id: sortableId,
@@ -57,14 +67,31 @@ export const DndSortable: FC<TProps> = ({ children, sortableId, dndData, asChild
   const Comp = asChild ? Slot : 'div'
   return (
     <Comp
-      className={cn(isDragging && "opacity-50", 'relative grow-0', className)}
+      {...(!enableGrip && attributes)}
+      {...(!enableGrip && listeners)}
+      className={cn(
+        isDragging && "opacity-50",
+        'relative grow-0',
+        'group',
+        className
+      )}
       ref={setNodeRef}
       style={style}
       {...props}
     >
-      <Button variant={'ghost'} {...attributes} {...listeners} className="absolute left-1 top-2 z-[10] p-1 h-max cursor-grab">
-        <GripVertical className="stroke-muted-foreground" />
-      </Button >
+      {enableGrip
+        && <Button
+          variant={'ghost'}
+          {...attributes}
+          {...listeners}
+          className={cn(
+            "absolute left-1 top-2 z-[10] p-1 h-max cursor-grab tooltip bg-input/50",
+
+          )}
+          data-tooltip="Drag"
+        >
+          <GripVertical className="stroke-muted-foreground" />
+        </Button >}
       {children}
     </Comp>
   );

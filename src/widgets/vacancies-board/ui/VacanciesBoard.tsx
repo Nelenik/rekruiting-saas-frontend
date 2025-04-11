@@ -60,6 +60,7 @@ export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
                           sortableId={String(vacancy.id)}
                           key={vacancy.id}
                           dndData={{ type: "vac_item" }}
+                          enableGrip
                         >
                           <VacancyBoardCard
                             id={vacancy.id}

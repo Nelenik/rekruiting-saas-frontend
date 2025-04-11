@@ -39,8 +39,7 @@ const VacancyMatchStatusesContext = createContext<TVacancyMatchStatusesContext |
  *   <SomeComponent />
  * </VacancyMatchStatusesProvider>
  * ```
- * 
- * @category Entities
+ 
  */
 export const VacancyMatchStatusesProvider = ({ children }: { children: ReactNode }) => {
   const { vacancy } = useSingleVacancy()
@@ -150,8 +149,7 @@ export const VacancyMatchStatusesProvider = ({ children }: { children: ReactNode
  * ```tsx
  * const { columns, moveColumn, addColumn } = useVacancyMatchStatuses();
  * ```
- * 
- * @category Entities
+ 
  */
 export const useVacancyMatchStatuses = () => {
   const context = useContext(VacancyMatchStatusesContext)

@@ -25,8 +25,6 @@ type TProps = {
  * ```tsx
  * <ColumnMenu columnId={1} />
  * ```
- *
- * @category Features
  */
 
 export const ColumnMenu: FC<TProps> = memo(function ColActionMenu({ columnId, className }) {

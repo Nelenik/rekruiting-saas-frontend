@@ -1,14 +1,13 @@
 'use client'
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
-import { GripVertical } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/shared/ui/shadcn/scroll-area";
 import { DndSortable } from "@/features/dnd";
 import { cn } from "@/shared/lib/utils";
 import MatchColAbstraction from "./MatchColAbstraction";
-import { CandidateCard } from "./CandidateCard";
 import { MatchCol } from "./MatchCol";
 import { useMatchBoard } from "../model/hooks/useMatchBoard";
+import { CandidateCardAbstraction } from "./CandidateCardAbstraction";
 
 export const MatchBoard = () => {
 
@@ -39,6 +38,7 @@ export const MatchBoard = () => {
                 key={col.id}
                 sortableId={col.id}
                 dndData={{ type: "match_column", column: col }}
+                className="cursor-grab"
               >
                 <MatchCol
                   color={col.color}
@@ -66,18 +66,14 @@ export const MatchBoard = () => {
             />
           )
         }
-        {activeItem && (
-          <div className="relative cursor-grabbing ring-2 rounded-lg ring-offset-2">
-            <GripVertical className="absolute left-1 top-2 z-[100] stroke-muted-foreground" />
-            <CandidateCard
-              id={activeItem.id}
-              name={activeItem.name}
-              city={activeItem.city}
-              salary={activeItem.salary}
-              rating={activeItem.match_point}
-            />
-          </div>
-        )}
+        {activeItem &&
+          <CandidateCardAbstraction
+            name={activeItem.name}
+            city={activeItem.city}
+            salary={activeItem.salary}
+            rating={activeItem.match_point}
+          />
+        }
 
       </DragOverlay>
     </DndContext>

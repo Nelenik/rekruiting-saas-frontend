@@ -31,8 +31,6 @@ import { useVacancyMatchStatuses } from "@/entities/vacancy";
  *   handleDeleteColumn
  * } = useColumnMenu(1);
  * ```
- *
- * @category Features
  */
 
 export const useColumnMenu = (columnId: number | string) => {

@@ -26,8 +26,7 @@ const VacancyContext = createContext<TVacancyContext | null>(null)
  *   <SomeComponent />
  * </SingleVacancyProvider>
  * ```
- * 
- * @category Entities
+ 
  */
 export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNode, vacancy: TVacancy }) => {
 
@@ -54,8 +53,7 @@ export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNo
  * ```tsx
  * const { vacancy } = useSingleVacancy();
  * ```
- * 
- * @category Entities
+ 
  */
 export const useSingleVacancy = () => {
   const context = useContext(VacancyContext)

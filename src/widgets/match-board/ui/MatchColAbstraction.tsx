@@ -3,7 +3,6 @@ import { cn } from "@/shared/lib/utils";
 import { TCandidateShort } from "@/shared/api/types";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useQueryClient } from "@tanstack/react-query";
-import { GripVertical } from "lucide-react";
 import { FC } from "react";
 import { CandidateCard } from "./CandidateCard";
 import { FunnelCard } from "@/shared/ui/FunnelCard";
@@ -28,7 +27,7 @@ const MatchColAbstraction: FC<TProps> = ({
 
   return (
     <div className={cn(`relative flex flex-col gap-6 ring-2 bg-background ring-offset-4 rounded-lg   min-w-[256px] cursor-grabbing`, className)}>
-      <GripVertical className="absolute left-1 top-2 z-[100] stroke-muted-foreground" />
+      {/* <GripVertical className="absolute left-1 top-2 z-[100] stroke-muted-foreground" /> */}
       <FunnelCard
         name={title}
         count={candidates?.length || 0}

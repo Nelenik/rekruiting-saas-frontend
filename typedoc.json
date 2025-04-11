@@ -15,5 +15,5 @@
   "name": "RecrutAI documentation",
   "includeHierarchySummary":false,
   "plugin": [ "typedoc-plugin-missing-exports"],
-  "categorizeByGroup": true
+  "categorizeByGroup": true,
 }
