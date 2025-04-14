@@ -5,9 +5,9 @@ import { Slot } from "@radix-ui/react-slot"
 import { cn } from "@/shared/lib/utils";
 
 type TProps = HTMLAttributes<HTMLDivElement> & {
-  id: string
+  droppableId: string | number,
   asChild?: boolean,
-  type: string
+  dndData?: Record<string, unknown>,
 }
 
 /**
@@ -17,7 +17,7 @@ type TProps = HTMLAttributes<HTMLDivElement> & {
 
 * @component
 * @param {Object} props - Component properties
-* @param {string | number} props.id - Unique identifier for the droppable area
+* @param {string | number} props.droppableId - Unique identifier for the droppable area
 * @param {boolean} [props.asChild=false] - When true, renders as a Slot component instead of a div
 * @param {string} props.type - Type identifier for the droppable area to control what can be dropped
 * @param {ReactNode} props.children - Content to be rendered within the droppable area
@@ -35,11 +35,11 @@ type TProps = HTMLAttributes<HTMLDivElement> & {
 * - Type matching ensures only compatible items can be dropped
 */
 
-export const DndDroppable: FC<TProps> = ({ id, asChild = false, type, children, className, ...props }) => {
+export const DndDroppable: FC<TProps> = ({ droppableId, asChild = false, dndData, children, className, ...props }) => {
   const { setNodeRef } = useDroppable({
-    id: id,
+    id: droppableId,
     data: {
-      type: type
+      ...dndData
     }
   })
 

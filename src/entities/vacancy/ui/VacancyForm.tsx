@@ -15,6 +15,7 @@ import { Input } from "@/shared/ui/shadcn/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/shadcn/select"
 import { Textarea } from "@/shared/ui/shadcn/textarea"
 import { useParams } from "next/navigation"
+import { StatusSelect } from "./StatusSelect"
 
 type TProps = {
   type: 'edit' | 'add'
@@ -77,6 +78,14 @@ export const VacancyForm = ({
             name="position"
             defaultValue={defaultValues?.position}
             className={errors.position && 'ring-2 ring-destructive'}
+          />
+        </FormItem>
+
+        <FormItem labelText="Статус" error={errors.status_id}>
+          <StatusSelect
+            name="status_id"
+            defaultValue={defaultValues?.status_id || '191'}
+            className={errors.status_id && 'ring-2 ring-destructive'}
           />
         </FormItem>
 

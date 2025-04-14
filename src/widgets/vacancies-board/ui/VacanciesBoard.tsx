@@ -8,40 +8,16 @@ import { DndDroppable, DndSortable } from "@/features/dnd"
 import { cn } from "@/shared/lib/utils"
 import { useVacaniesBoard } from "../model/useVacanciesBoard"
 import { VacancyBoardCard } from "@/entities/vacancy/ui/VacancyBoardCard"
-import { TStatus, TVacancyShort } from "@/shared/api/types"
+import { TVacancyShort } from "@/shared/api/types"
 import { FunnelCard } from "@/shared/ui/FunnelCard"
+import { vacanciesDefaultStatuses } from "@/shared/constants/default-vacancy-statuses"
 
 
 type TProps = {
   groupedItems: Record<string, TVacancyShort[]>
 }
 
-const vacanciesDefaultStatuses: TStatus[] = [
-  {
-    "id": 191,
-    "name": "Черновик",
-    "color": "#A9A9A9",
-    "rank": 1
-  },
-  {
-    "id": 192,
-    "name": "В работе",
-    "color": "#FFA500",
-    "rank": 2
-  },
-  {
-    "id": 193,
-    "name": "Ожидание",
-    "color": "#ADD8E6",
-    "rank": 3
-  },
-  {
-    "id": 194,
-    "name": "На паузе",
-    "color": "#4682B4",
-    "rank": 4
-  }
-]
+
 
 export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
 
@@ -73,8 +49,11 @@ export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
                   count={items?.length || 0}
                 />
                 <DndDroppable
-                  id={String(status.id)}
-                  type="vac_column"
+                  droppableId={String(status.id)}
+                  dndData={{
+                    type: "vac_column",
+                    status_id: status.id
+                  }}
                   className="flex flex-col gap-2 grow"
                 >
                   <ScrollArea className="h-[clamp(500px,65vh,800px)] px-2">
@@ -84,7 +63,11 @@ export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
                         <DndSortable
                           sortableId={String(vacancy.id)}
                           key={vacancy.id}
-                          dndData={{ type: "vac_item" }}
+                          dndData={{
+                            type: "vac_item",
+                            vacancy,
+                            status_id: vacancy.status_id
+                          }}
                           enableGrip
                         >
                           <VacancyBoardCard

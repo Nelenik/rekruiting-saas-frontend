@@ -1,13 +1,5 @@
 import { Active, Over } from "@dnd-kit/core";
 
-/**
- * Determines whether a drag event is valid based on the drop target.
- *
- * @param {Active} active - The currently dragged item.
- * @param {Over | null} over - The drop target, or `null` if no target is present.
- * @returns {boolean} `true` if the drag event is valid, otherwise `false`.
- */
-
 export const isValidDragEvent = (
   active: Active,
   over: Over | null

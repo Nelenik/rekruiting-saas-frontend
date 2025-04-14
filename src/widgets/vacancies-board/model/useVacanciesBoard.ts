@@ -1,8 +1,7 @@
 import { TVacancyShort } from "@/shared/api/types";
 import { DragStartEvent, DragEndEvent } from "@dnd-kit/core";
+import { useEffect, useState } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
-import { useState, useEffect } from "react";
-import { findItemStatus, isValidDragEvent } from "../lib/helpers";
 
 export const useVacaniesBoard = (
   groupedItems: Record<string, TVacancyShort[]>
@@ -10,7 +9,6 @@ export const useVacaniesBoard = (
   const [groups, setGroups] =
     useState<Record<string, TVacancyShort[]>>(groupedItems);
 
-  //set initial items grouped by status_id
   useEffect(() => {
     setGroups(groupedItems);
   }, [groupedItems]);
@@ -19,38 +17,34 @@ export const useVacaniesBoard = (
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
-    const activeVacancy =
-      Object.values(groups)
-        .flat()
-        .find((vacancy) => String(vacancy.id) === active.id) || null;
-
+    const activeVacancy = active.data.current?.vacancy;
     setActiveItem(activeVacancy);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
+    setActiveItem(null);
     const { active, over } = event;
-    if (!isValidDragEvent(active, over)) return;
+    if (!active || !over || active.id === over.id) return;
 
+    const activeData = active.data.current;
+    const overData = over.data.current;
+    if (!activeData || !overData) return;
     //Ccheck active element and over zone
-    const isActiveItem = active.data.current?.type === "vac_item";
-    const isOverItem = over?.data?.current?.type === "vac_item";
-    const isOverColumn = over?.data?.current?.type === "vac_column";
+    const isActiveItem = activeData.type === "vac_item";
+    const isOverItem = overData.type === "vac_item";
+    const isOverColumn = overData.type === "vac_column";
 
     // If there is no active element, stop dragging
     if (!isActiveItem) return;
+    console.log(overData);
 
-    const sourceColStatus = findItemStatus(groups, String(active.id));
-
-    const targetColStatus = isOverColumn
-      ? String(over.id)
-      : findItemStatus(groups, String(over?.id));
+    const sourceColStatus = activeData.status_id;
+    const targetColStatus = overData.status_id;
 
     if (!sourceColStatus || !targetColStatus) return;
 
     if (isActiveItem) {
-      const draggableItem = Object.values(groups)
-        .flat()
-        .find((vac) => String(vac.id) === active.id);
+      const draggableItem = activeData.vacancy;
       if (!draggableItem) return;
 
       //if element is over column
@@ -62,11 +56,11 @@ export const useVacaniesBoard = (
           return {
             ...prev,
             [sourceColStatus]: sourceItems.filter(
-              (vac: TVacancyShort) => String(vac.id) !== active.id
+              (vac: TVacancyShort) => vac.id !== draggableItem.id
             ),
             [targetColStatus]: [
               ...targetItems,
-              { ...draggableItem, status: targetColStatus },
+              { ...draggableItem, status_id: targetColStatus },
             ],
           };
         });
@@ -76,25 +70,25 @@ export const useVacaniesBoard = (
           const sourceItems = [...prev[sourceColStatus]];
           const targetItems = [...(prev[targetColStatus] || [])];
 
-          const overIndex = over.data.current?.sortable.index ?? -1;
+          const overIndex = overData.sortable.index ?? -1;
 
           //if move item between columns ant is is over other item
           if (sourceColStatus !== targetColStatus) {
             return {
               ...prev,
               [sourceColStatus]: sourceItems.filter(
-                (item) => String(item.id) !== active.id
+                (item) => item.id !== draggableItem.id
               ),
               [targetColStatus]: [
                 ...targetItems.slice(0, overIndex),
-                { ...draggableItem, status: targetColStatus },
+                { ...draggableItem, status_id: targetColStatus },
                 ...targetItems.slice(overIndex),
               ],
             };
           }
 
           const activeIndex = sourceItems.findIndex(
-            (item) => String(item.id) === active.id
+            (item) => item.id === draggableItem.id
           );
 
           if (activeIndex === overIndex || overIndex === -1) return prev;
@@ -106,7 +100,7 @@ export const useVacaniesBoard = (
       }
     }
 
-    setActiveItem(null);
+    // setActiveItem(null);
   };
   return {
     handleDragStart,

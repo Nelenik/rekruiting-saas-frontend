@@ -35,6 +35,7 @@ export const updateCV = async (
   _: TMutationState,
   body: FormData
 ) => {
+  console.log("updatevacancy");
   const result = await updateEntity(`/cv/${cvId}`, body);
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/reserve", "page");
