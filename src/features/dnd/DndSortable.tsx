@@ -40,7 +40,9 @@ type TProps = HTMLAttributes<HTMLDivElement> & {
  * - Applies transform translations during sort operations
  * - Can be rendered as a div or as a Slot component using the asChild prop
  * - Typically used within a container that manages the sorting logic and order
+ * - If is enabledGrip can be shown the tooltip. for this add the tailwind "group" through the className prop
  */
+
 
 export const DndSortable: FC<TProps> = ({
   children,
@@ -72,7 +74,6 @@ export const DndSortable: FC<TProps> = ({
       className={cn(
         isDragging && "opacity-50",
         'relative grow-0',
-        'group',
         className
       )}
       ref={setNodeRef}
