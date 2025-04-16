@@ -94,7 +94,7 @@ export default {
       animation: {
         "slide-up": "slide-up 200ms ease",
         "slide-down": "slide-down 200ms ease",
-        "fade-in-out": "5s fade-in-out 500ms ease ",
+        "fade-in-out": "2s fade-in-out 200ms ease ",
       },
     },
   },

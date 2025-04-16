@@ -61,6 +61,7 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
                     key={candidate.id}
                     dndData={{ type: "match_item", candidate, status, status_id }}
                     enableGrip
+                    className="group/card"
                   >
                     <CandidateCard
                       id={candidate.id}

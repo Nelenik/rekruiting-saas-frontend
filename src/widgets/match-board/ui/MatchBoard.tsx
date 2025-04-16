@@ -38,7 +38,8 @@ export const MatchBoard = () => {
                 key={col.id}
                 sortableId={col.id}
                 dndData={{ type: "match_column", column: col }}
-                className="cursor-grab"
+                enableGrip
+                className="group/col"
               >
                 <MatchCol
                   color={col.color}
