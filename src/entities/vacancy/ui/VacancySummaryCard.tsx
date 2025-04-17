@@ -43,7 +43,7 @@ export const VacancySummaryCard = () => {
       </div>
 
       <div className="grow">
-        <CardTitle className="mb-2 first-letter:uppercase  typograpghy-h2 flex items-start gap-4">
+        <CardTitle className="mb-2 first-letter:uppercase  typograpghy-h2 flex items-start gap-4 max-w-80">
           {vacancyName ?? 'Имя неизвестно'}
           <StatusBadge
             color={vacancyStatus.color}

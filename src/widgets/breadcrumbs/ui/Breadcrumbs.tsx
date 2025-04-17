@@ -15,7 +15,7 @@ export const Breadcrumbs = () => {
           (
             <React.Fragment key={i}>
 
-              <BreadcrumbItem >
+              <BreadcrumbItem className="truncate max-w-44">
                 {
                   i == 1 ?
                     label

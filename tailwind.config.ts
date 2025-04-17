@@ -11,6 +11,12 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        "md-lg": "992px",
+      },
+      backgroundImage: {
+        hero: "url('/assets/bg-2.webp')",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

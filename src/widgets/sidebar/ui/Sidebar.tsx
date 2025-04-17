@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import LogoSvg from '@/assets/icons/logo.svg?rc';
+import LogoImg from '@/assets/logo-short.png';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
 import { IUser } from "@/shared/api/types/user";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
@@ -11,6 +11,7 @@ import useSidebarControl from "@/shared/model/hooks/useSidebarControl";
 import SideBarBtn from "@/shared/ui/buttons/SideBarBtn";
 import { cn } from "@/shared/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/shadcn/avatar";
+import Image from "next/image";
 
 interface ISidebarProps {
   userData: IUser
@@ -42,7 +43,12 @@ export const Sidebar = ({ userData, className }: ISidebarProps) => {
           isSidebarOpen && 'translate-x-3 transition-transform duration-75'
         )}
       >
-        <LogoSvg width={50} height={50} />
+        <Image
+          src={LogoImg}
+          alt="RekrutAi logo"
+          width={50}
+          height={50}
+        />
       </Link>
       <SideBarBtn
         onClick={handleToggle}
