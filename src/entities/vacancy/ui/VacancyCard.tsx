@@ -32,7 +32,7 @@ export const VacancyCard: FC<TProps> = ({
       )}
     >
       <CardHeader className="p-0 mb-2">
-        <CardTitle className="text-base">{vacancyName ?? 'Имя неизвестно'}</CardTitle>
+        <CardTitle className="text-base break-all">{vacancyName ?? 'Имя неизвестно'}</CardTitle>
       </CardHeader>
 
       <CardFooter className="flex justify-between p-0 text-sm text-muted-foreground">
