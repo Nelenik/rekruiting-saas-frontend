@@ -1,8 +1,7 @@
 'use client';
 import Link from 'next/link';
-import LogoSvg from '@/assets/icons/logo.svg?rc';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
-import { IUser } from "@/shared/api/types/user";
+import { TUser } from "@/shared/api/types/user";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
 import { SidebarGroup, SidebarItem } from "../../sidebar/ui/SidebarItems";
 import { useParams } from "next/navigation";
@@ -10,9 +9,12 @@ import { cn } from '@/shared/lib/utils';
 import useSidebarControl from '@/shared/model/hooks/useSidebarControl';
 import SideBarBtn from '@/shared/ui/buttons/SideBarBtn';
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/avatar';
+import LogoImg from '@/assets/logo-short.png';
+import Image from "next/image";
+import { SignOutForm } from '@/features/auth';
 
 interface IHeaderProps {
-  userData: IUser
+  userData: TUser
   className?: string
 }
 
@@ -41,7 +43,13 @@ export const Header = ({ userData, className }: IHeaderProps) => {
         <PanelLeftOpen stroke="white" />
       </SideBarBtn>
       <Link href={'/'} className={cn('')}>
-        <LogoSvg width={50} height={50} />
+        <Image
+          src={LogoImg}
+          alt="RekrutAi logo"
+          width={50}
+          height={50}
+          priority
+        />
       </Link>
       <nav ref={sidebarRef} className={cn(
         "fixed left-0 top-0 w-[min(100dvw,400px)] h-dvh px-6 py-3 flex flex-col bg-sidebar text-sidebar-foreground z-[900] -translate-x-[150%] transition-transform duration-300 delay-75 @container",
@@ -62,11 +70,15 @@ export const Header = ({ userData, className }: IHeaderProps) => {
           })}
         </ul>
       </nav>
-      <div className={cn('')}>
+      <div className={cn('flex gap-2')}>
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback>C</AvatarFallback>
         </Avatar>
+        <SignOutForm
+          variant={'link'}
+          className="text-muted-foreground"
+        />
         <div className="hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">
           <p className="scroll-m-20 text-sm font-semibold tracking-tight mb-0.5 max-w-44 text-muted-foreground">
             {userName}

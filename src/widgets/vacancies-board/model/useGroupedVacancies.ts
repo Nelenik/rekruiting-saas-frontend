@@ -31,7 +31,7 @@ export const useGroupedVacancies = () => {
 
   useEffect(() => {
     // If vacancies not loaded yet, skip grouping
-    if (!vacancies.length) return;
+    // if (!vacancies.length) return;
 
     // Group vacancies by status_id (as string keys)
     const rawGrouped = groupBy(vacancies, (el) => String(el.status_id));

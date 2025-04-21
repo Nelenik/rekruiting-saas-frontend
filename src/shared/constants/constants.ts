@@ -7,6 +7,8 @@ export const mutationInitialState: TMutationState = {
 
 export const API_URL = process.env.API_URL;
 
+export const AUTH_COOKIE_NAME = "access_token";
+
 export const COMPANIES_PER_PAGE = 50;
 
 export const CV_PER_PAGE = 10;

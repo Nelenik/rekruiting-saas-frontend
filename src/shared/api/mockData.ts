@@ -1,7 +1,7 @@
 import { TWorkExperience } from "@/shared/api/types/resume";
-import { IUser } from "@/shared/api/types/user";
+import { TUser } from "@/shared/api/types/user";
 
-export const mockUser: IUser = {
+export const mockUser: TUser = {
   id: 1,
   name: "Иванов Иван",
   email: "test@mail.com",

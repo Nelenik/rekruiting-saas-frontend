@@ -1,12 +1,14 @@
-import { getCompaniesList, getCompany, getStatuses, getUser } from '@/shared/api/getData';
+import { getSession } from '@/features/auth';
+import { getCompaniesList, getCompany, getStatuses } from '@/shared/api/getData';
 import { AppStatusesProvider } from '@/shared/providers/AppStatusesProvider';
 import { CompaniesProvider } from '@/shared/providers/CompaniesProvider';
 import { ScrollProvider } from '@/shared/providers/ScrollProvider';
-import { Toaster } from '@/shared/ui/shadcn/toaster';
+// import { Toaster } from '@/shared/ui/shadcn/toaster';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
 import { Header } from '@/widgets/header';
 import { Sidebar } from '@/widgets/sidebar';
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
 
@@ -25,7 +27,12 @@ export default async function DashboardLayout({
   params: Promise<{ companyId: string }>
 
 }>) {
-  const userData = await getUser()
+  //get user data. if user is not authorized redirect to root
+  const session = await getSession();
+  if (!session.isAuthorized) redirect("/");
+
+  const userData = session.user;
+
   const { companyId } = await params
 
   const result = await Promise.allSettled([
@@ -63,7 +70,7 @@ export default async function DashboardLayout({
           </ScrollProvider>
 
         </main>
-        <Toaster />
+        {/* <Toaster /> */}
       </AppStatusesProvider>
     </CompaniesProvider>
   );

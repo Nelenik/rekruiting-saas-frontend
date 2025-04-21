@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
+import { SessionPovider } from "@/features/auth";
+import { getSession } from "@/features/auth";
+import { Toaster } from "@/shared/ui/shadcn/toaster";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -18,17 +21,22 @@ export const metadata: Metadata = {
   description: "Новый подход к подбору персонала. Используя передовые технологии AI, мы автоматизируем процесс поиска и отбора кандидатов. Теперь вы можете найти идеального сотрудника всего за несколько часов.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getSession()
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <SessionPovider session={session}>
+
+          {children}
+        </SessionPovider>
+        <Toaster />
       </body>
     </html>
   );

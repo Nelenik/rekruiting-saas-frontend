@@ -37,6 +37,13 @@ export const extractSyntheticErrorFromApi = (e: TBadRequest | null) => {
     );
   }
 
+  if (e && e.errorType === "UNAUTHORIZED_EXCEPTION") {
+    return getSyntheticError(
+      "Неверный логин или пароль. Пожалуйста попробуйте еще раз",
+      401
+    );
+  }
+
   // return null;
   return getSyntheticError("Ошибка сохранения");
 };

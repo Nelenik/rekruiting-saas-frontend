@@ -1,6 +1,6 @@
 "use server";
 
-import { IUser } from "@/shared/api/types/user";
+import { TUser } from "@/shared/api/types/user";
 import { TCompany } from "@/shared/api/types/companies";
 import { TResume } from "@/shared/api/types/resume";
 import { TStatus } from "@/shared/api/types/statuses";
@@ -10,15 +10,29 @@ import { filterFalsyFields } from "../lib/object_manipulations/filterFalsyFields
 import { TCandidateFull, TCandidateShort } from "./types/match";
 import { TVacancy, TVacancyShort } from "./types/vacancies";
 import { TTariff } from "./types/tariffs";
+import { cookies } from "next/headers";
+import { AUTH_COOKIE_NAME } from "../constants/constants";
 
 /* USER */
+
 /*----Needs to be redone with real data.--- */
-export const getUser = async (): Promise<IUser> => {
-  return {
-    id: 1,
-    name: "Демьянов Илья",
-    email: "test@mail.com",
-  };
+
+export const getUser = async (): Promise<TUser | null> => {
+  try {
+    //temp
+    const cookieStore = await cookies();
+    const token = cookieStore.get(AUTH_COOKIE_NAME);
+    if (!token) throw new Error("token not found");
+
+    //fetch user
+    return {
+      id: 1,
+      name: "Пользователь",
+      email: "user@mail.com",
+    };
+  } catch {
+    return null;
+  }
 };
 
 /*******COMPANY*******/

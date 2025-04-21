@@ -3,12 +3,14 @@ import logoImg from '@/assets/logo.webp';
 import Link from "next/link";
 import { StartPageButton } from "@/shared/ui/buttons/StartPageButtons";
 import { cn } from "@/shared/lib/utils";
-import { AuthTabs } from "@/pages-layer/start-page";
-import { Features } from "@/pages-layer/start-page";
+import { AuthTabs, Features } from "@/pages-layer/start-page";
+import { SignOutForm } from "@/features/auth";
+import { getSession } from "@/features/auth";
 
 
 
-export default function Home() {
+export default async function Home() {
+  const { isAuthorized } = await getSession()
   return (
     <>
       <header className="absolute top-0 left-0 w-full">
@@ -19,11 +21,24 @@ export default function Home() {
             alt="RekrutAi logo"
             className="w-40"
           />
-          <StartPageButton asChild>
-            <Link href={'/dashboard'} >
-              Dashboard
-            </Link>
-          </StartPageButton>
+          {
+            isAuthorized
+            && <div className="flex gap-6 items-center">
+              <StartPageButton asChild>
+                <Link href={'/dashboard'} >
+                  Dashboard
+                </Link>
+              </StartPageButton>
+              <SignOutForm
+                variant={'outline'}
+                className={cn(
+                  "text-blue-900 bg-transparent rounded-full  ring-1 ring-blue-900 transition-colors",
+                  "hover:text-foreground/85",
+                  " md-lg:text-stone-50 md-lg:ring-stone-50",
+                )}
+              />
+            </div>
+          }
         </div>
       </header>
       <main className="h-dvh flex flex-col md-lg:flex-row">

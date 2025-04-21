@@ -3,14 +3,14 @@
 import { revalidatePath } from "next/cache";
 import { TStatus } from "@/shared/api/types/statuses";
 import { TComment } from "@/shared/api/types/comments";
-import { storeEntity } from "./common/mutate";
+import { mutateAction } from "./common/mutate";
 import { TMutationState } from "./common/types";
 import { DEFAULT_MATCH_STATUSES } from "../constants/default-match-statuses";
 import convertToFormData from "../lib/object_manipulations/convertToFormData";
 import { getSyntheticError } from "./common/errors";
 
 export const storeCompany = async (_: TMutationState, body: FormData) => {
-  const result = await storeEntity("/company", body);
+  const result = await mutateAction("/company", body);
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]", "layout");
   }
@@ -18,7 +18,7 @@ export const storeCompany = async (_: TMutationState, body: FormData) => {
 };
 
 export const storeCv = async (_: TMutationState, body: FormData) => {
-  const result = await storeEntity("/cv", body);
+  const result = await mutateAction("/cv", body);
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/reserve", "page");
   }
@@ -42,7 +42,7 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
   }
 
   // If successful, append status IDs to the form data and save vacancy. The status_id = 1 (Скрининг) is temporarily unchangeable, as all the generated matches are linked to it
-  body.append("matchStatuses[]", `1`);
+  // body.append("matchStatuses[]", `1`);
 
   statuses.forEach((item) => {
     if (item.payload && "id" in item.payload) {
@@ -50,7 +50,7 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
     }
   });
 
-  const result = await storeEntity("/vacancy", body);
+  const result = await mutateAction("/vacancy", body);
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/vacancies", "layout");
     revalidatePath("/dashboard/[companyId]/vacancies/[vacancyId]", "layout");
@@ -63,7 +63,9 @@ export const storeStatus = async (
   _: TMutationState | null,
   body: FormData
 ): Promise<TMutationState<TStatus>> => {
-  const result = await storeEntity<TStatus>("/status", body, true);
+  const result = await mutateAction<TStatus>("/status", body, {
+    enableResponseData: true,
+  });
   return result;
 };
 
@@ -72,6 +74,9 @@ export const storeMatchComment = async (
   _: TMutationState | null,
   body: FormData
 ) => {
-  const result = await storeEntity<TComment>(`/match/${matchId}/comment`, body);
+  const result = await mutateAction<TComment>(
+    `/match/${matchId}/comment`,
+    body
+  );
   return result;
 };

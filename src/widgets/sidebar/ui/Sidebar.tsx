@@ -3,7 +3,7 @@
 import Link from "next/link";
 import LogoImg from '@/assets/logo-short.png';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
-import { IUser } from "@/shared/api/types/user";
+import { TUser } from "@/shared/api/types/user";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
 import { useParams } from "next/navigation";
 import { SidebarGroup, SidebarItem } from "./SidebarItems";
@@ -12,9 +12,10 @@ import SideBarBtn from "@/shared/ui/buttons/SideBarBtn";
 import { cn } from "@/shared/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/shadcn/avatar";
 import Image from "next/image";
+import { SignOutForm } from "@/features/auth";
 
 interface ISidebarProps {
-  userData: IUser
+  userData: TUser
   className?: string
 }
 
@@ -48,6 +49,8 @@ export const Sidebar = ({ userData, className }: ISidebarProps) => {
           alt="RekrutAi logo"
           width={50}
           height={50}
+          priority
+          className="w-auto"
         />
       </Link>
       <SideBarBtn
@@ -100,6 +103,10 @@ export const Sidebar = ({ userData, className }: ISidebarProps) => {
           >
             {userEmail}
           </a>
+          <SignOutForm
+            variant={'link'}
+            className="text-muted-foreground"
+          />
         </div>
       </div>
     </div>

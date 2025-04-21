@@ -32,6 +32,9 @@ export const parseFormData = <T>(formData: FormData): T => {
   const resultObject = {} as Record<string, unknown>;
 
   for (const [key, value] of formData.entries()) {
+    // May be necessary to remove Next.js internal fields from FormData
+    if (key.startsWith("$ACTION")) continue;
+
     if (key.endsWith("[]")) {
       const cleanedKey = key.slice(0, -2);
       resultObject[cleanedKey] = [

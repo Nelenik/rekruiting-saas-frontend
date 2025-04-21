@@ -1,6 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { updateEntity } from "./common/mutate";
+import { mutateAction } from "./common/mutate";
 import { TMutationState } from "./common/types";
 import { parseFormData } from "../lib/object_manipulations/parseFormData";
 
@@ -9,7 +9,9 @@ export const updateVacancy = async (
   _: TMutationState | null,
   body: FormData
 ) => {
-  const result = await updateEntity(`/vacancy/${vacancyId}`, body);
+  const result = await mutateAction(`/vacancy/${vacancyId}`, body, {
+    method: "PUT",
+  });
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/vacancies", "layout");
     revalidatePath("/dashboard/[companyId]/vacancies/[vacancyId]", "layout");
@@ -23,7 +25,9 @@ export const updateCompany = async (
   _: TMutationState,
   body: FormData
 ) => {
-  const result = await updateEntity(`/company/${companyId}`, body);
+  const result = await mutateAction(`/company/${companyId}`, body, {
+    method: "PUT",
+  });
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]", "page");
   }
@@ -36,7 +40,7 @@ export const updateCV = async (
   body: FormData
 ) => {
   console.log("updatevacancy");
-  const result = await updateEntity(`/cv/${cvId}`, body);
+  const result = await mutateAction(`/cv/${cvId}`, body, { method: "PUT" });
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/reserve", "page");
   }
@@ -48,7 +52,9 @@ export const updateMatch = async (
   _: TMutationState | null,
   body: FormData
 ) => {
-  const result = await updateEntity(`/match/${matchId}`, body);
+  const result = await mutateAction(`/match/${matchId}`, body, {
+    method: "PUT",
+  });
   if (!result.error) {
     revalidatePath(
       "/dashboard/[companyId]/candidate-info/[candidateId]",
@@ -63,7 +69,9 @@ export const updateStatus = async (
   _: TMutationState | null,
   body: FormData
 ) => {
-  const result = await updateEntity(`/status/${statusId}`, body);
+  const result = await mutateAction(`/status/${statusId}`, body, {
+    method: "PUT",
+  });
   if (!result.error) {
     return { ...result, payload: parseFormData(body) };
   }

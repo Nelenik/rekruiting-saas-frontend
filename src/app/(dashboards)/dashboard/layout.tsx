@@ -3,6 +3,8 @@ import localFont from 'next/font/local';
 
 import '../../globals.css';
 import QueryProvider from '@/shared/providers/QueryProvider';
+import { Toaster } from '@/shared/ui/shadcn/toaster';
+
 
 const geistSans = localFont({
   src: '../../fonts/GeistVF.woff',
@@ -40,6 +42,7 @@ export default async function MainAppLayout({
 
           {children}
         </QueryProvider>
+        <Toaster />
       </body>
     </html>
   );
