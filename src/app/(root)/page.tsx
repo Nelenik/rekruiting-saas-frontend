@@ -32,9 +32,9 @@ export default async function Home() {
               <SignOutForm
                 variant={'outline'}
                 className={cn(
-                  "py-1 text-blue-900 bg-transparent rounded-full border-2 border-blue-900 transition-colors",
-                  "hover:border-foreground/85 hover:text-foreground/85",
-                  " md-lg:text-stone-50 md-lg:border-stone-50",
+                  "text-blue-900 bg-transparent rounded-full  ring-1 ring-blue-900 transition-colors",
+                  "hover:text-foreground/85",
+                  " md-lg:text-stone-50 md-lg:ring-stone-50",
                 )}
               />
             </div>

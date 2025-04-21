@@ -1,9 +1,9 @@
 export const DEFAULT_MATCH_STATUSES = [
-  // {
-  //   name: "Скрининг",
-  //   color: "#fb923c",
-  //   rank: 1,
-  // },
+  {
+    name: "Скрининг",
+    color: "#fb923c",
+    rank: 1,
+  },
   {
     name: "Скоринг",
     color: "#facc15",

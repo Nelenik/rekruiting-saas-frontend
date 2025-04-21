@@ -42,7 +42,7 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
   }
 
   // If successful, append status IDs to the form data and save vacancy. The status_id = 1 (Скрининг) is temporarily unchangeable, as all the generated matches are linked to it
-  body.append("matchStatuses[]", `1`);
+  // body.append("matchStatuses[]", `1`);
 
   statuses.forEach((item) => {
     if (item.payload && "id" in item.payload) {
