@@ -43,8 +43,11 @@ export const VacancySummaryCard = () => {
       </div>
 
       <div className="grow">
-        <CardTitle className="mb-2 first-letter:uppercase  typograpghy-h2 flex items-start gap-4 max-w-80">
-          {vacancyName ?? 'Имя неизвестно'}
+        <CardTitle className=" typography-h2 mb-2 flex items-start gap-4 max-w-[90%] ">
+          <span className='break-all'>
+
+            {vacancyName ?? 'Имя неизвестно'}
+          </span>
           <StatusBadge
             color={vacancyStatus.color}
             className={cn('py-0 px-1')}

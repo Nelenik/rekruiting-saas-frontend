@@ -37,7 +37,7 @@ export const VacanciesBoard = () => {
             return (
               <div
                 key={status.id}
-                className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/5 min-w-[250px]`)}
+                className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/4 min-w-[250px]`)}
               >
                 <FunnelCard
                   color={status.color}

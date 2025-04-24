@@ -19,7 +19,7 @@ export const MatchDetails = async ({ matchId }: { matchId: number }) => {
 
   return (
     <div>
-      <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 mb-6">
+      <h2 className="typography-h2 first:mt-0 mb-6">
         {candidate.cv.candy_name || 'Имя не указано'}
       </h2>
       <Tabs defaultValue="match" className="w-full ">

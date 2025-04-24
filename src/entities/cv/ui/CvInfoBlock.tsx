@@ -69,7 +69,7 @@ export const CvInfoBlock: FC<TProps> = ({
 
       <div>
         <h2 className='font-semibold mb-2 text-lg'>Обо мне</h2>
-        <TextFormatter text={bio} className="bio text-muted-foreground text-sm" />
+        <TextFormatter text={bio} className="parsed text-muted-foreground text-sm" />
       </div>
 
       <div className='bg-indigo-100 py-3 px-6 rounded-lg '>

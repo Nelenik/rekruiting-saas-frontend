@@ -34,7 +34,7 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
 
   return (
 
-    <div className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border min-w-[256px] bg-background`, className)}>
+    <div className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border min-w-[256px] max-w-[256px] bg-background`, className)}>
       <FunnelCard
         color={color}
         className="relative"

@@ -16,7 +16,7 @@ export const CvDetails = async ({ cvId }: { cvId: number }) => {
   const cv = await getResumeById(cvId)
   return (
     <div>
-      <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 mb-6">
+      <h2 className="typography-h2 first:mt-0 mb-6">
         {cv.candy_name || 'Имя не указано'}
       </h2>
       <Tabs defaultValue="description" className="w-full ">
