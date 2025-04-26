@@ -52,7 +52,7 @@ export default async function DashboardLayout({
 
         <main className="w-full flex h-screen overflow-hidden">
           <Sidebar userData={userData} className="hidden md:flex" />
-          <ScrollProvider className="p-6 w-full  h-full overflow-y-auto relative" data-id='pageContainer'>
+          <ScrollProvider className="p-6 w-full  h-full overflow-y-auto relative bg-secondary" data-id='pageContainer'>
             {/* <div className="p-6 w-full  h-full overflow-y-auto relative" data-id='pageContainer'> */}
             <div className='grid auto-rows-max grid-cols-1 gap-6 @container max-w-[min(100%,1400px)] m-auto'>
 
