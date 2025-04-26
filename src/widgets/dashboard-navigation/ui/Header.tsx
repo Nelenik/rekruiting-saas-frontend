@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
 import { TUser } from "@/shared/api/types/user";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
-import { SidebarGroup, SidebarItem } from "../../sidebar/ui/SidebarItems";
+import { SidebarGroup, SidebarItem } from "./SidebarItems";
 import { useParams } from "next/navigation";
 import { cn } from '@/shared/lib/utils';
 import useSidebarControl from '@/shared/model/hooks/useSidebarControl';
@@ -45,6 +45,10 @@ export const Header = ({ userData, className }: IHeaderProps) => {
       <Link href={'/'} className={cn('')}>
         <Image
           src={LogoImg}
+          className={cn(
+            'w-[35px] h-[35px]',
+            ' sm:w-[50px] sm:h-[50px]'
+          )}
           alt="RekrutAi logo"
           width={50}
           height={50}

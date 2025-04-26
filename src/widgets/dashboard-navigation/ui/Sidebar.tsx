@@ -22,6 +22,7 @@ interface ISidebarProps {
 export const Sidebar = ({ userData, className }: ISidebarProps) => {
   const params = useParams<{ companyId: string }>();
   const companyId = params?.companyId || '';
+
   const sidebarConfig = createSidebarConfig(companyId)
 
   const { sidebarRef, handleToggle, isSidebarOpen } = useSidebarControl({ initial: true })
