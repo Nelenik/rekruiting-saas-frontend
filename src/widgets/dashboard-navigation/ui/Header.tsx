@@ -3,15 +3,15 @@ import Link from 'next/link';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
 import { TUser } from "@/shared/api/types/user";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
-import { SidebarGroup, SidebarItem } from "./SidebarItems";
 import { useParams } from "next/navigation";
 import { cn } from '@/shared/lib/utils';
 import useSidebarControl from '@/shared/model/hooks/useSidebarControl';
-import SideBarBtn from '@/shared/ui/buttons/SideBarBtn';
+import SideBarBtn from '@/widgets/dashboard-navigation/ui/SideBarBtn';
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/avatar';
 import LogoImg from '@/assets/logo-short.png';
 import Image from "next/image";
 import { SignOutForm } from '@/features/auth';
+import { SidebarItem } from './SidebarItem';
 
 interface IHeaderProps {
   userData: TUser
@@ -66,9 +66,7 @@ export const Header = ({ userData, className }: IHeaderProps) => {
           {sidebarConfig.map((el) => {
             return (
               <li key={el.routeName}>
-                {el.subMenu ?
-                  <SidebarGroup linkConfig={el} />
-                  : <SidebarItem linkConfig={el} />}
+                <SidebarItem linkConfig={el} onLinkClick={handleClose} />
               </li>
             );
           })}
