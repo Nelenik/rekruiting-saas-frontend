@@ -11,7 +11,7 @@ export const SignOutForm = ({ className,
   return (
     <form action={signout}>
       <Button
-        variant={'outline'}
+        // variant={'outline'}
         className={className}
         {...props}
       >

@@ -1,9 +1,9 @@
 'use client'
 
-import { TSession } from "@/shared/api/types"
+import { TAuthorized } from "@/shared/api/types"
 import { createContext, ReactNode, useContext } from "react"
 
-type SessionContextType = TSession
+type SessionContextType = TAuthorized
 
 
 
@@ -11,7 +11,7 @@ export const SessionContext = createContext<SessionContextType | null>(null)
 
 type TProps = {
   children: ReactNode,
-  session: TSession
+  session: TAuthorized
 }
 export const SessionPovider = ({ children, session }: TProps) => {
   return (<SessionContext value={session}>

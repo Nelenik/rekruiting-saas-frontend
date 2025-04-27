@@ -27,8 +27,9 @@ export const getUser = async (): Promise<TUser | null> => {
     //fetch user
     return {
       id: 1,
-      name: "Пользователь",
+      name: "Гость",
       email: "user@mail.com",
+      profile_image: "",
     };
   } catch {
     return null;
