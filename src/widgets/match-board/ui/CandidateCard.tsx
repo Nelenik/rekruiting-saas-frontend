@@ -24,14 +24,15 @@ export const CandidateCard = ({
 }: TProps) => {
   const params = useParams();
   const companyId = params?.companyId as string | undefined;
+  console.log(name)
   return (
     <Link
       scroll={false}
       href={`/dashboard/${companyId}/matchDetails/${id}?name=${name}`}
     >
-      <Card className="w-full min-w-[240px] py-4 px-6 hover:shadow-md transform hover:-translate-y-1 transition-all duration-200">
+      <Card className="w-full min-w-[240px] py-4 pl-8 pr-6 hover:shadow-md transform hover:-translate-y-1 transition-all duration-200">
         <h3 className="text-base font-regular">
-          {name ?? 'Имя не указано'}
+          {name || 'Имя отсутствует'}
         </h3>
 
         <p className="text-muted-foreground text-base mb-1">{city}</p>

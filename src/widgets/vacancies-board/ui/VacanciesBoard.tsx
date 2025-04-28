@@ -1,7 +1,6 @@
 'use client'
 
 import { ScrollArea, ScrollBar } from "@/shared/ui/shadcn/scroll-area"
-import { DndContext, DragOverlay } from "@dnd-kit/core"
 import { SortableContext } from "@dnd-kit/sortable"
 import { DndDroppable, DndSortable } from "@/features/dnd"
 import { cn } from "@/shared/lib/utils"
@@ -11,6 +10,7 @@ import { TVacancyShort } from "@/shared/api/types"
 import { FunnelCard } from "@/shared/ui/FunnelCard"
 import { vacanciesDefaultStatuses } from "@/shared/constants/default-vacancy-statuses"
 import { BoardListSkeleton } from "@/shared/ui/skeletons/BoardSkeleton"
+import { DndBoard } from "@/features/dnd/DndBoard"
 
 
 export const VacanciesBoard = () => {
@@ -24,10 +24,21 @@ export const VacanciesBoard = () => {
   } = useVacaniesBoard()
 
   return (
-    <DndContext
+    <DndBoard
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      id="vacanciesboard-context-id"
+      boardId="vacanciesboard-context-id"
+      renderOverlay={() => <>
+        {activeItem && (
+          <VacancyBoardCard
+            id={activeItem.id}
+            name={activeItem.name}
+            location={activeItem.location}
+            salary_from={activeItem.salary_from}
+            salary_to={activeItem.salary_to}
+          />
+        )}
+      </>}
     >
       <ScrollArea className="p-2 border-2 rounded-xl">
         <div className="flex gap-4 w-full p-2 ">
@@ -91,18 +102,6 @@ export const VacanciesBoard = () => {
         </div>
         <ScrollBar orientation="horizontal" className="bg-input/30 h-4 cursor-pointer" />
       </ScrollArea>
-      <DragOverlay>
-        {activeItem && (
-          <VacancyBoardCard
-            id={activeItem.id}
-            name={activeItem.name}
-            location={activeItem.location}
-            salary_from={activeItem.salary_from}
-            salary_to={activeItem.salary_to}
-          />
-        )}
-      </DragOverlay>
-
-    </DndContext>
+    </DndBoard>
   );
 }

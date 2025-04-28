@@ -3,30 +3,31 @@
 import Link from "next/link";
 import LogoImg from '@/assets/logo-short.png';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
-import { TUser } from "@/shared/api/types/user";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
 import { useParams } from "next/navigation";
-import { SidebarGroup, SidebarItem } from "./SidebarItems";
 import useSidebarControl from "@/shared/model/hooks/useSidebarControl";
-import SideBarBtn from "@/shared/ui/buttons/SideBarBtn";
+import SideBarBtn from "@/widgets/dashboard-navigation/ui/SideBarBtn";
 import { cn } from "@/shared/lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/shadcn/avatar";
 import Image from "next/image";
-import { SignOutForm } from "@/features/auth";
+import { SidebarItem } from "./SidebarItem";
+import { UserMenuContent } from "./UserMenuContent";
+import { useSession } from "@/features/auth";
+import { UserMenu } from "@/shared/ui/user-menu/UserMenu";
 
 interface ISidebarProps {
-  userData: TUser
   className?: string
 }
 
-export const Sidebar = ({ userData, className }: ISidebarProps) => {
+export const Sidebar = ({ className }: ISidebarProps) => {
   const params = useParams<{ companyId: string }>();
   const companyId = params?.companyId || '';
+
   const sidebarConfig = createSidebarConfig(companyId)
 
   const { sidebarRef, handleToggle, isSidebarOpen } = useSidebarControl({ initial: true })
 
-  const { name: userName, email: userEmail } = userData
+  //get user info for the user menu component
+  const { user } = useSession()
 
   return (
     <div ref={sidebarRef}
@@ -74,9 +75,7 @@ export const Sidebar = ({ userData, className }: ISidebarProps) => {
           {sidebarConfig.map((el) => {
             return (
               <li key={el.routeName}>
-                {el.subMenu ?
-                  <SidebarGroup linkConfig={el} />
-                  : <SidebarItem linkConfig={el} />}
+                <SidebarItem linkConfig={el} />
               </li>
             )
           })}
@@ -84,30 +83,15 @@ export const Sidebar = ({ userData, className }: ISidebarProps) => {
       </nav>
       <div
         className={cn(
-          "mt-auto flex gap-3 items-center min-h-[46px] self-start translate-x-1",
+          "mt-auto flex gap-3 items-end min-h-[46px] self-start translate-x-1",
           isSidebarOpen && 'translate-x-3 transition-transform duration-75'
         )}
       >
 
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>C</AvatarFallback>
-        </Avatar>
-        <div className="hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">
-          <p className="scroll-m-20 text-sm font-semibold tracking-tight mb-0.5 max-w-44 text-muted-foreground">
-            {userName}
-          </p>
-          <a
-            href={`mailto:${userEmail}`}
-            className="text-sm text-muted-foreground"
-          >
-            {userEmail}
-          </a>
-          <SignOutForm
-            variant={'link'}
-            className="text-muted-foreground"
-          />
-        </div>
+        <UserMenu mode={isSidebarOpen ? 'shown' : 'hidden'} user={user}>
+          <UserMenuContent user={user} />
+        </UserMenu>
+
       </div>
     </div>
   );

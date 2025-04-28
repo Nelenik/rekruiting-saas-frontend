@@ -1,27 +1,28 @@
 'use client';
 import Link from 'next/link';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
-import { TUser } from "@/shared/api/types/user";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
-import { SidebarGroup, SidebarItem } from "../../sidebar/ui/SidebarItems";
 import { useParams } from "next/navigation";
 import { cn } from '@/shared/lib/utils';
 import useSidebarControl from '@/shared/model/hooks/useSidebarControl';
-import SideBarBtn from '@/shared/ui/buttons/SideBarBtn';
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/avatar';
+import SideBarBtn from '@/widgets/dashboard-navigation/ui/SideBarBtn';
 import LogoImg from '@/assets/logo-short.png';
 import Image from "next/image";
-import { SignOutForm } from '@/features/auth';
+import { SidebarItem } from './SidebarItem';
+import { useSession } from '@/features/auth';
+import { UserMenuContent } from './UserMenuContent';
+import { UserMenu } from '@/shared/ui/user-menu/UserMenu';
 
 interface IHeaderProps {
-  userData: TUser
   className?: string
 }
 
-export const Header = ({ userData, className }: IHeaderProps) => {
+export const Header = ({ className }: IHeaderProps) => {
   const params = useParams<{ companyId: string }>();
   const companyId = params?.companyId || '';
   const sidebarConfig = createSidebarConfig(companyId)
+
+  const { user } = useSession()
 
   const {
     sidebarRef,
@@ -29,8 +30,6 @@ export const Header = ({ userData, className }: IHeaderProps) => {
     handleOpen,
     isSidebarOpen,
   } = useSidebarControl({ initial: false, closeOutside: true })
-
-  const { name: userName, email: userEmail } = userData
 
   return (
     <header
@@ -45,6 +44,10 @@ export const Header = ({ userData, className }: IHeaderProps) => {
       <Link href={'/'} className={cn('')}>
         <Image
           src={LogoImg}
+          className={cn(
+            'w-[35px] h-[35px]',
+            ' sm:w-[50px] sm:h-[50px]'
+          )}
           alt="RekrutAi logo"
           width={50}
           height={50}
@@ -62,35 +65,15 @@ export const Header = ({ userData, className }: IHeaderProps) => {
           {sidebarConfig.map((el) => {
             return (
               <li key={el.routeName}>
-                {el.subMenu ?
-                  <SidebarGroup linkConfig={el} />
-                  : <SidebarItem linkConfig={el} />}
+                <SidebarItem linkConfig={el} onLinkClick={handleClose} />
               </li>
             );
           })}
         </ul>
       </nav>
-      <div className={cn('flex gap-2')}>
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>C</AvatarFallback>
-        </Avatar>
-        <SignOutForm
-          variant={'link'}
-          className="text-muted-foreground"
-        />
-        <div className="hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">
-          <p className="scroll-m-20 text-sm font-semibold tracking-tight mb-0.5 max-w-44 text-muted-foreground">
-            {userName}
-          </p>
-          <a
-            href={`mailto:${userEmail}`}
-            className="text-sm text-muted-foreground"
-          >
-            {userEmail}
-          </a>
-        </div>
-      </div>
+      <UserMenu user={user} >
+        <UserMenuContent user={user} />
+      </UserMenu>
     </header>
   );
 };

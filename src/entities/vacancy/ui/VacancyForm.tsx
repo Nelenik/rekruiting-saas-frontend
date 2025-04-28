@@ -134,7 +134,7 @@ export const VacancyForm = ({
           </Select>
         </FormItem>
 
-        <div className="break-before-column">
+        <div >
           <p className="mb-[10px] font-medium">Оплата</p>
           <div className="flex gap-4">
             <FormItem error={errors.salary_from}>
@@ -156,7 +156,11 @@ export const VacancyForm = ({
           </div>
         </div>
 
-        <FormItem labelText="Требования " error={errors.skills}>
+        <FormItem
+          labelText="Требования "
+          error={errors.skills}
+          className="break-before-column"
+        >
           <Textarea
             placeholder="Требования к кандидату"
             name="skills"
@@ -277,6 +281,16 @@ export const VacancyForm = ({
               <SelectItem value="Воронеж">Воронеж</SelectItem>
             </SelectContent>
           </Select>
+        </FormItem>
+
+        <FormItem labelText="ID внешней системы" error={errors.external_id}>
+          <Input
+            placeholder="ID"
+            name="external_id"
+            defaultValue={defaultValues?.external_id}
+            className={errors?.external_id && 'ring-2 ring-destructive'}
+            onChange={onChange}
+          />
         </FormItem>
       </div>
 

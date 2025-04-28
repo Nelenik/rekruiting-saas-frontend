@@ -19,6 +19,27 @@ const labels = {
   cv: { title: 'Сoздать резюме', descr: 'Заполните информацию по новому резюме', triggerText: 'резюме' },
 }
 
+/**
+ * `AddEntity` is a reusable client-side component that provides a button
+ * to trigger a modal form for creating a new entity (vacancy, company, or CV).
+ * 
+ * Based on the `entityType` prop, it dynamically renders the corresponding form inside a modal sheet.
+ * 
+ * ### Features:
+ * - Renders a specific form (`VacancyForm`, `CompanyForm`, `CvForm`) depending on the selected entity.
+ * - Uses a `SheetModal` for displaying forms.
+ * - Customizes button text, modal title, and description based on the entity type.
+ * - Closes the modal automatically after successful form submission or cancellation.
+ *
+ * @param entityType - Defines which form to display: `'vacancy'`, `'company'`, or `'cv'`.
+ * @param className - Optional custom className for styling the trigger button.
+ *
+ * @example
+ * ```tsx
+ * <AddEntity entityType="vacancy" />
+ * <AddEntity entityType="company" className="w-full" />
+ * ```
+ */
 
 export const AddEntity = ({
   entityType,

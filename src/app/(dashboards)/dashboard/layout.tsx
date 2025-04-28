@@ -4,6 +4,8 @@ import localFont from 'next/font/local';
 import '../../globals.css';
 import QueryProvider from '@/shared/providers/QueryProvider';
 import { Toaster } from '@/shared/ui/shadcn/toaster';
+import { getSession, SessionPovider } from '@/features/auth';
+import { signout } from '@/features/auth/api/auth-actions';
 
 
 const geistSans = localFont({
@@ -32,16 +34,24 @@ export default async function MainAppLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getSession()
+
+  if (!session.isAuthorized) {
+    await signout()
+    return null
+  }
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        <QueryProvider>
+        <SessionPovider session={session}>
+          <QueryProvider>
 
-          {children}
-        </QueryProvider>
+            {children}
+          </QueryProvider>
+        </SessionPovider>
         <Toaster />
       </body>
     </html>

@@ -16,7 +16,7 @@ type TProps = {
  * A highly reusable and flexible modal component built on top of the Sheet component.
  * This component leverages the **render props** pattern to dynamically render content
  * and supports **named slots** for trigger, title, and description elements.
- *
+ * 
  * @template TProps - The type of props passed to the component.
  *
  * @param props - Component properties.
@@ -28,10 +28,8 @@ type TProps = {
  *   - Receives an object with a `closeSheetModal` function to programmatically close the modal.
  *
  * ## Patterns Used:
- * - **Render Props**: The `renderContent` prop allows dynamic rendering of the modal's content.
- *   This pattern provides flexibility by enabling the parent component to control what is rendered inside the modal.
- * - **Named Slots**: The `children` prop is structured as an object with named properties (`trigger`, `title`, `description`),
- *   which act as "slots" for specific parts of the modal. This pattern enhances readability and maintainability.
+ * - **Render Props**: The `renderContent` prop allows dynamic rendering of the modal's content. The parent component controls the modal's content and behavior (like closing it), making the component reusable in different contexts.
+ * - **Named Slots**: The `children` prop is structured as an object with named properties (`trigger`, `title`, `description`), which act as "slots" for specific parts of the modal. This pattern enhances readability and maintainability.
  *
  * ## Accessibility:
  * - The `SheetDescription` is visually hidden but remains accessible to screen readers,

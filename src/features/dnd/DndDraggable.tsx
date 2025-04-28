@@ -8,43 +8,43 @@ import { Button } from "@/shared/ui/shadcn/button";
 
 type TProps = HTMLAttributes<HTMLDivElement> & {
   asChild?: boolean,
-  id: string,
-  type: string
+  draggableId: string | number,
+  dndData?: Record<string, unknown>,
 }
 
 /**
- * DndDraggable is a reusable drag-and-drop component that wraps content with drag functionality.
- * It provides a drag handle and transforms the wrapped content during drag operations.
- * 
+ * `DndDraggable` is a reusable drag-and-drop component that makes its children draggable
+ * using the DnD Kit. It includes a drag handle and applies transformation styles during dragging.
+ *
  * @component
- * 
- * @param {Object} props - Component props
- * @param {ReactNode} props.children - Content to be made draggable
- * @param {string | number} props.id - Unique identifier for the draggable element
- * @param {string} props.type - Type identifier for the draggable content
- * @param {boolean} [props.asChild=false] - When true, renders as a Slot component instead of a div
- * @param {string} [props.className] - Additional CSS classes to apply to the container
- * 
+ *
+ * @param {Object} props - Component props.
+ * @param {string|number} props.draggableId - Unique identifier for the draggable element.
+ * @param {Record<string, unknown>} [props.dndData] - Optional custom data to associate with the draggable item.
+ * @param {boolean} [props.asChild=false] - If true, renders as a Slot component instead of a <div>.
+ * @param {string} [props.className] - Additional CSS classes for the container.
+ * @param {ReactNode} props.children - Content to be rendered and made draggable.
+ * @param {HTMLAttributes<HTMLDivElement>} [props.rest] - All other standard HTML div attributes.
+ *
  * @example
  * ```tsx
- * <DndDraggable id="item-1" type="card">
+ * <DndDraggable draggableId="item-1">
  *   <div>Draggable Content</div>
  * </DndDraggable>
  * ```
- * 
+ *
  * @remarks
- * - Uses the `useDraggable` hook for drag functionality
- * - Provides a vertical grip handle button for dragging
- * - Applies transform translations during drag operations
- * - Can be rendered as a div or as a Slot component using the asChild prop
- * 
+ * - Uses the `useDraggable` hook from DnD Kit.
+ * - A grip handle (button) is rendered inside the component for initiating drag.
+ * - Applies `transform` styles to reflect drag movement.
+ * - Can be rendered as a regular `<div>` or custom wrapper using the `asChild` prop.
  */
 
-export const DndDraggable: FC<TProps> = ({ children, id, type, asChild = false, className, ...props }) => {
+export const DndDraggable: FC<TProps> = ({ children, draggableId, dndData, asChild = false, className, ...props }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: id,
+    id: draggableId,
     data: {
-      type: type,
+      ...dndData
 
     }
   })

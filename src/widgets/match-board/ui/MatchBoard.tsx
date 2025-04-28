@@ -1,5 +1,5 @@
 'use client'
-import { DndContext, DragOverlay } from "@dnd-kit/core";
+// import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { ScrollArea, ScrollBar } from "@/shared/ui/shadcn/scroll-area";
 import { DndSortable } from "@/features/dnd";
@@ -8,6 +8,7 @@ import MatchColAbstraction from "./MatchColAbstraction";
 import { MatchCol } from "./MatchCol";
 import { useMatchBoard } from "../model/hooks/useMatchBoard";
 import { CandidateCardAbstraction } from "./CandidateCardAbstraction";
+import { DndBoard } from "@/features/dnd/DndBoard";
 
 export const MatchBoard = () => {
 
@@ -23,10 +24,29 @@ export const MatchBoard = () => {
 
 
   return (
-    <DndContext
+    <DndBoard
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      id="matchboard-context-id"
+      renderOverlay={() => <>
+        {
+          activeColumn && (
+            <MatchColAbstraction
+              title={activeColumn.name}
+              status_id={activeColumn.id}
+              className={`w-1/${columns.length}`}
+            />
+          )
+        }
+        {activeItem &&
+          <CandidateCardAbstraction
+            name={activeItem.name}
+            city={activeItem.city}
+            salary={activeItem.salary}
+            rating={activeItem.match_point}
+          />
+        }
+      </>}
+      boardId="matchboard-context-id"
     >
       <ScrollArea className="pb-4">
         <div className="flex gap-4 w-full p-2 ">
@@ -55,27 +75,6 @@ export const MatchBoard = () => {
         </div>
         <ScrollBar orientation="horizontal" className="bg-input/30 h-4 cursor-pointer" />
       </ScrollArea>
-
-      <DragOverlay dropAnimation={{ easing: 'linear' }}>
-        {
-          activeColumn && (
-            <MatchColAbstraction
-              title={activeColumn.name}
-              status_id={activeColumn.id}
-              className={`w-1/${columns.length}`}
-            />
-          )
-        }
-        {activeItem &&
-          <CandidateCardAbstraction
-            name={activeItem.name}
-            city={activeItem.city}
-            salary={activeItem.salary}
-            rating={activeItem.match_point}
-          />
-        }
-
-      </DragOverlay>
-    </DndContext>
+    </DndBoard>
   );
 }

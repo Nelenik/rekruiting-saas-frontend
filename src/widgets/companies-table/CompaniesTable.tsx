@@ -36,7 +36,7 @@ export const CompaniesTable: FC<TProps> = ({
         </TableHeader>
         <TableBody >
           {companiesList.map(company => (
-            <TableRow key={company.id} onClick={() => console.log('clicked row')} className="cursor-pointer hover:bg-gray-100 border-b-0">
+            <TableRow key={company.id} onClick={() => console.log('clicked row')} className="cursor-pointer  border-b-0">
               <TableCell className="font-medium text-left text-sm">
                 {company.name}
               </TableCell>

@@ -14,35 +14,35 @@ type TProps = HTMLAttributes<HTMLDivElement> & {
 }
 
 /**
- * DndSortable is a reusable component that enables sortable drag-and-drop functionality.
- * It wraps content with sorting capabilities and provides a drag handle for reordering.
- * 
+ * `DndSortable` is a reusable component that enables sortable drag-and-drop functionality
+ * using the DnD Kit. It wraps any content and makes it sortable within a list or group.
+ *
  * @component
- * 
- * @param {Object} props - Component props
- * @param {ReactNode} props.children - Content to be made sortable
- * @param {string|number} props.sortableId - Unique identifier for the sortable element
- * @param {string} props.type - Type identifier for the sortable content
- * @param {boolean} [props.asChild=false] - When true, renders as a Slot component instead of a div
- * @param {string} [props.className] - Additional CSS classes to apply to the container
- * @param {boolean} [props.enableGrip] - Enable grip for sortable element, by default setted for false
- * 
+ *
+ * @param {Object} props - Component props.
+ * @param {ReactNode} props.children - Content to be made sortable.
+ * @param {string|number} props.sortableId - Unique identifier for the sortable element.
+ * @param {Record<string, unknown>} [props.dndData] - Optional custom data to associate with the draggable item.
+ * @param {boolean} [props.asChild=false] - If true, renders as a Slot component instead of a <div>.
+ * @param {boolean} [props.enableGrip=false] - If true, renders a grip handle for dragging; otherwise, the whole item is draggable.
+ * @param {string} [props.className] - Additional CSS classes for the container.
+ * @param {any} [props.rest] - All other standard HTML div attributes.
+ *
  * @example
  * ```tsx
- * <DndSortable id="item-1" type="list-item">
+ * <DndSortable sortableId="item-1">
  *   <div>Sortable Content</div>
  * </DndSortable>
  * ```
- * 
+ *
  * @remarks
- * - Uses the `useSortable` hook from DND Kit for sorting functionality
- * - Provides a vertical grip handle button for dragging and reordering
- * - Applies transform translations during sort operations
- * - Can be rendered as a div or as a Slot component using the asChild prop
- * - Typically used within a container that manages the sorting logic and order
- * - If is enabledGrip can be shown the tooltip. for this add the tailwind "group" through the className prop
+ * - Integrates with `useSortable` from DnD Kit to provide sorting behavior.
+ * - Applies transform styles during drag operations for smooth motion.
+ * - If `enableGrip` is `true`, only the grip handle is draggable.
+ * - When `enableGrip` is enabled, you can style the parent with Tailwind’s `group` class
+ *   to show additional hover effects or tooltips.
+ * - The `asChild` prop allows replacing the root `div` with a custom component like `Slot`.
  */
-
 
 export const DndSortable: FC<TProps> = ({
   children,

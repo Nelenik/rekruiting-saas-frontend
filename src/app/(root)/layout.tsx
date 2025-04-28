@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
-import { SessionPovider } from "@/features/auth";
-import { getSession } from "@/features/auth";
 import { Toaster } from "@/shared/ui/shadcn/toaster";
 
 const geistSans = localFont({
@@ -26,16 +24,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getSession()
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SessionPovider session={session}>
 
-          {children}
-        </SessionPovider>
+        {children}
         <Toaster />
       </body>
     </html>
