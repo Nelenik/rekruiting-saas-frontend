@@ -4,24 +4,31 @@ import React from "react";
 import useBreadcrumbs from "../model/useBreadcrumbs";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "@/shared/ui/shadcn/breadcrumb";
 import { cn } from "@/shared/lib/utils";
+import { useTenat } from "@/shared/providers/TenatProvider";
 
+type TProps = {
+  className?: string
+}
 
-export const Breadcrumbs = () => {
-  const breadcrumbPaths = useBreadcrumbs()
+export const Breadcrumbs = ({ className }: TProps) => {
+  const { tenat } = useTenat()
+  const breadcrumbPaths = useBreadcrumbs(tenat)
   return (
-    <Breadcrumb>
+    <Breadcrumb className={className}>
       <BreadcrumbList className="gap-2 sm:gap-2">
-        {breadcrumbPaths.map(({ href, label }, i) => (
+        {breadcrumbPaths.map(({ href, label, isLink }, i) => (
           (
             <React.Fragment key={i}>
 
-              <BreadcrumbItem className="truncate max-w-44">
+              <BreadcrumbItem className="">
                 {
-                  i == 1 ?
+                  !isLink ?
                     label
                     : <Link
                       href={`${href}`}
-                      className={cn((i === breadcrumbPaths.length - 1) && 'pointer-events-none')}
+                      className={cn(
+                        (i === breadcrumbPaths.length - 1) && 'pointer-events-none ',
+                        'text-ellipsis whitespace-nowrap overflow-hidden max-w-44')}
                     >
                       {label}
                     </Link>

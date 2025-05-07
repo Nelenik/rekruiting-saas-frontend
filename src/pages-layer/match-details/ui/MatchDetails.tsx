@@ -37,7 +37,7 @@ export const MatchDetails = async ({ matchId }: { matchId: number }) => {
 
         <TabsContent value="experience" className="@container">
           <ExperienceTab
-            experience={candidate.cv.experience}
+            workExperiences={candidate.cv.workExperiences}
             experience_raw={candidate.cv.experience_raw}
           />
         </TabsContent>

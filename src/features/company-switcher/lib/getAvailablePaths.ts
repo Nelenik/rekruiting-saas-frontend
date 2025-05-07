@@ -9,7 +9,7 @@
  * @returns {string[]} An array of available paths for the given company.
  */
 
-import { createSidebarConfig } from "@/shared/config/sidebarConfig";
+import { createSidebarConfig } from "@/shared/config/rekrutaiSidebarConfig";
 
 export const getAvailablePaths = (newCompanyId: string): string[] => {
   return createSidebarConfig(newCompanyId).reduce((acc: string[], route) => {

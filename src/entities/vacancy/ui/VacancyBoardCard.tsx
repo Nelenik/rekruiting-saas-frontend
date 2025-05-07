@@ -7,7 +7,7 @@ import { formatSalaryRange } from "@/shared/lib/formatters/formatSalaryRange";
 import { Card, CardHeader, CardTitle } from "@/shared/ui/shadcn/card";
 import { TVacancyShort } from "@/shared/api/types";
 
-type TProps = Omit<TVacancyShort, 'created_at' | 'status_id'>
+type TProps = Omit<TVacancyShort, 'created_at' | 'status_id' | 'status'>
 
 export const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, salary_to }) => {
   const pathname = usePathname()

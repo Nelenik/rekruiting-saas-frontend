@@ -17,27 +17,27 @@ import { useEffect, useState } from "react";
  *   // Execute logic for desktop view
  * }
  */
-export const useMathcMedia = (mediaQueryString: string): boolean => {
-  const [match, setMatch] = useState(false);
+export const useMathcMedia = (
+  mediaQueryString: string
+): boolean | undefined => {
+  const [match, setMatch] = useState<boolean | undefined>();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const mediaQuery = window.matchMedia(mediaQueryString);
+    const mediaQuery = window.matchMedia(mediaQueryString);
 
-      setMatch(mediaQuery.matches);
+    setMatch(mediaQuery.matches);
 
-      // change statie if screen size changes
-      const handleChange = (event: MediaQueryListEvent) => {
-        setMatch(event.matches);
-      };
+    // change statie if screen size changes
+    const handleChange = (event: MediaQueryListEvent) => {
+      setMatch(event.matches);
+    };
 
-      // subscribe to media query changes
-      mediaQuery.addEventListener("change", handleChange);
+    // subscribe to media query changes
+    mediaQuery.addEventListener("change", handleChange);
 
-      return () => {
-        mediaQuery.removeEventListener("change", handleChange);
-      };
-    }
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
   }, [mediaQueryString]);
   return match;
 };

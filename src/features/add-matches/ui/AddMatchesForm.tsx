@@ -19,7 +19,7 @@ export const AddMatchesForm = ({
   const { className: btnClassName, ...restProps } = buttonProps || {}
 
   const action = addMatches.bind(null, vacancyId)
-  const { formAction, pending } = useFormMutation({ mutationAction: action, toastMessage: 'Новые мэтчи добавлены успешно' })
+  const { formAction, pending } = useFormMutation({ mutationAction: action, toastMessage: 'Создание новых мэтчей запущено' })
 
   return (
     <form

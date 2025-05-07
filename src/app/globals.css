@@ -149,3 +149,9 @@ body {
 .typography-h2 {
   @apply first-letter:uppercase scroll-m-20 text-2xl md-lg:text-3xl font-semibold tracking-tight
 }
+
+/* JOBSITE*/
+
+.jobsite-container {
+  @apply container max-w-[1162px] px-4 mx-auto
+}

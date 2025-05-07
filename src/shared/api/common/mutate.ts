@@ -4,11 +4,12 @@ import {
   getSyntheticError,
   TBadRequest,
 } from "./errors";
+import { TGoodRequest } from "./success";
 
-type TGoodRequest<T> = {
-  success: boolean;
-  data: T;
-};
+// type TGoodRequest<T> = {
+//   success: boolean;
+//   data: T;
+// };
 
 type TMutateOptions = {
   body?: FormData;

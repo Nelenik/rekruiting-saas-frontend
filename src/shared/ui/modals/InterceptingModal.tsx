@@ -2,7 +2,8 @@
 import { wait } from "@/shared/lib/wait";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
-import { SheetContent, SheetTitle, SheetDescription, Sheet } from "../shadcn/sheet";
+import { SheetContent, SheetTitle, SheetDescription, Sheet, SheetClose } from "../shadcn/sheet";
+import { X } from "lucide-react";
 
 interface IInterceptingModalProps {
   children: React.ReactNode;
@@ -34,6 +35,10 @@ const InterceptingModal = ({ dialogTitle, dialogDescription, children }: IInterc
   return (
     <Sheet open={open} onOpenChange={handleClose}>
       <SheetContent className="w-[min(100%,1300px)] h-full bg-white sm:max-w-none overflow-y-auto">
+        <SheetClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </SheetClose>
         <div className="visually-hidden">
           <SheetTitle>
             {dialogTitle}

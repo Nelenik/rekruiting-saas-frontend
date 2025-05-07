@@ -3,7 +3,7 @@ import { CircleChevronUp } from "lucide-react";
 import { FC } from "react";
 import { cn } from "@/shared/lib/utils";
 import { Button, ButtonProps } from "@/shared/ui/shadcn/button";
-import { useScrollUpBtn } from "../hooks/useScrollUpBtn";
+import { useScrollUpBtn } from "../model/useScrollUpBtn";
 
 type TProps = ButtonProps & {
 }

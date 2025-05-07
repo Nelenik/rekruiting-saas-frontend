@@ -1,8 +1,7 @@
 'use client'
 import Link from "next/link";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { ru } from "date-fns/locale";
-import { MapPin } from "lucide-react";
+import { MapPin, UserRound } from "lucide-react";
 import { ECvStatus, TResume } from "@/shared/api/types/resume";
 import { FC } from "react";
 import { useParams } from "next/navigation";
@@ -13,9 +12,11 @@ import { formatDurationFromMonths } from "@/shared/lib/formatters/formatDuration
 import { Card } from "@/shared/ui/shadcn/card";
 import { Badge } from "@/shared/ui/shadcn/badge";
 import { workStatusDict } from "../lib/dictionary";
+import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/shadcn/avatar";
 
 type TProps = {
-  resume: TResume
+  resume: TResume,
+  className?: string
 }
 
 const badgeColors = {
@@ -27,7 +28,8 @@ const badgeColors = {
 }
 
 export const CvCard: FC<TProps> = ({
-  resume
+  resume,
+  className
 }) => {
   const params = useParams();
   const companyId = params?.companyId as string | undefined;
@@ -36,17 +38,20 @@ export const CvCard: FC<TProps> = ({
       scroll={false}
       href={`/dashboard/${companyId}/cvDetails/${resume.id}?name=${resume.name}`}
     >
-      <Card className="py-2 px-6 min-h-[102px] flex gap-6 items-center justify-between h-full">
-        <Avatar >
+      <Card className={cn(
+        "py-2 px-6 min-h-[102px] flex flex-wrap gap-6 items-center justify-between h-full",
+        className
+      )}>
+        <Avatar className="w-[68px] h-[68px]">
           <AvatarImage
             src={resume.candy_photo}
             alt={`${resume.candy_name} avatar`}
           />
           <AvatarFallback>
-            {(resume.candy_name || '').at(0)?.toUpperCase()}
+            {resume.candy_name ? (resume.candy_name).at(0)?.toUpperCase() : <UserRound />}
           </AvatarFallback>
         </Avatar>
-        <div className="w-[40%] mr-auto">
+        <div className="w-[35%] min-w-[200px] grow">
           <p>
             {resume.candy_name || 'Имя не указано'}
           </p>
@@ -58,7 +63,7 @@ export const CvCard: FC<TProps> = ({
             {resume.candy_location || 'Не указан'}
           </p>
         </div>
-        <div className="w-[25%]">
+        <div className="w-max min-w-[140px] grow">
           <p>
             {formatDurationFromMonths(resume.experience_months)}
           </p>
@@ -70,12 +75,12 @@ export const CvCard: FC<TProps> = ({
             {workStatusDict[resume.status] || 'не установлен'}
           </Badge>
         </div>
-        <div className="w-[25%]">
+        <div className="w-max min-w-[140px] grow">
           <p className="font-medium">
             {formatPrice(resume.salary || 0, 'ru-Ru', 'RUB')}
           </p>
           <p>
-            {format(new Date(), "d MMMM yyyy", { locale: ru })}
+            {format(new Date(resume.created_at), "d MMMM yyyy", { locale: ru })}
           </p>
         </div>
       </Card>

@@ -1,8 +1,11 @@
 import { ReadonlyURLSearchParams, usePathname, useSearchParams } from "next/navigation";
-import { breadcrumbsMapping } from "../config/breadcrumbsMapping";
+import { getBreadcrumbMapping } from "../config/breadcrumbsMapping";
+import { IBreadcrumbPattern } from "../config/types";
 
 
-type DefineBreadcrumbsPaths = (pathname: string, searchParams: ReadonlyURLSearchParams) => { href: string, label: string | React.ReactNode }[]
+type DefineBreadcrumbsPaths = (breadcrumbsMapping: IBreadcrumbPattern[], pathname: string, searchParams: ReadonlyURLSearchParams) => { href: string, label: string | React.ReactNode, isLink: boolean }[]
+
+type BreadcrumbsPaths = ReturnType<DefineBreadcrumbsPaths>
 
 /**
  * Generates breadcrumb paths for the current route, based on the provided pathname and search parameters.
@@ -17,17 +20,21 @@ type DefineBreadcrumbsPaths = (pathname: string, searchParams: ReadonlyURLSearch
  *     - `label`: The displayed text or React component for the breadcrumb, as defined in the `breadcrumbsMapping`.
  */
 
-const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (pathname: string | null, searchParams?) => {
-  const breadcrumbsPaths: { href: string; label: string | React.ReactNode }[] = [];
-  if (pathname) {
+const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (breadcrumbsMapping, pathname: string | null, searchParams?) => {
+  const breadcrumbsPaths: BreadcrumbsPaths = [];
 
-    // Split the pathname into segments to build hierarchical breadcrumb paths.
-    const pathSegments = pathname.split('/').slice(1);
+  if (pathname) {
+    // Get path segments. If it's the root pathname, we use [''], otherwise we split the pathname by '/' to build hierarchical breadcrumb paths.
+    let pathSegments;
+    if (pathname === '/') pathSegments = ['']
+    else {
+      pathSegments = pathname.split('/');
+    }
 
     // Iterate through each path segment to build breadcrumb paths and match them with patterns.
     pathSegments.forEach((_, i) => {
       // Create the current path by joining segments up to the current index.
-      const currentPath = `/${pathSegments.slice(0, i + 1).join('/')}`;
+      const currentPath = `/${pathSegments.slice(0, i + 1).join('/')}`.replace(/^\/+/, '/');
       // Find a matching pattern in the breadcrumbs mapping for the current path.
       const mathcedPattern = breadcrumbsMapping.find((el) =>
         el.pattern.test(currentPath)
@@ -36,7 +43,8 @@ const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (pathname: string | null,
       if (mathcedPattern) {
         breadcrumbsPaths.push({
           href: currentPath,
-          label: mathcedPattern.handler(searchParams)
+          label: mathcedPattern.handler(searchParams),
+          isLink: mathcedPattern.isLink
         })
       }
     });
@@ -44,11 +52,14 @@ const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (pathname: string | null,
   return breadcrumbsPaths;
 };
 
-const useBreadcrumbs = () => {
+const useBreadcrumbs = (tenat: string) => {
   const pathname = usePathname() as string
   const searchParams = useSearchParams() as ReadonlyURLSearchParams
 
-  return defineBreadcrumbsPaths(pathname, searchParams)
+  // Get breadcrumbs mapping based on current tenat
+  const currentMapping = getBreadcrumbMapping(tenat)
+
+  return defineBreadcrumbsPaths(currentMapping, pathname, searchParams)
 }
 
 export default useBreadcrumbs;

@@ -10,7 +10,7 @@ import { DndSortable } from "@/features/dnd";
 import { CandidateCard } from "./CandidateCard";
 import { FunnelCard } from "@/shared/ui/FunnelCard";
 import { BoardListSkeleton } from "@/shared/ui/skeletons/BoardSkeleton";
-import { ColumnMenu } from "@/features/column-menu";
+import { ColumnMenu } from "./ColumnMenu";
 
 type TProps = {
   color: string
@@ -26,7 +26,12 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
   const { data: candidates, isLoading } = useQuery({
     queryKey: ['matchByStatus', status_id],
     queryFn: () => getBasicCandidatesByStatus(vacancyId as string, status_id),
-    refetchInterval: 5000,//refetch columns every 5 sec to keep data fresh
+    refetchInterval: (data) => {
+      const hasData = data.state.data && data.state.data.length > 0
+      if (!hasData) return 5000; // часто, пока колонка пустая
+      return 15000; // реже, если там "всё спокойно"
+    },
+    refetchIntervalInBackground: false,
     staleTime: 1000,
   })
 

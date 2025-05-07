@@ -1,6 +1,7 @@
 'use client'
 import { QueryClientProvider, QueryClient, isServer } from "@tanstack/react-query";
 import { ReactNode } from "react";
+import { useTenat } from "./TenatProvider";
 
 function makeQueryClient() {
   return new QueryClient({
@@ -14,9 +15,10 @@ function makeQueryClient() {
   })
 }
 
-let browserQueryClient: QueryClient | undefined = undefined
+//Caching clients for different tenats
+const browserQueryClients: Record<string, QueryClient> = {};
 
-function getQueryClient() {
+function getQueryClient(tenat: string) {
   if (isServer) {
     // Server: always make a new query client
     return makeQueryClient()
@@ -25,8 +27,8 @@ function getQueryClient() {
     // This is very important, so we don't re-make a new client if React
     // suspends during the initial render. This may not be needed if we
     // have a suspense boundary BELOW the creation of the query client
-    if (!browserQueryClient) browserQueryClient = makeQueryClient()
-    return browserQueryClient
+    if (!browserQueryClients[tenat]) browserQueryClients[tenat] = makeQueryClient()
+    return browserQueryClients[tenat]
   }
 }
 
@@ -35,7 +37,8 @@ const QueryProvider = ({ children }: { children: ReactNode }) => {
   //       have a suspense boundary between this and the code that may
   //       suspend because React will throw away the client on the initial
   //       render if it suspends and there is no boundary
-  const queryClient = getQueryClient()
+  const { tenat } = useTenat()
+  const queryClient = getQueryClient(tenat)
 
   return (
     <QueryClientProvider client={queryClient}>

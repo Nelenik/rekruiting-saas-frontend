@@ -1,3 +1,4 @@
+import { TCompany } from "./companies";
 import { TMatchStatus } from "./match";
 import { TStatus } from "./statuses";
 
@@ -15,6 +16,7 @@ export type TVacancy = {
   experience: string;
   description: string;
   location: string;
+  summary: string;
   salary_from: number;
   salary_to: number;
   salary_candy: number;
@@ -35,6 +37,7 @@ export type TVacancyShort = Pick<
   | "location"
   | "salary_from"
   | "salary_to"
+  | "status"
 >;
 
 // export enum EVacancyPosition {
@@ -74,3 +77,26 @@ export enum EVacancyLevel {
   MIDDLE = "middle",
   SENIOR = "senior",
 }
+
+//Jobsite public vacancy data type
+export type TPublicVacancy = Pick<
+  TVacancy,
+  | "id"
+  | "name"
+  | "salary_from"
+  | "salary_to"
+  | "location"
+  | "experience"
+  | "position"
+  | "work_format"
+  | "employment"
+  | "skills"
+  | "responsibilities"
+  | "conditions"
+  | "description"
+  | "created_at"
+> & {
+  company_name: TCompany["name"];
+  company_fullname: TCompany["full_name"];
+  company_description: TCompany["description"];
+};

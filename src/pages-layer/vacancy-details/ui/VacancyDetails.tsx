@@ -50,7 +50,7 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
   }
   return (
 
-    <div>
+    <div className="@container">
       <h2 className="scroll-m-20 text-3xl font-bold tracking-tight first:mt-0 mb-6 flex items-start gap-4">
         {name || 'Имя не указано'}
         <StatusBadge color={status.color} className={cn(
@@ -60,8 +60,14 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
         </StatusBadge>
         <EditButton onClick={showForm} isIconView={true} />
       </h2>
-      <div className="flex gap-7 mb-8">
-        <div className="text-base text-muted-foreground w-1/2">
+      <div className={cn(
+        "flex flex-col gap-7 mb-8",
+        '@2xl:flex-row'
+      )}>
+        <div className={cn(
+          "text-base text-muted-foreground",
+          '@2xl:w-1/2'
+        )}>
           <h3 className="scroll-m-20 text-xl font-semibold text-foreground tracking-tight mb-2">
             {`от ${formatPrice(salary_from, "ru-Ru", "RUB")} до ${formatPrice(salary_to, 'ru-Ru', 'RUB')}`}
           </h3>
@@ -81,9 +87,12 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
             Занятость: {employment ? vacancyEpmpoymentDict[employment] : '-'}
           </p>
         </div>
-        <CompanyOverview className="w-1/2" />
+        <CompanyOverview className="@2xl:w-1/2" />
       </div>
-      <div className="grid grid-cols-2 gap-x-7 gap-y-8 text-base text-muted-foreground">
+      <div className={cn(
+        "grid grid-cols-1 gap-x-7 gap-y-8 text-base text-muted-foreground",
+        '@2xl:grid-cols-2'
+      )}>
         <section>
           <h3 className="text-lg text-foreground font-semibold mb-4">
             Требования

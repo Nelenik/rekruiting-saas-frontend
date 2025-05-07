@@ -150,10 +150,9 @@ export const getVacancyPositions = async (): Promise<string[]> => {
     const response = await apiGet<TApiListResponse<string>>(
       "/vacancy/positions"
     );
-
-    return response.data;
+    return response.data || [];
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw new Error(
       "Не удалось загрузить позиции. Пожалуйста, попробуйте позже."
     );
@@ -170,7 +169,7 @@ export const getBasicCandidatesByStatus = async (
     const response = await apiGet<TApiListResponse<TCandidateShort>>(
       `/match/candidates?vacancy_id=${vacId}&status_id=${statusId}`
     );
-    return response.data.toSorted((a, b) => a.id - b.id);
+    return response.data.toSorted((a, b) => b.match_point - a.match_point);
   } catch (error) {
     console.error(error);
     throw new Error(

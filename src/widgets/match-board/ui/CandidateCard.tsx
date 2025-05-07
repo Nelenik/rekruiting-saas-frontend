@@ -24,7 +24,7 @@ export const CandidateCard = ({
 }: TProps) => {
   const params = useParams();
   const companyId = params?.companyId as string | undefined;
-  console.log(name)
+
   return (
     <Link
       scroll={false}

@@ -40,7 +40,7 @@ export const CvForm: FC<TProps> = ({
 
   //remove the field "experience" (shoul find a better solution, may be made universal converToFormData function)
 
-  const cleanedInitialData = initialData && omitFields(initialData, ['experience'])
+  const cleanedInitialData = initialData && omitFields(initialData, ['experience', 'workExperiences'])
 
   //define initial state
   const initialState = {

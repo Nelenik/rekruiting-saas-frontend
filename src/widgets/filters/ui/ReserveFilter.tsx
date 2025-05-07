@@ -24,7 +24,7 @@ export const ReserveFilter = () => {
         return (
           <>
             <div className="flex flex-wrap @3xl:flex-col gap-6">
-              <FormItem labelText="Специализация">
+              <FormItem labelText="Специализация" className="grow min-w-[250px]">
                 <CancelButton
                   onClick={() => updateFilter({ position: '' })}
                   className="absolute right-0 top-0 z-10"
@@ -36,7 +36,7 @@ export const ReserveFilter = () => {
                 />
               </FormItem>
 
-              <FormItem labelText="Зарплата от">
+              <FormItem labelText="Зарплата от" className="grow min-w-[250px]">
                 <CancelButton
                   onClick={() => updateFilter({ salary_from: '' })}
                   className="absolute right-0 top-0 z-10"
@@ -50,7 +50,7 @@ export const ReserveFilter = () => {
                 />
               </FormItem>
 
-              <FormItem labelText="Зарплата до">
+              <FormItem labelText="Зарплата до" className="grow min-w-[250px]">
                 <CancelButton
                   onClick={() => updateFilter({ salary_to: '' })}
                   className="absolute right-0 top-0 z-10"
@@ -62,7 +62,7 @@ export const ReserveFilter = () => {
                 />
               </FormItem>
 
-              <FormItem labelText="География">
+              <FormItem labelText="География" className="grow min-w-[250px]">
                 <CancelButton
                   onClick={() => updateFilter({ location: '' })}
                   className="absolute right-0 top-0 z-10"
@@ -83,7 +83,7 @@ export const ReserveFilter = () => {
               }}
               variant={'outline'}
               className={cn(
-                'self-end ring-2 ring-input ring-offset-1 border-none',
+                'self-start ring-2 ring-input ring-offset-1 border-none',
                 "hover:bg-input @3xl:self-stretch"
               )}
             >

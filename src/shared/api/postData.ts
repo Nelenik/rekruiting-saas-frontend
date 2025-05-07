@@ -13,6 +13,7 @@ export const storeCompany = async (_: TMutationState, body: FormData) => {
   const result = await mutateAction("/company", { body });
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]", "layout");
+    revalidatePath("/dashboard");
   }
   return result;
 };

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/shadcn/button";
-import { Logo } from "@/shared/ui/Logo";
+// import { Logo } from "@/shared/ui/Logo";
 
 
 export default function Navbar() {
@@ -25,7 +25,7 @@ export default function Navbar() {
     <nav className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto flex items-center justify-between py-3 sm:py-4">
       {/* Logo Section */}
       <div className="flex items-center">
-        <Logo />
+        {/* <Logo /> */}
       </div>
 
       {/* Navigation Links */}

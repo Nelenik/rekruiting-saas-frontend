@@ -38,7 +38,7 @@ export const CvListSkeleton = () => {
   return (
     <List className="flex flex-col gap-4 w-full">
       {Array.from({ length: 10 }, (_, i) => (
-        <li key={i}>
+        <li key={i} className="w-[min(100%,850px)] mx-auto">
           <CvCardSkeleton />
         </li>
       ))}

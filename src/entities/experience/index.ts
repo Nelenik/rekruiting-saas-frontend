@@ -1,1 +1,1 @@
-export { WorkExperienceCard } from "./ui/WorkExperienceCard";
+export { WorkExperienceList } from "./ui/WorkExperienceList";

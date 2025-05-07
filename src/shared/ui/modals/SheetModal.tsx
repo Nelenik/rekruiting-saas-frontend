@@ -1,7 +1,8 @@
 'use client'
 
 import { ReactNode, useCallback, useState } from "react"
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../shadcn/sheet"
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../shadcn/sheet"
+import { X } from "lucide-react"
 
 type TProps = {
   children: {
@@ -68,6 +69,10 @@ export const SheetModal = ({
         {children.trigger}
       </SheetTrigger>
       <SheetContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col sm:max-w-none overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <SheetClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </SheetClose>
         <SheetTitle className="text-3xl">
           {children.title}
         </SheetTitle>

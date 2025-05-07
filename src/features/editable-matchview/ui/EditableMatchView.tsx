@@ -49,6 +49,7 @@ export const EditableMatchView = ({
   const handleConfirm = () => {
     formRef.current?.requestSubmit()
   }
+
   return (
     <div className="relative">
 

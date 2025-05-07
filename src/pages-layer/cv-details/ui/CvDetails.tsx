@@ -1,8 +1,8 @@
 import { CvInfoBlock } from "@/entities/cv/ui/CvInfoBlock";
+import { WorkExperienceList } from "@/entities/experience";
 import { getResumeById } from "@/shared/api/getData";
 import { TextFormatter } from "@/shared/ui/TextFormatter";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/shadcn/tabs";
-import { WorkExperienceList } from "@/widgets/experience-list";
 
 const tabsDict = [
   { value: 'description', text: 'Описание' },
@@ -47,8 +47,8 @@ export const CvDetails = async ({ cvId }: { cvId: number }) => {
                 Опыт работы
               </h2>
               {
-                cv.experience
-                  ? <WorkExperienceList experience={cv.experience} />
+                cv.workExperiences
+                  ? <WorkExperienceList experience={cv.workExperiences} />
                   : <TextFormatter text={cv.experience_raw || 'Данные об опыте отсутствуют'} />
               }
             </div>
