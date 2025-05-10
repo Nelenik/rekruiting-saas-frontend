@@ -73,7 +73,7 @@ export const DndSortable: FC<TProps> = ({
       {...(!enableGrip && listeners)}
       className={cn(
         isDragging && "opacity-50",
-        'relative grow-0',
+        'relative grow-0 touch-manipulation',
         className
       )}
       ref={setNodeRef}

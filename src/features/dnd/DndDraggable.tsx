@@ -56,7 +56,7 @@ export const DndDraggable: FC<TProps> = ({ children, draggableId, dndData, asChi
   const Comp = asChild ? Slot : 'div'
   return (
     <Comp
-      className={cn('relative grow-0', className)}
+      className={cn('relative grow-0 touch-manipulation', className)}
       ref={setNodeRef}
       style={style}
       {...props}

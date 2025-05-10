@@ -24,9 +24,9 @@ const MatchColAbstraction: FC<TProps> = ({
 }) => {
   const queryClient = useQueryClient()
   const candidates: TCandidateShort[] | undefined = queryClient.getQueryData(['matchByStatus', status_id])
-
+  const slicedCandidates = (candidates || []).slice(0, 5)
   return (
-    <div className={cn(`relative flex flex-col gap-6 ring-2 bg-background ring-offset-4 rounded-lg   min-w-[256px] cursor-grabbing`, className)}>
+    <div className={cn(`relative overflow-hidden flex flex-col gap-6 ring-2 bg-background ring-offset-4 rounded-lg   min-w-[256px] cursor-grabbing`, className)}>
       {/* <GripVertical className="absolute left-1 top-2 z-[100] stroke-muted-foreground" /> */}
       <FunnelCard
         name={title}
@@ -38,7 +38,7 @@ const MatchColAbstraction: FC<TProps> = ({
         <ScrollArea
           className="h-[clamp(500px,65vh,800px)] px-2"
         >
-          {(candidates || [])?.map((candidate) => (
+          {(slicedCandidates || [])?.map((candidate) => (
             <CandidateCard
               key={candidate.id}
               id={candidate.id}
