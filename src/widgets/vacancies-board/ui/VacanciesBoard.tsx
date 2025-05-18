@@ -36,6 +36,7 @@ export const VacanciesBoard = () => {
             location={activeItem.location}
             salary_from={activeItem.salary_from}
             salary_to={activeItem.salary_to}
+            created_at={activeItem.created_at}
           />
         )}
       </>}
@@ -89,6 +90,7 @@ export const VacanciesBoard = () => {
                                 location={vacancy.location}
                                 salary_from={vacancy.salary_from}
                                 salary_to={vacancy.salary_to}
+                                created_at={vacancy.created_at}
                               />
                             </DndSortable>
                           ))}

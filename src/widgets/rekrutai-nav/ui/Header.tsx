@@ -34,7 +34,7 @@ export const Header = ({ className }: IHeaderProps) => {
   return (
     <header
       className={cn(
-        'flex justify-between items-center px-6 py-2 bg-sidebar text-sidebar-foreground fixed top-0 left-0 w-full z-[1000] shadow-sm',
+        'flex justify-between items-center px-6 py-2 bg-sidebar text-sidebar-foreground fixed top-0 left-0 w-full z-[50] shadow-sm',
         className
       )}
     >

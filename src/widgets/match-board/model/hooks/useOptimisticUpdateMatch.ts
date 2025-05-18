@@ -69,7 +69,9 @@ export const useOptimisticUpdateMatch = (matchId?: number) => {
         queryClient.setQueryData(
           ["matchByStatus", newStatusId],
           (prevData: TCandidateShort[]) =>
-            [...prevData, movedCandidate].sort((a, b) => a.id - b.id)
+            [...prevData, movedCandidate].sort(
+              (a, b) => b.match_point - a.match_point
+            )
         );
       }
 

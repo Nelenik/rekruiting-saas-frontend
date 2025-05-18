@@ -22,7 +22,7 @@ export const useGroupedVacancies = () => {
   const vacancies = useVacancies();
 
   // Local storage-backed ref to store the order of vacancies by status
-  const [storedOrder, setStoredOrder] = useLocalStorageRef<
+  const [storedOrderRef, setStoredOrder] = useLocalStorageRef<
     Record<string, number[]>
   >("vacancies-board", {});
 
@@ -40,13 +40,13 @@ export const useGroupedVacancies = () => {
 
     // Sync each group with the stored order if it exists
     for (const [k, value] of Object.entries(rawGrouped)) {
-      const localOrder = storedOrder.current[k];
+      const localOrder = storedOrderRef.current[k];
       syncedGroups[k] = localOrder ? syncByOrder(value, localOrder) : value;
     }
 
     // Set grouped and ordered vacancies
     setGroups(syncedGroups);
-  }, [storedOrder, vacancies]);
+  }, [storedOrderRef, vacancies]);
 
   /**
    * Updates the current grouped vacancies and stores their new order in local storage.

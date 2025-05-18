@@ -33,11 +33,11 @@ export const CandidateCardAbstraction = ({
 
         <div className="flex flex-wrap gap-1.5 items-center">
           <p className="text-base text-muted-foreground">
-            {formatNumber(rating, 'en-Us', 2)}
+            {formatNumber(rating * 100, 'en-Us', 2)}
           </p>
 
           <div className="flex gap-px">
-            {splitRatingToArr(rating).map(
+            {splitRatingToArr(rating * 10).map(
               (star: { id: string; fullness: number }, i) => (
                 <Star
                   className="text-yellow-500"
