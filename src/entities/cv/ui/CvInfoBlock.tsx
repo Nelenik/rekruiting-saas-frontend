@@ -9,7 +9,7 @@ import List from "@/shared/ui/shadcn/list";
 
 
 type TProps = {
-  role: TResume["name"];
+  // role: TResume["name"];
   work_status: TResume['status'];
   location: TResume["candy_location"];
   phone: TResume["candy_phone"];
@@ -22,7 +22,7 @@ type TProps = {
 }
 
 export const CvInfoBlock: FC<TProps> = ({
-  role,
+  // role,
   work_status,
   location,
   phone,
@@ -36,9 +36,6 @@ export const CvInfoBlock: FC<TProps> = ({
 
   return (
     <div className={cn(" flex flex-col gap-6 ", className)}>
-      <h2 className="scroll-m-20 text-lg font-semibold tracking-tight">
-        {role}
-      </h2>
 
       <div className='bg-indigo-100 py-3 px-6 rounded-lg flex flex-col gap-1'>
         <h3 className='font-semibold text-base mb-2'>

@@ -19,7 +19,7 @@ export const MatchTab = ({
   return (
     <div className="grid grid-cols-1 auto-rows-auto @3xl:grid-cols-[35%_30%_1fr] gap-x-6 gap-y-10">
       <CvInfoBlock
-        role={cv.name}
+        // role={cv.name}
         work_status={cv.status}
         location={cv.candy_location}
         phone={cv.candy_phone}

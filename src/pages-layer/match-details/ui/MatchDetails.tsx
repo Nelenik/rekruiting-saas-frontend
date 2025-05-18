@@ -19,9 +19,12 @@ export const MatchDetails = async ({ matchId }: { matchId: number }) => {
 
   return (
     <div>
-      <h2 className="typography-h2 first:mt-0 mb-6">
+      <h2 className="typography-h2 first:mt-0 mb-2">
         {candidate.cv.candy_name || 'Имя не указано'}
       </h2>
+      <h3 className="scroll-m-20 text-lg font-semibold tracking-tight mb-6">
+        {candidate.cv.name || 'Роль не известна'}
+      </h3>
       <Tabs defaultValue="match" className="w-full ">
         <TabsList className="w-full justify-start gap-3.5 bg-transparent p-0 mb-6 flex-wrap min-h-10 h-[unset]">
           {tabsDict.map(({ value, text }) => (
