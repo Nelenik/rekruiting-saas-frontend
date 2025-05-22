@@ -19,8 +19,9 @@ export const CollapsibleSummary = ({
   title,
   summary,
   className,
-}: TProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+  defaultOpen = false,
+}: TProps & { defaultOpen?: boolean }) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <Collapsible

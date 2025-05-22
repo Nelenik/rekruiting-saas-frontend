@@ -42,7 +42,8 @@ export const CvDetails = async ({ cvId }: { cvId: number }) => {
             <CollapsibleSummary
               title="Саммори по резюме"
               summary={cv.summary}
-              className="md:col-span-2 italic "
+              defaultOpen={true}
+              className="md:col-span-2 italic  ring-1 rounded-md  p-4"
             />
             <CvInfoBlock
               // role={cv.name}

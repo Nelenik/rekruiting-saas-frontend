@@ -9,6 +9,7 @@ import { useState } from "react";
 import CompanyOverview from "./CompanyOverview";
 import { TextFormatter } from "@/shared/ui/TextFormatter";
 import { cn } from "@/shared/lib/utils";
+import { CollapsibleSummary } from "@/shared/ui/Summary";
 
 export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
   const [isEdit, setIsEdit] = useState(false)
@@ -25,7 +26,8 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
     skills,
     responsibilities,
     conditions,
-    description
+    description,
+    summary
   } = vacancy
 
   const hideForm = () => setIsEdit(false)
@@ -60,6 +62,12 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
         </StatusBadge>
         <EditButton onClick={showForm} isIconView={true} />
       </h2>
+      <CollapsibleSummary
+        title="Саммори по вакансии"
+        summary={summary}
+        // defaultOpen={true}
+        className=" p-4 mb-6 italic  ring-1 rounded-md "
+      />
       <div className={cn(
         "flex flex-col gap-7 mb-8",
         '@2xl:flex-row'
