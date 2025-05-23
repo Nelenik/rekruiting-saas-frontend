@@ -24,7 +24,6 @@ export default async function DashboardLayout({
   params: Promise<{ companyId: string }>
 
 }>) {
-
   const { companyId } = await params
 
   const result = await Promise.allSettled([

@@ -15,12 +15,15 @@ interface ISidebarItemProps {
 
 
 // component of a simple sidebar link, without submenu
-export const SidebarLink: FC<ISidebarItemProps> = ({ linkConfig, className, onLinkClick }) => {
+export const SidebarLink: FC<ISidebarItemProps> = ({
+  linkConfig,
+  className,
+  onLinkClick = () => { } }) => {
   const { routeName, href, icon } = linkConfig
 
   return (
-    <NavPanelBtn asChild className={cn("gap-3 justify-start", className)}>
-      <Link className="w-full " href={href} onClick={onLinkClick}>
+    <NavPanelBtn asChild className={cn("gap-3 justify-start text-in", className)}>
+      <Link className="w-full" href={href} onClick={onLinkClick}>
         {icon && icon}
         <span className="ml-2 hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">{routeName}</span>
       </Link>

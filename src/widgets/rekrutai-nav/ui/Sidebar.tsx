@@ -5,7 +5,6 @@ import LogoImg from '@/assets/logo-short.png';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
 import { createSidebarConfig } from "@/shared/config/rekrutaiSidebarConfig";
 import { useParams } from "next/navigation";
-// import useSidebarControl from "@/shared/model/hooks/useSidebarControl";
 import { cn } from "@/shared/lib/utils";
 import Image from "next/image";
 import { SidebarItem } from "./SidebarItem";
@@ -13,7 +12,7 @@ import { UserMenuContent } from "./UserMenuContent";
 import { useSession } from "@/features/auth";
 import { UserMenu } from "@/shared/ui/navigation/UserMenu";
 import NavPanelBtn from "@/shared/ui/buttons/NavPanelBtn";
-import { CollapsibleSidebar } from "@/shared/ui/navigation/CollapsibleSidebar/CollapsibleSidebar";
+import { CollapsibleSidebar } from "@/shared/ui/navigation/CollapsibleSidebar";
 
 interface ISidebarProps {
   className?: string
@@ -39,7 +38,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
           <Link
             href={'/'}
             className={cn(
-              "mb-3 self-start",
+              "mb-3 self-start inline-block h-[62px]",
               isSidebarOpen && 'translate-x-3 transition-transform duration-75'
             )}
           >

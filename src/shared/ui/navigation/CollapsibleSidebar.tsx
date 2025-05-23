@@ -1,6 +1,6 @@
 'use client'
 import { cn } from "@/shared/lib/utils"
-import { useSidebarControl } from "./useSidebarControl"
+import { useControlledOpen } from "@/shared/model/hooks/useControlledOpen"
 
 type RenderProps = {
   isSidebarOpen: boolean
@@ -48,17 +48,17 @@ export const CollapsibleSidebar = ({
   closedWidth = '85px',
 }: TProps) => {
   const {
-    sidebarRef,
+    controlledRef,
     handleToggle,
     handleOpen,
     handleClose,
-    isSidebarOpen
-  } = useSidebarControl({ initial: true })
+    isOpen
+  } = useControlledOpen({ initial: true })
 
-  const sidebarWidth = { width: isSidebarOpen ? openWidth : closedWidth }
+  const sidebarWidth = { width: isOpen ? openWidth : closedWidth }
   return (
     <aside
-      ref={sidebarRef}
+      ref={controlledRef}
       style={sidebarWidth}
       className={cn(
         'transition-[width] ease-in-out duration-400 @container',
@@ -68,7 +68,7 @@ export const CollapsibleSidebar = ({
     >
       {
         render({
-          isSidebarOpen: isSidebarOpen,
+          isSidebarOpen: isOpen,
           toggle: handleToggle,
           open: handleOpen,
           close: handleClose

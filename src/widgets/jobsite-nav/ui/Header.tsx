@@ -28,16 +28,24 @@ export const Header = ({
           'flex justify-between items-center'
         )}
       >
-        <BurgerMenu className={cn(
-          'md:hidden md:invisible'
-        )
-        }>
-          <Nav
-            className={cn(
-              'flex flex-col [&_a]:justify-center [&_a]:w-full'
-            )}
-          />
-        </BurgerMenu>
+
+        {/* burger menu is shown from 0 to 768px */}
+        <BurgerMenu
+          className={cn(
+            'md:hidden md:invisible'
+          )}
+          content={
+            ({ closeMenu }) => (
+              <Nav
+                className={cn(
+                  'flex flex-col [&_a]:justify-center [&_a]:w-full'
+                )}
+                onLinkClick={() => setTimeout(closeMenu, 300)}
+              />
+            )
+          }
+        />
+
         <Logo
           width={44}
           height={44}
@@ -46,10 +54,12 @@ export const Header = ({
             'md:w-[48px] '
           )}
         />
+
         {/* show nav on screen from md screen = 768px */}
         <Nav
           className={cn(
             'hidden invisible w-[55%]] grow-0 [&_a]:max-w-[120px]',
+            // show on md screen
             'md:flex md:gap-4 md:visible '
           )}
         />
@@ -62,6 +72,6 @@ export const Header = ({
           <UserMenuContent />
         </UserMenu>
       </div>
-    </header>
+    </header >
   );
 }

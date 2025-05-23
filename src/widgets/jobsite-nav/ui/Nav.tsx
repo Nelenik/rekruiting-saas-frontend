@@ -5,6 +5,7 @@ import Link from "next/link"
 
 type TProps = {
   className?: string
+  onLinkClick?: () => void
 }
 /**
  * `Nav` is a navigation component that renders a list of navigation links
@@ -21,7 +22,9 @@ type TProps = {
  * <Nav className="flex gap-6" />
  */
 export const Nav = ({
-  className
+  className,
+  onLinkClick = () => { },
+
 }: TProps) => {
   const routes = createJobsiteNavConfig()
   return (
@@ -37,7 +40,10 @@ export const Nav = ({
             'w-full justify-start',
             "inline-block"
           )}>
-            <Link href={route.href} >
+            <Link
+              href={route.href}
+              onClick={onLinkClick}
+            >
               {route.routeName}
             </Link>
           </NavPanelBtn>

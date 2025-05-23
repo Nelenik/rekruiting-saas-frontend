@@ -1,13 +1,13 @@
 'use client'
 import { cn } from "@/shared/lib/utils";
-import { ReactNode } from "react";
+import { ReactNode, useCallback, useState } from "react";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../shadcn/sheet";
 import { PanelLeftOpen, PanelRightOpen } from "lucide-react";
 import NavPanelBtn from "../buttons/NavPanelBtn";
 
 type TProps = {
   className?: string,
-  children: ReactNode,
+  content: (props: { closeMenu: () => void }) => ReactNode
 }
 /**
  * `BurgerMenu` is a responsive component that renders a left-side sliding menu
@@ -28,12 +28,17 @@ type TProps = {
  * </BurgerMenu>
  */
 export const BurgerMenu = ({
-  children,
   className,
+  content
 }: TProps) => {
 
+  const [open, setOpen] = useState<boolean>(false)
+  const closeMenu = useCallback(() => { setOpen(false) }, [])
+
+  console.log('open', open)
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         className={cn(
           className
@@ -41,7 +46,7 @@ export const BurgerMenu = ({
         asChild
       >
         <NavPanelBtn
-          className="w-9 h-9 p-0 border border-muted-foreground"
+          className="w-9 h-9 p-0 "
         >
           <PanelLeftOpen stroke="white" />
         </NavPanelBtn>
@@ -49,13 +54,13 @@ export const BurgerMenu = ({
       <SheetContent
         side={'left'}
         className={cn(
-          'flex flex-col w-60 py-3',
+          '@container flex flex-col w-[min(100dvw,400px)] py-3',
           'bg-sidebar border-none'
         )}
         overlayStyles="bg-sidebar/10"
       >
         <SheetClose asChild>
-          <NavPanelBtn className="mb-6 ml-auto w-9 h-9 p-0 border border-muted-foreground self-end" >
+          <NavPanelBtn className="mb-6 ml-auto w-9 h-9 p-0  self-end" >
             <PanelRightOpen stroke="white" />
           </NavPanelBtn>
         </SheetClose>
@@ -65,7 +70,7 @@ export const BurgerMenu = ({
         <SheetDescription className="visually-hidden">
           Бургер меню
         </SheetDescription>
-        {children}
+        {content({ closeMenu })}
       </SheetContent>
     </Sheet>
   )
