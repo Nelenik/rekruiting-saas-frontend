@@ -1,43 +1,36 @@
-import { IDashboardRoute } from "@/shared/config/rekrutaiSidebarConfig";
+import { TNavConfig } from "@/shared/config/types";
 import { cn } from "@/shared/lib/utils";
 import NavPanelBtn from "@/shared/ui/buttons/NavPanelBtn";
+import { DarkMenuLink } from "@/shared/ui/navigation/DarkMenuLink";
 import { Collapsible, CollapsibleTrigger } from "@/shared/ui/shadcn/collapsible";
 import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import { ChevronDown } from "lucide-react";
-import Link from "next/link";
 import { FC } from "react";
 
-interface ISidebarItemProps {
-  linkConfig: IDashboardRoute
+type TProps = {
+  linkConfig: TNavConfig
   className?: string
   onLinkClick?: () => void
 }
 
+/**
+ * SidebarItem component renders a single navigation item in the sidebar.
+ * It can either be a simple link or a collapsible group with sub-links.
+ */
+export const SidebarItem: FC<TProps> = ({ linkConfig, onLinkClick }) => {
 
-// component of a simple sidebar link, without submenu
-export const SidebarLink: FC<ISidebarItemProps> = ({
-  linkConfig,
-  className,
-  onLinkClick = () => { } }) => {
-  const { routeName, href, icon } = linkConfig
-
-  return (
-    <NavPanelBtn asChild className={cn("gap-3 justify-start text-in", className)}>
-      <Link className="w-full" href={href} onClick={onLinkClick}>
-        {icon && icon}
-        <span className="ml-2 hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">{routeName}</span>
-      </Link>
-    </NavPanelBtn>
-  );
-}
-
-// sidebar group with submenu 
-export const SidebarItem: FC<ISidebarItemProps> = ({ linkConfig, onLinkClick }) => {
-
-  const { routeName, icon, subMenu } = linkConfig
+  const { routeName, icon, href, subMenu } = linkConfig
   //If the linkConfig does not have a submenu property, it is a simple link (not a group), so return the link element.
   if (!subMenu) {
-    return <SidebarLink linkConfig={linkConfig} onLinkClick={onLinkClick} />
+    return (
+      <DarkMenuLink
+        href={href}
+        onLinkClick={onLinkClick}
+      >
+        {icon && icon}
+        <span className="ml-2 hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">{routeName}</span>
+      </DarkMenuLink>
+    )
   }
 
   //Otherwise, return a collapsible element with nested links
@@ -56,9 +49,7 @@ export const SidebarItem: FC<ISidebarItemProps> = ({ linkConfig, onLinkClick }) 
           "before:content-[''] before:absolute before:h-3/4 before:w-px before:left-4 before:bg-sidebar-foreground/60 before:top-2/4 before:-translate-y-2/4"
         )}>
           {subMenu && subMenu.map((elem) => (
-            <li key={elem.href}>
-              <SidebarLink linkConfig={elem} className="px-2" onLinkClick={onLinkClick} />
-            </li>
+            <SidebarItem key={elem.href} linkConfig={elem} onLinkClick={onLinkClick} />
           ))}
         </ul>
       </CollapsibleContent>

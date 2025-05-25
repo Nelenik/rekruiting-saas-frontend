@@ -1,16 +1,8 @@
 import { HomeIcon, Building2, Search, Star, BriefcaseBusiness, Users, FileText, FileUser, Settings } from "lucide-react";
-import { ReactNode } from "react";
-
-export interface IDashboardRoute {
-  routeName: string;
-  href: string;
-  icon?: ReactNode;
-  subMenu?: IDashboardRoute[];
-}
-
+import { TNavConfig } from "./types";
 
 /**
-* Creates a configuration array for the dashboard sidebar navigation
+* Creates a configuration array for the rekrutai admin panel sidebar navigation
 * 
 * @description
 * - Each object represents a navigation item with the following properties:
@@ -24,11 +16,11 @@ export interface IDashboardRoute {
  * - Items with `subMenu` (e.g., "Настройки") act as group titles and contain nested links.
 * 
 * @param companyId - The unique identifier of the company to generate routes for
-* @returns An array of {@link IDashboardRoute} objects representing the sidebar navigation structure
+* @returns An array of {@link TNavConfig[]} objects representing the sidebar navigation structure
 * 
 * @example
 * ```tsx
-* const sidebarRoutes = createSidebarConfig('company-123');
+* const sidebarRoutes = createRekrutaiNavConfig ('company-123');
 * // Returns navigation config with paths like:
 * // - /dashboard/company-123
 * // - /dashboard/company-123/vacancies
@@ -36,7 +28,7 @@ export interface IDashboardRoute {
 * ```
 */
 
-export const createSidebarConfig = (companyId: string): IDashboardRoute[] => [
+export const createRekrutaiNavConfig = (companyId: string): TNavConfig[] => [
   {
     routeName: "Главная",
     href: `/dashboard/${companyId}`,

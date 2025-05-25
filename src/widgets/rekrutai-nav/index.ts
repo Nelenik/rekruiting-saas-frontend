@@ -1,2 +1,2 @@
-export { Sidebar } from "./ui/Sidebar";
-export { Header } from "./ui/Header";
+export { Sidebar as RekrutaiSidebar } from "./ui/Sidebar";
+export { Header as RekrutaiHeader } from "./ui/Header";

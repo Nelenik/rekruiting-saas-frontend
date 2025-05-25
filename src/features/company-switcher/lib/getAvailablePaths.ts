@@ -9,13 +9,16 @@
  * @returns {string[]} An array of available paths for the given company.
  */
 
-import { createSidebarConfig } from "@/shared/config/rekrutaiSidebarConfig";
+import { createRekrutaiNavConfig } from "@/shared/config/rekrutaiNavConfig";
 
 export const getAvailablePaths = (newCompanyId: string): string[] => {
-  return createSidebarConfig(newCompanyId).reduce((acc: string[], route) => {
-    if (route.href) acc.push(route.href);
-    if (route.subMenu)
-      acc.push(...route.subMenu.map((subroute) => subroute.href));
-    return acc;
-  }, []);
+  return createRekrutaiNavConfig(newCompanyId).reduce(
+    (acc: string[], route) => {
+      if (route.href) acc.push(route.href);
+      if (route.subMenu)
+        acc.push(...route.subMenu.map((subroute) => subroute.href));
+      return acc;
+    },
+    []
+  );
 };

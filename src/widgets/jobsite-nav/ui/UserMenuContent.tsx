@@ -2,10 +2,9 @@
 import { SignOutForm } from "@/features/auth";
 import { TUser } from "@/shared/api/types";
 import { cn } from "@/shared/lib/utils";
-import NavPanelBtn from "@/shared/ui/buttons/NavPanelBtn";
 import { Separator } from "@/shared/ui/shadcn/separator";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { NavList } from "./NavList";
+import { useNavConfig } from "../model/NavigationConfigProvider";
 
 type TProps = {
   user?: Pick<TUser, 'email' | 'name'>
@@ -14,8 +13,8 @@ export const UserMenuContent = ({
   user = { name: 'Соискатель', email: 'user-apply@test.ru' }
 }: TProps) => {
 
-  const pathname = usePathname()
-  const isProfile = pathname.includes('profile')
+  const { profileRoutes } = useNavConfig()
+
   return (
     <div className=" flex flex-col gap-2 text-muted-foreground">
       <div>
@@ -32,20 +31,22 @@ export const UserMenuContent = ({
           {user.email}
         </a>
       </div>
-      <Separator />
-      {!isProfile && <NavPanelBtn
-        asChild
-        className="justify-start"
-      >
-        <Link
-          href={'/profile'}
-        >Личный кабинет</Link>
-      </NavPanelBtn>}
+      <Separator className="bg-sidebar-foreground" />
+      <NavList
+        routes={profileRoutes}
+        className={cn(
+          'text-sidebar-foreground',
+          'flex flex-col [&_a]:justify-start [&_a]:w-full'
+        )}
+      />
+      <Separator className="bg-sidebar-foreground" />
+      <Separator className="bg-sidebar-foreground" />
       <SignOutForm
         variant={'ghost'}
         className={cn(
-          "w-full text-muted-foreground justify-start",
-          "hover:bg-accent/10 hover:text-sidebar-foreground"
+          "w-full  justify-start",
+          'text-muted-foreground',
+          "hover:bg-accent/10 hover:text-sidebar-foreground",
         )}
       />
     </div>

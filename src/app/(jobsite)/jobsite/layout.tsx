@@ -8,6 +8,7 @@ import { getTenant } from "@/app/_actions/getTenant";
 import { Breadcrumbs } from "@/widgets/breadcrumbs";
 import { cn } from "@/shared/lib/utils";
 import { TenantProvider } from "@/shared/providers/TenantProvider";
+import { NavigationConfigProvider } from "@/widgets/jobsite-nav/model/NavigationConfigProvider";
 
 const geistSans = localFont({
   src: "../../fonts/GeistVF.woff",
@@ -45,9 +46,13 @@ export default async function JobSiteLayout({
       >
         <TenantProvider tenant={tenant}>
           <QueryProvider>
-            <JobsiteHeader
-              className="mb-6"
-            />
+            {/* Header */}
+            <NavigationConfigProvider>
+              <JobsiteHeader
+                className="mb-6"
+              />
+            </NavigationConfigProvider>
+            {/* Breadcrumbs */}
             <div className="jobsite-container">
               <div className="flex justify-between items-center p-5 rounded-md bg-card">
 
@@ -58,6 +63,7 @@ export default async function JobSiteLayout({
                 />
               </div>
             </div>
+            {/* Main content */}
             <main className='@container py-12'>
               <div className="jobsite-container">
                 {children}

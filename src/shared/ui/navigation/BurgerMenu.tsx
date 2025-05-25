@@ -35,8 +35,6 @@ export const BurgerMenu = ({
   const [open, setOpen] = useState<boolean>(false)
   const closeMenu = useCallback(() => { setOpen(false) }, [])
 
-  console.log('open', open)
-
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
@@ -54,13 +52,13 @@ export const BurgerMenu = ({
       <SheetContent
         side={'left'}
         className={cn(
-          '@container flex flex-col w-[min(100dvw,400px)] py-3',
+          'flex flex-col w-[min(100dvw,400px)] py-3',
           'bg-sidebar border-none'
         )}
         overlayStyles="bg-sidebar/10"
       >
         <SheetClose asChild>
-          <NavPanelBtn className="mb-6 ml-auto w-9 h-9 p-0  self-end" >
+          <NavPanelBtn className="mb-6 ml-auto w-9 h-9 p-0 " >
             <PanelRightOpen stroke="white" />
           </NavPanelBtn>
         </SheetClose>

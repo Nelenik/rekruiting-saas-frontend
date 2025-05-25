@@ -4,7 +4,7 @@ import { CompaniesProvider } from '@/shared/providers/CompaniesProvider';
 import { ScrollProvider } from '@/shared/providers/ScrollProvider';
 // import { Toaster } from '@/shared/ui/shadcn/toaster';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
-import { Header, Sidebar } from '@/widgets/rekrutai-nav';
+import { RekrutaiHeader, RekrutaiSidebar } from '@/widgets/rekrutai-nav';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 
@@ -36,10 +36,13 @@ export default async function DashboardLayout({
 
   return (
     <CompaniesProvider activeCompany={activeCompany} companiesPrefetch={companiesPrefetch}>
-      <Header className="md:hidden" />
+
+      <RekrutaiHeader className="md:hidden" />
 
       <main className="w-full flex h-screen overflow-hidden ">
-        <Sidebar className="hidden md:flex" />
+
+        <RekrutaiSidebar className="hidden md:flex" />
+
         <ScrollProvider className="p-6 w-full  h-dvh overflow-y-auto relative bg-secondary " data-id='pageContainer'>
           {/* <div className="p-6 w-full  h-full overflow-y-auto relative" data-id='pageContainer'> */}
           <div className='grid auto-rows-max grid-cols-1 gap-6 @container max-w-[min(100%,1400px)] m-auto pt-[60px] md:pt-0'>

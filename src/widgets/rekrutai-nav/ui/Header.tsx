@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { createSidebarConfig } from "@/shared/config/rekrutaiSidebarConfig";
+import { createRekrutaiNavConfig } from "@/shared/config/rekrutaiNavConfig";
 import { useParams } from "next/navigation";
 import { cn } from '@/shared/lib/utils';
 import LogoImg from '@/assets/logo-short.png';
@@ -18,7 +18,7 @@ interface IHeaderProps {
 export const Header = ({ className }: IHeaderProps) => {
   const params = useParams<{ companyId: string }>();
   const companyId = params?.companyId || '';
-  const sidebarConfig = createSidebarConfig(companyId)
+  const sidebarConfig = createRekrutaiNavConfig(companyId)
 
   const { user } = useSession()
 
@@ -34,7 +34,7 @@ export const Header = ({ className }: IHeaderProps) => {
           ({ closeMenu }) => {
             return (
               <nav>
-                <ul className="space-y-0 text-sidebar-foreground">
+                <ul className="@container space-y-0 text-sidebar-foreground">
                   {sidebarConfig.map((el) => {
                     return (
                       <li key={el.routeName}>

@@ -6,14 +6,15 @@ import Image from "next/image";
 type TProps = {
   width: number,
   height: number,
-  className?: string
+  className?: string,
+  href?: string
 }
 export const Logo = ({
-  width, height, className
+  width, height, className, href = '/'
 }: TProps) => {
   return (
     <Link
-      href={'/'}
+      href={href}
       className={cn(
         className
       )}

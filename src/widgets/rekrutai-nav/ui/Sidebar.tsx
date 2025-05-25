@@ -3,7 +3,7 @@
 import Link from "next/link";
 import LogoImg from '@/assets/logo-short.png';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
-import { createSidebarConfig } from "@/shared/config/rekrutaiSidebarConfig";
+import { createRekrutaiNavConfig } from "@/shared/config/rekrutaiNavConfig";
 import { useParams } from "next/navigation";
 import { cn } from "@/shared/lib/utils";
 import Image from "next/image";
@@ -22,8 +22,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
   const params = useParams<{ companyId: string }>();
   const companyId = params?.companyId || '';
 
-  const sidebarConfig = createSidebarConfig(companyId)
-
+  const sidebarConfig = createRekrutaiNavConfig(companyId)
 
   //get user info for the user menu component
   const { user } = useSession()
