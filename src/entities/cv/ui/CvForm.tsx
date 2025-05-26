@@ -3,7 +3,7 @@
 import { storeCv } from '@/shared/api/postData';
 import { TResume } from '@/shared/api/types';
 import { updateCV } from '@/shared/api/updateData';
-import { mutationInitialState } from '@/shared/constants/constants';
+import { mutationInitialState } from '@/shared/api/constants';
 import convertToFormData from '@/shared/lib/object_manipulations/convertToFormData';
 import { NonNullableFields } from '@/shared/lib/object_manipulations/filterFalsyFields';
 import { omitFields } from '@/shared/lib/object_manipulations/omitFields';

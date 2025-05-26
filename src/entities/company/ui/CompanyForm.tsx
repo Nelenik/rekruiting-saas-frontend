@@ -4,7 +4,7 @@ import { getTariffs } from '@/shared/api/getData';
 import { storeCompany } from '@/shared/api/postData';
 import { TCompany } from '@/shared/api/types';
 import { updateCompany } from '@/shared/api/updateData';
-import { mutationInitialState } from '@/shared/constants/constants';
+import { mutationInitialState } from '@/shared/api/constants';
 import convertToFormData from '@/shared/lib/object_manipulations/convertToFormData';
 import { NonNullableFields } from '@/shared/lib/object_manipulations/filterFalsyFields';
 import { cn } from '@/shared/lib/utils';

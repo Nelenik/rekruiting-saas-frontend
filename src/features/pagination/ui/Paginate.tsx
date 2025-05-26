@@ -1,6 +1,6 @@
 'use client'
 
-import { COMPANIES_PER_PAGE } from "@/shared/constants/constants";
+import { COMPANIES_PER_PAGE } from "@/shared/api/constants";
 import { updateQueryString } from "@/shared/lib/updateQueryString";
 import { cn } from "@/shared/lib/utils";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/shared/ui/shadcn/pagination";

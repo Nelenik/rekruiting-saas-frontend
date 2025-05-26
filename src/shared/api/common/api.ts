@@ -1,7 +1,7 @@
 "use server";
 
 import { parseFormData } from "@/shared/lib/object_manipulations/parseFormData";
-import { API_URL, AUTH_COOKIE_NAME } from "../../constants/constants";
+import { API_URL, AUTH_COOKIE_NAME } from "../constants";
 import { cookies } from "next/headers";
 
 export type TApiSuccessResponse<T> = {

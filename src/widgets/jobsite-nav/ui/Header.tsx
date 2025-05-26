@@ -1,7 +1,6 @@
 'use client'
 import { cn } from "@/shared/lib/utils";
 import { UserMenu } from "@/shared/ui/navigation/UserMenu";
-// import { Logo } from "@/shared/ui/navigation/Logo";
 import { UserMenuContent } from "./UserMenuContent";
 import { MobileMenu } from "./MobileMenu";
 import { useNavConfig } from "../model/NavigationConfigProvider";
@@ -28,8 +27,8 @@ export const Header = ({
 
     <header
       className={cn(
-        'py-3 bg-sidebar ',
-        'md:py-5',
+        'py-1 bg-sidebar ',
+        'md:py-4',
         className
       )}
     >
@@ -45,13 +44,15 @@ export const Header = ({
           className="md:hidden md:invisible"
         />
 
+        {/* Logo */}
+        {/* Logo is always shown */}
         <Logo
           width={44}
           height={44}
           href="/vacancies"
           className={cn(
-            'w-[39px] aspect-[2/1] shrink-0',
-            'md:w-[48px] mr:auto'
+            'm-auto shrink-0',
+            'md:w-[48px] md:m-0'
           )}
         />
 

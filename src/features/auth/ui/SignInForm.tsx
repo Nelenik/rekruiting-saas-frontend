@@ -52,7 +52,7 @@ export const SignInForm = () => {
       <StartPageButton
         type="submit"
       >
-        {pending ? "Авторизация..." : "Войти в админ панель"}
+        {pending ? "Авторизация..." : "Войти в систему"}
       </StartPageButton>
     </form>
   );

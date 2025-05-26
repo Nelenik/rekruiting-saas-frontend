@@ -11,7 +11,7 @@ import { TCandidateFull, TCandidateShort } from "./types/match";
 import { TVacancy, TVacancyShort } from "./types/vacancies";
 import { TTariff } from "./types/tariffs";
 import { cookies } from "next/headers";
-import { AUTH_COOKIE_NAME } from "../constants/constants";
+import { AUTH_COOKIE_NAME } from "./constants";
 
 /* USER */
 

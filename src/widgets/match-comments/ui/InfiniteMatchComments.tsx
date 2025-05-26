@@ -1,7 +1,7 @@
 'use client'
 import { CommentsList } from "@/entities/comment";
 import { getMatchCommentList } from "@/shared/api/getData";
-import { MATCH_COMMENTS_PER_PAGE } from "@/shared/constants/constants";
+import { MATCH_COMMENTS_PER_PAGE } from "@/shared/api/constants";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 type TProps = {
