@@ -44,7 +44,7 @@ export const signin = async (
   return response;
 };
 
-export const signout = async () => {
+export const signout = async (redirectTo: string) => {
   (await cookies()).delete(AUTH_COOKIE_NAME);
-  return redirect("/");
+  return redirect(redirectTo);
 };

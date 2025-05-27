@@ -19,6 +19,7 @@ import { AUTH_COOKIE_NAME } from "./constants";
 
 export const getUser = async (): Promise<TUser | null> => {
   try {
+    // return null;
     //temp
     const cookieStore = await cookies();
     const token = cookieStore.get(AUTH_COOKIE_NAME);

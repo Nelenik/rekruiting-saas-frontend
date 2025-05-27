@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import QueryProvider from '@/shared/providers/QueryProvider';
 import { Toaster } from '@/shared/ui/shadcn/toaster';
 import { getSession, SessionPovider } from '@/features/auth';
-import { signout } from '@/features/auth/api/auth-actions';
 import { TAuthorized } from '@/shared/api/types';
+import { UnauthorizedFallback } from '@/features/auth/ui/UnauthorizedFallback';
 
 export const metadata: Metadata = {
   title: 'RekrutAI|Дашборд',
@@ -23,8 +23,7 @@ export default async function AppLayout({
   const session = await getSession()
 
   if (!session.isAuthorized) {
-    await signout()
-    return null
+    return <UnauthorizedFallback />
   }
 
   return (
