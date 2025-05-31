@@ -1,11 +1,7 @@
 'use client';
 
-import { getTariffs } from '@/shared/api/getData';
-import { storeCompany } from '@/shared/api/postData';
 import { TCompany } from '@/shared/api/types';
-import { updateCompany } from '@/shared/api/updateData';
 import { mutationInitialState } from '@/shared/api/constants';
-import convertToFormData from '@/shared/lib/object_manipulations/convertToFormData';
 import { NonNullableFields } from '@/shared/lib/object_manipulations/filterFalsyFields';
 import { cn } from '@/shared/lib/utils';
 import { useFormMutation } from '@/shared/model/hooks/useFormMutation';
@@ -17,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/shared/ui/shadcn/textarea';
 import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
+import { getTariffs, storeCompany, updateCompany } from '@/shared/api/actions';
 
 
 type TProps = {
@@ -46,7 +43,7 @@ export const CompanyForm: FC<TProps> = ({
   //define initial state
   const initialState = {
     ...mutationInitialState,
-    ...(initialData && { payload: convertToFormData(initialData) })
+    ...(initialData && { payload: initialData })
   }
   //define toast message
   const toastMessage = type === 'edit' ? 'Данные о компании успешно обновлены' : 'Новая компания успешно сохранена'

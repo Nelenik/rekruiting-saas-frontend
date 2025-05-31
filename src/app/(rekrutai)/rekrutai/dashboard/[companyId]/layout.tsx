@@ -1,4 +1,4 @@
-import { getCompaniesList, getCompany } from '@/shared/api/getData';
+import { getCompaniesList, getCompany } from '@/shared/api/actions';
 import { cn } from '@/shared/lib/utils';
 import { CompaniesProvider } from '@/shared/providers/CompaniesProvider';
 import { ScrollProvider } from '@/shared/providers/ScrollProvider';

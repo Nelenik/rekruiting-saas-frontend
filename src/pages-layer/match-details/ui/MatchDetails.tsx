@@ -1,7 +1,7 @@
-import { getCandidateFull } from "@/shared/api/getData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/shadcn/tabs";
 import { MatchTab } from "./MatchTab";
 import { ExperienceTab } from "./ExperienceTab";
+import { getCandidateFull } from "@/shared/api/actions";
 
 const tabsDict = [
   { value: 'match', text: 'Мэтч' },

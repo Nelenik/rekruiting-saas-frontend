@@ -1,5 +1,5 @@
 import { VacancyDetails } from "@/pages-layer/vacancy-details";
-import { getVacancy } from "@/shared/api/getData";
+import { getVacancy } from "@/shared/api/actions";
 import InterceptingModal from "@/shared/ui/modals/InterceptingModal";
 
 const VacancyDetailsModal = async ({ params }: { params: Promise<{ vacancyId: string }> }) => {

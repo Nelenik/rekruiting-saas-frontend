@@ -1,6 +1,6 @@
 'use client'
 import { CommentsList } from "@/entities/comment";
-import { getMatchCommentList } from "@/shared/api/getData";
+import { getMatchCommentList } from "@/shared/api/actions";
 import { MATCH_COMMENTS_PER_PAGE } from "@/shared/api/constants";
 import { useInfiniteQuery } from "@tanstack/react-query";
 

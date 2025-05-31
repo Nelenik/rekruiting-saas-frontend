@@ -3,7 +3,6 @@ import { SortableContext } from "@dnd-kit/sortable";
 import { FC, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { getBasicCandidatesByStatus } from "@/shared/api/getData";
 import { cn } from "@/shared/lib/utils";
 import { ScrollArea } from "@/shared/ui/shadcn/scroll-area";
 import { DndSortable } from "@/features/dnd";
@@ -11,6 +10,7 @@ import { CandidateCard } from "./CandidateCard";
 import { FunnelCard } from "@/shared/ui/FunnelCard";
 import { BoardListSkeleton } from "@/shared/ui/skeletons/BoardSkeleton";
 import { ColumnMenu } from "./ColumnMenu";
+import { getBasicCandidatesByStatus } from "@/shared/api/actions";
 
 type TProps = {
   color: string

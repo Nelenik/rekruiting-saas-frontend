@@ -1,6 +1,6 @@
 import { CvInfoBlock } from "@/entities/cv/ui/CvInfoBlock";
 import { WorkExperienceList } from "@/entities/experience";
-import { getResumeById } from "@/shared/api/getData";
+import { getResumeById } from "@/shared/api/actions";
 import { cn } from "@/shared/lib/utils";
 import { CollapsibleSummary } from "@/shared/ui/Summary";
 import { TextFormatter } from "@/shared/ui/TextFormatter";

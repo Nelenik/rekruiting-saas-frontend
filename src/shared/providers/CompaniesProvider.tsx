@@ -3,7 +3,7 @@
 import { TCompany } from "@/shared/api/types/companies";
 import { useQuery } from "@tanstack/react-query";
 import { createContext, ReactNode, useContext, useState } from "react"
-import { getCompaniesList } from "../api/getData";
+import { getCompaniesList } from "../api/actions";
 
 
 interface CompaniesContextType {

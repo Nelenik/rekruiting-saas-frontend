@@ -1,12 +1,12 @@
 import { FC, Suspense } from 'react';
 import Link from 'next/link';
-import { getVacancy } from '@/shared/api/getData';
 import { MatchBoard } from '@/widgets/match-board';
 import { SingleVacancyProvider, VacancyMatchStatusesProvider, VacancySummaryCard } from '@/entities/vacancy';
 import { EditEntity } from '@/features/mutate-entity';
 import { TVacancy } from '@/shared/api/types';
 import { VacancyPageSkeleton } from '@/shared/ui/skeletons/VacancyPageSkeleton';
 import { AddMatchesForm } from '@/features/add-matches/ui/AddMatchesForm';
+import { getVacancy } from '@/shared/api/actions';
 
 
 type TProps = {

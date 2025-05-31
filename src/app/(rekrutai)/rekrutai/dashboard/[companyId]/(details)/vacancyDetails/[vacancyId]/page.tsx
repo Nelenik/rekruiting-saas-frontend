@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Link as LinkIcon } from 'lucide-react'
-import { getVacancy } from "@/shared/api/getData";
 import { VacancyDetails } from "@/pages-layer/vacancy-details";
+import { getVacancy } from "@/shared/api/actions";
 
 const VacancyDetailsPage = async ({ params }: { params: Promise<{ vacancyId: string, companyId: string }> }) => {
   const { vacancyId, companyId } = await params;

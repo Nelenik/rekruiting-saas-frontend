@@ -1,5 +1,5 @@
 import { AddEntity } from '@/features/mutate-entity';
-import { getCompaniesList } from '@/shared/api/getData';
+import { getCompaniesList } from '@/shared/api/actions';
 import { Card } from '@/shared/ui/shadcn/card';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';

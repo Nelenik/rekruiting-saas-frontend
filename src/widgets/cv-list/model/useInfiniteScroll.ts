@@ -1,4 +1,4 @@
-import { getResumeList } from "@/shared/api/getData";
+import { getResumeList } from "@/shared/api/actions";
 import { CV_PER_PAGE } from "@/shared/api/constants";
 import { useScrollContainer } from "@/shared/providers/ScrollProvider";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";

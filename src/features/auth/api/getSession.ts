@@ -1,6 +1,6 @@
 "use server";
 
-import { getUser } from "@/shared/api/getData";
+import { getUser } from "@/shared/api/actions";
 import { TSession } from "@/shared/api/types";
 
 export const getSession = async (): Promise<TSession> => {

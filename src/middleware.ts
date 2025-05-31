@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-// import { getCompaniesList } from "./shared/api/getData";
 import { AUTH_COOKIE_NAME } from "./shared/api/constants";
 
 const isAuthenticated = (request: NextRequest) => {

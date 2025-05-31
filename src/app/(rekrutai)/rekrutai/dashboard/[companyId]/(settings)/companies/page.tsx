@@ -2,7 +2,7 @@
 
 import { AddEntity } from "@/features/mutate-entity"
 import { Paginate } from "@/features/pagination"
-import { getCompaniesList } from "@/shared/api/getData"
+import { getCompaniesList } from "@/shared/api/actions"
 import { TableSkeleton } from "@/shared/ui/skeletons/TableSkeleton"
 import { CompaniesTable } from "@/widgets/companies-table"
 import { CompaniesFilter } from "@/widgets/filters/ui/CompaniesFilter"
