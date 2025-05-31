@@ -4,8 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/shadcn/select";
 import { FC } from "react";
 import { SelectProps } from "@radix-ui/react-select";
-import { getVacancyPositions } from "@/shared/api/getData";
+// import { getVacancyPositions } from "@/shared/api/getData";
 import { vacancyPositionsDict } from "../lib/dictionary";
+import { getVacancyPositions } from "@/shared/api/actions";
 
 
 type TProps = {

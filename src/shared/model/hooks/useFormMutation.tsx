@@ -2,10 +2,11 @@ import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { useToast } from "./use-toast";
 import { mutationInitialState } from "@/shared/api/constants";
 import { TValidationMappedErrors } from "@/shared/api/common/errors";
-import { parseFormData } from "@/shared/lib/object_manipulations/parseFormData";
-import { TMutationState } from "@/shared/api/common/mutate";
+// import { parseFormData } from "@/shared/lib/object_manipulations/parseFormData";
+import { TMutationState } from "@/shared/api/common/apiLayer";
+// import { TMutationState } from "@/shared/api/common/mutate";
 
-type TFormMutationAction = (_: TMutationState, body: FormData) => Promise<TMutationState>
+type TFormMutationAction = (_: TMutationState, data: FormData) => Promise<TMutationState>
 
 type TOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 
@@ -65,9 +66,12 @@ export const useFormMutation = (
   }, [state, onSuccess, isSuccess])
 
 
-  const defaultValues = state.payload && state.payload instanceof FormData
-    ? parseFormData<Record<string, string>>(state.payload)
-    : undefined;
+  // const defaultValues = state.payload && state.payload instanceof FormData
+  //   ? parseFormData<Record<string, string>>(state.payload)
+  //   : undefined;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const defaultValues = state.payload ? (state.payload as Record<string, any>) : undefined
 
   //Removes the error from the errors object when the user starts entering data.
   const onChange = (e: TOnChangeEvent) => {

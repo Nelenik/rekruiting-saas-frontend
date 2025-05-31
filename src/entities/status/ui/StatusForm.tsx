@@ -1,7 +1,7 @@
-import { TMutationState } from "@/shared/api/common/mutate"
-import { storeStatus } from "@/shared/api/postData"
+// import { TMutationState } from "@/shared/api/common/mutate"
+// import { storeStatus } from "@/shared/api/postData"
 import { TStatus } from "@/shared/api/types/statuses"
-import { updateStatus } from "@/shared/api/updateData"
+// import { updateStatus } from "@/shared/api/updateData"
 import { mutationInitialState } from "@/shared/api/constants"
 import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData"
 import { NonNullableFields } from "@/shared/lib/object_manipulations/filterFalsyFields"
@@ -10,6 +10,8 @@ import FormItem from "@/shared/ui/FormItem"
 import { Button } from "@/shared/ui/shadcn/button"
 import { Input } from "@/shared/ui/shadcn/input"
 import { FC, useCallback } from "react"
+import { TMutationState } from "@/shared/api/common/apiLayer"
+import { storeStatus, updateStatus } from "@/shared/api/actions"
 
 type TProps = {
   type: 'edit' | 'add'

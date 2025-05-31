@@ -1,12 +1,12 @@
 'use client'
 import { PositionSelect } from "./PositionSelect"
-import { storeVacancy } from "@/shared/api/postData"
+// import { storeVacancy } from "@/shared/api/postData"
 import { EVacancyEmployment, EVacancyExperience, EVacancyWorkFormat, TVacancy } from "@/shared/api/types"
-import { updateVacancy } from "@/shared/api/updateData"
+// import { updateVacancy } from "@/shared/api/updateData"
 import { mutationInitialState } from "@/shared/api/constants"
-import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData"
+// import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData"
 import { NonNullableFields } from "@/shared/lib/object_manipulations/filterFalsyFields"
-import { omitFields } from "@/shared/lib/object_manipulations/omitFields"
+// import { omitFields } from "@/shared/lib/object_manipulations/omitFields"
 import { cn } from "@/shared/lib/utils"
 import { useFormMutation } from "@/shared/model/hooks/useFormMutation"
 import FormItem, { ErrorMessage } from "@/shared/ui/FormItem"
@@ -14,8 +14,9 @@ import { Button } from "@/shared/ui/shadcn/button"
 import { Input } from "@/shared/ui/shadcn/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/shadcn/select"
 import { Textarea } from "@/shared/ui/shadcn/textarea"
-import { useParams } from "next/navigation"
 import { StatusSelect } from "./StatusSelect"
+import { storeVacancy, updateVacancy } from "@/shared/api/actions"
+import { useParams } from "next/navigation"
 
 type TProps = {
   type: 'edit' | 'add'
@@ -40,13 +41,14 @@ export const VacancyForm = ({
 
   //!!!! remove the fields "status" and "matchStatuses" (should find a better solution, may be made universal convertToFormData function)
 
-  const cleanedInitialData = initialData && omitFields(initialData, ['status', 'matchStatuses'])
+  // const cleanedInitialData = initialData && omitFields(initialData, ['status', 'matchStatuses'])
 
   //define initial state
   const initialState = {
     ...mutationInitialState,
-    ...(cleanedInitialData && { payload: convertToFormData(cleanedInitialData) })
+    ...(initialData && { payload: initialData })
   }
+  console.log(initialState)
   //define toast message
   const toastMessage = type === 'edit' ? 'Вакансия успешно обновлена' : 'Вакансия успешно сохранена'
 
@@ -57,6 +59,8 @@ export const VacancyForm = ({
       initialState,
       toastMessage
     });
+
+  console.log(defaultValues?.status_id)
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
@@ -84,7 +88,7 @@ export const VacancyForm = ({
         <FormItem labelText="Статус" error={errors.status_id}>
           <StatusSelect
             name="status_id"
-            defaultValue={defaultValues?.status_id || '191'}
+            defaultValue={defaultValues?.status_id}
             className={errors.status_id && 'ring-2 ring-destructive'}
           />
         </FormItem>

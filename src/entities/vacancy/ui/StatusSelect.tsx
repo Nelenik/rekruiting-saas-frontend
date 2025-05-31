@@ -4,7 +4,7 @@ import { SelectProps } from "@radix-ui/react-select";
 import { vacanciesDefaultStatuses } from "@/shared/constants/default-vacancy-statuses";
 
 type TProps = {
-  className?: string
+  className?: string,
 } & SelectProps
 export const StatusSelect: FC<TProps> = ({ className, ...props }) => {
   return (
@@ -12,7 +12,7 @@ export const StatusSelect: FC<TProps> = ({ className, ...props }) => {
       <SelectTrigger
         className={className}
       >
-        <SelectValue placeholder="Статус вакансии" />
+        <SelectValue placeholder={"Статус вакансии"} />
       </SelectTrigger>
       <SelectContent>
         {vacanciesDefaultStatuses &&
