@@ -1,7 +1,8 @@
 'use client'
 import { parseCvFromFile } from "@/shared/api/actions";
 import { TResume } from "@/shared/api/types";
-import { useFormMutation } from "@/shared/model/hooks/useFormMutation";
+// import { useFormMutation } from "@/shared/model/hooks/useFormMutation";
+import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
 import FormItem from "@/shared/ui/FormItem";
 import { Button } from "@/shared/ui/shadcn/button";
 import { Input } from "@/shared/ui/shadcn/input";
@@ -14,7 +15,7 @@ export const FileLoader = ({
 }: TProps) => {
 
   const { formAction, pending } =
-    useFormMutation({
+    useMutateForm({
       mutationAction: parseCvFromFile,
       onSuccess: ({ payload }) => {
         setInitialData(payload as TResume)
@@ -29,7 +30,7 @@ export const FileLoader = ({
       <FormItem
         labelText="Заполнить из файла"
       >
-        <Input type="file" />
+        <Input type="file" accept=".pdf" />
       </FormItem>
       <Button type="submit">
         {pending ? 'Обработка...' : 'Заполнить'}

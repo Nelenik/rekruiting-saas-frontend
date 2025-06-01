@@ -1,10 +1,10 @@
 'use client';
 
 import { TResume } from '@/shared/api/types';
-import { mutationInitialState } from '@/shared/api/constants';
+// import { mutationInitialState } from '@/shared/api/constants';
 import { NonNullableFields } from '@/shared/lib/object_manipulations/filterFalsyFields';
 import { cn } from '@/shared/lib/utils';
-import { useFormMutation } from '@/shared/model/hooks/useFormMutation';
+// import { useFormMutation } from '@/shared/model/hooks/useFormMutation';
 import FormItem from '@/shared/ui/FormItem';
 import { Button } from '@/shared/ui/shadcn/button';
 import { Input } from '@/shared/ui/shadcn/input';
@@ -12,6 +12,7 @@ import { Textarea } from '@/shared/ui/shadcn/textarea';
 import { useQueryClient } from '@tanstack/react-query';
 import { FC } from 'react';
 import { storeCv, updateCV } from '@/shared/api/actions';
+import { useMutateForm } from '@/shared/model/hooks/useMutateForm';
 
 
 type TProps = {
@@ -51,24 +52,37 @@ export const CvForm: FC<TProps> = ({
     : storeCv
 
   //define initial state
-  const initialState = {
-    ...mutationInitialState,
-    ...(initialData && { payload: initialData })
-  }
+  // const initialState = {
+  //   ...mutationInitialState,
+  //   ...(initialData && { payload: initialData })
+  // }
 
   //define toast message
   const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
 
-  const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation({
-      mutationAction: action,
-      onSuccess: () => {
-        onSuccess()
-        queryClient.invalidateQueries({ queryKey: ["reserve-infinite-list"] })
-      },
-      initialState,
-      toastMessage
-    });
+  // const { formAction, pending, defaultValues, errors, onChange } =
+  //   useFormMutation({
+  //     mutationAction: action,
+  //     onSuccess: () => {
+  //       onSuccess()
+  //       queryClient.invalidateQueries({ queryKey: ["reserve-infinite-list"] })
+  //     },
+  //     initialState,
+  //     toastMessage
+  //   });
+
+
+  const { formAction, pending, defaultValues, errors, onChange } = useMutateForm({
+    mutationAction: action,
+    onSuccess: () => {
+      onSuccess()
+      queryClient.invalidateQueries({ queryKey: ["reserve-infinite-list"] })
+    },
+    initialData,
+    toastMessage
+  })
+
+  console.log('cv form render', defaultValues)
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">

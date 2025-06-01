@@ -109,12 +109,7 @@ export const apiGet = async <T = unknown>(
 export type TMutationState<T = unknown> = {
   sent: boolean;
   error: TError | null;
-  payload?: FormData | Record<string, unknown> | T;
-};
-
-export type TGoodRequest<T> = {
-  success: boolean;
-  data?: T;
+  payload?: T;
 };
 
 /**

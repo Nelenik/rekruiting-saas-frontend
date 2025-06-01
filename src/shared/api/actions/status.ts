@@ -21,7 +21,7 @@ import { TStatus } from "../types";
 export const storeStatus = async (
   _: TMutationState | null,
   data: FormData | Record<string, unknown>
-): Promise<TMutationState<TStatus>> => {
+) => {
   const result = await apiMutate<TStatus>("/status", {
     body: data instanceof FormData ? parseFormData(data) : data,
     expectResponseData: true,
