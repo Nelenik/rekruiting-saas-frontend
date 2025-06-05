@@ -1,11 +1,13 @@
 'use client'
-import { FormEventHandler, useState, useTransition } from "react";
+import { FormEventHandler, useCallback, useRef, useState, useTransition } from "react";
 import { parseCvFromFile } from "@/shared/api/actions";
 import { TResume } from "@/shared/api/types";
 import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
-import { FileUploadField } from "@/shared/ui/FileUploadField";
+import { FileUploadField, FileUploadRef } from "@/shared/ui/FileUploadField";
 import { Button } from "@/shared/ui/shadcn/button";
 import { CancelButton } from "@/shared/ui/buttons/CancelButton";
+import { toast } from "@/shared/model/hooks/use-toast";
+import { TMutationState } from "@/shared/api/common/api";
 
 
 type TProps = {
@@ -14,16 +16,21 @@ type TProps = {
 export const FileLoadingForm = ({
   setInitialData
 }: TProps) => {
+  const fileUploadRef = useRef<FileUploadRef>(null)
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
 
   const [isPending, startTransition] = useTransition()
 
+  //Actions on successful form submitting
+  const handleSucces = useCallback((state: TMutationState) => {
+    setInitialData(state.payload as TResume)
+    fileUploadRef.current?.clearFiles()
+  }, [setInitialData])
+
   const { formAction, errors, removeError } =
     useMutateForm({
       mutationAction: parseCvFromFile,
-      onSuccess: ({ payload }) => {
-        setInitialData(payload as TResume)
-      }
+      onSuccess: handleSucces
     });
 
   const handleSumbmit: FormEventHandler = (e) => {
@@ -36,6 +43,15 @@ export const FileLoadingForm = ({
 
   }
 
+  //on files change remove error if it exists and changed selectedFiles
+  const handleFilesChange = useCallback((files: File[]) => {
+    removeError('file')
+    setSelectedFiles(files)
+  }, [removeError])
+
+  // If there are rejected files (e.g., unsupported formats), show a warning toast
+  const handleFilesReject = useCallback((rejectedFiles: File[]) => toast({ variant: 'warn', title: `Отклонено файлов: ${rejectedFiles?.length}. Допустимые форматы: pdf` }), [])
+
   return (
     <form
       className="flex flex-col sm:grid sm:grid-cols-2 gap-y-2.5 ring-1 p-4 ring-input rounded-md"
@@ -43,14 +59,12 @@ export const FileLoadingForm = ({
     >
       <h3 className="font-medium sm:col-span-2">Заполнить из файла</h3>
       <FileUploadField
+        ref={fileUploadRef}
         rootStyles=""
         error={errors.file}
-        accept=".pdf"
-        multiple
-        onFilesChange={(files) => {
-          removeError('file')
-          setSelectedFiles(files ?? [])
-        }}
+        accept="application/pdf"
+        onFilesChange={handleFilesChange}
+        onRejectedFiles={handleFilesReject}
       />
       <ul>
         {selectedFiles.map(file => (

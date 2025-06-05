@@ -134,10 +134,9 @@ export const parseCvFromFile = async (_: TMutationState, data: FormData) => {
   if (![...data].length) {
     return {
       sent: false,
-      error: getSyntheticError("", 0, { file: "Не выбрано ни одного файла" }),
+      error: getSyntheticError("", 0, { file: "Выберите файл" }),
     };
   }
-  console.log([...data]);
   return wait(500).then(() => ({
     sent: true,
     payload: {

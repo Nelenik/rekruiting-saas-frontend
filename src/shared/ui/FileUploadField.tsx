@@ -22,20 +22,61 @@ const parseAcceptString = (accept: string): string[] => {
  * @param files - Array of files to filter
  * @returns Filtered array of accepted files
  */
-const filterFiles = (accept: string | undefined, files: File[]) => {
-  const acceptedTypes = accept ? parseAcceptString(accept) : null
-  if (!acceptedTypes) return files
+// const filterFiles = (accept: string | undefined, files: File[]) => {
+//   const acceptedTypes = accept ? parseAcceptString(accept) : null
+//   if (!acceptedTypes) return files
 
-  return files.filter(file => {
-    return acceptedTypes.some(type => {
-      if (type.startsWith('.')) {
-        return file.name.endsWith(type);
+//   return files.filter(file => {
+//     return acceptedTypes.some(type => {
+//       if (type.startsWith('.')) {
+//         return file.name.endsWith(type);
+//       } else {
+//         return file.type === type;
+//       }
+//     });
+//   })
+// }
+
+type FileSplitResult = {
+  accepted: File[];
+  rejected: File[];
+};
+/**
+ * Filters files into accepted and rejected based on the accept criteria
+ * @param accept - Accept string from input element
+ * @param files - Array of files to filter
+ * @returns Object with accepted and rejected files
+ */
+const splitFilesByAccept = (
+  accept: string | undefined,
+  files: File[]
+): FileSplitResult => {
+  const acceptedTypes = accept ? parseAcceptString(accept) : null;
+  if (!acceptedTypes) {
+    return { accepted: files, rejected: [] };
+  }
+
+  return files.reduce<FileSplitResult>(
+    (acc, file) => {
+      const isAccepted = acceptedTypes.some(type => {
+        if (type.startsWith('.')) {
+          return file.name.endsWith(type);
+        } else {
+          return file.type === type;
+        }
+      });
+
+      if (isAccepted) {
+        acc.accepted.push(file);
       } else {
-        return file.type === type;
+        acc.rejected.push(file);
       }
-    });
-  })
-}
+
+      return acc;
+    },
+    { accepted: [], rejected: [] }
+  );
+};
 
 /**
  * Reference interface exposed to parent components
@@ -52,7 +93,8 @@ type Props = {
   inputStyles?: string
   ref?: Ref<FileUploadRef>
   error?: string | null
-  onFilesChange?: (files?: File[]) => void
+  onFilesChange?: (files: File[]) => void
+  onRejectedFiles?: (rejectedFiles: File[]) => void
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'className' | 'onChange'>
 
 /**
@@ -107,6 +149,7 @@ export const FileUploadField = ({
   multiple,
   accept,
   onFilesChange = () => { },
+  onRejectedFiles = () => { },
   ...props
 }: Props) => {
   // Ref to the hidden file input element
@@ -152,7 +195,12 @@ export const FileUploadField = ({
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !e.target.files.length) return
     const newFiles = Array.from(e.target.files)
-    updateFiles(newFiles)
+    //Split files into accepted and rejected ones based on the accept attribute.
+    const { accepted, rejected } = splitFilesByAccept(accept, newFiles)
+
+    if (rejected.length) onRejectedFiles(rejected)
+    // if (!accepted.length) return
+    updateFiles(accepted)
   }
 
   /**
@@ -165,12 +213,14 @@ export const FileUploadField = ({
     const files = e.dataTransfer.files
     if (!files) return;
 
-    // Filter files based on accept attribute
-    const acceptedFiles = filterFiles(accept, Array.from(files))
-    if (!acceptedFiles.length) return
+    //Split files into accepted and rejected ones based on the accept attribute.
+    const { accepted, rejected } = splitFilesByAccept(accept, Array.from(files))
+
+    if (rejected.length) onRejectedFiles(rejected)
+    if (!accepted.length) return
 
     // Handle multiple vs single file selection
-    const newFiles = multiple ? acceptedFiles : [acceptedFiles[acceptedFiles.length - 1]]
+    const newFiles = multiple ? accepted : [accepted[0]]
 
     // Clear the input value to ensure change events fire correctly
     if (fileInputRef.current) {
