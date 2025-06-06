@@ -1,10 +1,8 @@
 'use client'
 import { PositionSelect } from "./PositionSelect"
 import { EVacancyEmployment, EVacancyExperience, EVacancyWorkFormat, TVacancy } from "@/shared/api/types"
-import { mutationInitialState } from "@/shared/api/constants"
 import { NonNullableFields } from "@/shared/lib/object_manipulations/filterFalsyFields"
 import { cn } from "@/shared/lib/utils"
-import { useFormMutation } from "@/shared/model/hooks/useFormMutation"
 import FormItem, { ErrorMessage } from "@/shared/ui/FormItem"
 import { Button } from "@/shared/ui/shadcn/button"
 import { Input } from "@/shared/ui/shadcn/input"
@@ -13,6 +11,7 @@ import { Textarea } from "@/shared/ui/shadcn/textarea"
 import { StatusSelect } from "./StatusSelect"
 import { storeVacancy, updateVacancy } from "@/shared/api/actions"
 import { useParams } from "next/navigation"
+import { useMutateForm } from "@/shared/model/hooks/useMutateForm"
 
 type TProps = {
   type: 'edit' | 'add'
@@ -45,19 +44,14 @@ export const VacancyForm = ({
     ? updateVacancy.bind(null, initialData.id)
     : storeVacancy
 
-  //define initial state
-  const initialState = {
-    ...mutationInitialState,
-    ...(initialData && { payload: initialData })
-  }
   //define toast message
   const toastMessage = type === 'edit' ? 'Вакансия успешно обновлена' : 'Вакансия успешно сохранена'
 
-  const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation({
+  const { formAction, pending, defaultValues, errors, removeError } =
+    useMutateForm({
       mutationAction: action,
       onSuccess,
-      initialState,
+      initialData,
       toastMessage
     });
 
@@ -73,7 +67,7 @@ export const VacancyForm = ({
             name="name"
             defaultValue={defaultValues?.name}
             className={errors?.name && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -88,7 +82,7 @@ export const VacancyForm = ({
         <FormItem labelText="Статус" error={errors.status_id}>
           <StatusSelect
             name="status_id"
-            defaultValue={defaultValues?.status_id}
+            defaultValue={String(defaultValues?.status_id)}
             className={errors.status_id && 'ring-2 ring-destructive'}
           />
         </FormItem>
@@ -103,7 +97,7 @@ export const VacancyForm = ({
             )}
             rows={9}
             defaultValue={defaultValues?.responsibilities}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -117,7 +111,7 @@ export const VacancyForm = ({
             )}
             rows={10}
             defaultValue={defaultValues?.conditions}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -146,7 +140,7 @@ export const VacancyForm = ({
                 placeholder="от"
                 name="salary_from"
                 defaultValue={defaultValues?.salary_from}
-                onChange={onChange}
+                onChange={(e) => removeError(e.target.name)}
               />
             </FormItem>
             <FormItem error={errors.salary_to}>
@@ -154,7 +148,7 @@ export const VacancyForm = ({
                 placeholder="до"
                 name="salary_to"
                 defaultValue={defaultValues?.salary_to}
-                onChange={onChange}
+                onChange={(e) => removeError(e.target.name)}
               />
             </FormItem>
           </div>
@@ -174,7 +168,7 @@ export const VacancyForm = ({
             )}
             rows={8}
             defaultValue={defaultValues?.skills}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -188,7 +182,7 @@ export const VacancyForm = ({
             )}
             rows={8}
             defaultValue={defaultValues?.description}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -293,7 +287,7 @@ export const VacancyForm = ({
             name="external_id"
             defaultValue={defaultValues?.external_id}
             className={errors?.external_id && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
       </div>

@@ -1,3 +1,6 @@
+// OLD VERSION OF THE FORM MUTATION HOOK
+// DO NOT USE
+
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { useToast } from "./use-toast";
 import { mutationInitialState } from "@/shared/api/constants";

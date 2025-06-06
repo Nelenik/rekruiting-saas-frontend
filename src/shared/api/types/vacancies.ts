@@ -59,6 +59,7 @@ export const VacancyRequestSchema = z
     experience: z.enum(EVacancyExperience),
     location: z.string(),
     matchStatuses: z.string().array(),
+    external_id: z.string(),
   })
   .partial();
 
@@ -88,6 +89,7 @@ export type TVacancy = {
   match_hot_count: number;
   matchStatuses: TMatchStatus[];
   created_at: string;
+  external_id: string;
 };
 
 export type TVacancyShort = Pick<

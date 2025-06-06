@@ -1,13 +1,12 @@
 import { TStatus } from "@/shared/api/types/statuses"
-import { mutationInitialState } from "@/shared/api/constants"
 import { NonNullableFields } from "@/shared/lib/object_manipulations/filterFalsyFields"
-import { useFormMutation } from "@/shared/model/hooks/useFormMutation"
 import FormItem from "@/shared/ui/FormItem"
 import { Button } from "@/shared/ui/shadcn/button"
 import { Input } from "@/shared/ui/shadcn/input"
 import { FC, useCallback } from "react"
 import { TMutationState } from "@/shared/api/common/api"
 import { storeStatus, updateStatus } from "@/shared/api/actions"
+import { useMutateForm } from "@/shared/model/hooks/useMutateForm"
 
 type TProps = {
   type: 'edit' | 'add'
@@ -31,11 +30,6 @@ export const StatusForm: FC<TProps> = (
     : storeStatus
 
 
-  //define initial state
-  const initialState = {
-    ...mutationInitialState,
-    ...(initialData && { payload: initialData })
-  }
   //define toast message
   const toastMessage = type === 'edit' ? 'Статус успешно обновлен' : 'Новый статус успешно создан'
 
@@ -44,11 +38,11 @@ export const StatusForm: FC<TProps> = (
     onSuccess(state.payload as TStatus)
   }, [onSuccess])
 
-  const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation({
+  const { formAction, pending, defaultValues, errors, removeError } =
+    useMutateForm({
       mutationAction: action,
       onSuccess: memoizedOnSuccess,
-      initialState,
+      initialData,
       toastMessage
     });
 
@@ -67,7 +61,7 @@ export const StatusForm: FC<TProps> = (
           name="name"
           defaultValue={defaultValues?.name}
           className={errors?.name && 'ring-2 ring-destructive'}
-          onChange={onChange}
+          onChange={(e) => removeError(e.target.name)}
         />
       </FormItem>
 
@@ -79,7 +73,7 @@ export const StatusForm: FC<TProps> = (
           // placeholder="Название"
           type="color"
           name="color"
-          defaultValue={defaultValues?.color || '#F5F5DC'}
+          defaultValue={defaultValues?.color || '#1f00eb'}
           className={errors?.color && 'ring-2 ring-destructive'}
         />
       </FormItem>

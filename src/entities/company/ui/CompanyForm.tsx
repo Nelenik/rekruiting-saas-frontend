@@ -1,10 +1,8 @@
 'use client';
 
 import { TCompany } from '@/shared/api/types';
-import { mutationInitialState } from '@/shared/api/constants';
 import { NonNullableFields } from '@/shared/lib/object_manipulations/filterFalsyFields';
 import { cn } from '@/shared/lib/utils';
-import { useFormMutation } from '@/shared/model/hooks/useFormMutation';
 import DatePicker from '@/shared/ui/DatePicker';
 import FormItem from '@/shared/ui/FormItem';
 import { Button } from '@/shared/ui/shadcn/button';
@@ -14,6 +12,7 @@ import { Textarea } from '@/shared/ui/shadcn/textarea';
 import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
 import { getTariffs, storeCompany, updateCompany } from '@/shared/api/actions';
+import { useMutateForm } from '@/shared/model/hooks/useMutateForm';
 
 
 type TProps = {
@@ -40,21 +39,16 @@ export const CompanyForm: FC<TProps> = ({
     ? updateCompany.bind(null, initialData.id)
     : storeCompany
 
-  //define initial state
-  const initialState = {
-    ...mutationInitialState,
-    ...(initialData && { payload: initialData })
-  }
   //define toast message
   const toastMessage = type === 'edit' ? 'Данные о компании успешно обновлены' : 'Новая компания успешно сохранена'
 
-  const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation({
+  const { formAction, pending, defaultValues, errors, removeError } =
+    useMutateForm({
       mutationAction: action,
       onSuccess: () => {
         onSuccess()
       },
-      initialState,
+      initialData,
       toastMessage
     });
 
@@ -67,7 +61,7 @@ export const CompanyForm: FC<TProps> = ({
             name="name"
             defaultValue={defaultValues?.name}
             className={errors?.name && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -78,7 +72,7 @@ export const CompanyForm: FC<TProps> = ({
             className={cn("resize-none", errors?.full_name && 'ring-2 ring-destructive')}
             rows={9}
             defaultValue={defaultValues?.full_name}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -89,7 +83,7 @@ export const CompanyForm: FC<TProps> = ({
             className={cn("resize-none", errors?.description && 'ring-2 ring-destructive')}
             rows={17}
             defaultValue={defaultValues?.description}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -99,7 +93,7 @@ export const CompanyForm: FC<TProps> = ({
             name="inn"
             defaultValue={defaultValues?.inn}
             className={cn(errors?.inn && 'ring-2 ring-destructive')}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 

@@ -3,8 +3,9 @@
 import { Button, ButtonProps } from "@/shared/ui/shadcn/button";
 import { addMatches } from "../api/addMatches";
 import { cn } from "@/shared/lib/utils";
-import { useFormMutation } from "@/shared/model/hooks/useFormMutation";
+// import { useFormMutation } from "@/shared/model/hooks/useFormMutation";
 import { RefreshCw } from "lucide-react";
+import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
 
 type TProps = {
   className?: string,
@@ -19,7 +20,7 @@ export const AddMatchesForm = ({
   const { className: btnClassName, ...restProps } = buttonProps || {}
 
   const action = addMatches.bind(null, vacancyId)
-  const { formAction, pending } = useFormMutation({ mutationAction: action, toastMessage: 'Создание новых мэтчей запущено' })
+  const { formAction, pending } = useMutateForm({ mutationAction: action, toastMessage: 'Создание новых мэтчей запущено' })
 
   return (
     <form

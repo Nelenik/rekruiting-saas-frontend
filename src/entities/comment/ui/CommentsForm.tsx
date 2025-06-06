@@ -3,11 +3,12 @@ import { FC, useCallback, useRef, KeyboardEvent, useState, useEffect } from "rea
 import { Send } from "lucide-react";
 import SentSpinnerSvg from '@/assets/icons/spinner_send-comment.svg?rc'
 import { useQueryClient } from "@tanstack/react-query";
-import { useFormMutation } from "@/shared/model/hooks/useFormMutation";
 import { Button } from "@/shared/ui/shadcn/button";
 import { cn } from "@/shared/lib/utils";
 import { Textarea } from "@/shared/ui/shadcn/textarea";
 import { storeMatchComment } from "@/shared/api/actions";
+import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
+import { TComment } from "@/shared/api/types";
 
 type TProps = {
   matchId: number | string
@@ -23,9 +24,10 @@ export const CommentsForm: FC<TProps> = ({
   }, [])
 
   const formRef = useRef<HTMLFormElement | null>(null)
+
   const action = storeMatchComment.bind(null, matchId)
 
-  const { formAction, pending, defaultValues } = useFormMutation({
+  const { formAction, pending, defaultValues } = useMutateForm<TComment>({
     mutationAction: action,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['match-comments'] })
   })

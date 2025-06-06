@@ -1,16 +1,17 @@
 'use client'
-import { useFormMutation } from "@/shared/model/hooks/useFormMutation";
+// import { useFormMutation } from "@/shared/model/hooks/useFormMutation";
 import { StartPageButton } from "@/shared/ui/buttons/StartPageButtons";
 import FormItem from "@/shared/ui/FormItem";
 import { Input } from "@/shared/ui/shadcn/input";
 import { signin } from "../api/auth-actions";
 import { useSearchParams } from "next/navigation";
+import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
 
 export const SignInForm = () => {
   //Get redirectTo from URL
   const serachParams = useSearchParams()
   // Bind the signin function to the redirectTo parameter
-  const { formAction, pending, defaultValues } = useFormMutation({
+  const { formAction, pending, defaultValues } = useMutateForm<{ email: string, password: string }>({
     mutationAction: signin.bind(null, serachParams.get('redirectTo') || null),
 
   })
