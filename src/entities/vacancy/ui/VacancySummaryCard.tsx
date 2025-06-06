@@ -58,7 +58,7 @@ export const VacancySummaryCard = () => {
 
         <ul
           className="
-            grid grid-cols-[repeat(auto-fit,_minmax(145px,_1fr))] gap-6
+            grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-6
             w-[min(100%,1000px)]
             [&>li]:flex 
             [&>li]:relative 

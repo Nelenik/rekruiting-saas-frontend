@@ -96,13 +96,13 @@ export const CvInfoBlock: FC<TProps> = ({
 
       <div>
         <h2 className='text-lg font-semibold mb-2'>Источник</h2>
-        <Button asChild variant={'ghost'}>
+        <Button asChild variant={'ghost'} className="justify-start">
           <a
             href={`${cvSource.hh.url}${external_id}`}
             target="_blank"
             className={cn(
-              "flex items-center gap-1 w-full justify-start",
-              "hover:bg-indigo-100"
+              "flex items-center gap-1 w-full bg-indigo-100",
+              "hover:bg-input"
             )}
           >
             {<cvSource.hh.HhIcon

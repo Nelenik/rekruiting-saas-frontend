@@ -45,7 +45,7 @@ export const CollapsibleSidebar = ({
   className,
   render,
   openWidth = '244px',
-  closedWidth = '85px',
+  closedWidth = '90px',
 }: TProps) => {
   const {
     controlledRef,

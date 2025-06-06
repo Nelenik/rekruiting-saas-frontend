@@ -15,7 +15,7 @@ import NavPanelBtn from "@/shared/ui/buttons/NavPanelBtn";
 import { CollapsibleSidebar } from "@/shared/ui/navigation/CollapsibleSidebar";
 import { Separator } from "@/shared/ui/shadcn/separator";
 import { UserAvatar } from "@/shared/ui/navigation/UserAvatar";
-import { ScrollArea } from "@/shared/ui/shadcn/scroll-area";
+import { ScrollArea, ScrollBar } from "@/shared/ui/shadcn/scroll-area";
 
 interface ISidebarProps {
   className?: string
@@ -32,7 +32,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
   return (
     <CollapsibleSidebar
       className={cn(
-        'flex flex-col shrink-0  px-4 py-6  bg-sidebar text-sidebar-foreground',
+        'flex flex-col shrink-0  px-4 py-6  bg-sidebar text-sidebar-foreground sidebar-rekrutai',
         className
       )}
       render={({ isSidebarOpen, toggle }) => (
@@ -40,8 +40,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
           <Link
             href={'/'}
             className={cn(
-              "mb-3 self-start inline-block h-[62px]",
-              isSidebarOpen && 'translate-x-3 transition-transform duration-75'
+              "mb-3 self-start translate-x-2 inline-block h-[62px]",
             )}
           >
             <Image
@@ -57,8 +56,8 @@ export const Sidebar = ({ className }: ISidebarProps) => {
             onClick={toggle}
             size={'icon'}
             className={cn(
+              `transition-transform duration-300 mb-8 shrink-0 self-center `,
               isSidebarOpen && "self-end",
-              `transition-transform duration-300 mb-8 justify-center `
             )}>
             {
               isSidebarOpen
@@ -66,10 +65,10 @@ export const Sidebar = ({ className }: ISidebarProps) => {
                 : <PanelLeftOpen stroke="white" />
             }
           </NavPanelBtn>
-          <ScrollArea className="" type="auto">
+          <ScrollArea className="min-w-[unset] " type="auto">
 
             <nav className={cn(
-              "w-full",
+              "w-full ",
 
             )}>
               <ul className="space-y-0">
@@ -82,12 +81,13 @@ export const Sidebar = ({ className }: ISidebarProps) => {
                 })}
               </ul>
             </nav>
+            <ScrollBar className="w-[2px]" />
           </ScrollArea>
           {/* User section */}
 
           <section
             className={cn(
-              "flex items-start gap-3 w-full px-2 py-3 mt-auto"
+              "flex items-start gap-3 w-full px-2 py-3 pt-6 mt-auto"
             )}
           >
             <UserAvatar
