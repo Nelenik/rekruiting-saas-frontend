@@ -39,18 +39,18 @@ export const PubVacancyCard = ({
         <Avatar className="w-[68px] h-[68px]">
           <AvatarImage
             src={''}
-            alt={`${vacancy.company_name} avatar`}
+            alt={`${vacancy.company.name} avatar`}
           />
           <AvatarFallback
             className="text-white "
             style={{ background: avatarBgColor }}
           >
-            {(vacancy.company_name || '').at(0)?.toUpperCase()}
+            {(vacancy.company.name || '').at(0)?.toUpperCase()}
           </AvatarFallback>
         </Avatar>
         <div className="w-[35%] min-w-[200px] mr-auto grow">
           <p>
-            {vacancy.company_name || 'Компания неизвестна'}
+            {vacancy.company.name || 'Компания неизвестна'}
           </p>
           <p className="font-semibold">
             {vacancy.name}
@@ -77,7 +77,7 @@ export const PubVacancyCard = ({
             {salaryOfferString}
           </p>
           <p>
-            {format(new Date(vacancy.created_at), "d MMMM yyyy", { locale: ru })}
+            {format(new Date(vacancy.publication_at), "d MMMM yyyy", { locale: ru })}
           </p>
         </div>
       </Card>

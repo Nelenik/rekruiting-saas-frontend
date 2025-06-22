@@ -28,8 +28,7 @@ export const PubVacDetails = ({
     responsibilities,
     conditions,
     description,
-    company_name,
-    company_description
+    company,
   } = vacancy
   return (
 
@@ -86,10 +85,10 @@ export const PubVacDetails = ({
             <span className="p-3 rounded-full bg-emerald-500 self-start sm:block hidden">
               <CaseIcon width={20} height={20} className="text-white" />
             </span>
-            {company_name}
+            {company.name}
           </h3>
           <p className="text-base text-muted-foreground">
-            {company_description || ''}
+            {company.description || ''}
           </p>
         </div>
       </div>

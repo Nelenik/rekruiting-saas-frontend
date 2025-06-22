@@ -3,6 +3,7 @@
 import { AddEntity } from "@/features/mutate-entity"
 import { Paginate } from "@/features/pagination"
 import { getCompaniesList } from "@/shared/api/actions"
+import { COMPANIES_PER_PAGE } from "@/shared/api/constants"
 import { TableSkeleton } from "@/shared/ui/skeletons/TableSkeleton"
 import { CompaniesTable } from "@/widgets/companies-table"
 import { CompaniesFilter } from "@/widgets/filters/ui/CompaniesFilter"
@@ -29,7 +30,7 @@ const CompaniesPage = async ({ searchParams }: TProps) => {
         </div>
 
         <CompaniesTable companiesList={companies} />
-        <Paginate currentPage={Number(filters.page) || 1} totalItems={total} className='mt-6' />
+        <Paginate currentPage={Number(filters.page) || 1} totalItems={total} itemsPerPage={COMPANIES_PER_PAGE} className='mt-6' />
       </Suspense>
     </div>
   );

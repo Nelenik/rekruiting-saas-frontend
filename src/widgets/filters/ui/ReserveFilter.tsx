@@ -15,11 +15,17 @@ const defaultState = {
   location: ''
 }
 
-export const ReserveFilter = () => {
+type TProps = {
+  className?: string
+}
+
+export const ReserveFilter = ({
+  className
+}: TProps) => {
 
   return (
     <UrlFilterManager
-      className="flex flex-col gap-6"
+      className={cn(className, "flex flex-col gap-6")}
       render={({ filters, updateFilter }) => {
         return (
           <>

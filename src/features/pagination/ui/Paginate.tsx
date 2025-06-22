@@ -1,6 +1,6 @@
 'use client'
 
-import { COMPANIES_PER_PAGE } from "@/shared/api/constants";
+import { DEFAULT_PER_PAGE } from "@/shared/api/constants";
 import { updateQueryString } from "@/shared/lib/updateQueryString";
 import { cn } from "@/shared/lib/utils";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/shared/ui/shadcn/pagination";
@@ -14,7 +14,7 @@ interface IPaginateProps {
   itemsPerPage?: number,
   className?: string
 }
-export const Paginate = ({ currentPage, totalItems, itemsPerPage = COMPANIES_PER_PAGE, className }: IPaginateProps) => {
+export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_PAGE, className }: IPaginateProps) => {
   const searchParams = useSearchParams()
   const pagesCount = totalItems ? Math.ceil(totalItems / itemsPerPage) : 1
   let prev = currentPage - 1

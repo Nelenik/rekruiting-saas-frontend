@@ -120,9 +120,11 @@ export type TPublicVacancy = Pick<
   | "responsibilities"
   | "conditions"
   | "description"
-  | "created_at"
 > & {
-  company_name: TCompany["name"];
-  company_fullname: TCompany["full_name"];
-  company_description: TCompany["description"];
+  company: {
+    name: TCompany["name"];
+    full_name: TCompany["full_name"];
+    description: TCompany["description"];
+  };
+  publication_at: string;
 };
