@@ -15,19 +15,25 @@ export default async function JobsiteVacanciesPage({ searchParams }: TProps) {
   return (
     <div
       className={cn(
-        'flex flex-col justify-between gap-6 relative',
+        'flex flex-col justify-between gap-6 ',
         'md:flex-row'
       )}
     >
 
-      <ReserveFilter
-        className="sticky top-0 self-start"
-      />
-      <div>
+      <aside
+        className="relative"
+      >
 
+        <ReserveFilter
+          className="sticky top-0"
+        />
+      </aside>
+      <div
+        className="max-w-[782px] grow"
+      >
         <PubVacancyList
           publicVacanciesList={publicVacancies}
-          className="max-w-[782px]"
+
         />
         <Paginate currentPage={Number(filters.page) || 1} totalItems={total} className='mt-6' />
       </div>

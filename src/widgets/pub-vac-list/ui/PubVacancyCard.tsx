@@ -35,6 +35,7 @@ export const PubVacancyCard = ({
     >
       <Card className={cn(
         "py-2 px-6 min-h-[102px] flex gap-6 flex-wrap items-center justify-between h-full",
+        "hover:shadow-md transform hover:-translate-y-1 transition-all duration-200"
       )}>
         <Avatar className="w-[68px] h-[68px]">
           <AvatarImage
@@ -48,7 +49,7 @@ export const PubVacancyCard = ({
             {(vacancy.company.name || '').at(0)?.toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        <div className="w-[35%] min-w-[200px] mr-auto grow">
+        <div className="w-[200px] ">
           <p>
             {vacancy.company.name || 'Компания неизвестна'}
           </p>
@@ -60,7 +61,7 @@ export const PubVacancyCard = ({
             {vacancy.location || 'Не указан'}
           </p>
         </div>
-        <div className="w-max min-w-[140px]">
+        <div className="w-max min-w-[140px] mr-auto">
           <p className="mb-3">
             <span className="font-medium">Опыт: </span>{vacancyExperienceDict[vacancy.experience]}
           </p>
@@ -72,7 +73,7 @@ export const PubVacancyCard = ({
             {vacancyWorkFormatDict[vacancy.work_format]}
           </Badge>
         </div>
-        <div className="w-max min-w-[140px]">
+        <div className="w-max min-w-[140px] grow">
           <p className="font-semibold">
             {salaryOfferString}
           </p>
