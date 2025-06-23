@@ -66,7 +66,7 @@ export const UrlFilterManager: FC<TProps> = ({
         const newQS = updateQueryString(searchParams, filters);
         router.replace(`${pathname}?${newQS}`, { scroll: false });
       }
-    }, 300);
+    }, 500);
 
     return () => clearTimeout(handler);
   }, [filters, initialFilters, pathname, router, searchParams]);

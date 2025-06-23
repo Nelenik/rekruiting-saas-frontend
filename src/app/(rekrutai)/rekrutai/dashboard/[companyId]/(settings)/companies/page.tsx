@@ -6,7 +6,7 @@ import { getCompaniesList } from "@/shared/api/actions"
 import { COMPANIES_PER_PAGE } from "@/shared/api/constants"
 import { TableSkeleton } from "@/shared/ui/skeletons/TableSkeleton"
 import { CompaniesTable } from "@/widgets/companies-table"
-import { CompaniesFilter } from "@/widgets/filters/ui/CompaniesFilter"
+import { CompaniesFilter } from "@/widgets/filter-companies"
 import { Suspense } from "react"
 
 type TProps = {

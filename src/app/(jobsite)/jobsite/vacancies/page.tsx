@@ -1,7 +1,7 @@
 import { Paginate } from "@/features/pagination";
 import { getPubVacanciesList } from "@/shared/api/actions/public-vacancy";
 import { cn } from "@/shared/lib/utils";
-import { ReserveFilter } from "@/widgets/filters/ui/ReserveFilter";
+import { ReserveFilter } from "@/widgets/filter-reserve";
 import { PubVacancyList } from "@/widgets/pub-vac-list";
 
 type TProps = {

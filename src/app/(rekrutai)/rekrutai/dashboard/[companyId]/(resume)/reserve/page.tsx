@@ -1,6 +1,6 @@
 import { AddEntity } from "@/features/mutate-entity";
 import { CvList } from "@/widgets/cv-list";
-import { ReserveFilter } from "@/widgets/filters/ui/ReserveFilter";
+import { ReserveFilter } from "@/widgets/filter-reserve";
 import { FC } from "react";
 
 type TProps = {
