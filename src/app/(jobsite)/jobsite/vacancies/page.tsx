@@ -1,7 +1,7 @@
 import { Paginate } from "@/features/pagination";
 import { getPubVacanciesList } from "@/shared/api/actions/public-vacancy";
 import { cn } from "@/shared/lib/utils";
-import { ReserveFilter } from "@/widgets/filter-reserve";
+import { PubVacanciesFilter } from "@/widgets/filter-pub-vacancy";
 import { PubVacancyList } from "@/widgets/pub-vac-list";
 
 type TProps = {
@@ -24,7 +24,7 @@ export default async function JobsiteVacanciesPage({ searchParams }: TProps) {
         className="relative"
       >
 
-        <ReserveFilter
+        <PubVacanciesFilter
           className="sticky top-0"
         />
       </aside>

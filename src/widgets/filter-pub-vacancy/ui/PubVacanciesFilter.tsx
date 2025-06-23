@@ -7,6 +7,7 @@ import { Button } from "@/shared/ui/shadcn/button";
 import { cn } from "@/shared/lib/utils";
 import FormItem from "@/shared/ui/FormItem";
 import { PositionSelect } from "@/entities/vacancy";
+import { SortingVacancies } from "./SortingVacancies";
 
 const defaultState = {
   position: '',
@@ -79,6 +80,18 @@ export const PubVacanciesFilter = ({
                   onChange={(e) => updateFilter({ location: e.target.value })}
                   placeholder="География"
 
+                  className=""
+                />
+              </FormItem>
+
+              <FormItem labelText="Сортировка" className="grow min-w-[250px]">
+                <CancelButton
+                  onClick={() => updateFilter({ sort: '' })}
+                  className="absolute right-0 top-0 z-10"
+                />
+                <SortingVacancies
+                  value={filters.sort || ''}
+                  onValueChange={(value: string) => updateFilter({ 'sort': value })}
                   className=""
                 />
               </FormItem>
