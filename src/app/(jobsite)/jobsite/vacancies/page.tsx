@@ -1,16 +1,16 @@
-import { Paginate } from "@/features/pagination";
-import { getPubVacanciesList } from "@/shared/api/actions/public-vacancy";
 import { cn } from "@/shared/lib/utils";
+import { CvListSkeleton } from "@/shared/ui/skeletons/CvListSkeleton";
 import { PubVacanciesFilter } from "@/widgets/filter-pub-vacancy";
-import { PubVacancyList } from "@/widgets/pub-vac-list";
+import { PubVacanciesWrapper } from "@/widgets/pub-vac-list";
+import { Suspense } from "react";
 
 type TProps = {
-  searchParams: Promise<{ [key: string]: string }>
+  searchParams: Promise<Record<string, string>>
 }
 export default async function JobsiteVacanciesPage({ searchParams }: TProps) {
 
   const filters = (await searchParams)
-  const { data: publicVacancies, total = null } = await getPubVacanciesList(filters)
+
 
   return (
     <div
@@ -28,15 +28,12 @@ export default async function JobsiteVacanciesPage({ searchParams }: TProps) {
           className="sticky top-0"
         />
       </aside>
-      <div
-        className="max-w-[782px] grow"
-      >
-        <PubVacancyList
-          publicVacanciesList={publicVacancies}
-
+      <Suspense fallback={<CvListSkeleton />}>
+        <PubVacanciesWrapper
+          className="max-w-[782px] grow"
+          filters={filters}
         />
-        <Paginate currentPage={Number(filters.page) || 1} totalItems={total} className='mt-6' />
-      </div>
+      </Suspense>
     </div>
   );
 }

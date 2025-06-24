@@ -7,10 +7,11 @@ type TProps = {
   className?: string
   publicVacanciesList: TPublicVacancy[]
 }
-export const PubVacancyList = async ({
+export const PubVacancyList = ({
   className,
   publicVacanciesList
 }: TProps) => {
+
   return (
     <List
       className={cn(

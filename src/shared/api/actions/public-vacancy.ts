@@ -34,7 +34,7 @@ export const getPubVacanciesList = async (
       {
         withAuth: false,
         next: {
-          revalidate: 60,
+          revalidate: 30,
         },
       }
     );

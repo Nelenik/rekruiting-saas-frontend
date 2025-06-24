@@ -1,1 +1,1 @@
-export { PubVacancyList } from "./ui/PubVacancyList";
+export { PubVacanciesWrapper } from "./ui/PubVacanciesWrapper";
