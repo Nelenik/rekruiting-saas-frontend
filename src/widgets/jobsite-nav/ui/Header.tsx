@@ -1,7 +1,7 @@
 'use client'
 import { cn } from "@/shared/lib/utils";
-import { UserMenu } from "@/shared/ui/navigation/UserMenu";
-import { UserMenuContent } from "./UserMenuContent";
+// import { UserMenu } from "@/shared/ui/navigation/UserMenu";
+// import { UserMenuContent } from "./UserMenuContent";
 import { MobileMenu } from "./MobileMenu";
 import { useNavConfig } from "../model/NavigationConfigProvider";
 import { NavList } from "./NavList";
@@ -60,7 +60,7 @@ export const Header = ({
         {/* show nav on screen from md screen = 768px */}
         <nav
           className={cn(
-            'hidden invisible w-[55%] grow-0 ',
+            'hidden invisible w-[55%] grow-0 mx-auto',
             // show on md screen
             'md:flex md:visible '
           )}>
@@ -75,7 +75,7 @@ export const Header = ({
         </nav>
 
         {/* user menu is shown from 768px and up */}
-        <UserMenu
+        {/* <UserMenu
           user={{ name: 'Соискатель' }}
           mode="shown"
           className={cn(
@@ -85,7 +85,7 @@ export const Header = ({
           )}
         >
           <UserMenuContent />
-        </UserMenu>
+        </UserMenu> */}
       </div>
     </header >
   );

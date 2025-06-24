@@ -20,14 +20,14 @@ export const SearchVacancies = ({
         <>
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-            size={30}
+            size={28}
           />
           <Input
             value={filters['search'] || ''}
             onChange={(e) => {
               updateFilter({ 'search': e.target.value })
             }}
-            placeholder="Поиск по названию вакансии"
+            placeholder="Поиск вакансий"
             className="w-full px-12 py-6" />
 
           <button
@@ -41,7 +41,7 @@ export const SearchVacancies = ({
           >
             <X
               className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-              size={30}
+              size={28}
             />
           </button>
         </>

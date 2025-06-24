@@ -1,4 +1,5 @@
 import { cn } from "@/shared/lib/utils";
+import { FiltersSheet } from "@/shared/ui/FiltersSheet";
 import { CvListSkeleton } from "@/shared/ui/skeletons/CvListSkeleton";
 import { PubVacanciesFilter } from "@/widgets/filter-pub-vacancy";
 import { SearchVacancies } from "@/widgets/filter-pub-vacancy/ui/SearchVacancies";
@@ -14,16 +15,30 @@ export default async function JobsiteVacanciesPage({ searchParams }: TProps) {
   return (
     <div
       className={cn(
-        'flex flex-col justify-between  gap-6',
+        'flex flex-col justify-between  gap-12',
         'md:grid md:grid-cols-[250px_minmax(0,1fr)] md:gap-x-6 md:gap-y-16',
         // 'md:flex-row'
       )}
     >
-      <SearchVacancies
-        className="md:col-span-2"
-      />
+      <div
+        className="flex gap-4  md:col-span-2"
+      >
+
+        <SearchVacancies
+          className="grow"
+        />
+
+
+        <FiltersSheet
+          className="md:hidden"
+        >
+          <PubVacanciesFilter />
+        </FiltersSheet>
+      </div>
       <aside
-        className="relative"
+        className={cn(
+          "hidden md:block",
+          "relative")}
       >
 
         <PubVacanciesFilter
