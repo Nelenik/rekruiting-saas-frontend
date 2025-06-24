@@ -25,7 +25,7 @@ export const SortingVacancies = ({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-full"
+        className="w-[250px]"
         align="start"
       >
 

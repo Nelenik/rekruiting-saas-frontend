@@ -1,6 +1,7 @@
 import { cn } from "@/shared/lib/utils";
 import { CvListSkeleton } from "@/shared/ui/skeletons/CvListSkeleton";
 import { PubVacanciesFilter } from "@/widgets/filter-pub-vacancy";
+import { SearchVacancies } from "@/widgets/filter-pub-vacancy/ui/SearchVacancies";
 import { PubVacanciesWrapper } from "@/widgets/pub-vac-list";
 import { Suspense } from "react";
 
@@ -10,16 +11,17 @@ type TProps = {
 export default async function JobsiteVacanciesPage({ searchParams }: TProps) {
 
   const filters = (await searchParams)
-
-
   return (
     <div
       className={cn(
-        'flex flex-col justify-between gap-6 ',
-        'md:flex-row'
+        'flex flex-col justify-between  gap-6',
+        'md:grid md:grid-cols-[250px_minmax(0,1fr)] md:gap-x-6 md:gap-y-16',
+        // 'md:flex-row'
       )}
     >
-
+      <SearchVacancies
+        className="md:col-span-2"
+      />
       <aside
         className="relative"
       >
@@ -30,7 +32,7 @@ export default async function JobsiteVacanciesPage({ searchParams }: TProps) {
       </aside>
       <Suspense fallback={<CvListSkeleton />}>
         <PubVacanciesWrapper
-          className="max-w-[782px] grow"
+          className="w-full max-w-[782px] grow justify-self-end"
           filters={filters}
         />
       </Suspense>
