@@ -1,13 +1,18 @@
-import { PubVacDetails } from "@/pages-layer/pub-vac-details";
+import { PubVacDetails } from '@/pages-layer/pub-vac-details';
 
-const JobsiteVacancyDetails = async ({ params }: { params: Promise<{ vacancyId: string }> }) => {
+const JobsiteVacancyDetails = async ({
+  params,
+}: {
+  params: Promise<{ vacancyId: string }>;
+}) => {
   const { vacancyId } = await params;
 
+  console.log({ vacancyId });
 
-  if (!vacancy) return null
-  return (
-    <PubVacDetails vacancy={vacancy} />
-  );
-}
+  const vacancy = null;
 
-export default JobsiteVacancyDetails
+  if (!vacancy) return null;
+  return <PubVacDetails vacancy={vacancy} />;
+};
+
+export default JobsiteVacancyDetails;
