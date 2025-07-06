@@ -1,15 +1,26 @@
 /** @type {import('next').NextConfig} */
 
-const nextConfig = {
+import { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   env: {
     API_URL: process.env.API_URL,
   },
   allowedDevOrigins: ["jobsite.local", "admin.localhost"],
 
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/vacancy",
+  //       destination: "/vacancy/:vacancyId/:vacancyName",
+  //     },
+  //   ];
+  // },
+
   // svgr setting
   webpack(config) {
     // Grab the existing rule that handles SVG imports
-    const fileLoaderRule = config.module.rules.find((rule) =>
+    const fileLoaderRule = config.module.rules.find((rule: { test: RegExp }) =>
       rule.test?.test?.(".svg")
     );
 

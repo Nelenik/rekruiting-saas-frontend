@@ -34,7 +34,7 @@ export const CandidateCard = ({
   return (
     <Link
       scroll={false}
-      href={`/dashboard/${companyId}/matchDetails/${id}?name=${name}`}
+      href={`/dashboard/${companyId}/matchDetails/${id}/${cv_name}`}
     >
       <Card className="w-full min-w-[240px] py-4 pl-8 pr-6 hover:shadow-md transform hover:-translate-y-1 transition-all duration-200">
         {isNew && <StatusBadge

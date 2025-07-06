@@ -2,78 +2,79 @@ import { HomeIcon } from "lucide-react";
 import { IBreadcrumbPattern } from "./types";
 import { CompanySwitcher } from "@/features/company-switcher";
 
+
 export const rekrutaiPathMapping: IBreadcrumbPattern[] = [
   {
-    pattern: /^\/dashboard$/,
+    pattern: "/dashboard",
     handler: () => (
       <HomeIcon width={16} height={16} />
     ),
     isLink: true
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)$/,
+    pattern: "/dashboard/:companyId",
     handler: () => <CompanySwitcher />,
     isLink: false
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/vacancies$/,
+    pattern: "/dashboard/:companyId/vacancies",
     handler: () => "Вакансии",
     isLink: true
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/reports$/,
+    pattern: "/dashboard/:companyId/reports",
     handler: () => "Отчеты",
     isLink: true
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/vacancies\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes -companyId and vacancyId
-    handler: (searchParams) => {
-      const name = searchParams?.get("name") || "Название вакансии";
-      return decodeURIComponent(name);
+    pattern: "/dashboard/:companyId/vacancies/:vacancyId/:vacancyName",
+    handler: (params) => {
+      const name = params?.vacancyName || "Вакансия";
+      return decodeURIComponent(Array.isArray(name) ? name[0] : name);
     },
     isLink: true
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/companies$/,
+    pattern: "/dashboard/:companyId/companies",
     handler: () => "Настройки: Компании",
     isLink: true
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/users$/,
+    pattern: "/dashboard/:companyId/users",
     handler: () => "Настройки: Пользователи",
     isLink: true
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/reserve$/,
+    pattern: "/dashboard/:companyId/reserve",
     handler: () => "Резюме: Резерв",
     isLink: true
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/search$/,
+    pattern: "/dashboard/:companyId/search",
     handler: () => "Резюме: Поиск",
     isLink: true
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/matchDetails\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes -companyId and matchId
-    handler: (searchParams) => {
-      const name = searchParams?.get("name") || "Мэтч";
-      return decodeURIComponent(name);
+    pattern: "/dashboard/:companyId/matchDetails/:matchId/:matchName",
+    handler: (params) => {
+      const name = params?.matchName || "Мэтч";
+      return decodeURIComponent(Array.isArray(name) ? name[0] : name);
     },
     isLink: true
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/vacancyDetails\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes -companyId and vacancyId
-    handler: (searchParams) => {
-      const name = searchParams?.get("name") || "Название вакансии";
-      return decodeURIComponent(name);
+    pattern: "/dashboard/:companyId/vacancyDetails/:vacancyId/:vacancyName",
+    handler: (params) => {
+      const name = params?.vacancyName || "Название вакансии";
+      return decodeURIComponent(Array.isArray(name) ? name[0] : name);
     },
     isLink: true
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/cvDetails\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes -companyId and cvId
-    handler: (searchParams) => {
-      const name = searchParams?.get("name") || "Резюме";
-      return decodeURIComponent(name);
+    pattern: "/dashboard/:companyId/cvDetails/:cvId/:cvName",
+    handler: (params) => {
+      const name = params?.cvName || "Резюме";
+      return decodeURIComponent(Array.isArray(name) ? name[0] : name);
     },
     isLink: true
   },

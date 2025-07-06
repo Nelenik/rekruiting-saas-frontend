@@ -30,7 +30,3 @@ export const getBreadcrumbMapping = (tenant: string) => {
   return hostMapping[tenant] || []
 }
 
-// export const breadcrumbsMapping: IBreadcrumbPattern[] = [
-//   ...rekrutaiPathMapping,
-//   ...jobsitePathMapping
-// ];

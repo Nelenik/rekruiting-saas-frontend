@@ -31,7 +31,7 @@ export const PubVacancyCard = ({
   return (
     <Link
       scroll={false}
-      href={`/vacancies/${vacancy.id}?name=${vacancy.name}`}
+      href={`/vacancy/${vacancy.id}/${vacancy.name}`}
     >
       <Card className={cn(
         "py-2 px-6 min-h-[102px] flex gap-6 flex-wrap items-center justify-between h-full",

@@ -7,16 +7,29 @@ import { TVacancy } from '@/shared/api/types';
 import { VacancyPageSkeleton } from '@/shared/ui/skeletons/VacancyPageSkeleton';
 import { AddMatchesForm } from '@/features/add-matches/ui/AddMatchesForm';
 import { getVacancy } from '@/shared/api/actions';
+import { redirect } from 'next/navigation';
 
 
 type TProps = {
-  params: Promise<{ vacancyId: string, companyId: string }>
+  params: Promise<{ vacancyKeys: string[], companyId: string }>
 };
 
 const VacancyMatchPage: FC<TProps> = async ({ params }) => {
-  const { companyId, vacancyId } = await params;
+  const { companyId, vacancyKeys } = await params;
+  if (vacancyKeys.length > 2) {
+    redirect(`/dashboard/${companyId}/vacancies`);
+  }
 
+  const [vacancyId, vacancyName] = vacancyKeys;
   const vacancy = await getVacancy(vacancyId);
+
+  if (!vacancy) return null;
+
+  //if  vacancyName segment is not provided or it differs from vacancy.name, redirect to valid url with vacancy name got from API response
+  const vacancySlug = encodeURIComponent(vacancy.name)
+  if (!vacancyName || vacancyName !== vacancySlug) {
+    redirect(`/dashboard/${companyId}/vacancies/${vacancyId}/${vacancySlug}`)
+  }
 
   return (
     <Suspense fallback={<VacancyPageSkeleton />}>
@@ -32,7 +45,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
 
             <Link
               scroll={false}
-              href={`/dashboard/${companyId}/vacancyDetails/${vacancyId}?name=${vacancy.name}`}
+              href={`/dashboard/${companyId}/vacancyDetails/${vacancyId}/${vacancy.name}`}
             >
               <VacancySummaryCard />
             </Link>

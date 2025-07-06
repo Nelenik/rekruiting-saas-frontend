@@ -36,7 +36,7 @@ export const CvCard: FC<TProps> = ({
   return (
     <Link
       scroll={false}
-      href={`/dashboard/${companyId}/cvDetails/${resume.id}?name=${resume.name}`}
+      href={`/dashboard/${companyId}/cvDetails/${resume.id}/${resume.name}`}
     >
       <Card className={cn(
         "py-2 px-6 min-h-[102px] flex flex-wrap gap-6 items-center justify-between h-full",

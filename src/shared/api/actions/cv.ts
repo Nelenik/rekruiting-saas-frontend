@@ -155,36 +155,4 @@ export const parseCvFromFile = async (_: TMutationState, data: FormData) => {
       error: getSyntheticError("Ошибка при обработке файла"),
     };
   }
-
-  // const result = await apiMutate<TResume>("/cv/parse/hh", {
-  //   body: data,
-  //   expectResponseData: true,
-  // });
-  // console.log("parsed cv from file", result);
-  // return result;
-  //mocked
-  // if (![...data].length) {
-  //   return {
-  //     sent: false,
-  //     error: getSyntheticError("", 0, { file: "Выберите файл" }),
-  //   };
-  // }
-  // return wait(500).then(() => ({
-  //   sent: true,
-  //   payload: {
-  //     candy_name: "Иванов Иван",
-  //     name: "Frontend Developer",
-  //     experience_months: "24",
-  //     salary: "120000",
-  //     candy_phone: "+79991234567",
-  //     candy_tg: "@ivanovdev",
-  //     candy_email: "ivanov@example.com",
-  //     candy_location: "Москва",
-  //     link: "https://hh.ru/resume/ivanov",
-  //     bio: "Разработчик с двухлетним опытом в React/Next.js",
-  //     experience_raw:
-  //       "2021-2023: Frontend Developer в XYZ\n2020-2021: Стажёр в ABC",
-  //   } as unknown as TResume,
-  //   error: null,
-  // }));
 };

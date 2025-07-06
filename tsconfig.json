@@ -28,6 +28,6 @@
       "shared/*":["./src/shared/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "svgr.d.ts", "next.config.mjs", "src"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "svgr.d.ts", "next.config.ts", "src"],
   "exclude": ["node_modules"]
 }

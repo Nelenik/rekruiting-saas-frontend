@@ -1,7 +1,7 @@
-import { ReadonlyURLSearchParams } from "next/navigation";
+import { ParamData, Path } from "path-to-regexp";
 
 export interface IBreadcrumbPattern {
-  pattern: RegExp;
-  handler: (searchParams?: ReadonlyURLSearchParams) => string | React.ReactNode;
+  pattern: Path | Path[];
+  handler: (params?: ParamData | null) => string | React.ReactNode;
   isLink: boolean;
 }

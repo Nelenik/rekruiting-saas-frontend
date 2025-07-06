@@ -25,7 +25,7 @@ export const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, 
   const color = isNew ? '#34d399' : '#3b82f6'
 
   return (
-    <Link href={`${pathname}/${id}?name=${name}`}>
+    <Link href={`${pathname}/${id}/${name}`}>
       <Card
         className={cn(
           'w-full py-4 pr-6 pl-7 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 relateive'

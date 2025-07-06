@@ -1,6 +1,7 @@
 import { CvInfoBlock } from "@/entities/cv/ui/CvInfoBlock";
 import { WorkExperienceList } from "@/entities/experience";
-import { getResumeById } from "@/shared/api/actions";
+// import { getResumeById } from "@/shared/api/actions";
+import { TResume } from "@/shared/api/types";
 import { cn } from "@/shared/lib/utils";
 import { CollapsibleSummary } from "@/shared/ui/Summary";
 import { TextFormatter } from "@/shared/ui/TextFormatter";
@@ -14,8 +15,12 @@ const tabsDict = [
 
 ]
 
-export const CvDetails = async ({ cvId }: { cvId: number }) => {
-  const cv = await getResumeById(cvId)
+type TProps = {
+  cv: TResume
+}
+
+export const CvDetails = async ({ cv }: TProps) => {
+  // const cv =
   return (
     <div>
       <h2 className="typography-h2 first:mt-0 mb-2">

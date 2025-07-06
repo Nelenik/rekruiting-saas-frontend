@@ -1,47 +1,64 @@
 import { HomeIcon } from "lucide-react";
 import { IBreadcrumbPattern } from "./types";
+import { identifyPubVacancyFilters } from "@/entities/vacancy/model/identifyPubVacancyFilters";
+import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
+import { vacancyPositionsDict } from "@/entities/vacancy";
 
 export const jobsitePathMapping: IBreadcrumbPattern[] = [
   {
-    pattern: /^\/$/,
+    pattern: "/",
     handler: () => (
       <>
         <HomeIcon width={16} height={16} className="inline-block mr-2 -translate-y-[1.5px]" />
-        <span className="align-middle">Rekru.ru</span>
+        <span className="align-baseline">Rekru.ru</span>
       </>
     ),
     isLink: true
   },
   {
-    pattern: /^\/vacancies$/,
-    handler: () => "Вакансии",
-    isLink: true
-  },
-  {
-    pattern: /^\/vacancies\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routevacancyId
-    handler: (searchParams) => {
-      const name = searchParams?.get("name") || "Название вакансии";
-      return decodeURIComponent(name);
+    pattern: "/vacancies{/*filters}",
+    handler: (params) => {
+      if (!params || !params.filters || !params.filters.length) {
+        return 'Все вакансии'
+      }
+      const { company, position } = identifyPubVacancyFilters(params.filters.slice(-1) as string[])
+
+      if (company) {
+        return `${capitalizeSentences(company)}`
+      }
+      if (position) {
+        return `${vacancyPositionsDict[position] || capitalizeSentences(position)}`
+      }
+
+      return 'all'
     },
     isLink: true
   },
   {
-    pattern: /^\/internships$/,
+    pattern: "/vacancy/:vacancyId/:vacancyName",
+    handler: (params) => {
+      const name = params?.vacancyName || "Название вакансии";
+      return decodeURIComponent(Array.isArray(name) ? name[0] : name);
+    },
+    isLink: true
+  },
+  {
+    pattern: "/internships",
     handler: () => "Стажировки",
     isLink: true
   },
   {
-    pattern: /^\/startups$/,
+    pattern: "/startups",
     handler: () => "Стартапы",
     isLink: true
   },
   {
-    pattern: /^\/cofounders$/,
+    pattern: "/cofounders",
     handler: () => "Кофаундеры",
     isLink: true
   },
   {
-    pattern: /^\/profile$/,
+    pattern: "/profile",
     handler: () => "Кабинет",
     isLink: true
   },

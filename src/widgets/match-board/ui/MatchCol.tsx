@@ -21,7 +21,8 @@ type TProps = {
 }
 
 export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEditable = true }) => {
-  const vacancyId = useParams()?.vacancyId as string | undefined;
+  const params = useParams()
+  const [vacancyId] = params?.vacancyKeys || [];
 
   const { data: candidates, isLoading } = useQuery({
     queryKey: ['matchByStatus', status_id],

@@ -14,10 +14,8 @@ import { ScrollArea } from '@/shared/ui/shadcn/scroll-area';
 type TProps = {
   className?: string;
 };
-// lg:h-[clamp(500px,65vh,900px)] 
 export const VacanciesAside: FC<TProps> = ({ className }) => {
-  const { companyId, vacancyId } = useParams();
-  // const companyId = params?.companyId as string | undefined;
+  const { companyId, vacancyKeys } = useParams(); //vacancyKeys = [{:vacancyId}, {:vacancyName}]
   const vacancies = useVacancies()
   const cleanedPath = `/dashboard/${companyId}/vacancies`
   return (
@@ -37,12 +35,12 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
 
           <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1 py-1">
             {vacancies.map((vacancy) => {
-              const isActive = vacancy.id === Number(vacancyId)
+              const isActive = vacancyKeys && vacancy.id === Number(vacancyKeys[1]);
               return (
                 <Link
                   ref={isActive ? (el) => el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }) : null}
                   key={vacancy.id}
-                  href={`${cleanedPath}/${vacancy.id}?name=${vacancy.name}`}
+                  href={`${cleanedPath}/${vacancy.id}/${vacancy.name}`}
                 >
                   <VacancyCard
                     vacancyName={vacancy.name}

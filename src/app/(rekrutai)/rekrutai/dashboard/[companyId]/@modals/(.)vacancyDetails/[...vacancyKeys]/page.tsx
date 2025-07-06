@@ -2,10 +2,10 @@ import { VacancyDetails } from "@/pages-layer/vacancy-details";
 import { getVacancy } from "@/shared/api/actions";
 import InterceptingModal from "@/shared/ui/modals/InterceptingModal";
 
-const VacancyDetailsModal = async ({ params }: { params: Promise<{ vacancyId: string }> }) => {
-  const { vacancyId } = await params
+const VacancyDetailsModal = async ({ params }: { params: Promise<{ vacancyKeys: string[] }> }) => {
+  const { vacancyKeys } = await params
 
-  const vacancy = await getVacancy(vacancyId)
+  const vacancy = await getVacancy(vacancyKeys[0]);
 
   return (
     <InterceptingModal
