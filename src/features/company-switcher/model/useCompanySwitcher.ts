@@ -1,4 +1,4 @@
-import { useCompanies } from "@/shared/providers/CompaniesProvider";
+import { useCompanies } from "@/features/company-switcher/model/CompaniesProvider";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { extractNewPath } from "../lib/extractNewPath";

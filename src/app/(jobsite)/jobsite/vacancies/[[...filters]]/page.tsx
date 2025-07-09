@@ -76,18 +76,22 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
   const getParams = (await searchParams)
   const pathParams = (await params).filters || []
 
-  //if first params is not available position consider it as company and redirect to all/{compnay}
-  if (pathParams.length === 1) {
-    const firstPathParam = pathParams[0]
-    if (!isSegmentPosition(firstPathParam) && firstPathParam !== 'all') {
-      redirect(`/vacancies/all/${pathParams[0]}`)
-    }
-  }
-
   //if there more than 2 catch-all segments then redirect to the 404 page
   if (pathParams.length > 2) {
     notFound()
   }
+
+  const [position = '', company = ''] = pathParams
+  console.log('pathparams', pathParams)
+
+  //if first params is not available position consider it as company and redirect to all/{compnay}
+  if (pathParams.length === 1) {
+    if (!isSegmentPosition(position) && position !== 'all') {
+      redirect(`/vacancies/all/${position}`)
+    }
+  }
+
+  const filters = { ...getParams, position, company }
 
   return (
     <div
@@ -125,7 +129,7 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
       <Suspense fallback={<CvListSkeleton />}>
         <PubVacanciesWrapper
           className="w-full max-w-[782px] grow justify-self-end"
-          filters={getParams}
+          filters={filters}
         />
       </Suspense>
     </div>

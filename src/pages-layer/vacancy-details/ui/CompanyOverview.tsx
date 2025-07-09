@@ -2,7 +2,7 @@
 
 import CaseIcon from '@/assets/icons/case.svg?rc';
 import { cn } from '@/shared/lib/utils';
-import { useCompanies } from '@/shared/providers/CompaniesProvider';
+import { useCompanies } from '@/features/company-switcher/model/CompaniesProvider';
 
 const CompanyOverview = ({ className }: { className?: string }) => {
   const { activeCompany } = useCompanies()

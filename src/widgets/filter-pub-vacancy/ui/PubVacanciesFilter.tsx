@@ -6,8 +6,9 @@ import { Input } from "@/shared/ui/shadcn/input";
 import { Button } from "@/shared/ui/shadcn/button";
 import { cn } from "@/shared/lib/utils";
 import FormItem from "@/shared/ui/FormItem";
-import { PositionSelect } from "@/entities/vacancy";
+// import { PositionSelect } from "@/entities/vacancy";
 import { SortingVacancies } from "./SortingVacancies";
+import { PathSegmentFilters } from "./PathSegmentFilters";
 
 const defaultState = {
   position: '',
@@ -32,7 +33,8 @@ export const PubVacanciesFilter = ({
         return (
           <>
             <div className="flex flex-wrap @3xl:flex-col gap-6">
-              <FormItem labelText="Специализация" className="grow min-w-[250px]">
+              <PathSegmentFilters />
+              {/* <FormItem labelText="Специализация" className="grow min-w-[250px]">
                 <CancelButton
                   onClick={() => updateFilter({ position: '' })}
                   className="absolute right-0 top-0 z-10"
@@ -42,7 +44,7 @@ export const PubVacanciesFilter = ({
                   onValueChange={(value: string) => updateFilter({ 'position': value })}
                   className="bg-white"
                 />
-              </FormItem>
+              </FormItem> */}
 
               <FormItem labelText="Зарплата от" className="grow min-w-[250px]">
                 <CancelButton

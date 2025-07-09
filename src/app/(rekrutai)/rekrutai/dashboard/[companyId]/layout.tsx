@@ -1,6 +1,6 @@
 import { getCompaniesList, getCompany } from '@/shared/api/actions';
 import { cn } from '@/shared/lib/utils';
-import { CompaniesProvider } from '@/shared/providers/CompaniesProvider';
+import { CompaniesProvider } from '@/features/company-switcher/model/CompaniesProvider';
 import { ScrollProvider } from '@/shared/providers/ScrollProvider';
 // import { Toaster } from '@/shared/ui/shadcn/toaster';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
