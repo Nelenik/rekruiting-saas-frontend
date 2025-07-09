@@ -1,6 +1,5 @@
 import { HomeIcon } from "lucide-react";
 import { IBreadcrumbPattern } from "./types";
-import { identifyPubVacancyFilters } from "@/entities/vacancy/model/identifyPubVacancyFilters";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
 import { vacancyPositionsDict } from "@/entities/vacancy";
 
@@ -15,30 +14,10 @@ export const jobsitePathMapping: IBreadcrumbPattern[] = [
     ),
     isLink: true
   },
-  // {
-  //   pattern: "/vacancies{/*filters}",
-  //   handler: (params) => {
-  //     if (!params || !params.filters || !params.filters.length) {
-  //       return 'Все вакансии'
-  //     }
-  //     const { company, position } = identifyPubVacancyFilters(params.filters.slice(-1) as string[])
-
-  //     if (company) {
-  //       return `${capitalizeSentences(company)}`
-  //     }
-  //     if (position) {
-  //       return `${vacancyPositionsDict[position] || capitalizeSentences(position)}`
-  //     }
-
-  //     return 'all'
-  //   },
-  //   isLink: true
-  // },
   {
     pattern: "/vacancies{/:position}{/:company}",
     handler: (params) => {
       const { position, company } = params as { position: string, company: string }
-      console.log('params', params)
       if (!params || !Object.keys(params).length) {
         return 'Все вакансии'
       }

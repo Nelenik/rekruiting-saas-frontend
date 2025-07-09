@@ -1,13 +1,13 @@
-// import { vacancyPositionsDict } from "@/entities/vacancy";
-// import { identifyPubVacancyFilters } from "@/entities/vacancy/model/identifyPubVacancyFilters";
-// import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
+import { vacancyPositionsDict } from "@/entities/vacancy";
 import { isSegmentPosition } from "@/entities/vacancy/lib/isSegmentPosition";
+import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
 import { cn } from "@/shared/lib/utils";
 import { FiltersSheet } from "@/shared/ui/FiltersSheet";
 import { CvListSkeleton } from "@/shared/ui/skeletons/CvListSkeleton";
 import { PubVacanciesFilter } from "@/widgets/filter-pub-vacancy";
 import { SearchVacancies } from "@/widgets/filter-pub-vacancy/ui/SearchVacancies";
 import { PubVacanciesWrapper } from "@/widgets/pub-vac-list";
+import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 
@@ -16,43 +16,64 @@ type TProps = {
   params: Promise<{ filters: string[] }>
 }
 
-// export async function generateMetadata({ params }: TProps) {
-//   const { filters } = await params;
-//   if (!filters || !filters.length) {
-//     return {
-//       title: "Все вакансии на Rekru.ru",
-//       description: "Найдите работу мечты среди актуальных вакансий"
-//     }
-//   }
-//   const { company, position } = identifyPubVacancyFilters(filters);
+export async function generateMetadata({ params }: TProps): Promise<Metadata> {
+  const { filters = [] } = await params;
+  const [position, company] = filters;
 
-//   if (filters.length === 1) {
-//     if (position) {
-//       const positionName = vacancyPositionsDict[position] || position
-//       return {
-//         title: `Вакансии по позиции ${positionName} на Rekru.ru`,
-//         description: `Найдите работу мечты среди актуальных вакансий по позиции ${positionName}`
-//       }
-//     } else if (company) {
-//       return {
-//         title: `Работа в ${company}`,
-//         description: `Открытые вакансии в компании ${capitalizeSentences(company)}. Посмотрите доступные позиции.`
-//       };
-//     }
-//   }
-//   if (filters.length === 2 && position && company) {
-//     const positionName = vacancyPositionsDict[position] || position
-//     return {
-//       title: `${positionName} в ${company}`,
-//       description: `Вакансии ${positionName} в компании ${capitalizeSentences(company)}. Подробные условия работы.`,
-//     }
-//   }
-// }
+  const baseUrl = 'https://rekru.ru/vacancies';
+  const metadata: Metadata = {};
+
+  const positionName = vacancyPositionsDict[position] || position;
+  const companyName = company ? capitalizeSentences(company) : '';
+
+  const isAll = !filters.length || (filters.length === 1 && position === 'all');
+
+  // --- 1. Все вакансии ---
+  if (isAll) {
+    metadata.title = "Все вакансии на Rekru.ru";
+    metadata.description = "Найдите работу мечты среди актуальных вакансий";
+    metadata.alternates = {
+      canonical: baseUrl,
+    };
+    return metadata;
+  }
+
+  // --- 2. Все вакансии в компании (all/company) ---
+  if (position === 'all' && company) {
+    metadata.title = `Все вакансии в компании ${companyName}`;
+    metadata.description = `Откройте актуальные вакансии компании ${companyName} на Rekru.ru`;
+    metadata.alternates = {
+      canonical: `${baseUrl}/all/${company}`,
+    };
+    return metadata;
+  }
+
+  // --- 3. Вакансии по позиции и компании ---
+  if (position && company) {
+    metadata.title = `${positionName} в ${companyName}`;
+    metadata.description = `Вакансии ${positionName} в компании ${companyName}. Подробные условия работы.`;
+    metadata.alternates = {
+      canonical: `${baseUrl}/${position}/${company}`,
+    };
+    return metadata;
+  }
+
+  // --- 4. Только по позиции ---
+  if (position && !company) {
+    metadata.title = `Все вакансии по позиции ${positionName} на Rekru.ru`;
+    metadata.description = `Найдите работу мечты среди актуальных вакансий по позиции ${positionName}`;
+    metadata.alternates = {
+      canonical: `${baseUrl}/${position}`,
+    };
+    return metadata;
+  }
+
+  return metadata;
+}
 
 export default async function JobsiteVacanciesPage({ searchParams, params }: TProps) {
 
   const getParams = (await searchParams)
-  console.log('getparams', getParams)
   const pathParams = (await params).filters || []
 
   //if first params is not available position consider it as company and redirect to all/{compnay}
@@ -63,10 +84,10 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
     }
   }
 
+  //if there more than 2 catch-all segments then redirect to the 404 page
   if (pathParams.length > 2) {
     notFound()
   }
-  console.log('pathParams', pathParams)
 
   return (
     <div
