@@ -8,15 +8,6 @@ const nextConfig: NextConfig = {
   },
   allowedDevOrigins: ["jobsite.local", "admin.localhost"],
 
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/vacancy",
-  //       destination: "/vacancy/:vacancyId/:vacancyName",
-  //     },
-  //   ];
-  // },
-
   // svgr setting
   webpack(config) {
     // Grab the existing rule that handles SVG imports

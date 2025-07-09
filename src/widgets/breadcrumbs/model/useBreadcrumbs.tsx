@@ -5,6 +5,8 @@ import { pathToRegexp, match } from "path-to-regexp"
 
 type DefineBreadcrumbsPaths = (breadcrumbsMapping: IBreadcrumbPattern[], pathname: string) => { href: string, label: string | React.ReactNode, isLink: boolean }[]
 
+const HIDDEN_SEGMENTS = ['all']
+
 type BreadcrumbsPaths = ReturnType<DefineBreadcrumbsPaths>
 
 /**
@@ -38,10 +40,13 @@ const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (breadcrumbsMapping, path
       pathSegments = pathname.split('/');
     }
 
+
     // Iterate through each path segment to build breadcrumb paths and match them with patterns.
-    pathSegments.forEach((_, i) => {
+    pathSegments.forEach((segment, i) => {
       // Create the current path by joining segments up to the current index.
       const currentPath = `/${pathSegments.slice(0, i + 1).join('/')}`.replace(/^\/+/, '/');
+      //check if segment is in the hidden list to exclude it from the breadcrumbsPaths
+      const isHiddenSegment = HIDDEN_SEGMENTS.includes(segment)
 
       // Find a matching pattern in the breadcrumbs mapping for the current path.
       const matchingMaping = breadcrumbsMapping.find((el) => {
@@ -50,7 +55,7 @@ const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (breadcrumbsMapping, path
       }
       );
       // If a matching pattern is found, add it to the breadcrumb paths.
-      if (matchingMaping) {
+      if (matchingMaping && !isHiddenSegment) {
         //using path-to-regexp's method match to extract parameters from the current path
         const matchParams = match(matchingMaping.pattern)(currentPath)
         const params = matchParams ? matchParams.params : null

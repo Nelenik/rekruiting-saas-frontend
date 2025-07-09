@@ -1,11 +1,8 @@
-import { EVacancyPosition } from "@/shared/api/types";
+import { isSegmentPosition } from "../lib/isSegmentPosition";
 
 export const identifyPubVacancyFilters = (filters: string[]) => {
-  const availablePositions = Object.values(EVacancyPosition).join("|");
-  const positionRegex = new RegExp(`(${availablePositions})`, "i");
-
   return filters.reduce((acc, filter) => {
-    if (positionRegex.test(filter)) {
+    if (isSegmentPosition(filter)) {
       acc.position = filter;
     } else {
       acc.company = filter;
