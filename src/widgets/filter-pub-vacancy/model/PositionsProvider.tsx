@@ -1,7 +1,13 @@
 'use client'
+import { usePathParamFilter } from "@/features/manage-url-filters"
 import { createContext, ReactNode, useContext } from "react"
 
-export const PubVacancyPositionsContext = createContext<string[]>([])
+type TPositionsContext = {
+  positionsList: string[],
+  active: string,
+  updatePosition: (newValue: string) => void
+}
+export const PubVacancyPositionsContext = createContext<TPositionsContext | null>(null)
 
 
 /**
@@ -11,7 +17,11 @@ export const PubVacancyPositionsContext = createContext<string[]>([])
 
 
 export const PositionsProvider = ({ children, positionsList }: { children: ReactNode, positionsList: string[] }) => {
-  return (<PubVacancyPositionsContext value={positionsList}>
+
+  const { value: active, updatePathParam: updatePosition } = usePathParamFilter('/vacancies', 0)
+  const parsedPosition = active === 'all' ? '' : active
+
+  return (<PubVacancyPositionsContext value={{ positionsList, active: parsedPosition, updatePosition }}>
     {children}
   </PubVacancyPositionsContext>)
 }

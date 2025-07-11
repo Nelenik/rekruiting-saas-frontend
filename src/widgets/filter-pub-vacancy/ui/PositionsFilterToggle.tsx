@@ -1,7 +1,6 @@
 'use client'
 import { usePositions } from "../model/PositionsProvider";
 import { vacancyPositionsDict } from "@/entities/vacancy";
-import { usePathParamFilter } from "@/features/manage-url-filters";
 import { cn } from "@/shared/lib/utils";
 import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/shadcn/toggle-group";
 
@@ -33,20 +32,17 @@ type TProps = {
 export const PositionsFilterToggle = ({
   className
 }: TProps) => {
-  const { value: position, updatePathParam: updatePosition } = usePathParamFilter('/vacancies', 0)
-
-  const parsedPosition = position === 'all' ? '' : position
-  const positionsFromApi = usePositions()
+  const { positionsList, active: currentPosition, updatePosition } = usePositions()
 
   return (
     <ToggleGroup
       type="single"
       variant={'outline'}
-      defaultValue={parsedPosition}
+      value={currentPosition}
       className={cn('flex-wrap', className)}
       onValueChange={updatePosition}
     >
-      {positionsFromApi.map((position) => (
+      {positionsList.map((position) => (
         <PositionToggleItem
           key={position}
           positionValue={position}

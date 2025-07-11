@@ -1,5 +1,4 @@
 import { vacancyPositionsDict } from "@/entities/vacancy";
-import { usePathParamFilter } from "@/features/manage-url-filters";
 import { cn } from "@/shared/lib/utils";
 import { CancelButton } from "@/shared/ui/buttons/CancelButton";
 import FormItem from "@/shared/ui/FormItem";
@@ -11,10 +10,7 @@ type TProps = {
 }
 
 export const PositionFilterField = ({ className }: TProps) => {
-  const { value: position, updatePathParam: updatePosition } = usePathParamFilter('/vacancies', 0)
-  const parsedPosition = position === 'all' ? '' : position
-
-  const positionsFromApi = usePositions()
+  const { positionsList, active: currentPosition, updatePosition } = usePositions()
 
   return (
     <FormItem labelText="Специализация" className={cn(className)}>
@@ -23,7 +19,7 @@ export const PositionFilterField = ({ className }: TProps) => {
         className="absolute right-0 top-0 z-10"
       />
       <Select
-        value={parsedPosition}
+        value={currentPosition}
         onValueChange={updatePosition}
 
       >
@@ -33,7 +29,7 @@ export const PositionFilterField = ({ className }: TProps) => {
           <SelectValue placeholder="Выберите позицию" />
         </SelectTrigger>
         <SelectContent>
-          {positionsFromApi.map((position) => (
+          {positionsList.map((position) => (
             <SelectItem key={position} value={position}>
               {vacancyPositionsDict[position]}
             </SelectItem>
