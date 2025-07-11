@@ -35,7 +35,7 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
 
           <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1 py-1">
             {vacancies.map((vacancy) => {
-              const isActive = vacancyKeys && vacancy.id === Number(vacancyKeys[1]);
+              const isActive = vacancyKeys && vacancy.id === Number(vacancyKeys[0]);
               return (
                 <Link
                   ref={isActive ? (el) => el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }) : null}
