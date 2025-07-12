@@ -7,6 +7,7 @@ import { TextFormatter } from "@/shared/ui/TextFormatter";
 import CaseIcon from '@/assets/icons/case.svg?rc';
 import { Button } from "@/shared/ui/shadcn/button";
 import { Card } from "@/shared/ui/shadcn/card";
+import { Fragment } from "react";
 
 type TProps = {
   vacancy: TPublicVacancy
@@ -27,10 +28,30 @@ export const PubVacDetails = ({
     skills,
     responsibilities,
     conditions,
+    addition,
     description,
     company,
     link
   } = vacancy
+
+  const vacancyCharacteristics: { title: string, content: string }[] = [
+    {
+      title: 'Требования',
+      content: skills,
+    },
+    {
+      title: 'Обязанности',
+      content: responsibilities,
+    },
+    {
+      title: 'Условия',
+      content: conditions,
+    },
+    {
+      title: 'Дополнительно',
+      content: addition,
+    }
+  ]
   return (
 
     <div className="w-full max-w-[900px] m-auto flex flex-col gap-16" >
@@ -46,7 +67,7 @@ export const PubVacDetails = ({
           <h1
             className={cn(
               "flex items-start gap-4",
-              "scroll-m-20 text-[40px] font-bold text-foreground tracking-tight first:mt-0 leading-[2.8rem]",
+              "scroll-m-20 text-[40px] font-bold text-foreground tracking-tight first:mt-0 leading-[2.8rem] hyphens-auto",
             )}
           >
             {name || 'Имя не указано'}
@@ -103,50 +124,40 @@ export const PubVacDetails = ({
           </p>
         </div>
       </div>
+
+      {/* vacancy description */}
+      {description &&
+        <Card
+          className={cn(
+            'py-3 px-7 '
+          )}
+        >
+          <h3 className="text-lg text-foreground font-semibold mb-4">
+            Описание вакансии
+          </h3>
+          <TextFormatter text={description} />
+        </Card>}
+
       <div className={cn(
         "grid grid-cols-1  gap-x-7 gap-y-8 text-base text-muted-foreground",
         "md:grid-cols-2"
       )}>
-        <Card
-          className={cn(
-            'py-3 px-7 min-h-[200px]'
-          )}
-        >
-          <h3 className="text-lg text-foreground font-semibold mb-4">
-            Требования
-          </h3>
-          <TextFormatter text={skills || 'Нет информации'} />
-        </Card>
-        <Card
-          className={cn(
-            'py-3 px-7 min-h-[200px]'
-          )}
-        >
-          <h3 className="text-lg text-foreground font-semibold mb-4">
-            Обязанности
-          </h3>
-          <TextFormatter text={responsibilities || 'Нет информации'} />
-        </Card>
-        <Card
-          className={cn(
-            'py-3 px-7 min-h-[200px]'
-          )}
-        >
-          <h3 className="text-lg text-foreground font-semibold mb-4">
-            Условия
-          </h3>
-          <TextFormatter text={conditions || 'Нет информации'} />
-        </Card>
-        <Card
-          className={cn(
-            'py-3 px-7 min-h-[200px]'
-          )}
-        >
-          <h3 className="text-lg text-foreground font-semibold mb-4">
-            Дополнительно
-          </h3>
-          <TextFormatter text={description || 'Нет информации'} />
-        </Card>
+
+        {vacancyCharacteristics.map((item) => (
+          <Fragment key={item.title}>
+            {item.content && <Card
+              className={cn(
+                'py-3 px-7 min-h-[200px]'
+              )}
+            >
+              <h3 className="text-lg text-foreground font-semibold mb-4">
+                {item.title}
+              </h3>
+              <TextFormatter text={item.content} />
+            </Card>}
+          </Fragment>
+        ))}
+
       </div>
 
     </div>

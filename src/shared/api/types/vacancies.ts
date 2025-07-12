@@ -127,5 +127,6 @@ export type TPublicVacancy = Pick<
     description: TCompany["description"];
   };
   link: string;
+  addition: string;
   publication_at: string;
 };
