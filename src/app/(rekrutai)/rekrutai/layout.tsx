@@ -58,7 +58,7 @@ export default async function RekrutaiLayout({
   const tenant = await getTenant()
 
   return (
-    <html lang="en">
+    <html lang="ru">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

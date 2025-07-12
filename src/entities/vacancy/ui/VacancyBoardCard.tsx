@@ -38,7 +38,7 @@ export const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, 
           {daysString}
         </StatusBadge>
         <CardHeader className="p-0">
-          <CardTitle className="text-base break-all">{name ?? 'Имя неизвестно'}</CardTitle>
+          <CardTitle className="text-base hyphens-auto">{name ?? 'Имя неизвестно'}</CardTitle>
         </CardHeader>
         <p className="leading-7 text-muted-foreground">
           {location || 'Город неизвестен'}

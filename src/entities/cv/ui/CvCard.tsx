@@ -52,10 +52,10 @@ export const CvCard: FC<TProps> = ({
           </AvatarFallback>
         </Avatar>
         <div className="w-[35%] min-w-[200px] grow">
-          <p>
+          <p className="hyphens-auto">
             {resume.candy_name || 'Имя не указано'}
           </p>
-          <p className="font-semibold">
+          <p className="font-semibold hyphens-auto">
             {resume.name}
           </p>
           <p className="text-muted-foreground flex items-center gap-2">

@@ -44,7 +44,7 @@ export const VacancySummaryCard = () => {
 
       <div className="grow">
         <CardTitle className=" typography-h2 mb-2 flex items-start gap-4 max-w-[90%] ">
-          <span className='break-all'>
+          <span className='hyphens-auto'>
 
             {vacancyName ?? 'Имя неизвестно'}
           </span>
