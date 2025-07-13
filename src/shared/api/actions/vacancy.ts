@@ -8,7 +8,12 @@ import {
   TApiSuccessResponse,
   TMutationState,
 } from "../common/api";
-import { TVacancy, TVacancyMutation, TVacancyShort } from "../types";
+import {
+  TVacancy,
+  TVacancyMutation,
+  TVacancyPosition,
+  TVacancyShort,
+} from "../types";
 import { parseFormData } from "../common/utils";
 import { createVacancyMatchStatuses } from "./status";
 import { getSyntheticError } from "../common/errors";
@@ -83,9 +88,9 @@ export const getVacancy = async (id: number | string): Promise<TVacancy> => {
  *
  * @throws {Error} Throws an error if the request fails, with a user-friendly error message.
  */
-export const getVacancyPositions = async (): Promise<string[]> => {
+export const getVacancyPositions = async (): Promise<TVacancyPosition[]> => {
   try {
-    const response = await apiGet<TApiListResponse<string>>(
+    const response = await apiGet<TApiListResponse<TVacancyPosition>>(
       "/vacancy/positions"
     );
     return response.data || [];

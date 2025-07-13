@@ -10,12 +10,13 @@ export default async function JobSiteVacanciesLayout({
   children: React.ReactNode;
 }>) {
   const vacancyPositions = await getVacancyPositions()
+  console.log(vacancyPositions)
   return (
     <PositionsProvider positionsList={vacancyPositions}>
       <div
         className={cn(
-          'flex flex-col justify-between  gap-12',
-          'md:grid md:grid-cols-[250px_minmax(0,1fr)] md:gap-x-6 md:gap-y-8',
+          'flex flex-col justify-between  gap-8',
+          'md:grid md:grid-cols-[250px_minmax(0,1fr)] md:gap-x-6 md:gap-y-4',
           // 'md:flex-row'
         )}
       >
@@ -34,7 +35,7 @@ export default async function JobSiteVacanciesLayout({
           </FiltersSheet>
         </div>
 
-        <PositionsFilterToggle className="hidden md:flex md:col-span-2" />
+        <PositionsFilterToggle className="hidden md:flex md:col-span-2 md:mb-8" />
 
         <aside
           className={cn(

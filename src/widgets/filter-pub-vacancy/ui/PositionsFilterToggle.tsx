@@ -1,27 +1,35 @@
 'use client'
 import { usePositions } from "../model/PositionsProvider";
 import { vacancyPositionsDict } from "@/entities/vacancy";
+import { TVacancyPosition } from "@/shared/api/types";
 import { cn } from "@/shared/lib/utils";
 import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/shadcn/toggle-group";
 
 
 
 type PositionItemProps = {
-  positionValue: string
+  positionValue: TVacancyPosition
 
 }
 const PositionToggleItem = ({ positionValue, ...props }: PositionItemProps) => {
-  const positionText = vacancyPositionsDict[positionValue]
+  const { position, count } = positionValue
+  const positionText = vacancyPositionsDict[position]
 
   if (!positionText) return null
 
   return (
     <ToggleGroupItem
-      value={positionValue}
+      value={position}
       {...props}
-      className='data-[state=on]:bg-primary data-[state=on]:text-white'
+      className={cn(
+        'px-4',
+        'data-[state=on]:bg-primary data-[state=on]:text-white'
+      )}
     >
       {positionText}
+      <span>
+        {`(${count})`}
+      </span>
     </ToggleGroupItem>
   )
 }
@@ -39,13 +47,13 @@ export const PositionsFilterToggle = ({
       type="single"
       variant={'outline'}
       value={currentPosition}
-      className={cn('flex-wrap', className)}
+      className={cn('flex-wrap justify-start gap-2', className)}
       onValueChange={updatePosition}
     >
-      {positionsList.map((position) => (
+      {positionsList.map((item) => (
         <PositionToggleItem
-          key={position}
-          positionValue={position}
+          key={item.position}
+          positionValue={item}
         />
       ))}
     </ToggleGroup>

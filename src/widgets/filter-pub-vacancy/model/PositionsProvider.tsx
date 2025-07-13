@@ -1,9 +1,10 @@
 'use client'
 import { usePathParamFilter } from "@/features/manage-url-filters"
+import { TVacancyPosition } from "@/shared/api/types"
 import { createContext, ReactNode, useContext } from "react"
 
 type TPositionsContext = {
-  positionsList: string[],
+  positionsList: TVacancyPosition[],
   active: string,
   updatePosition: (newValue: string) => void
 }
@@ -15,8 +16,12 @@ export const PubVacancyPositionsContext = createContext<TPositionsContext | null
  * It is used in jobsite for filtering by position
  */
 
+type TProps = {
+  children: ReactNode,
+  positionsList: TVacancyPosition[]
+}
 
-export const PositionsProvider = ({ children, positionsList }: { children: ReactNode, positionsList: string[] }) => {
+export const PositionsProvider = ({ children, positionsList }: TProps) => {
 
   const { value: active, updatePathParam: updatePosition } = usePathParamFilter('/vacancies', 0)
   const parsedPosition = active === 'all' ? '' : active

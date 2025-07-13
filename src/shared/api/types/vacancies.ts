@@ -41,6 +41,11 @@ export enum EVacancyLevel {
   SENIOR = "senior",
 }
 
+export type TVacancyPosition = {
+  position: string;
+  count: string | number;
+};
+
 //added schema for future form validation
 export const VacancyRequestSchema = z
   .object({
