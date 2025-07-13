@@ -6,7 +6,7 @@ import { Input } from "@/shared/ui/shadcn/input";
 import { Button } from "@/shared/ui/shadcn/button";
 import { cn } from "@/shared/lib/utils";
 import FormItem from "@/shared/ui/FormItem";
-import { SortingVacanciesField } from "./SortingVacanciesField";
+// import { SortingVacanciesField } from "./SortingVacanciesField";
 import { PositionFilterField } from "./PositionFilterField";
 import { useRouter, useSearchParams } from "next/navigation";
 import { removeEmptyValues } from "@/shared/lib/object_manipulations/filterFalsyFields";
@@ -15,7 +15,7 @@ const defaultState = {
   salary_from: '',
   salary_to: '',
   location: '',
-  sort: '',
+  // sort: '',
   page: ''
 }
 
@@ -87,6 +87,8 @@ export const PubVacanciesFilter = ({
                   className=""
                 />
               </FormItem>
+              {/* 
+              Sorting
 
               <FormItem labelText="Сортировка" className="grow min-w-[250px]">
                 <CancelButton
@@ -98,13 +100,10 @@ export const PubVacanciesFilter = ({
                   onValueChange={(value: string) => updateFilter({ 'sort': value })}
                   className=""
                 />
-              </FormItem>
+              </FormItem> */}
             </div>
 
             <Button
-              // onClick={() => {
-              //   updateFilter(defaultState)
-              // }}
               onClick={handleReset}
               variant={'outline'}
               className={cn(

@@ -2,6 +2,7 @@ import { Paginate } from "@/features/pagination";
 import { PubVacancyList } from "./PubVacancyList";
 import { getPubVacanciesList } from "@/shared/api/actions/public-vacancy";
 import { cn } from "@/shared/lib/utils";
+import { SortingVacancies } from "@/widgets/filter-pub-vacancy";
 
 type TProps = {
   filters: Record<string, string>
@@ -20,8 +21,9 @@ export const PubVacanciesWrapper = async ({
         className
       )}
     >
-      <div className="w-max ml-auto">
-        <p className="font-semibold">
+      <div className="flex items-center justify-between gap-4">
+        <SortingVacancies />
+        <p className="font-bold">
           Найдено вакансий: {total ?? 0}
         </p>
       </div>

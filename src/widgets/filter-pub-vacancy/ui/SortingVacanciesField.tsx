@@ -1,3 +1,5 @@
+/************ PROBABLY WILL BE REMOVED *****************/
+
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/shadcn/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@/shared/ui/shadcn/dropdown-menu";
@@ -6,6 +8,8 @@ import { ChevronDown } from "lucide-react";
 
 type TProps = {
   className?: string;
+  value?: string;
+  onValueChange?: (value: string) => void
 } & DropdownMenuRadioGroupProps
 
 export const SortingVacanciesField = ({
