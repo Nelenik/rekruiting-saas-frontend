@@ -12,6 +12,7 @@ import { prepareBody } from "./utils";
 export type TApiSuccessResponse<T> = {
   success: boolean;
   data: T;
+  [key: string]: unknown;
 };
 
 export type TApiListResponse<T> = {
@@ -169,11 +170,15 @@ export const apiMutate = async <T = unknown>(
     });
 
     let parsedResponse = await response.json();
-    //Added this control because on 500 status - parsedResponse is without "success" field
+
+    //Added this control because on 500 status - parsedResponse is without "success" field and it is not compatible with TApiSuccessResponse type
     if (response.status === 500) {
       parsedResponse = { success: false, ...parsedResponse };
     }
     // Check if the response indicates an error
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { success, data, ...rest } = parsedResponse; //used this destructurization to get ...rest fields
 
     if (
       parsedResponse &&
@@ -196,8 +201,9 @@ export const apiMutate = async <T = unknown>(
     ) {
       return {
         sent: true,
-        payload: parsedResponse.data as T,
+        payload: data as T,
         error: null,
+        ...rest,
       };
     }
 

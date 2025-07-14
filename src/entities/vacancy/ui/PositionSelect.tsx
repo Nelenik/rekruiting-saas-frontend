@@ -27,9 +27,9 @@ export const PositionSelect: FC<TProps> = ({ className, ...props }) => {
       </SelectTrigger>
       <SelectContent>
         {vacancyPositions &&
-          vacancyPositions.map((position) => (
-            <SelectItem key={position} value={position}>
-              {vacancyPositionsDict[position]}
+          vacancyPositions.map((item) => (
+            <SelectItem key={item.position} value={item.position}>
+              {vacancyPositionsDict[item.position]}
             </SelectItem>
           ))}
       </SelectContent>

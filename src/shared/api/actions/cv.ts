@@ -143,6 +143,7 @@ export const parseCvFromFile = async (_: TMutationState, data: FormData) => {
       method: "POST",
     });
     const result = await res.json();
+    console.log(result);
     return {
       sent: true,
       payload: result as TResume,

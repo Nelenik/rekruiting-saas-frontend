@@ -24,7 +24,7 @@ export const PositionFilterField = ({ className }: TProps) => {
 
       >
         <SelectTrigger
-          className={'bg-white'}
+          className={'bg-white text-left h-max'}
         >
           <SelectValue placeholder="Выберите позицию" />
         </SelectTrigger>
@@ -34,8 +34,10 @@ export const PositionFilterField = ({ className }: TProps) => {
               key={item.position}
               value={item.position}
             >
-              <span className="flex gap-3 items-center">
-                {vacancyPositionsDict[item.position]}
+              <span className="flex gap-3 items-center ">
+                <span className="hyphens-auto">
+                  {vacancyPositionsDict[item.position]}
+                </span>
                 <span className="text-gray-400">
                   {`(${item.count})`}
                 </span>
