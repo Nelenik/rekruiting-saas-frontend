@@ -9,6 +9,7 @@ import { TCandidateShort } from '@/shared/api/types';
 import { getDaysSinceCreated } from '@/shared/lib/date_time/getDaysSinceCreated';
 import { StatusBadge } from '@/shared/ui/StatusBadge';
 import { cn } from '@/shared/lib/utils';
+import { encodeSegment } from '@/shared/lib/encodeSegments';
 
 type TProps = {
   candidate: TCandidateShort
@@ -34,7 +35,7 @@ export const CandidateCard = ({
   return (
     <Link
       scroll={false}
-      href={`/dashboard/${companyId}/matchDetails/${id}/${encodeURIComponent(cv_name)}`}
+      href={`/dashboard/${companyId}/matchDetails/${id}/${encodeSegment(cv_name)}`}
     >
       <Card className="w-full min-w-[240px] py-4 pl-8 pr-6 hover:shadow-md transform hover:-translate-y-1 transition-all duration-200">
         {isNew && <StatusBadge

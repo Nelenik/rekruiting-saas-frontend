@@ -1,5 +1,6 @@
 import { PubVacDetails } from '@/pages-layer/pub-vac-details';
 import { getPubVacancy } from '@/shared/api/actions/public-vacancy';
+import { encodeSegment } from '@/shared/lib/encodeSegments';
 import { GoBackLink } from '@/shared/ui/GoBackLink';
 import { redirect } from 'next/navigation';
 
@@ -20,7 +21,7 @@ const JobsiteVacancyDetails = async ({
   if (!vacancy) return null;
 
   //if  vacancyName segment is not provided , redirect to valid url with vacancy name got from API response
-  const vacancySlug = encodeURIComponent(vacancy.name)
+  const vacancySlug = encodeSegment(vacancy.name)
   if (!vacancyName || vacancyName !== vacancySlug) {
     redirect(`/vacancy/${vacancyId}/${vacancySlug}`)
   }
@@ -28,7 +29,7 @@ const JobsiteVacancyDetails = async ({
   return (
     <div>
       <GoBackLink
-        text='Назад к вакансиям'
+        text='К вакансиям'
       />
       <PubVacDetails vacancy={vacancy} />;
     </div>

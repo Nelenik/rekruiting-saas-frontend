@@ -13,6 +13,7 @@ import { Card } from "@/shared/ui/shadcn/card";
 import { Badge } from "@/shared/ui/shadcn/badge";
 import { workStatusDict } from "../lib/dictionary";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/shadcn/avatar";
+import { encodeSegment } from "@/shared/lib/encodeSegments";
 
 type TProps = {
   resume: TResume,
@@ -36,7 +37,7 @@ export const CvCard: FC<TProps> = ({
   return (
     <Link
       scroll={false}
-      href={`/dashboard/${companyId}/cvDetails/${resume.id}/${encodeURIComponent(resume.name)}`}
+      href={`/dashboard/${companyId}/cvDetails/${resume.id}/${encodeSegment(resume.name)}`}
     >
       <Card className={cn(
         "py-2 px-6 min-h-[102px] flex flex-wrap gap-6 items-center justify-between h-full",

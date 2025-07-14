@@ -1,5 +1,6 @@
 import { MatchDetails } from "@/pages-layer/match-details";
 import { getCandidateFull } from "@/shared/api/actions";
+import { encodeSegment } from "@/shared/lib/encodeSegments";
 import { GoBackLink } from "@/shared/ui/GoBackLink";
 import { redirect } from "next/navigation";
 
@@ -10,7 +11,7 @@ const MatchDetailsPage = async ({ params }: { params: Promise<{ matchKeys: strin
   const candidate = await getCandidateFull(Number(matchId))
   if (!candidate) return null;
 
-  const candidateSlug = encodeURIComponent(candidate.cv.name)
+  const candidateSlug = encodeSegment(candidate.cv.name)
   if (!matchName || matchName !== candidateSlug) {
     redirect(`/dashboard/${companyId}/matchDetails/${matchId}/${candidateSlug}`)
   }

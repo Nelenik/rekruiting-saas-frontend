@@ -9,6 +9,7 @@ import { TVacancyShort } from "@/shared/api/types";
 import { StatusBadge } from "@/shared/ui/StatusBadge";
 import { getDaysSinceCreated } from "@/shared/lib/date_time/getDaysSinceCreated";
 import { formatWordEndings } from "@/shared/lib/formatters/formatWordEndings";
+import { encodeSegment } from "@/shared/lib/encodeSegments";
 
 type TProps = Omit<TVacancyShort, 'status_id' | 'status'>
 
@@ -25,7 +26,7 @@ export const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, 
   const color = isNew ? '#34d399' : '#3b82f6'
 
   return (
-    <Link href={`${pathname}/${id}/${encodeURIComponent(name)}`}>
+    <Link href={`${pathname}/${id}/${encodeSegment(name)}`}>
       <Card
         className={cn(
           'w-full py-4 pr-6 pl-7 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 relateive'

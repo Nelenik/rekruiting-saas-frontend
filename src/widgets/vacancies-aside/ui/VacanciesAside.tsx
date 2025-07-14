@@ -10,6 +10,7 @@ import { cn } from '@/shared/lib/utils';
 import { VacancyCard } from '@/entities/vacancy/ui/VacancyCard';
 import { AddEntity } from '@/features/mutate-entity';
 import { ScrollArea } from '@/shared/ui/shadcn/scroll-area';
+import { encodeSegment } from '@/shared/lib/encodeSegments';
 
 type TProps = {
   className?: string;
@@ -40,7 +41,7 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
                 <Link
                   ref={isActive ? (el) => el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }) : null}
                   key={vacancy.id}
-                  href={`${cleanedPath}/${vacancy.id}/${encodeURIComponent(vacancy.name)}`}
+                  href={`${cleanedPath}/${vacancy.id}/${encodeSegment(vacancy.name)}`}
                 >
                   <VacancyCard
                     vacancyName={vacancy.name}

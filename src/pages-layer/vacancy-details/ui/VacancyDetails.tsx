@@ -54,9 +54,12 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
 
     <div className="@container">
       <h1 className="scroll-m-20 text-3xl font-bold tracking-tight first:mt-0 mb-6 flex items-start gap-4">
-        {name || 'Имя не указано'}
+        <span className="inline-block w-[min(500px,_75%)] hyphens-auto">
+          {name || 'Имя не указано'}
+
+        </span>
         <StatusBadge color={status.color} className={cn(
-          'text-xs py-0 px-1'
+          'text-xs py-0 px-1 shrink-0'
         )}>
           {status.name}
         </StatusBadge>

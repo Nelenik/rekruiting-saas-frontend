@@ -2,6 +2,7 @@ import { usePathname } from "next/navigation";
 import { getBreadcrumbMapping } from "../config/breadcrumbaMapping";
 import { IBreadcrumbPattern } from "../config/types";
 import { pathToRegexp, match } from "path-to-regexp"
+import { decodeSegment } from "@/shared/lib/encodeSegments";
 
 type DefineBreadcrumbsPaths = (breadcrumbsMapping: IBreadcrumbPattern[], pathname: string) => { href: string, label: string | React.ReactNode, isLink: boolean }[]
 
@@ -57,7 +58,7 @@ const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (breadcrumbsMapping, path
       // If a matching pattern is found, add it to the breadcrumb paths.
       if (matchingMaping && !isHiddenSegment) {
         //using path-to-regexp's method match to extract parameters from the current path
-        const matchParams = match(matchingMaping.pattern)(currentPath)
+        const matchParams = match(matchingMaping.pattern, { decode: decodeSegment })(currentPath)
         const params = matchParams ? matchParams.params : null
 
         breadcrumbsPaths.push({

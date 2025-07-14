@@ -8,6 +8,7 @@ import { VacancyPageSkeleton } from '@/shared/ui/skeletons/VacancyPageSkeleton';
 import { AddMatchesForm } from '@/features/add-matches/ui/AddMatchesForm';
 import { getVacancy } from '@/shared/api/actions';
 import { redirect } from 'next/navigation';
+import { encodeSegment } from '@/shared/lib/encodeSegments';
 
 
 type TProps = {
@@ -26,7 +27,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   if (!vacancy) return null;
 
   //if  vacancyName segment is not provided or it differs from vacancy.name, redirect to valid url with vacancy name got from API response
-  const vacancySlug = encodeURIComponent(vacancy.name)
+  const vacancySlug = encodeSegment(vacancy.name)
   if (!vacancyName || vacancyName !== vacancySlug) {
     redirect(`/dashboard/${companyId}/vacancies/${vacancyId}/${vacancySlug}`)
   }
@@ -45,7 +46,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
 
             <Link
               scroll={false}
-              href={`/dashboard/${companyId}/vacancyDetails/${vacancyId}/${vacancy.name}`}
+              href={`/dashboard/${companyId}/vacancyDetails/${vacancyId}/${encodeSegment(vacancy.name)}`}
             >
               <VacancySummaryCard />
             </Link>

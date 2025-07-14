@@ -1,5 +1,6 @@
 import { vacancyExperienceDict, vacancyWorkFormatDict } from "@/entities/vacancy";
 import { EVacancyWorkFormat, TPublicVacancy } from "@/shared/api/types";
+import { encodeSegment } from "@/shared/lib/encodeSegments";
 import { formatSalaryRange } from "@/shared/lib/formatters/formatSalaryRange";
 import { generateRgbFromString } from "@/shared/lib/formatters/generateRgbFromString";
 import { cn } from "@/shared/lib/utils";
@@ -31,7 +32,7 @@ export const PubVacancyCard = ({
   return (
     <Link
       scroll={false}
-      href={`/vacancy/${vacancy.id}/${encodeURIComponent(vacancy.name)}`}
+      href={`/vacancy/${vacancy.id}/${encodeSegment(vacancy.name)}`}
     >
       <Card className={cn(
         "py-2 px-6 min-h-[102px] flex gap-6 flex-wrap items-center justify-between h-full",
