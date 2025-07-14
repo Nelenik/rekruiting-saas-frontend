@@ -28,7 +28,7 @@ export const MatchTab = ({
         link={cv.link}
         bio={cv.bio}
         experience_duration={cv.experience_months}
-        skills={null}
+        skills={cv.skills}
       />
 
       <div className=" flex flex-col gap-6">
