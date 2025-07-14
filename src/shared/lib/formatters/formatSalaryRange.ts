@@ -1,4 +1,5 @@
 import { formatPrice } from "./formatersIntl";
+import { formatStrByTemplate } from "./formatStrByTemplate";
 
 /**
  * Generates a formatted salary range string.
@@ -14,11 +15,41 @@ import { formatPrice } from "./formatersIntl";
  */
 export const formatSalaryRange = (
   salaryFrom: number | null,
-  salaryTo: number | null
+  salaryTo: number | null,
+  isShort: boolean = true
 ): string => {
+  if (!salaryFrom && !salaryTo) {
+    return "Доход не указан";
+  }
+
+  const templates = {
+    exact: "{to}",
+    onlyTo: "до {to}",
+    onlyFrom: "от {from}",
+    rangeShort: "{from} - {to}",
+    rangeFull: "от {from} до {to}",
+  };
+
+  let templateKey: keyof typeof templates = "exact";
+
+  if (salaryFrom && salaryTo) {
+    if (salaryFrom === salaryTo) {
+      templateKey = "exact";
+    } else {
+      templateKey = isShort ? "rangeShort" : "rangeFull";
+    }
+  } else if (!salaryFrom && salaryTo) {
+    templateKey = "onlyTo";
+  } else if (salaryFrom && !salaryTo) {
+    templateKey = "onlyFrom";
+  }
+
+  const template = templates[templateKey];
   const salaryFromPrice = formatPrice(salaryFrom, "ru-Ru", "RUB");
   const salaryToPrice = formatPrice(salaryTo, "ru-Ru", "RUB");
-  return salaryFrom === salaryTo
-    ? salaryToPrice
-    : `${salaryFromPrice} - ${salaryToPrice}`;
+
+  return formatStrByTemplate(template, {
+    from: salaryFromPrice,
+    to: salaryToPrice,
+  });
 };

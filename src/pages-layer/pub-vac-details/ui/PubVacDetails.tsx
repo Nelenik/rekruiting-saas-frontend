@@ -1,6 +1,5 @@
 import { vacancyEpmpoymentDict, vacancyExperienceDict, vacancyPositionsDict, vacancyWorkFormatDict } from "@/entities/vacancy";
 import { TPublicVacancy } from "@/shared/api/types";
-import { formatPrice } from "@/shared/lib/formatters/formatersIntl";
 import { cn } from "@/shared/lib/utils";
 import { TextFormatter } from "@/shared/ui/TextFormatter";
 
@@ -8,6 +7,7 @@ import CaseIcon from '@/assets/icons/case.svg?rc';
 import { Button } from "@/shared/ui/shadcn/button";
 import { Card } from "@/shared/ui/shadcn/card";
 import { Fragment } from "react";
+import { formatSalaryRange } from "@/shared/lib/formatters/formatSalaryRange";
 
 type TProps = {
   vacancy: TPublicVacancy
@@ -73,11 +73,11 @@ export const PubVacDetails = ({
             {name || 'Имя не указано'}
           </h1>
           <h2 className="scroll-m-20 text-xl font-semibold text-foreground tracking-tight">
-            {`от ${formatPrice(salary_from, "ru-Ru", "RUB")} до ${formatPrice(salary_to, 'ru-Ru', 'RUB')}`}
+            {`${formatSalaryRange(salary_from || 0, salary_to || 0, false)}`}
           </h2>
           <div >
             <p>
-              Локация: {location}
+              Локация: {location || '-'}
             </p>
             <p>
               Опыт: {experience ? vacancyExperienceDict[experience] : '-'}
@@ -138,6 +138,7 @@ export const PubVacDetails = ({
           <TextFormatter text={description} />
         </Card>}
 
+      {/* vacancy characteristics skills, conditions, requirements */}
       <div className={cn(
         "grid grid-cols-1  gap-x-7 gap-y-8 text-base text-muted-foreground",
         "md:grid-cols-2"

@@ -70,7 +70,7 @@ export const PubVacancyCard = ({
               "py-0.5 bg-transparent ring-1 min-w-[75px] justify-center items-center ",
               badgeColors[vacancy.work_format as EVacancyWorkFormat || 'default']
             )}>
-            {vacancyWorkFormatDict[vacancy.work_format]}
+            {vacancyWorkFormatDict[vacancy.work_format] || 'Не указан'}
           </Badge>
         </div>
         <div className="w-max min-w-[140px] grow">
@@ -78,7 +78,7 @@ export const PubVacancyCard = ({
             {salaryOfferString}
           </p>
           <p>
-            {format(new Date(vacancy.publication_at), "d MMMM yyyy", { locale: ru })}
+            {vacancy.publication_at ? format(new Date(vacancy.publication_at), "d MMMM yyyy", { locale: ru }) : 'Дата публикации неизвестна'}
           </p>
         </div>
       </Card>

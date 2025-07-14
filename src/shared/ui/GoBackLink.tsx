@@ -4,16 +4,26 @@ import { LinkIcon } from "lucide-react";
 import { Button } from "./shadcn/button";
 import { useRouter } from "next/navigation";
 import { cn } from "../lib/utils";
+import { useEffect, useState } from "react";
 
 type TProps = {
   className?: string
   text: string
 }
 export const GoBackLink = ({ className, text }: TProps) => {
+  const [isPossibleBack, setIsPossibleBack] = useState(true)
+
+  useEffect(() => {
+    const isPossible = window.history.length > 1
+    setIsPossibleBack(isPossible)
+  }, [])
+
   const router = useRouter()
+
   const handleClick = () => {
     router.back()
   }
+  if (!isPossibleBack) return null
   return (
     <Button
       onClick={handleClick}
