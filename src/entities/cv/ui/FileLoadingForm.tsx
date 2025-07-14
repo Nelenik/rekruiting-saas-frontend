@@ -8,6 +8,7 @@ import { Button } from "@/shared/ui/shadcn/button";
 import { CancelButton } from "@/shared/ui/buttons/CancelButton";
 import { toast } from "@/shared/model/hooks/use-toast";
 import { TMutationState } from "@/shared/api/common/api";
+import { FILE_STORE_BASE_URL } from "@/shared/api/constants";
 
 
 type TProps = {
@@ -23,7 +24,9 @@ export const FileLoadingForm = ({
 
   //Actions on successful form submitting
   const handleSucces = useCallback((state: TMutationState) => {
-    setInitialData(state.payload as TResume)
+    const { data, filePathPublic } = state.payload as { data: TResume, filePathPublic: string }
+    //update data.link with filePathPublic befor write it to the initial data
+    setInitialData({ ...data, link: FILE_STORE_BASE_URL + filePathPublic })
     fileUploadRef.current?.clearFiles()
   }, [setInitialData])
 

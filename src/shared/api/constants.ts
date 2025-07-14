@@ -7,6 +7,8 @@ export const mutationInitialState: TMutationState = {
 
 export const API_URL = process.env.API_URL;
 
+export const FILE_STORE_BASE_URL = "https://admin.rekrutai.ru";
+
 export const AUTH_COOKIE_NAME = "access_token";
 
 export const DEFAULT_PER_PAGE = 10;

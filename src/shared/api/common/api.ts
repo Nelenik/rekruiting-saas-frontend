@@ -39,6 +39,7 @@ type TRequestOptions = Omit<RequestInit, "body"> & {
   withAuth?: boolean;
   authCookieName?: string;
   expectResponseData?: boolean;
+  isRaw?: boolean; //raw response as it comes from the server
 };
 
 /**
@@ -137,6 +138,7 @@ export const apiMutate = async <T = unknown>(
     body,
     method = "POST",
     expectResponseData = false,
+    isRaw = false,
     withAuth = true,
     authCookieName = AUTH_COOKIE_NAME,
     headers,
@@ -159,6 +161,7 @@ export const apiMutate = async <T = unknown>(
 
   // If body is provided, ensure it is a FormData object or convert it to JSON
   const preparedBody = prepareBody(body);
+  console.log("preparedBody", preparedBody);
   try {
     // Perform the mutation request with the specified URL, method, body, and headers
     const response = await fetch(API_URL + url, {
@@ -197,9 +200,8 @@ export const apiMutate = async <T = unknown>(
     if (expectResponseData) {
       return {
         sent: true,
-        payload: data as T,
         error: null,
-        ...rest,
+        payload: isRaw ? parsedResponse : (data as T),
       };
     }
 

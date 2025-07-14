@@ -11,9 +11,7 @@ import {
 import { TResume } from "../types";
 import { revalidatePath } from "next/cache";
 import { parseFormData } from "../common/utils";
-// import { wait } from "@/shared/lib/wait";
 import { getSyntheticError } from "../common/errors";
-import { API_URL } from "../constants";
 
 /**
  * Fetches a list of resumes from the server, applying optional filters.
@@ -131,29 +129,41 @@ export const updateCV = async (
 };
 
 export const parseCvFromFile = async (_: TMutationState, data: FormData) => {
-  try {
-    if (!data.has("file")) {
-      return {
-        sent: false,
-        error: getSyntheticError("", 0, { file: "Выберите файл" }),
-      };
-    }
-    const res = await fetch(API_URL + "/cv/parse/hh", {
-      body: data,
-      method: "POST",
-    });
-    const result = await res.json();
-    console.log(result);
+  if (!data.has("file")) {
     return {
-      sent: true,
-      payload: result as TResume,
-      error: null,
-    };
-  } catch (error) {
-    console.error("Error parsing CV from file:", error);
-    return {
-      sent: true,
-      error: getSyntheticError("Ошибка при обработке файла"),
+      sent: false,
+      error: getSyntheticError("", 0, { file: "Выберите файл" }),
     };
   }
+  const result = await apiMutate("/cv/parse/hh", {
+    expectResponseData: true,
+    isRaw: true,
+    body: data,
+  });
+  return result;
+  // try {
+  //   if (!data.has("file")) {
+  //     return {
+  //       sent: false,
+  //       error: getSyntheticError("", 0, { file: "Выберите файл" }),
+  //     };
+  //   }
+  //   const res = await fetch(API_URL + "/cv/parse/hh", {
+  //     body: data,
+  //     method: "POST",
+  //   });
+  //   const result = await res.json();
+  //   console.log(result);
+  //   return {
+  //     sent: true,
+  //     payload: result as TResume,
+  //     error: null,
+  //   };
+  // } catch (error) {
+  //   console.error("Error parsing CV from file:", error);
+  //   return {
+  //     sent: true,
+  //     error: getSyntheticError("Ошибка при обработке файла"),
+  //   };
+  // }
 };
