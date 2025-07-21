@@ -1,3 +1,4 @@
+'use client'
 import { vacancyPositionsDict } from "@/entities/vacancy";
 import { cn } from "@/shared/lib/utils";
 import { CancelButton } from "@/shared/ui/buttons/CancelButton";

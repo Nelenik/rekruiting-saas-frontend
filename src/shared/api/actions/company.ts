@@ -8,7 +8,7 @@ import {
   TApiSuccessResponse,
   TMutationState,
 } from "../common/api";
-import { TCompany } from "../types";
+import { TCompany, TFilterCompanies } from "../types";
 import { revalidatePath } from "next/cache";
 import { parseFormData } from "../common/utils";
 
@@ -106,4 +106,21 @@ export const updateCompany = async (
     revalidatePath("/dashboard/[companyId]", "page");
   }
   return result;
+};
+
+/**
+ *
+ * @returns Companies list for public vacancies filter
+ */
+export const getFilterCompanies = async (): Promise<TFilterCompanies[]> => {
+  try {
+    const response = await apiGet<TApiListResponse<TFilterCompanies>>(
+      "/company/stat",
+      { withAuth: false }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 };

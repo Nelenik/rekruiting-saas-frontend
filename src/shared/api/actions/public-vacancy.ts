@@ -29,8 +29,9 @@ export const getPubVacanciesList = async (
     const filterString = new URLSearchParams(
       removeEmptyValues(filters)
     ).toString();
+    const query = filterString ? `?${filterString}` : "";
     const response = await apiGet<TApiListResponse<TPublicVacancy>>(
-      `/vacancy/public/${accountId}?` + filterString,
+      `/vacancy/public/${accountId}` + `${query}`,
       {
         withAuth: false,
         next: {
@@ -71,7 +72,8 @@ export const getPubVacancy = async (
 ): Promise<TPublicVacancy> => {
   try {
     const response = await apiGet<TApiSuccessResponse<TPublicVacancy>>(
-      `/vacancy/public/${accountId}/${id}`
+      `/vacancy/public/${accountId}/${id}`,
+      { withAuth: false }
     );
     return response.data;
   } catch (error) {
