@@ -27,22 +27,56 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
  * );
  * ```
  */
-export const usePathParamFilter = (baseUrl: string, paramIndex: number) => {
+// export const usePathParamFilter = (baseUrl: string, paramIndex: number) => {
+//   const router = useRouter();
+//   const params = useParams();
+//   const searchParams = useSearchParams();
+
+//   const { filters = [] } = params;
+//   const value = filters[paramIndex] || "";
+
+//   console.log(filters);
+
+//   const query = searchParams ? `?${searchParams.toString()}` : "";
+
+//   const updatePathParam = (newValue: string) => {
+//     const newFilters = [...filters];
+//     newFilters[paramIndex] = encodeURIComponent(newValue);
+//     //clean empty values
+//     const cleanedParams = newFilters.filter(Boolean).join("/");
+//     router.push(`${baseUrl}/${cleanedParams}${query}`);
+//   };
+//   return { value, updatePathParam };
+// };
+export const usePathParamFilter = (baseUrl: string) => {
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
 
   const { filters = [] } = params;
-  const value = filters[paramIndex] || "";
 
   const query = searchParams ? `?${searchParams.toString()}` : "";
 
-  const updatePathParam = (newValue: string) => {
+  /**
+   * Creates a function that updates a specific path parameter in the URL
+   * and navigates to the new route.
+   *
+   * @param paramIndex - The index of the parameter to update in the filters array.
+   * @returns A function that accepts a new value, updates the corresponding path parameter,
+   *          removes empty values, and pushes the updated URL to the router.
+   *
+   * @example
+   * // Suppose filters = ["category", "item"]
+   * const updateSecondParam = updatePathParam(1);
+   * updateSecondParam("new-item");
+   * // Navigates to `${baseUrl}/category/new-item${query}`
+   */
+  const updatePathParam = (paramIndex: number) => (newValue: string) => {
     const newFilters = [...filters];
     newFilters[paramIndex] = encodeURIComponent(newValue);
     //clean empty values
     const cleanedParams = newFilters.filter(Boolean).join("/");
     router.push(`${baseUrl}/${cleanedParams}${query}`);
   };
-  return { value, updatePathParam };
+  return { pathFilters: filters, updatePathParam };
 };

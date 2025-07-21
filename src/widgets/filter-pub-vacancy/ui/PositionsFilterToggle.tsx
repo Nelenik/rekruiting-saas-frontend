@@ -1,5 +1,5 @@
 'use client'
-import { usePositions } from "../model/PositionsProvider";
+import { usePathFilters } from "../model/PathFiltersProvider";
 import { vacancyPositionsDict } from "@/entities/vacancy";
 import { TVacancyPosition } from "@/shared/api/types";
 import { cn } from "@/shared/lib/utils";
@@ -40,15 +40,15 @@ type TProps = {
 export const PositionsFilterToggle = ({
   className
 }: TProps) => {
-  const { positionsList, active: currentPosition, updatePosition } = usePositions()
+  const { positionsList, activeFilters, updateFilter } = usePathFilters()
 
   return (
     <ToggleGroup
       type="single"
       variant={'outline'}
-      value={currentPosition}
+      value={activeFilters.position || ''}
       className={cn('flex-wrap justify-start gap-2', className)}
-      onValueChange={updatePosition}
+      onValueChange={updateFilter(0)}
     >
       {positionsList.map((item) => (
         <PositionToggleItem

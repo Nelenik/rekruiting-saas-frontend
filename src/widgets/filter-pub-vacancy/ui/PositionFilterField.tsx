@@ -4,24 +4,24 @@ import { cn } from "@/shared/lib/utils";
 import { CancelButton } from "@/shared/ui/buttons/CancelButton";
 import FormItem from "@/shared/ui/FormItem";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/shadcn/select";
-import { usePositions } from "../model/PositionsProvider";
+import { usePathFilters } from "../model/PathFiltersProvider";
 
 type TProps = {
   className?: string
 }
 
 export const PositionFilterField = ({ className }: TProps) => {
-  const { positionsList, active: currentPosition, updatePosition } = usePositions()
+  const { positionsList, activeFilters, updateFilter } = usePathFilters()
 
   return (
     <FormItem labelText="Специализация" className={cn(className)}>
       <CancelButton
-        onClick={() => updatePosition('')}
+        onClick={() => updateFilter(0)('')}
         className="absolute right-0 top-0 z-10"
       />
       <Select
-        value={currentPosition}
-        onValueChange={updatePosition}
+        value={activeFilters.position || ''}
+        onValueChange={updateFilter(0)}
 
       >
         <SelectTrigger

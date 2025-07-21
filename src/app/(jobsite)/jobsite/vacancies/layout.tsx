@@ -1,7 +1,7 @@
-import { getVacancyPositions } from "@/shared/api/actions";
+import { getFilterCompanies, getVacancyPositions } from "@/shared/api/actions";
 import { cn } from "@/shared/lib/utils";
 import { FiltersSheet } from "@/shared/ui/FiltersSheet";
-import { PositionsProvider, SearchVacancies, PubVacanciesFilter } from "@/widgets/filter-pub-vacancy";
+import { PathFiltersProvider, SearchVacancies, PubVacanciesFilter } from "@/widgets/filter-pub-vacancy";
 import { PositionsFilterToggle } from "@/widgets/filter-pub-vacancy/ui/PositionsFilterToggle";
 
 export default async function JobSiteVacanciesLayout({
@@ -9,14 +9,16 @@ export default async function JobSiteVacanciesLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   const vacancyPositions = await getVacancyPositions()
+  const filterCompanies = await getFilterCompanies()
+
   return (
-    <PositionsProvider positionsList={vacancyPositions}>
+    <PathFiltersProvider positionsList={vacancyPositions} filterCompanies={filterCompanies}>
       <div
         className={cn(
           'flex flex-col justify-between  gap-8',
           'md:grid md:grid-cols-[250px_minmax(0,1fr)] md:gap-x-6 md:gap-y-4',
-          // 'md:flex-row'
         )}
       >
         <div
@@ -48,6 +50,6 @@ export default async function JobSiteVacanciesLayout({
         </aside>
         {children}
       </div>
-    </PositionsProvider>
+    </PathFiltersProvider>
   )
 }

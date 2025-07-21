@@ -77,22 +77,19 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
     notFound()
   }
 
-  // eslint-disable-next-line prefer-const
-  let [position = '', company = ''] = pathParams
+  const [position = '', company = ''] = pathParams
 
   //if first params is not available position consider it as company and redirect to all/{compnay}
   if (pathParams.length === 1) {
     if (!isSegmentPosition(position) && position !== 'all') {
       redirect(`/vacancies/all/${position}`)
     }
-    if (position === 'all') {
-      position = ''
-    }
   }
 
-  const filters = { ...getParams, position, company }
+  const normPosition = position === 'all' ? '' : position
 
-  // const vacancyPositions = await getVacancyPositions()
+  const filters = { ...getParams, position: normPosition, company }
+
   return (
     <Suspense fallback={<CvListSkeleton />}>
       <PubVacanciesWrapper

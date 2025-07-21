@@ -10,6 +10,7 @@ import FormItem from "@/shared/ui/FormItem";
 import { PositionFilterField } from "./PositionFilterField";
 import { useRouter, useSearchParams } from "next/navigation";
 import { removeEmptyValues } from "@/shared/lib/object_manipulations/filterFalsyFields";
+import { CompanyFilterFiled } from "./CompanyFilterFiled";
 
 const defaultState = {
   salary_from: '',
@@ -47,6 +48,8 @@ export const PubVacanciesFilter = ({
             <div className="flex flex-wrap @3xl:flex-col gap-6">
 
               <PositionFilterField className="grow min-w-[250px]" />
+
+              <CompanyFilterFiled className="grow min-w-[250px]" />
 
               <FormItem labelText="Зарплата от" className="grow min-w-[250px]">
                 <CancelButton
