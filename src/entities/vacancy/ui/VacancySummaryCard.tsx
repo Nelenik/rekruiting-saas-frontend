@@ -43,8 +43,8 @@ export const VacancySummaryCard = () => {
       </div>
 
       <div className="grow">
-        <CardTitle className=" typography-h2 mb-2 flex items-start gap-4 max-w-[90%] ">
-          <span className='hyphens-auto'>
+        <CardTitle className=" typography-h2 mb-2 flex items-start justify-between gap-4 w-[90%] ">
+          <span className='inline-block hyphens-auto [overflow-wrap:anywhere]'>
 
             {vacancyName ?? 'Имя неизвестно'}
           </span>

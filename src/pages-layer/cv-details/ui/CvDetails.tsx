@@ -23,10 +23,10 @@ export const CvDetails = async ({ cv }: TProps) => {
   // const cv =
   return (
     <div>
-      <h2 className="typography-h2 first:mt-0 mb-2">
+      <h2 className="typography-h2 first:mt-0 mb-2 hyphens-auto [overflow-wrap:anywhere]">
         {cv.candy_name || 'Имя не указано'}
       </h2>
-      <h3 className="scroll-m-20 text-lg font-semibold  tracking-tight mb-6 w-[min(500px,_100%)] hyphens-auto">
+      <h3 className="scroll-m-20 text-lg font-semibold  tracking-tight mb-6 w-[min(500px,_100%)] hyphens-auto [overflow-wrap:anywhere]">
         {cv.name || 'Роль не известна'}
       </h3>
       <Tabs defaultValue="description" className="w-full ">

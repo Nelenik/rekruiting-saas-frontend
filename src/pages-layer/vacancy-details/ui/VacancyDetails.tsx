@@ -54,7 +54,7 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
 
     <div className="@container">
       <h1 className="scroll-m-20 text-3xl font-bold tracking-tight first:mt-0 mb-6 flex items-start gap-4">
-        <span className="inline-block w-[min(500px,_75%)] hyphens-auto">
+        <span className="inline-block w-[min(500px,_75%)] hyphens-auto [overflow-wrap:anywhere]">
           {name || 'Имя не указано'}
 
         </span>

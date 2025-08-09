@@ -67,12 +67,12 @@ export const PubVacDetails = ({
           <h1
             className={cn(
               "flex items-start gap-4",
-              "scroll-m-20 text-[40px] font-bold text-foreground tracking-tight first:mt-0 leading-[2.8rem] hyphens-auto",
+              "scroll-m-20 text-[40px] font-bold text-foreground tracking-tight first:mt-0 leading-[2.8rem] hyphens-auto [overflow-wrap:anywhere]",
             )}
           >
             {name || 'Имя не указано'}
           </h1>
-          <h2 className="scroll-m-20 text-xl font-semibold text-foreground tracking-tight">
+          <h2 className="scroll-m-20 text-xl font-semibold text-foreground tracking-tight ">
             {`${formatSalaryRange(salary_from || 0, salary_to || 0, false)}`}
           </h2>
           <div >

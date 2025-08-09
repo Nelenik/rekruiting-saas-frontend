@@ -12,6 +12,7 @@ type TProps = {
 export const MobileMenu = ({
   className
 }: TProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { publicRoutes, profileRoutes } = useNavConfig()
   return (
     <BurgerMenu
@@ -25,7 +26,9 @@ export const MobileMenu = ({
             <nav className={cn(
               ' w-[97%]'
             )}>
-              <NavList
+
+              {/* PROFILE NAV, TEMP DISCONNECTED */}
+              {/* <NavList
                 routes={profileRoutes}
                 className={cn(
                   'text-sidebar-foreground',
@@ -33,7 +36,7 @@ export const MobileMenu = ({
                 )}
                 onLinkClick={() => setTimeout(closeMenu, 300)}
               />
-              <Separator className="bg-sidebar-foreground h-[0.3px]" />
+              <Separator className="bg-sidebar-foreground h-[0.3px]" /> */}
 
               <NavList
                 routes={publicRoutes}

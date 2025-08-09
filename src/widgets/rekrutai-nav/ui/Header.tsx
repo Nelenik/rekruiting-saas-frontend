@@ -9,6 +9,7 @@ import { ScrollArea } from '@/shared/ui/shadcn/scroll-area';
 import { UserAvatar } from '@/shared/ui/navigation/UserAvatar';
 import { Separator } from '@/shared/ui/shadcn/separator';
 import { Logo } from '@/shared/ui/navigation/Logo';
+import LogoImg from '@/assets/logo-short.png';
 
 interface IHeaderProps {
   className?: string
@@ -93,6 +94,7 @@ export const Header = ({ className }: IHeaderProps) => {
         height={44}
         alt="RekrutAi logo"
         href="/"
+        image={LogoImg}
         className={cn(
           'm-auto shrink-0 ',
 

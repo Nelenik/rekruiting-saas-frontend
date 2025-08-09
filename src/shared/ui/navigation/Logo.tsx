@@ -1,17 +1,18 @@
 import { cn } from "@/shared/lib/utils";
 import Link from "next/link";
-import LogoImg from '@/assets/logo-short.png';
-import Image from "next/image";
+
+import Image, { StaticImageData } from "next/image";
 
 type TProps = {
   width: number,
   height: number,
   alt?: string,
   className?: string,
-  href?: string
+  href?: string,
+  image: StaticImageData
 }
 export const Logo = ({
-  width, height, className, href = '/', alt = ''
+  width, height, className, href = '/', alt = '', image
 }: TProps) => {
   return (
     <Link
@@ -21,7 +22,7 @@ export const Logo = ({
       )}
     >
       <Image
-        src={LogoImg}
+        src={image}
         className={cn(
           'inline-block',
           'w-full'
@@ -29,7 +30,6 @@ export const Logo = ({
         alt={alt}
         width={width}
         height={height}
-        priority
       />
     </Link>
   );

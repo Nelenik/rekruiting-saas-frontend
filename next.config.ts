@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-
 import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -7,14 +6,12 @@ const nextConfig: NextConfig = {
     API_URL: process.env.API_URL,
   },
   allowedDevOrigins: ["jobsite.local", "admin.localhost"],
-
   // svgr setting
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule: { test: RegExp }) =>
       rule.test?.test?.(".svg")
     );
-
     config.module.rules.push(
       // Convert all  *.svg?rc imports to React components
       {
@@ -49,12 +46,10 @@ const nextConfig: NextConfig = {
         type: "asset/resource", // Стандартная обработка файлов
       }
     );
-
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     if (fileLoaderRule) {
       fileLoaderRule.exclude = /\.svg$/i;
     }
-
     return config;
   },
 };

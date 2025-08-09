@@ -9,6 +9,7 @@ import { Breadcrumbs } from "@/widgets/breadcrumbs";
 import { cn } from "@/shared/lib/utils";
 import { TenantProvider } from "@/shared/providers/TenantProvider";
 import { NavigationConfigProvider } from "@/widgets/jobsite-nav/model/NavigationConfigProvider";
+import { JobsiteFooter } from "@/widgets/jobsite-footer";
 
 const geistSans = localFont({
   src: "../../fonts/GeistVF.woff",
@@ -24,11 +25,6 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Rekru.ru - доска вакансий",
   description: "Новый подход к поиску вакансий. Используя передовые технологии AI, мы автоматизируем процесс поиска и отбора вакансий. Теперь вы можете найти работу мечты в короткие сроки.",
-  robots: {
-    index: false,
-    follow: false,
-  }
-
 };
 
 export default async function JobSiteLayout({
@@ -69,6 +65,8 @@ export default async function JobSiteLayout({
                 {children}
               </div>
             </main>
+            {/* Footer */}
+            <JobsiteFooter />
           </QueryProvider>
         </TenantProvider>
         <Toaster />

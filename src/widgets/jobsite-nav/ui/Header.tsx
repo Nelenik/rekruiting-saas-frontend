@@ -6,6 +6,7 @@ import { MobileMenu } from "./MobileMenu";
 import { useNavConfig } from "../model/NavigationConfigProvider";
 import { NavList } from "./NavList";
 import { Logo } from "@/shared/ui/navigation/Logo";
+import LogoImg from '@/assets/rekru-logo-short.svg'
 
 
 type TProps = {
@@ -51,6 +52,7 @@ export const Header = ({
           height={44}
           alt="Rekruru - jobsite logo"
           href="/vacancies"
+          image={LogoImg}
           className={cn(
             'm-auto shrink-0',
             'md:w-[48px] md:m-0'
@@ -74,7 +76,9 @@ export const Header = ({
           />
         </nav>
 
+        {/* PROFILE NAVIGATION, TEMPORAR DISCONNECTED */}
         {/* user menu is shown from 768px and up */}
+
         {/* <UserMenu
           user={{ name: 'Соискатель' }}
           mode="shown"

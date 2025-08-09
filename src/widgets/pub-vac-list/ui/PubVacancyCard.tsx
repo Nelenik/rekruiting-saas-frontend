@@ -51,10 +51,10 @@ export const PubVacancyCard = ({
           </AvatarFallback>
         </Avatar>
         <div className="w-[200px] ">
-          <p>
+          <p className=" hyphens-auto [overflow-wrap:anywhere]">
             {vacancy.company.name || 'Компания неизвестна'}
           </p>
-          <p className="font-semibold">
+          <p className="font-semibold hyphens-auto [overflow-wrap:anywhere]">
             {vacancy.name}
           </p>
           <p className="text-muted-foreground flex items-center gap-2">

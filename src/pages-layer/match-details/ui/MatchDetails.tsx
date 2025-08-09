@@ -19,10 +19,10 @@ export const MatchDetails = async ({ candidate }: { candidate: TCandidateFull })
     <>
 
       <div>
-        <h2 className="typography-h2 first:mt-0 mb-2">
+        <h2 className="typography-h2 first:mt-0 mb-2 hyphens-auto [overflow-wrap:anywhere]">
           {candidate.cv.candy_name || 'Имя не указано'}
         </h2>
-        <h3 className="scroll-m-20 text-lg font-semibold tracking-tight mb-6">
+        <h3 className="scroll-m-20 text-lg font-semibold tracking-tight mb-6 hyphens-auto [overflow-wrap:anywhere]">
           {candidate.cv.name || 'Роль не известна'}
         </h3>
         <Tabs defaultValue="match" className="w-full ">
