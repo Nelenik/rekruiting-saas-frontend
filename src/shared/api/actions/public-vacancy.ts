@@ -34,6 +34,7 @@ export const getPubVacanciesList = async (
       `/vacancy/public/${accountId}` + `${query}`,
       {
         withAuth: false,
+        cache: "force-cache",
         next: {
           revalidate: 30,
         },

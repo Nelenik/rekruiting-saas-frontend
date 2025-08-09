@@ -118,6 +118,7 @@ export const getFilterCompanies = async (): Promise<TFilterCompanies[]> => {
       "/company/stat",
       {
         withAuth: false,
+        cache: "force-cache",
         next: { revalidate: 900 },
       }
     );
