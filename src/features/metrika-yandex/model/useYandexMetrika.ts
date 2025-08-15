@@ -15,9 +15,7 @@ export const useYandexMetrika = (id: number) => {
   const pathname = usePathname();
   const hit = useCallback(
     (url?: string, options?: YandexMetrikaHitOptions) => {
-      console.log("enabled", enabled);
       if (enabled) {
-        console.log("hit woks");
         ym(id, "hit", url, options);
       }
     },
