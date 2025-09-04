@@ -33,84 +33,132 @@ export default async function ExtensionPrivacy() {
         <div className={cn(
           'max-w-[1200px] mx-auto'
         )}>
-          <h1 className="text-3xl font-bold mb-6 text-blue-800">Privacy Policy</h1>
-          <p className="mb-4"><strong>Effective Date:</strong> September 2, 2025</p>
-          <p className="mb-6">Resume REKRU Extension (the &quot;Extension&quot;) is developed and operated by <strong>RekrutAI</strong> (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;). The Extension is intended for authorized users of our system to assist with automated recruitment and candidate management.</p>
+          <h1 className="text-3xl font-bold text-blue-500 mb-6">
+            Privacy Policy for Resume REKRU Extension
+          </h1>
 
-          <h2 className="text-2xl font-semibold mt-8 mb-4 text-blue-700">1. Information We Collect</h2>
-          <p className="mb-4">When using the Extension, an authorized user may collect the following data from resumes displayed on supported websites:</p>
-          <ul className="list-disc list-inside mb-4">
-            <li>Full name of the candidate</li>
-            <li>Contact information (email, phone)</li>
-            <li>Work experience</li>
-            <li>Job title / current or desired position</li>
-            <li>Desired salary</li>
-            <li>Candidate’s city of residence</li>
-            <li>Link to the original resume</li>
-            <li>Candidate’s biography</li>
-            <li>Skills and competencies</li>
-          </ul>
-          <p className="mb-4 font-semibold">Important:</p>
-          <p className="mb-6">The Extension only collects data <strong>when the user actively initiates the collection</strong>. Data is not collected automatically.</p>
-
-          <h2 className="text-2xl font-semibold mt-8 mb-4 text-blue-700">2. How We Use the Information</h2>
-          <p className="mb-4">The collected data is used solely for recruitment purposes by authorized users. Specifically:</p>
-          <ul className="list-disc list-inside mb-4">
-            <li>Data is stored in our secure database via API requests</li>
-            <li>Authorized users can view and manage candidate profiles within our system</li>
-            <li>Data is <strong>not sold or shared with third parties</strong></li>
-          </ul>
-
-          <h2 className="text-2xl font-semibold mt-8 mb-4 text-blue-700">3. User Consent</h2>
-          <p className="mb-4">By using the Extension, the user acknowledges that they are responsible for collecting candidate information. The Extension provides a <strong>warning notice</strong> before any data is collected.</p>
-          <blockquote className="border-l-4 border-blue-400 pl-4 italic mb-4 bg-blue-50 p-4 rounded">
-            &quot;Warning: You are about to collect personal data (e.g., name, contacts, experience) from a resume. Ensure you have permission from the owner of this data. All collected data will be sent to our secure server.&quot;
-          </blockquote>
-          <p className="mb-6">Users must <strong>explicitly agree</strong> to this notice before data is sent.</p>
-
-          <h2 className="text-2xl font-semibold mt-8 mb-4 text-blue-700">4. Data Security</h2>
-          <ul className="list-disc list-inside mb-6">
-            <li>All data is transmitted over <strong>encrypted HTTPS connections</strong></li>
-            <li>Only <strong>authorized users</strong> of the REKRU system can send data via the Extension</li>
-            <li>Access to the Extension and the system is controlled by login credentials</li>
-          </ul>
-
-          <h2 className="text-2xl font-semibold mt-8 mb-4 text-blue-700">5. Data Retention and Deletion</h2>
-          <ul className="list-disc list-inside mb-6">
-            <li>Collected data is retained in our database for recruitment purposes</li>
-            <li>Users may request the <strong>deletion of specific candidate data</strong> by providing:
-              <ul className="list-disc list-inside ml-6">
-                <li>The resume identifier as shown in the system</li>
-                <li>Their email address</li>
-              </ul>
-            </li>
-            <li>Requests should be sent to <strong>
-              <a href="mailto:info@rekru.ru" className="text-blue-600 underline">
-                info@rekru.ru
-              </a>
-            </strong></li>
-          </ul>
-
-          <h2 className="text-2xl font-semibold mt-8 mb-4 text-blue-700">6. Transparency and Limitations</h2>
-          <ul className="list-disc list-inside mb-6">
-            <li>The Extension is intended for internal/restricted use by authorized REKRU system users.</li>
-            <li>We do not guarantee the accuracy or completeness of data collected from third-party websites, as this depends on the source.</li>
-            <li>Users are responsible for complying with the TOS of accessed websites</li>
-            <li>We do <strong>not</strong> attempt to bypass the Terms of Service of any third-party websites</li>
-          </ul>
-
-          <h2 className="text-2xl font-semibold mt-8 mb-4 text-blue-700">7. Contact Information</h2>
-          <p className="mb-4">For questions about this Privacy Policy or data management, please contact:</p>
-          <p className="mb-2"><strong>RekrutAI</strong></p>
-          <p className="mb-2">Email: <a href="mailto:info@rekru.ru" className="text-blue-600 underline">
-            info@rekru.ru</a></p>
-          <p className="mb-2">Website:
-            <a href="https://rekrutai.ru/" className="text-blue-600 underline">https://rekrutai.ru/</a>
+          <p className="mb-6 text-gray-700">
+            The Resume REKRU Extension (the &quot;Extension&quot;) is developed and operated by RekrutAI (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;).
+            The Extension is designed for authorized users of our system and serves as a tool for automating
+            recruitment processes and candidate database management.
           </p>
-          <p className="mb-6">Country: Russian Federation</p>
 
-          <h2 className="text-2xl font-semibold mt-8 mb-4 text-blue-700">8. Changes to This Privacy Policy</h2>
-          <p className="mb-4">We may update this Privacy Policy to reflect changes in our practices or legal requirements. Updates will be posted on <a href="https://admin.rekrutai.ru//privacy/extension" className="text-blue-600 underline">https://admin.rekrutai.ru//privacy/extension</a>, and users will be notified via email or the REKRU system.</p>
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+              1. Information Collection Principles
+            </h2>
+            <p className="mb-4">
+              The Extension allows authorized users to access information available on supported websites according to the websites’ Terms of Service.
+              The Extension provides a <strong>tool for collecting and managing this information for recruitment purposes</strong>.
+              Data collection occurs <strong>only when initiated by the user</strong> and is not automatic.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+              2. Purpose of Information Use
+            </h2>
+            <p className="mb-4 text-gray-700">
+              Collected data is used exclusively within recruitment activities by authorized users for:
+            </p>
+            <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
+              <li>Secure storage in our database through API requests</li>
+              <li>Viewing and managing candidate profiles within our system</li>
+              <li>Candidate selection purposes for further employment</li>
+            </ul>
+            <p className="text-gray-700">
+              <strong>We do not sell or transfer data to third parties.</strong>
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+              3. User Consent and Responsibility
+            </h2>
+            <p className="mb-4 text-gray-700">
+              By using the Extension, the user confirms that they have legal grounds to access candidate information
+              in accordance with the terms of use of the respective web platforms. We provide only a technical tool
+              for convenient collection and structuring of publicly available information.
+            </p>
+            <p className="mb-4 text-gray-700">
+              The data collection form contains the following notice, and the user must check the consent checkbox before submission:
+            </p>
+            <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 mb-4">
+              <p className="text-yellow-800 font-medium mb-3">
+                &quot;Вы собираетесь структурировать данные из резюме на поддерживаемых сайтах. Все данные будут переданы на наш защищённый сервер для дальнейшей обработки.&quot;
+              </p>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="consent-checkbox"
+                  className="w-4 h-4 text-blue-500 border-2 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <label htmlFor="consent-checkbox" className="text-yellow-700 font-medium">
+                  Я понимаю и согласен продолжить сбор данных
+                </label>
+              </div>
+            </div>
+            <p className="text-gray-700">
+              Users must check the consent checkbox before data transmission. The form cannot be submitted without explicit consent.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+              4. Data Security
+            </h2>
+            <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <li>All data transmission is conducted over encrypted HTTPS connections</li>
+              <li>Only authorized users of the REKRU system can send data through the Extension</li>
+              <li>Access to the Extension and system is controlled by user credentials</li>
+            </ul>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+              5. Data Storage and Deletion
+            </h2>
+            <p className="mb-4 text-gray-700">
+              Collected data is stored in our database for recruitment purposes. Users may request deletion
+              of specific candidate data by providing the resume identifier displayed in the system
+            </p>
+            <p className="text-gray-700">
+              Requests should be sent to <a href="mailto:info@rekru.ru" className="text-blue-500 hover:text-blue-700 underline">info@rekru.ru</a>
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+              6. Transparency and Limitations
+            </h2>
+            <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <li>The Extension is intended for internal use by authorized REKRU system users</li>
+              <li>We do not guarantee the accuracy or completeness of data collected from third-party websites, as this depends on the source</li>
+              <li>Users are responsible for complying with the terms of use of accessed websites</li>
+              <li>We provide exclusively a technical solution for structuring publicly available information and do not violate the terms of use of third-party web platforms</li>
+            </ul>
+          </section>
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+              7. Contact Information
+            </h2>
+            <p className="mb-4">For questions about this Privacy Policy or data management, please contact:</p>
+            <p className="mb-2"><strong>RekrutAI</strong></p>
+            <p className="mb-2">Email: <a href="mailto:info@rekru.ru" className="text-blue-600 underline">
+              info@rekru.ru</a></p>
+            <p className="mb-2">Website:
+              <a href="https://rekrutai.ru/" className="text-blue-600 underline">https://rekrutai.ru/</a>
+            </p>
+            <p className="mb-6">Country: Russian Federation</p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+              8. Changes to This Privacy Policy
+            </h2>
+            <p className="mb-4">We may update this Privacy Policy to reflect changes in our practices or legal requirements. Updates will be posted on <a href="https://admin.rekrutai.ru//privacy/extension" className="text-blue-600 underline">https://admin.rekrutai.ru//privacy/extension</a>, and users will be notified via email or the REKRU system.</p>
+          </section>
+
         </div>
 
       </main>
