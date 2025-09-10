@@ -13,6 +13,8 @@ type TProps = {
 export const CompanyFilterFiled = ({ className }: TProps) => {
   const { filterCompanies, activeFilters, updateFilter } = usePathFilters()
 
+  if (!filterCompanies.length) return null
+
   return (
     <FormItem labelText="Компания" className={cn(className)}>
       <CancelButton

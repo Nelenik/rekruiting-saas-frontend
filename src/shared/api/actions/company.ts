@@ -115,7 +115,7 @@ export const updateCompany = async (
 export const getFilterCompanies = async (): Promise<TFilterCompanies[]> => {
   try {
     const response = await apiGet<TApiListResponse<TFilterCompanies>>(
-      "/company/stat",
+      "/company/stat/crawled",
       {
         withAuth: false,
         cache: "force-cache",

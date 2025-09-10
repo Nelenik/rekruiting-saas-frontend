@@ -37,9 +37,9 @@ export default async function JobSiteLayout({
   const tenant = await getTenant()
 
   return (
-    <html lang="ru" className="[scrollbar-gutter:stable]">
+    <html lang="ru">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased [scrollbar-gutter:stable]`}
       >
         <Analytics />
         <TenantProvider tenant={tenant}>

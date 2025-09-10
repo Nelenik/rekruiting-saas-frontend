@@ -2,7 +2,7 @@
 
 import { removeEmptyValues } from "@/shared/lib/object_manipulations/filterFalsyFields";
 import { apiGet, TApiListResponse, TApiSuccessResponse } from "../common/api";
-import { TPublicVacancy } from "../types";
+import { TPublicVacancy, TVacancyPosition } from "../types";
 
 /**
  * Fetches the list of public vacancies for a given account.
@@ -22,8 +22,7 @@ import { TPublicVacancy } from "../types";
  */
 
 export const getPubVacanciesList = async (
-  filters: Record<string, string> = {},
-  accountId: number = 1
+  filters: Record<string, string> = {}
 ) => {
   try {
     const filterString = new URLSearchParams(
@@ -31,7 +30,7 @@ export const getPubVacanciesList = async (
     ).toString();
     const query = filterString ? `?${filterString}` : "";
     const response = await apiGet<TApiListResponse<TPublicVacancy>>(
-      `/vacancy/public/${accountId}` + `${query}`,
+      `/vacancy/public/crawled` + `${query}`,
       {
         withAuth: false,
         cache: "force-cache",
@@ -68,12 +67,11 @@ export const getPubVacanciesList = async (
  * @throws Will throw an error if the request fails.
  */
 export const getPubVacancy = async (
-  id: number | string,
-  accountId: number | string = 1
+  id: number | string
 ): Promise<TPublicVacancy> => {
   try {
     const response = await apiGet<TApiSuccessResponse<TPublicVacancy>>(
-      `/vacancy/public/${accountId}/${id}`,
+      `/vacancy/crawled/${id}`,
       { withAuth: false }
     );
     return response.data;
@@ -82,6 +80,30 @@ export const getPubVacancy = async (
     if (error instanceof Error) {
       error.message =
         "Не удалось загрузить вакансию. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
+  }
+};
+
+/**
+ * Fetches a list of available vacancy positions from the server.
+ *
+ * @returns {Promise<string[]>} A promise that resolves to an array of position names (strings).
+ * If the response is empty, an empty array is returned.
+ *
+ * @throws {Error} Throws an error if the request fails, with a user-friendly error message.
+ */
+export const getPubVacancyPositions = async (): Promise<TVacancyPosition[]> => {
+  try {
+    const response = await apiGet<TApiListResponse<TVacancyPosition>>(
+      "/vacancy/positions/crawled"
+    );
+    return response.data || [];
+  } catch (error) {
+    console.log(error);
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить позиции вакансий. Пожалуйста, попробуйте позже.";
     }
     throw error;
   }

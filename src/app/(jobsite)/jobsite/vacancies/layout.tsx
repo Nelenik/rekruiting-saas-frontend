@@ -1,4 +1,5 @@
-import { getFilterCompanies, getVacancyPositions } from "@/shared/api/actions";
+import { getFilterCompanies } from "@/shared/api/actions";
+import { getPubVacancyPositions } from "@/shared/api/actions/public-vacancy";
 import { cn } from "@/shared/lib/utils";
 import { FiltersSheet } from "@/shared/ui/FiltersSheet";
 import { PathFiltersProvider, SearchVacancies, PubVacanciesFilter } from "@/widgets/filter-pub-vacancy";
@@ -10,7 +11,7 @@ export default async function JobSiteVacanciesLayout({
   children: React.ReactNode;
 }>) {
 
-  const vacancyPositions = await getVacancyPositions()
+  const vacancyPositions = await getPubVacancyPositions()
   const filterCompanies = await getFilterCompanies()
 
   return (
