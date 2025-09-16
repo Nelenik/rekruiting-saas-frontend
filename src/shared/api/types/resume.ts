@@ -2,9 +2,14 @@ import { EVacancyLevel } from "./vacancies";
 import { z } from "zod/v4";
 
 export enum ECvStatus {
+  // LOOKING = "looking",
+  // CONSIDERING = "considering-offers",
+  // NOT_LOOKING = "not-looking",
+  // OFFER = "offer",
+
   LOOKING = "looking",
-  CONSIDERING = "considering-offers",
-  NOT_LOOKING = "not-looking",
+  CONSIDERING = "considering",
+  SILENT = "silent",
   OFFER = "offer",
 }
 

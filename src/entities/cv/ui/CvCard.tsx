@@ -23,7 +23,7 @@ type TProps = {
 const badgeColors = {
   [ECvStatus.LOOKING]: 'ring-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-400/70',
   [ECvStatus.CONSIDERING]: 'ring-yellow-400 text-yellow-400 hover:text-white hover:bg-yellow-400/70',
-  [ECvStatus.NOT_LOOKING]: 'ring-muted-foreground text-muted-foreground hover:text-white hover:bg-muted-foreground/70',
+  [ECvStatus.SILENT]: 'ring-muted-foreground text-muted-foreground hover:text-white hover:bg-muted-foreground/70',
   [ECvStatus.OFFER]: 'ring-sky-500 text-sky-500 hover:text-white hover:bg-sky-500/70',
   default: 'ring-gray-300 text-gray-300 hover:text-white hover:bg-gray-300/70'
 }
