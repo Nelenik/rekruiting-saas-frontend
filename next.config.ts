@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     API_URL: process.env.API_URL,
   },
   allowedDevOrigins: ["jobsite.local", "admin.localhost"],
+  output: "standalone",
   // svgr setting
   webpack(config) {
     // Grab the existing rule that handles SVG imports
