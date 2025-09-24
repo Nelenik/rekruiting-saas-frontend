@@ -33,7 +33,7 @@ export default async function RekrutaiLayout({
   return (
     <html lang="ru" className={`${inter.variable}`}>
       <body
-        className={`font-inter antialiased`}
+        className={`font-inter antialiased text-sm`}
       >
         <TenantProvider tenant={tenant}>
 

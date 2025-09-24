@@ -35,7 +35,7 @@ export const Header = ({
     >
       <div
         className={cn(
-          'jobsite-container relative',
+          'rekru-container relative',
           'flex justify-between items-center'
         )}
       >

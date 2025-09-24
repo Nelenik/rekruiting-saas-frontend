@@ -38,7 +38,7 @@ export default async function JobSiteLayout({
   return (
     <html lang="ru" className={`${inter.variable}`}>
       <body
-        className={`font-inter antialiased [scrollbar-gutter:stable]`}
+        className={`font-inter text-sm antialiased [scrollbar-gutter:stable]`}
       >
         <Analytics />
         <TenantProvider tenant={tenant}>
@@ -50,7 +50,7 @@ export default async function JobSiteLayout({
               />
             </NavigationConfigProvider>
             {/* Breadcrumbs */}
-            <div className="jobsite-container">
+            <div className="rekru-container">
               <div className="flex justify-between items-center p-5 rounded-md bg-card">
 
                 <Breadcrumbs
@@ -62,7 +62,7 @@ export default async function JobSiteLayout({
             </div>
             {/* Main content */}
             <main className='@container py-12'>
-              <div className="jobsite-container">
+              <div className="rekru-container">
                 {children}
               </div>
             </main>

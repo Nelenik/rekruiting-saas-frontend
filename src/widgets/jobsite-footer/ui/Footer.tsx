@@ -11,7 +11,7 @@ type TProps = {
 export const Footer = ({ className }: TProps) => {
   return (
     <footer className={cn("py-12 bg-sidebar", className)}>
-      <div className={cn("jobsite-container", "flex gap-8 ")}>
+      <div className={cn("rekru-container", "flex gap-8 ")}>
         <div>
           <div className="flex flex-col gap-10">
             <Link href={'/vacancies'}>
