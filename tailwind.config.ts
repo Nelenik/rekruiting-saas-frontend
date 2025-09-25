@@ -13,6 +13,7 @@ export default {
     extend: {
       fontFamily: {
         inter: ["var(--font-inter)", "sans-serif"],
+        roboto: ["var(--font-roboto)", "sans-serif"],
       },
       screens: {
         "md-lg": "992px",

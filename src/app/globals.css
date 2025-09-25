@@ -19,8 +19,8 @@ html {
 @layer base {
   :root {
     /* tailwind vars */
-    --background: 0 0% 100%;
-    --foreground: 218 32% 12%;
+    --background: 220 14% 96%;
+    --foreground: 219 40% 11%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 20%;
     --popover: 0 0% 100%;

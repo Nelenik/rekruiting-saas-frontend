@@ -1,14 +1,14 @@
-import { Inter } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 import "../../globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "@/shared/ui/shadcn/toaster";
 import { TenantProvider } from "@/shared/providers/TenantProvider";
 import { getTenant } from "@/app/_actions/getTenant";
 
-const inter = Inter({
-  subsets: ['latin'],
+const roboto = Roboto({
+  subsets: ['latin', 'cyrillic'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-roboto',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 })
 
@@ -31,9 +31,9 @@ export default async function RekrutaiLayout({
   const tenant = await getTenant()
 
   return (
-    <html lang="ru" className={`${inter.variable}`}>
+    <html lang="ru" className={`${roboto.variable}`}>
       <body
-        className={`font-inter antialiased text-sm`}
+        className={`font-roboto antialiased text-sm`}
       >
         <TenantProvider tenant={tenant}>
 

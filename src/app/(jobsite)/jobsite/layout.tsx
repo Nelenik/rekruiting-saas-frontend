@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
-import "../../globals.css";
+import "../../rekru-globals.css";
 
 import { Toaster } from "@/shared/ui/shadcn/toaster";
 import { JobsiteHeader } from "@/widgets/jobsite-nav";
@@ -16,7 +16,7 @@ import { NavigationConfigProvider } from "@/widgets/jobsite-nav/model/Navigation
 import { Analytics } from "@/widgets/analytics";
 
 const inter = Inter({
-  subsets: ['latin'],
+  subsets: ['latin', 'cyrillic'],
   display: 'swap',
   variable: '--font-inter',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
