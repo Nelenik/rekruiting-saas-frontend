@@ -1,6 +1,6 @@
 import { TUser } from "@/shared/api/types";
-import { UserAvatar } from "./UserAvatar";
 import { cn } from "@/shared/lib/utils";
+import { UserAvatar } from "@/shared/ui/navigation/UserAvatar";
 
 type TProps = {
   user: TUser

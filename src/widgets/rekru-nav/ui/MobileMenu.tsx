@@ -1,6 +1,6 @@
 import { cn } from "@/shared/lib/utils";
 import { BurgerMenu } from "@/shared/ui/navigation/BurgerMenu";
-import { NavList } from "./NavList";
+import { NavList } from "../../../shared/ui/navigation/NavList";
 import { SignOutForm } from "@/features/auth";
 import { useNavConfig } from "../model/NavigationConfigProvider";
 import { Separator } from "@/shared/ui/shadcn/separator";

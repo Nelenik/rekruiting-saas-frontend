@@ -86,6 +86,6 @@ html {
   }
 
   .link-footer {
-    @apply inline-block text-sm underline underline-offset-4 decoration-transparent transition-all hover:decoration-white hover:scale-110;
+    @apply inline-block text-sm underline underline-offset-4 decoration-transparent decoration-2 transition-all hover:decoration-white hover:scale-105;
   }
 }

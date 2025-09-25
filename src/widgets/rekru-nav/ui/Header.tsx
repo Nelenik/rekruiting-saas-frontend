@@ -4,13 +4,13 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 
 import { useNavConfig } from "../model/NavigationConfigProvider";
-import { NavList } from "./NavList";
+import { NavList } from "@/shared/ui/navigation/NavList";
 import { Logo } from "@/shared/ui/navigation/Logo";
 import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
 
 import LogoImg from '@/assets/logo-short.png';
 import profileSampleImg from '@/assets/profile-sample.png'
-import { UserPreview } from "@/shared/ui/navigation/UserPreview";
+import { UserPreview } from "@/entities/profile";
 
 
 
@@ -77,8 +77,9 @@ export const Header = ({
             routes={publicRoutes}
             className={cn(
               'flex gap-10 items-center w-full justify-center',
-              'text-secondary-foreground',
             )}
+            theme='light'
+            navLinkClassName="py-2"
           />
         </nav>
 

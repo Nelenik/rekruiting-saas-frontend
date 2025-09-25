@@ -36,7 +36,7 @@ export const SignOutForm = ({
       <Button
         // variant={'outline'}
         className={cn(
-          'flex items-center gap-2',
+          'flex items-center gap-3',
           className
         )}
         {...props}

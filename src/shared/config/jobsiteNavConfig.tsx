@@ -1,4 +1,4 @@
-import { CircleUser, Cog, FileUser, Pin, SmilePlus } from "lucide-react";
+import { Circle } from "lucide-react";
 import { TNavConfig } from "./types";
 
 /**
@@ -32,28 +32,23 @@ export const createJobsitePublicNavConfig = (): TNavConfig[] => [
  */
 export const createJobsiteProfileNavConfig = (): TNavConfig[] => [
   {
-    routeName: 'Личный кабинет',
-    href: '/profile',
-    icon: <CircleUser />
+    routeName: "Мои вакансии",
+    href: '/profile/vacancies',
+    icon: <Circle className="h-[2cap] w-[2cap] inline mr-3 group-hover/icon:stroke-primary transition-colors" />
   },
   {
-    routeName: "Мои резюме",
-    href: '/my-resumes',
-    icon: <FileUser />
-  },
-  {
-    routeName: 'Отклики',
-    href: '/applications',
-    icon: <SmilePlus />
-  },
-  {
-    routeName: 'Сохраненные',
-    href: '/saved',
-    icon: <Pin />
+    routeName: 'Статистика и аналитика',
+    href: '/profile/analytics',
+    icon: <Circle className="h-[2cap] w-[2cap] inline mr-3 group-hover/icon:stroke-primary transition-colors" />
   },
   {
     routeName: 'Настройки',
-    href: '/settings',
-    icon: <Cog />
+    href: '/profile/settings',
+    icon: <Circle className="h-[2cap] w-[2cap] inline mr-3 group-hover/icon:stroke-primary transition-colors" />
+  },
+  {
+    routeName: 'Тех.поддержка',
+    href: '/profile/support',
+    icon: <Circle className="h-[2cap] w-[2cap] inline mr-3 group-hover/icon:stroke-primary transition-colors" />
   }
 ]
