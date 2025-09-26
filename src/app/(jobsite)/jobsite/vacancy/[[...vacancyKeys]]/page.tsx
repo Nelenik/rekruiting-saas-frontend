@@ -1,3 +1,4 @@
+import { CompanyInfoCard } from '@/entities/company/ui/CompanyInfoCard';
 import { vacancyEpmpoymentDict } from '@/entities/vacancy';
 import { PubVacDetails } from '@/pages-layer/pub-vac-details';
 import { getPubVacancy } from '@/shared/api/actions/public-vacancy';
@@ -59,7 +60,7 @@ const JobsiteVacancyDetails = async ({
   }
 
   return (
-    <div>
+    <div className='py-8'>
       {/* UNCOMMENT WHEN GET DATA FOR REAL VACANCY */}
       {/* JSON-LD google for job markup */}
       {/* <script
@@ -68,11 +69,23 @@ const JobsiteVacancyDetails = async ({
           __html: JSON.stringify(generateJsonLd(vacancy)).replace(/</g, '\\u003c'),
         }}
       /> */}
-
-      <GoBackLink
-        text='К вакансиям'
-      />
-      <PubVacDetails vacancy={vacancy} />;
+      <div className="rekru-container pb-8">
+        <GoBackLink
+          className='p-0'
+          text='Назад к списку вакансий'
+        />
+      </div>
+      <div className="rekru-container grid gap-8 grid-cols-12">
+        <PubVacDetails
+          vacancy={vacancy}
+          className='col-span-7'
+        />
+        <CompanyInfoCard
+          // company={vacancy.company}
+          sourceLink={vacancy.link}
+          className='col-span-5 self-start'
+        />
+      </div>
     </div >
   )
 };

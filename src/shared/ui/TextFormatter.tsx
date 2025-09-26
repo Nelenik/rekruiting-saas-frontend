@@ -19,6 +19,7 @@ export const TextFormatter = ({ text, className }: { text: string, className?: s
   const h3Regexp = /^\*{2}(.+?)\*{2}/g;
   const inlineBoldRegexp = /\*\*(.+?)\*\*/g
   const linkReg = /https?:\/\/[^\s]+/g;
+  const listIndicatorReg = /^(\*|[-•●])|.+;$/u
 
   const blocks = cleanedText.split(/\n{2,}/).map((block, id) => {
     const lines = block
@@ -36,9 +37,12 @@ export const TextFormatter = ({ text, className }: { text: string, className?: s
             return `<span class=" text-foreground/85 font-medium">${title}</span>`
           })
         }
-        // list ➥
-        if (/^(\*[^\*]|-[^-]|\•[^|\•])/.test(line)) {
-          line = line.replace(/^\*|\-|\•?/, ' ➥ ');
+        // list —
+        if (listIndicatorReg.test(line)) {
+          line = line
+            .replace(/^(\*|[-•●])\s*/, '').trim()
+            .replace(/;$/, '').trim();
+          line = ' — ' + line;
         }
 
         // links

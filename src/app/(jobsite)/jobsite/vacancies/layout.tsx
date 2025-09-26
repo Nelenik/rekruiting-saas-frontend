@@ -17,7 +17,7 @@ export default async function JobSiteVacanciesLayout({
     <PathFiltersProvider positionsList={vacancyPositions} filterCompanies={filterCompanies}>
       <div
         className={cn(
-          'flex flex-col justify-between  gap-8',
+          'rekru-container flex flex-col justify-between  gap-8',
           'md:grid md:grid-cols-[250px_minmax(0,1fr)] md:gap-x-6 md:gap-y-4',
         )}
       >

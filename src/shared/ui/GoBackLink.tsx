@@ -1,6 +1,6 @@
 'use client'
 
-import { LinkIcon } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "./shadcn/button";
 import { useRouter } from "next/navigation";
 import { cn } from "../lib/utils";
@@ -29,11 +29,11 @@ export const GoBackLink = ({ className, text }: TProps) => {
       onClick={handleClick}
       variant="link"
       className={cn(
-        "flex items-center mb-6 font-medium text-sm text-primary/80 underline underline-offset-2 decoration-transparent hover:decoration-current transition-colors duration-300",
+        "flex items-center gap-1.5 font-medium text-sm text-primary underline underline-offset-4 decoration-transparent hover:decoration-current transition-colors duration-300",
         className)}
     >
+      <ArrowLeft className="h-[1cap]" />
       {text}
-      <LinkIcon className="h-[1cap]" />
     </Button>
   );
 }

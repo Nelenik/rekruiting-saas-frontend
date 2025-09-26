@@ -17,7 +17,7 @@ html {
     --popover-foreground: 0 0% 3.9%;
     --primary: 218 89% 54%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
+    --secondary: 216 83% 98%;
     --secondary-foreground: 219 33% 33%;
     --muted: 217 35% 93%;
     --muted-foreground: 218 11% 65%;
@@ -83,6 +83,10 @@ html {
 
   .heading-footer {
     @apply text-lg font-semibold text-sidebar-foreground;
+  }
+
+  .heading-24 {
+    @apply text-2xl font-semibold text-foreground;
   }
 
   .link-footer {

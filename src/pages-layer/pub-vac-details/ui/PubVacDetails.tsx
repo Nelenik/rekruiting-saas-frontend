@@ -10,11 +10,11 @@ import { Fragment } from "react";
 import { formatSalaryRange } from "@/shared/lib/formatters/formatSalaryRange";
 
 type TProps = {
-  vacancy: TPublicVacancy
-  ;
+  vacancy: TPublicVacancy;
+  className?: string
 }
 export const PubVacDetails = ({
-  vacancy
+  vacancy, className
 }: TProps) => {
   const {
     name,
@@ -54,7 +54,7 @@ export const PubVacDetails = ({
   ]
   return (
 
-    <div className="w-full max-w-[900px] m-auto flex flex-col gap-16" >
+    <div className={cn("w-full flex flex-col gap-16", className)} >
       <div className={cn(
         "grid grid-cols-1 gap-x-7 gap-y-8",
         'md:grid-cols-2'

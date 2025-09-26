@@ -49,10 +49,10 @@ export default async function JobSiteLayout({
             <RekruHeader
             />
             {/* Main content */}
-            <main className='@container py-10'>
-              <div className="rekru-container">
-                {children}
-              </div>
+            <main className='@container'>
+              {/* <div className="rekru-container"> */}
+              {children}
+              {/* </div> */}
             </main>
             {/* Footer */}
             <footer className={cn("py-12 bg-sidebar flex flex-col gap-10")}>
