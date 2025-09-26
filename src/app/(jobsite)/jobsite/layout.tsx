@@ -16,11 +16,6 @@ import { TenantProvider } from "@/shared/providers/TenantProvider";
 
 import QrSample from '@/assets/qr-sample.png'
 import LogoFullImg from '@/assets/logo-short.png'
-import LinkedInImg from '@/assets/socials/linkedin.png'
-import WhatsAppImg from '@/assets/socials/whatsapp.png'
-import TelegramImg from "@/assets/socials/telegram.png"
-import GitHubImg from '@/assets/socials/github.png'
-import DiscordImg from '@/assets/socials/discord.png'
 
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -168,7 +163,7 @@ export default async function JobSiteLayout({
                     <li >
                       <a href="!#" aria-label="Linkedin link">
                         <Image
-                          src={LinkedInImg}
+                          src="/assets/socials/linkedin.webp"
                           alt="LinkedIn icon"
                           width={40}
                           height={40}
@@ -178,7 +173,7 @@ export default async function JobSiteLayout({
                     <li>
                       <a href="!#" aria-label="WhatsApp link">
                         <Image
-                          src={WhatsAppImg}
+                          src='/assets/socials/whatsapp.webp'
                           alt="WhatsApp icon"
                           width={40}
                           height={40}
@@ -188,7 +183,7 @@ export default async function JobSiteLayout({
                     <li>
                       <a href="!#" aria-label="Telegram link">
                         <Image
-                          src={TelegramImg}
+                          src='/assets/socials/telegram.webp'
                           alt="Telegram icon"
                           width={40}
                           height={40}
@@ -198,7 +193,7 @@ export default async function JobSiteLayout({
                     <li>
                       <a href="!#" aria-label="Github link">
                         <Image
-                          src={GitHubImg}
+                          src='/assets/socials/github.webp'
                           alt="Github icon"
                           width={40}
                           height={40}
@@ -208,7 +203,7 @@ export default async function JobSiteLayout({
                     <li>
                       <a href="!#" aria-label="Discord link">
                         <Image
-                          src={DiscordImg}
+                          src='/assets/socials/discord.webp'
                           alt="Discord icon"
                           width={40}
                           height={40}
