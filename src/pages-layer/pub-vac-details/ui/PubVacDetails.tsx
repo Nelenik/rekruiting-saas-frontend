@@ -47,7 +47,7 @@ export const PubVacDetails = ({
             salary_from={salary_from}
             salary_to={salary_to}
             location={location}
-            work_format={work_format.toLowerCase()}
+            work_format={work_format}
             experience={experience}
             employment={employment}
           />

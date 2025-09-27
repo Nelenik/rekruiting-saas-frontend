@@ -27,7 +27,8 @@ export const VacancyParams = ({
   location,
   work_format,
   experience,
-  employment
+  employment,
+  link
 }: TProps) => {
   const normalizedWorkFormat = capitalizeSentences(
     work_format
@@ -40,7 +41,11 @@ export const VacancyParams = ({
       ? vacancyExperienceDict[experience || ''] || experience
       : "не указан"
   )
-  const normalizedEmployment = (employment ? vacancyEpmpoymentDict[employment || ''] || employment : "не указана").toLowerCase()
+  const normalizedEmployment = capitalizeSentences(employment ? vacancyEpmpoymentDict[employment || ''] || employment : "не указана")
+
+  const normalizedSalary = (Number.isFinite(salary_from) || Number.isFinite(salary_to))
+    ? `${formatSalaryRange(salary_from || 0, salary_to || 0)} ₽ за месяц`
+    : 'По договоренности'
 
   return (
     <div className={cn(
@@ -55,20 +60,20 @@ export const VacancyParams = ({
           color="#17499d"
           className="text-base px-3.5 py-1 rounded-lg font-medium"
         >
-          {capitalizeSentences(level || 'unknown')}
+          {capitalizeSentences(level || 'junior')}
         </StatusBadge>
       </div>
       <p className="text-primary text-xl font-semibold">
-        {`${formatSalaryRange(salary_from || 0, salary_to || 0)} ₽ за месяц`}
+        {normalizedSalary}
       </p>
       <div>
-        <p className="mb-2 text-sm text-[#5877ae] flex gap-2 items-center font-medium">
+        <p className="mb-2 text-sm text-[#5877ae] flex flex-wrap gap-2 items-center font-medium">
           <span>
             {normalizedWorkFormat}
           </span>
           <span>•</span>
           <span>
-            Занятость: {normalizedEmployment}
+            {normalizedEmployment}
           </span>
           <span>•</span>
           <span>
@@ -81,9 +86,18 @@ export const VacancyParams = ({
       </div>
       <RekruCTA
         className="self-start"
+        asChild
       >
-        <Check />
-        Откликнуться
+        <a
+          href={link || '#!'}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Check />
+          Откликнуться
+        </a>
+
+
       </RekruCTA>
     </div>
   );

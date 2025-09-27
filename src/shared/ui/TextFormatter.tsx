@@ -16,7 +16,8 @@ export const TextFormatter = ({ text, className }: { text: string, className?: s
   const cleanedText = sanitize(text).replace(/\r\n/g, '\n');
 
   // const regexp = /([A-ZА-ЯЁ][^:\n]+):\s/g;
-  const h3Regexp = /^\*{2}(.+?)\*{2}/g;
+  const heading1 = /^\*{2}(.+?)\*{2}/g;
+  const heading2 = /^#{2,}\s*(.+?)$/g
   const inlineBoldRegexp = /\*\*(.+?)\*\*/g
   const linkReg = /https?:\/\/[^\s]+/g;
   const listIndicatorReg = /^(\*|[-•●])|.+;$/u
@@ -25,13 +26,21 @@ export const TextFormatter = ({ text, className }: { text: string, className?: s
     const lines = block
       .split('\n')
       .map((line) => {
-        // Subtitle h3 (bold text **smth**)
-        if (h3Regexp.test(line)) {
-          return line.replace(h3Regexp, (_, title: string) => {
+        // Subtitle 1 (bold text **smth**)
+        if (heading1.test(line)) {
+          return line.replace(heading1, (_, title: string) => {
             return (
-              `<h3 class="mb-2 text-base  font-medium text-foreground/85">${title}</h3>`);
+              `<p class="mb-2 text-base  font-semibold text-foreground">${title}</p>`);
           });
         }
+        // Subtitle 2 (#+ text)
+        if (heading2.test(line)) {
+          return line.replace(heading2, (_, title: string) => {
+            return (
+              `<p class="mb-2 text-base  font-semibold text-foreground">${title}</p>`);
+          })
+        }
+
         if (inlineBoldRegexp.test(line)) {
           line = line.replace(inlineBoldRegexp, (_, title) => {
             return `<span class=" text-foreground/85 font-medium">${title}</span>`
