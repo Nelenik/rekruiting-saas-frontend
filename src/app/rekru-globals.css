@@ -85,10 +85,6 @@ html {
     @apply text-lg font-semibold text-sidebar-foreground;
   }
 
-  .heading-24 {
-    @apply text-2xl font-semibold text-foreground;
-  }
-
   .link-footer {
     @apply inline-block text-sm underline underline-offset-4 decoration-transparent decoration-2 transition-all hover:decoration-white hover:scale-105;
   }

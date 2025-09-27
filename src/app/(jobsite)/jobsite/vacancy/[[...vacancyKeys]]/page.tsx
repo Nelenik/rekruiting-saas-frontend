@@ -1,10 +1,8 @@
-import { CompanyInfoCard } from '@/entities/company/ui/CompanyInfoCard';
 import { vacancyEpmpoymentDict } from '@/entities/vacancy';
 import { PubVacDetails } from '@/pages-layer/pub-vac-details';
 import { getPubVacancy } from '@/shared/api/actions/public-vacancy';
 import { TPublicVacancy } from '@/shared/api/types';
 import { encodeSegment } from '@/shared/lib/encodeSegments';
-import { GoBackLink } from '@/shared/ui/GoBackLink';
 import { addMonths, format } from 'date-fns';
 import { redirect } from 'next/navigation';
 
@@ -69,23 +67,7 @@ const JobsiteVacancyDetails = async ({
           __html: JSON.stringify(generateJsonLd(vacancy)).replace(/</g, '\\u003c'),
         }}
       /> */}
-      <div className="rekru-container pb-8">
-        <GoBackLink
-          className='p-0'
-          text='Назад к списку вакансий'
-        />
-      </div>
-      <div className="rekru-container grid gap-8 grid-cols-12">
-        <PubVacDetails
-          vacancy={vacancy}
-          className='col-span-7'
-        />
-        <CompanyInfoCard
-          // company={vacancy.company}
-          sourceLink={vacancy.link}
-          className='col-span-5 self-start'
-        />
-      </div>
+      <PubVacDetails vacancy={vacancy} />
     </div >
   )
 };

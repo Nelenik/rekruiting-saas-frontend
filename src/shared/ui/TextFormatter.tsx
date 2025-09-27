@@ -42,7 +42,7 @@ export const TextFormatter = ({ text, className }: { text: string, className?: s
           line = line
             .replace(/^(\*|[-•●])\s*/, '').trim()
             .replace(/;$/, '').trim();
-          line = ' — ' + line;
+          line = '<span class="text-primary">—</span> ' + line;
         }
 
         // links
@@ -52,7 +52,7 @@ export const TextFormatter = ({ text, className }: { text: string, className?: s
           });
         }
 
-        return `<p class="mb-2">${line}</p>`;
+        return `<p class="mb-3">${line}</p>`;
       })
       .join('');
     return (

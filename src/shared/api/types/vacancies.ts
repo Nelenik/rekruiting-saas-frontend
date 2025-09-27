@@ -93,6 +93,7 @@ export type TVacancy = {
   match_count: number;
   match_hot_count: number;
   matchStatuses: TMatchStatus[];
+  level: EVacancyLevel;
   created_at: string;
   external_id: string;
 };
@@ -125,6 +126,7 @@ export type TPublicVacancy = Pick<
   | "responsibilities"
   | "conditions"
   | "description"
+  | "level"
 > & {
   company: {
     name: TCompany["name"];

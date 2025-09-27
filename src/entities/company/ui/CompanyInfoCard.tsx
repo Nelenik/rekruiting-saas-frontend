@@ -29,7 +29,6 @@ export const CompanyInfoCard = ({
   className
 }: TProps) => {
 
-  console.log(getCompanyLogoByName(company.name || ''))
   return (
     <Card className={cn(
       'relative flex flex-col gap-5 p-8',

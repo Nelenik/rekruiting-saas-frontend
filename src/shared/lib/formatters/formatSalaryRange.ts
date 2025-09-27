@@ -45,8 +45,8 @@ export const formatSalaryRange = (
   }
 
   const template = templates[templateKey];
-  const salaryFromPrice = formatPrice(salaryFrom, "ru-Ru", "RUB");
-  const salaryToPrice = formatPrice(salaryTo, "ru-Ru", "RUB");
+  const salaryFromPrice = formatPrice(salaryFrom, "ru-Ru");
+  const salaryToPrice = formatPrice(salaryTo, "ru-Ru");
 
   return formatStrByTemplate(template, {
     from: salaryFromPrice,

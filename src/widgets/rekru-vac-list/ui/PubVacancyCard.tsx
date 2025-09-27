@@ -1,4 +1,4 @@
-import { experienceAliases, vacancyExperienceDict, vacancyWorkFormatDict } from "@/entities/vacancy";
+import { vacancyExperienceDict, vacancyWorkFormatDict } from "@/entities/vacancy";
 import { EVacancyWorkFormat, TPublicVacancy } from "@/shared/api/types";
 import { encodeSegment } from "@/shared/lib/encodeSegments";
 import { formatSalaryRange } from "@/shared/lib/formatters/formatSalaryRange";
@@ -18,27 +18,7 @@ const badgeColors = {
   [EVacancyWorkFormat.REMOTE]: 'ring-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-400/70',
   default: 'ring-orange-300 text-orange-300 hover:text-white hover:bg-orange-300/70'
 }
-//this function checks non-canonical work formats 
-const checkWorkFormat = (workFormat: string | null) => {
-  const remoteReg = /удал[ёе]н/i
-  const hybridReg = /гибрид/i
-  const officeReg = /офис/i
-  if (!workFormat) return null
-  if (workFormat in badgeColors) return workFormat
-  if (remoteReg.test(workFormat)) return 'remote'
-  if (hybridReg.test(workFormat)) return 'hybrid'
-  if (officeReg.test(workFormat)) return 'office'
-  return null
-}
-//this function checks non-canonical experience formats
-export function checkExperienceFormat(raw: string | null) {
-  if (!raw) return null
-  if (raw in vacancyExperienceDict) {
-    return raw
-  }
-  const normalized = experienceAliases[raw.toLowerCase()]
-  return normalized || null
-}
+
 
 type Props = {
   vacancy: TPublicVacancy
@@ -52,12 +32,11 @@ export const PubVacancyCard = ({
   const avatarBgColor = generateRgbFromString(vacancy.name)
 
   //workFormat
-  const workFormat = checkWorkFormat(vacancy.work_format)
-  const badgeColor = badgeColors[workFormat as EVacancyWorkFormat] || badgeColors.default
-  const normalizedWorkFormat = vacancyWorkFormatDict[workFormat || ''] || vacancy.work_format || 'Не указан'
+  const badgeColor = badgeColors[vacancy.work_format as EVacancyWorkFormat] || badgeColors.default
+  const normalizedWorkFormat = (vacancyWorkFormatDict[vacancy.work_format || ''] || vacancy.work_format || 'Не указан').toLowerCase()
+
   //check experience
-  const experienceFormat = checkExperienceFormat(vacancy.experience)
-  const normalizedExperience = vacancyExperienceDict[experienceFormat || ''] || vacancy.experience || '-'
+  const normalizedExperience = (vacancyExperienceDict[vacancy.experience || ''] || vacancy.experience || '-').toLowerCase()
 
   return (
     <Link

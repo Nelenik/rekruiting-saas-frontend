@@ -28,14 +28,14 @@ type CurrencyCode =
 export const formatPrice = (
   price: number | null,
   locale: Intl.LocalesArgument,
-  currency: CurrencyCode,
+  currency?: CurrencyCode,
   minFractionDigits?: number
 ): string => {
   if (price === null) return "не указано ₽";
 
   const formatter = new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: currency,
+    style: currency ? "currency" : "decimal",
+    ...(currency && { currency: currency }),
     minimumFractionDigits: minFractionDigits ?? 0,
   });
   return formatter.format(price);
