@@ -20,8 +20,10 @@ const userSample = {
 
 type TProps = {
   className?: string
+  onLinkClick?: () => void
+  theme?: 'dark' | 'light'
 }
-export const RekruProfileMenu = ({ className }: TProps) => {
+export const RekruProfileMenu = ({ className, onLinkClick = () => { }, theme = 'dark' }: TProps) => {
   const profileRoutes = useMemo(() => createJobsiteProfileNavConfig(), [])
   return (
     <div className={cn('flex flex-col gap-10', className)}>
@@ -38,12 +40,17 @@ export const RekruProfileMenu = ({ className }: TProps) => {
       </div>
       <NavList
         routes={profileRoutes}
-        theme="dark"
+        theme={theme}
         className='flex flex-col gap-4'
+        onLinkClick={onLinkClick}
       />
       <SignOutForm
         variant={'ghost'}
-        className={cn(" text-sidebar-foreground p-0 transition-all", "hover:bg-transparent hover:text-primary hover:scale-105")}
+        className={cn(
+          'p-0 hover:bg-transparent transition-all  hover:text-primary ',
+          theme === 'dark' && " text-sidebar-foreground hover:scale-105",
+          theme === 'light' && 'text-secondary-foreground'
+        )}
       >
         <LogOut className="w-5 h-20" />
         Выйти из аккаунта

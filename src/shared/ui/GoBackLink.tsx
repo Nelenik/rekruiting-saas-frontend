@@ -14,16 +14,20 @@ export const GoBackLink = ({ className, text }: TProps) => {
   const [isPossibleBack, setIsPossibleBack] = useState(false)
 
   useEffect(() => {
-    const isPossible = window.history.length > 1
+    const isPossible = window.history.length > 2
     setIsPossibleBack(isPossible)
   }, [])
 
   const router = useRouter()
 
   const handleClick = () => {
-    router.back()
+    if (isPossibleBack) {
+
+      router.back()
+    } else {
+      router.push('/')
+    }
   }
-  if (!isPossibleBack) return null
   return (
     <Button
       onClick={handleClick}
@@ -33,7 +37,7 @@ export const GoBackLink = ({ className, text }: TProps) => {
         className)}
     >
       <ArrowLeft className="h-[1cap]" />
-      {text}
+      {isPossibleBack ? text : 'На главную'}
     </Button>
   );
 }

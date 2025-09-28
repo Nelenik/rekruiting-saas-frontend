@@ -4,12 +4,14 @@ import { useParams } from "next/navigation";
 import { cn } from '@/shared/lib/utils';
 import { SidebarItem } from './SidebarItem';
 import { SignOutForm, useSession } from '@/features/auth';
-import { BurgerMenu } from '@/shared/ui/navigation/BurgerMenu';
 import { ScrollArea } from '@/shared/ui/shadcn/scroll-area';
 import { UserAvatar } from '@/shared/ui/navigation/UserAvatar';
 import { Separator } from '@/shared/ui/shadcn/separator';
 import { Logo } from '@/shared/ui/navigation/Logo';
 import LogoImg from '@/assets/logo-short.png';
+import NavPanelBtn from "@/shared/ui/buttons/NavPanelBtn";
+import { PanelLeftOpen, PanelRightOpen } from "lucide-react";
+import { BurgerBase } from "@/shared/ui/navigation/BurgerBase";
 
 interface IHeaderProps {
   className?: string
@@ -29,12 +31,13 @@ export const Header = ({ className }: IHeaderProps) => {
         className
       )}
     >
-      <BurgerMenu
-        className='ring-1 ring-sidebar-foreground'
+      <BurgerBase
+
         content={
           ({ closeMenu }) => {
             return (
-              <ScrollArea className="h-dvh" type="auto">
+
+              <ScrollArea className="h-dvh pt-3 pb-6" type="auto">
                 <nav className='w-[97%]'>
                   <section
                     className={cn(
@@ -86,10 +89,23 @@ export const Header = ({ className }: IHeaderProps) => {
                   />
                 </nav>
               </ScrollArea>
+
             )
           }
         }
-      />
+        menuSheetStyles="flex flex-col w-[min(100dvw,400px)] pt-3 pb-6 bg-sidebar border-none"
+        overlayStyles="bg-sidebar/10"
+      >
+        {{
+          trigger: <NavPanelBtn className='w-8 h-8 p-0 ring-1 ring-sidebar-foreground'>
+            <PanelLeftOpen stroke="white" />
+          </NavPanelBtn>,
+          closeButton: <NavPanelBtn className="ml-auto w-9 h-9 p-0 " >
+            <PanelRightOpen stroke="white" />
+          </NavPanelBtn>,
+        }}
+
+      </BurgerBase>
       <Logo
         width={44}
         height={44}

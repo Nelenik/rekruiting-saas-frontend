@@ -41,8 +41,8 @@ export const Header = ({
 
     <header
       className={cn(
-        'py-1',
-        'md:py-4',
+        'py-4 hidden invisible ',
+        'md-lg:block md-lg:visible',
         className
       )}
     >
@@ -80,7 +80,7 @@ export const Header = ({
               'flex gap-10 items-center w-full justify-center',
             )}
             theme='light'
-            navLinkClassName="py-2"
+            navLinkStyles="py-2"
           />
         </nav>
 

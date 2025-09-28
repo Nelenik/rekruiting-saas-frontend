@@ -58,7 +58,7 @@ const JobsiteVacancyDetails = async ({
   }
 
   return (
-    <div className='py-8'>
+    <>
       {/* UNCOMMENT WHEN GET DATA FOR REAL VACANCY */}
       {/* JSON-LD google for job markup */}
       {/* <script
@@ -68,7 +68,7 @@ const JobsiteVacancyDetails = async ({
         }}
       /> */}
       <PubVacDetails vacancy={vacancy} />
-    </div >
+    </ >
   )
 };
 

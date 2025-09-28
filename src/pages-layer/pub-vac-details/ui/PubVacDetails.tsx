@@ -4,6 +4,7 @@ import { VacancyParams } from "./VacancyParams";
 import { CompanyInfoCard } from "@/entities/company/ui/CompanyInfoCard";
 import { GoBackLink } from "@/shared/ui/GoBackLink";
 import { VacancyDescription } from "./VacancyDescription";
+import { MobileMenu } from "@/widgets/rekru-nav";
 
 type TProps = {
   vacancy: TPublicVacancy;
@@ -32,10 +33,13 @@ export const PubVacDetails = ({
 
   return (
     <>
-      <div className="rekru-container pb-8">
+      <div className="rekru-container pb-8 flex items-center justify-between gap-20">
         <GoBackLink
           className='p-0'
           text='Назад к списку вакансий'
+        />
+        <MobileMenu
+          className="md-lg:hidden md-lg:invisible"
         />
       </div>
       <div className="rekru-container grid gap-8 grid-cols-12">

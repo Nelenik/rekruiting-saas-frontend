@@ -6,12 +6,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navListVariants = cva(
-  'w-max inline-block font-semibold text-center',
+  'w-max inline-block font-semibold text-center group/icon underline underline-offset-8 decoration-transparent decoration-2 transition-all',
   {
     variants: {
       theme: {
-        light: 'text-secondary-foreground border-b-2 border-transparent hover:text-primary hover:border-primary',
-        dark: 'group/icon inline-block text-sm underline underline-offset-4 decoration-transparent decoration-2 transition-all hover:decoration-white hover:scale-105',
+        light: 'text-secondary-foreground  hover:text-primary hover:decoration-primary',
+        dark: 'text-sidebar-foreground hover:decoration-white',
       },
       active: {
         false: null,
@@ -22,12 +22,12 @@ const navListVariants = cva(
       {
         theme: 'light',
         active: true,
-        class: 'text-primary border-primary'
+        class: 'text-primary decoration-primary'
       },
       {
         theme: 'dark',
         active: true,
-        class: 'decoration-white scale-110'
+        class: 'decoration-white'
       }
     ]
   }
@@ -38,7 +38,7 @@ type TProps = {
   className?: string;
   onLinkClick?: () => void
   theme?: 'light' | 'dark'
-  navLinkClassName?: string
+  navLinkStyles?: string
 }
 
 
@@ -47,7 +47,7 @@ export const NavList = ({
   className,
   onLinkClick = () => { },
   theme,
-  navLinkClassName
+  navLinkStyles
 }: TProps) => {
   const pathname = usePathname()
   return (
@@ -63,7 +63,7 @@ export const NavList = ({
             <Link
               className={cn(
                 navListVariants({ theme, active: isActive }),
-                navLinkClassName
+                navLinkStyles
               )
               }
               href={route.href}
