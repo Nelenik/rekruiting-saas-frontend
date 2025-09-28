@@ -1,10 +1,10 @@
 'use client'
 
 import { ArrowLeft } from "lucide-react";
-import { Button } from "./shadcn/button";
 import { useRouter } from "next/navigation";
-import { cn } from "../lib/utils";
 import { useEffect, useState } from "react";
+import { Button } from "../shadcn/button";
+import { cn } from "@/shared/lib/utils";
 
 type TProps = {
   className?: string

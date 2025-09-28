@@ -75,7 +75,7 @@ export const CompanyInfoCard = ({
           className='text-sm text-foreground'
         />
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2.5">
         <a
           href={sourceLink || '!#'}
           target="_blank"

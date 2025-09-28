@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { GoBackLink } from "@/shared/ui/GoBackLink";
+import { GoBackLink } from "@/shared/ui/navigation/GoBackLink";
 import { NothingYet } from "@/shared/ui/NothingYet";
 import { MobileMenu } from "@/widgets/rekru-nav";
 

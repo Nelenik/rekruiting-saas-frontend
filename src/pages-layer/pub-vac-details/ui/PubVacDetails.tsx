@@ -2,9 +2,10 @@ import { TPublicVacancy } from "@/shared/api/types";
 import { cn } from "@/shared/lib/utils";
 import { VacancyParams } from "./VacancyParams";
 import { CompanyInfoCard } from "@/entities/company/ui/CompanyInfoCard";
-import { GoBackLink } from "@/shared/ui/GoBackLink";
 import { VacancyDescription } from "./VacancyDescription";
 import { MobileMenu } from "@/widgets/rekru-nav";
+import { GoBackLink } from "@/shared/ui/navigation/GoBackLink";
+import { ScrollCTA } from "@/features/rekru-scroll-cta/ui/ScrollCTA";
 
 type TProps = {
   vacancy: TPublicVacancy;
@@ -34,7 +35,7 @@ export const PubVacDetails = ({
   return (
     <>
       <section className={cn(
-        "py-4 bg-background sticky top-0 z-[100]",
+        "py-4 bg-background sticky top-0 z-[10]",
         'md-lg:static md-lg:py-8'
       )}>
         <div className="rekru-container flex items-center justify-between gap-20 ">
@@ -47,35 +48,46 @@ export const PubVacDetails = ({
           />
         </div>
       </section>
-      <section className="py-5 md-lg:pb-8 md-lg:pt-0">
-        <div className="rekru-container grid gap-8 grid-cols-12">
-          <div className={cn("col-span-7 w-full flex flex-col gap-10")} >
-            <VacancyParams
-              level={level}
-              name={name}
-              link={link}
-              salary_from={salary_from}
-              salary_to={salary_to}
-              location={location}
-              work_format={work_format}
-              experience={experience}
-              employment={employment}
-            />
-            <VacancyDescription
-              description={description}
-              skills={skills}
-              responsibilities={responsibilities}
-              conditions={conditions}
-              addition={addition}
-            />
-          </div>
+      <section className="pt-5 pb-8 md-lg:pt-0">
+        <div className="rekru-container grid gap-8 grid-cols-12 grid-row-2">
+          <VacancyParams
+            level={level}
+            name={name}
+            link={link}
+            salary_from={salary_from}
+            salary_to={salary_to}
+            location={location}
+            work_format={work_format}
+            experience={experience}
+            employment={employment}
+            className={cn(
+              'col-span-12 max-w-[550px]',
+              'md-lg:col-span-7 md-lg:max-w-unset'
+            )}
+          />
           <CompanyInfoCard
             {...company.name && { company: company }}
             sourceLink={link}
-            className='col-span-5 self-start'
+            className={cn(
+              'col-span-12 max-w-[500px]',
+              'md-lg:col-span-5 md-lg:row-span-2 md-lg:self-start md-lg:w-full md-lg:max-w-unset'
+            )}
+          />
+          <VacancyDescription
+            description={description}
+            skills={skills}
+            responsibilities={responsibilities}
+            conditions={conditions}
+            addition={addition}
+            className={cn(
+              'col-span-12',
+              'md-lg:col-span-7'
+            )}
           />
         </div>
+
       </section>
+      <ScrollCTA />
     </>
 
 

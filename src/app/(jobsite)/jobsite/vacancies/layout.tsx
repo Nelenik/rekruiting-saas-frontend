@@ -1,8 +1,8 @@
 import { getFilterCompanies } from "@/shared/api/actions";
 import { getPubVacancyPositions } from "@/shared/api/actions/public-vacancy";
 import { cn } from "@/shared/lib/utils";
-import { GoBackLink } from "@/shared/ui/GoBackLink";
 import { FiltersSheet } from "@/shared/ui/modals/FiltersSheet";
+import { GoBackLink } from "@/shared/ui/navigation/GoBackLink";
 import { MobileMenu } from "@/widgets/rekru-nav";
 import { PathFiltersProvider, PositionsFilterToggle, PubVacanciesFilter, SearchVacancies } from "@/widgets/rekru-vacancy-filter";
 
@@ -18,7 +18,7 @@ export default async function JobSiteVacanciesLayout({
   return (
     <PathFiltersProvider positionsList={vacancyPositions} filterCompanies={filterCompanies}>
       <section className={cn(
-        "py-4 bg-background sticky top-0 z-[100]",
+        "py-4 bg-background sticky top-0 z-[5]",
         ' md-lg:hidden md-lg:invisible'
       )}>
         <div className="rekru-container flex items-center justify-between gap-20 ">
@@ -29,7 +29,7 @@ export default async function JobSiteVacanciesLayout({
           <MobileMenu />
         </div>
       </section>
-      <section className="pt-2 pb-6 md-lg:py-8">
+      <section className="pt-2 pb-8 md-lg:py-8">
         <div
           className={cn(
             'rekru-container flex flex-col justify-between  gap-8 ',

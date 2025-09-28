@@ -70,7 +70,7 @@ export const MobileMenu = ({
         }
       }
       side="right"
-      menuSheetStyles='p-5'
+      menuSheetStyles='p-5 w-[min(100dvw,400px)]'
       overlayStyles='bg-secondary/40'
     >
       {/* named slots */}

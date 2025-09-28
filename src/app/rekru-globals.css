@@ -78,7 +78,7 @@ html {
 
 @layer utilities {
   .rekru-container {
-    @apply container max-w-[1152px] px-4 mx-auto;
+    @apply container max-w-[1160px] px-4 mx-auto;
   }
 
   .heading-footer {
