@@ -6,9 +6,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { RekruCTA } from '@/shared/ui/buttons/RekruCTA';
 import { cn } from '@/shared/lib/utils';
 
-// type TProps = {
-
-// }
 export const Hero = ({ }) => {
   return (
     <section
@@ -61,7 +58,6 @@ export const Hero = ({ }) => {
             </picture>
           </div>
         </SwiperSlide>
-        <SwiperSlide>slide2</SwiperSlide>
 
         <RekruCTA
 
@@ -69,7 +65,8 @@ export const Hero = ({ }) => {
           className={cn(
             'hero-prev w-[30px] h-[30px] absolute z-10 left-2.5 top-1/2 -translate-y-1/2 rounded-full p-0',
             "md:[&_svg]:size-5 md:w-10 md:h-10",
-            "xl:[&_svg]:size-10 xl:w-20 xl:h-20"
+            "xl:[&_svg]:size-10 xl:w-20 xl:h-20",
+            "disabled:opacity-0"
           )}
         >
           <ChevronLeft size={40} strokeWidth={1} />
@@ -80,14 +77,13 @@ export const Hero = ({ }) => {
           className={cn(
             'hero-next w-[30px] h-[30px] absolute z-10 right-2.5 top-1/2 -translate-y-1/2 rounded-full p-0',
             "md:[&_svg]:size-5 md:w-10 md:h-10",
-            "xl:[&_svg]:size-10 xl:w-20 xl:h-20"
+            "xl:[&_svg]:size-10 xl:w-20 xl:h-20",
+            "disabled:opacity-0"
           )}
         >
           <ChevronRight width={40} height={40} strokeWidth={1} />
         </RekruCTA>
 
-        {/* <button className="hero-prev absolute z-10 left-5 top-1/2"></button>
-        <button className="hero-next absolute z-10 right-5 top-1/2"><ChevronRight size={40} strokeWidth={1} /></button> */}
       </Swiper>
     </section >
   );
