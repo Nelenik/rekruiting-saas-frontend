@@ -85,6 +85,7 @@ export const VacancyParams = ({
         </p>
       </div>
       <RekruCTA
+        view="dark"
         className="self-start"
         asChild
       >

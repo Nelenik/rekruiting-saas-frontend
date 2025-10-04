@@ -33,7 +33,7 @@ export const RekruProfileMenu = ({ className, onLinkClick = () => { }, theme = '
         >
           <UserPreview user={userSample} className="w-56" />
         </Link>
-        <RekruCTA>
+        <RekruCTA view='dark'>
           <Plus />
           Добавить вакансию
         </RekruCTA>

@@ -65,6 +65,7 @@ export const ScrollCTA = ({ ctaLink = '#!' }: TProps) => {
           <ArrowLeft />
         </Button>
         <RekruCTA
+          view="dark"
           className="self-start"
           asChild
         >

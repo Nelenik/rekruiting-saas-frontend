@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 
 // Import Swiper styles
 import 'swiper/css';
@@ -24,10 +24,10 @@ import LogoFullImg from '@/assets/logo-short.png'
 import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
 import { Download } from "lucide-react";
 
-const inter = Inter({
+const roboto = Roboto({
   subsets: ['latin', 'cyrillic'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-roboto',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 })
 
@@ -45,9 +45,9 @@ export default async function JobSiteLayout({
   const tenant = await getTenant()
 
   return (
-    <html lang="ru" className={`${inter.variable}`}>
+    <html lang="ru" className={`${roboto.variable}`}>
       <body
-        className={`font-inter text-sm antialiased [scrollbar-gutter:stable] bg-background text-foreground`}
+        className={`font-roboto text-sm antialiased [scrollbar-gutter:stable] bg-background text-foreground`}
       >
         <Analytics />
         <TenantProvider tenant={tenant}>
@@ -88,6 +88,7 @@ export default async function JobSiteLayout({
                   <div className="flex flex-col gap-5 ">
                     <h2 className="heading-footer">Мобильное приложение</h2>
                     <RekruCTA
+                      view="dark"
                       className="md:hidden"
                     >
                       <Download />

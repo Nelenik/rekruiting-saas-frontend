@@ -6,11 +6,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navListVariants = cva(
-  'w-max inline-block font-semibold text-center group/icon underline underline-offset-8 decoration-transparent decoration-2 transition-all',
+  'w-max inline-block font-base text-center group/icon underline underline-offset-8 decoration-transparent decoration-2 transition-all',
   {
     variants: {
       theme: {
-        light: 'text-secondary-foreground  hover:text-primary hover:decoration-primary',
+        light: 'text-accent2  hover:font-medium hover:decoration-accent2',
         dark: 'text-sidebar-foreground hover:decoration-white',
       },
       active: {
@@ -22,7 +22,7 @@ const navListVariants = cva(
       {
         theme: 'light',
         active: true,
-        class: 'text-primary decoration-primary'
+        class: 'font-medium decoration-accent2'
       },
       {
         theme: 'dark',

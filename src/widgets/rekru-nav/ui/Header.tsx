@@ -49,7 +49,7 @@ export const Header = ({
       <div
         className={cn(
           'rekru-container relative',
-          'flex justify-between items-center'
+          'flex justify-between items-center gap-8'
         )}
       >
 
@@ -70,22 +70,22 @@ export const Header = ({
         {/* show nav on screen from md screen = 768px */}
         <nav
           className={cn(
-            'hidden invisible w-max grow-0 mx-auto',
+            'hidden invisible max-w-[450px] grow mx-auto',
             // show on md screen
             'md:flex md:visible '
           )}>
           <NavList
             routes={publicRoutes}
             className={cn(
-              'flex gap-10 items-center w-full justify-center',
+              'flex gap-6 lg:gap-10 items-center w-full justify-center',
             )}
             theme='light'
             navLinkStyles="py-2"
           />
         </nav>
 
-        <div className="flex gap-10 items-center">
-          <RekruCTA>
+        <div className="flex gap-6 lg:gap-10 items-center">
+          <RekruCTA view="dark">
             <Plus />
             Добавить вакансию
           </RekruCTA>
