@@ -6,6 +6,7 @@
 
 - Ubuntu Server 20.04 или выше
 - Docker и Docker Compose
+- Nginx (установлен на хост-машине)
 - Минимум 2GB RAM
 - Минимум 10GB свободного места на диске
 
@@ -92,41 +93,161 @@ NEXT_PUBLIC_API_URL=http://your-api-server:port
 # Добавьте другие необходимые переменные
 ```
 
-### 3. Настройка Nginx (опционально)
+## Настройка Nginx на хост-машине
 
-Если вы планируете использовать Nginx в качестве reverse proxy, создайте конфигурацию:
+### 1. Установка Nginx
 
 ```bash
-mkdir -p nginx
+sudo apt update
+sudo apt install nginx
+sudo systemctl enable nginx
+sudo systemctl start nginx
 ```
 
-Создайте файл `nginx/nginx.conf`:
+### 2. Создание конфигурации для приложения
+
+Создайте файл конфигурации для приложения:
+
+```bash
+sudo nano /etc/nginx/sites-available/rekrutai-fe
+```
+
+Содержимое файла (базовая конфигурация):
 
 ```nginx
-events {
-    worker_connections 1024;
-}
+server {
+    listen 80;
+    server_name your-domain.com;
 
-http {
-    upstream frontend {
-        server rekrutai-fe:3000;
+    access_log /var/log/nginx/rekrutai-fe.access.log;
+    error_log /var/log/nginx/rekrutai-fe.error.log;
+
+    # Путь к статическим файлам из Docker контейнера
+    root /path/to/rekrutai-fe/public;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_cache_bypass $http_upgrade;
     }
 
-    server {
-        listen 80;
-        server_name your-domain.com;
+    # Проксирование API запросов (если используется)
+    # location /api/v1 {
+    #     proxy_pass_request_headers on;
+    #     proxy_http_version 1.1;
+    #     proxy_set_header Upgrade $http_upgrade;
+    #     proxy_set_header Connection "upgrade";
+    #     proxy_set_header Host $host;
+    #     proxy_set_header X-Real-IP $remote_addr;
+    #     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #     proxy_set_header X-Forwarded-Proto $scheme;
+    #     proxy_set_header X-Forwarded-Host $host;
+    #     proxy_set_header X-Forwarded-Port $server_port;
+    #     proxy_pass http://localhost:4600;
+    # }
+}
+```
 
-        location / {
-            proxy_pass http://frontend;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection 'upgrade';
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_cache_bypass $http_upgrade;
-        }
+**Примечание**: В конфигурации указан `root /path/to/rekrutai-fe/public;`, но Next.js в standalone режиме сам отдает статические файлы. Эта директива может быть полезна для оптимизации, но не является обязательной. Если вы хотите, чтобы Nginx напрямую отдавал статику, убедитесь что путь указан правильно.
+
+### 3. Активация конфигурации
+
+```bash
+# Создание символической ссылки
+sudo ln -s /etc/nginx/sites-available/rekrutai-fe /etc/nginx/sites-enabled/
+
+# Проверка конфигурации
+sudo nginx -t
+
+# Перезагрузка Nginx
+sudo systemctl reload nginx
+```
+
+### 4. Оптимизация: прямая отдача статики через Nginx (опционально)
+
+Для улучшения производительности можно настроить Nginx на прямую отдачу статических файлов, минуя Node.js:
+
+**Вариант А: Использование примонтированного каталога public**
+
+Docker Compose уже настроен на монтирование `./public` в контейнер. Nginx может использовать этот же каталог:
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    access_log /var/log/nginx/rekrutai-fe.access.log;
+    error_log /var/log/nginx/rekrutai-fe.error.log;
+
+    # Статические файлы напрямую из public каталога
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+        root /path/to/rekrutai-fe/public;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri @nextjs;
+    }
+
+    # Fallback на Next.js если файл не найден
+    location @nextjs {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Port $server_port;
+    }
+
+    # Все остальные запросы
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Port $server_port;
+    }
+}
+```
+
+**Вариант Б: Простая конфигурация (рекомендуется)**
+
+В большинстве случаев достаточно простого проксирования - Next.js эффективно отдает статику сам:
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    access_log /var/log/nginx/rekrutai-fe.access.log;
+    error_log /var/log/nginx/rekrutai-fe.error.log;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Port $server_port;
     }
 }
 ```
@@ -142,10 +263,7 @@ docker compose build
 ### 2. Запуск приложения
 
 ```bash
-# Запуск только frontend приложения
-docker compose up -d rekrutai-fe
-
-# Или запуск с Nginx (если настроен)
+# Запуск frontend приложения
 docker compose up -d
 ```
 
@@ -158,8 +276,11 @@ docker compose ps
 # Просмотр логов
 docker compose logs -f rekrutai-fe
 
-# Проверка доступности приложения
+# Проверка доступности приложения напрямую
 curl http://localhost:3000
+
+# Проверка через Nginx
+curl http://localhost
 ```
 
 ## Управление приложением
@@ -279,20 +400,27 @@ docker system prune -a
 
 ## SSL сертификат (Let's Encrypt)
 
-Для настройки HTTPS с Let's Encrypt:
+Для настройки HTTPS с Let's Encrypt на хост-машине:
 
 ```bash
-# Установка Certbot
+# Установка Certbot для Nginx
 sudo apt install certbot python3-certbot-nginx
 
-# Получение сертификата
+# Получение сертификата (Certbot автоматически обновит конфигурацию Nginx)
 sudo certbot --nginx -d your-domain.com
 
-# Автоматическое продление
-sudo crontab -e
-# Добавьте строку:
-# 0 12 * * * /usr/bin/certbot renew --quiet
+# Проверка автоматического продления
+sudo certbot renew --dry-run
+
+# Автоматическое продление уже настроено через systemd timer
+# Проверить статус можно командой:
+sudo systemctl status certbot.timer
 ```
+
+После установки SSL сертификата Certbot автоматически обновит файл `/etc/nginx/sites-available/rekrutai-fe`, добавив:
+- Редирект с HTTP на HTTPS
+- SSL сертификаты
+- Оптимизированные SSL настройки
 
 ## Резервное копирование
 
