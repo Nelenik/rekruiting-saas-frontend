@@ -18,7 +18,11 @@ export const RekruHome = ({ }: TProps) => {
         </div>
       </section>
       <Hero />
-      <SearchBar />
+      <section className="py-10">
+        <div className="rekru-container p-10">
+          <SearchBar />
+        </div>
+      </section>
     </>
   );
 }

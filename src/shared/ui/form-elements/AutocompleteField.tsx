@@ -3,7 +3,7 @@ import { cn } from "@/shared/lib/utils";
 import { Command, CommandItem, CommandList } from "@/shared/ui/shadcn/command";
 import { Input } from "@/shared/ui/shadcn/input";
 import { Popover, PopoverAnchor, PopoverContent } from "@/shared/ui/shadcn/popover";
-import { useState, useRef, FormEvent, useEffect, KeyboardEvent, InputHTMLAttributes } from "react";
+import { useState, useRef, FormEvent, useEffect, KeyboardEvent, InputHTMLAttributes, useImperativeHandle, Ref, useCallback } from "react";
 
 /**
  * Default filter function for autocomplete suggestions.
@@ -30,7 +30,7 @@ type TAutocompleteFieldHook = {
    * Callback triggered when user presses Enter while the popover is closed.
    * Useful to "confirm" the current input value.
    */
-  onConfirm?: (value: string) => void,
+  onEnterConfirm?: (value: string, e: KeyboardEvent) => void,
   /**
    * Callback triggered when a suggestion is selected from the popover.
    */
@@ -47,7 +47,7 @@ type TAutocompleteFieldHook = {
  *
  * @param defaultValue - Initial value for the input.
  * @param suggestionsList - List of all possible suggestions.
- * @param onConfirm - Callback when user confirms input via Enter with popover closed.
+ * @param onEnterConfirm - Callback when user confirms input via Enter with popover closed, receives the input value and event object.
  * @param onSelect - Callback when user selects a suggestion.
  * @param filterCallback - Function to filter suggestions.
  *
@@ -56,7 +56,7 @@ type TAutocompleteFieldHook = {
 const useAutocompleteField = ({
   defaultValue = '',
   suggestionsList = [],
-  onConfirm = () => { },
+  onEnterConfirm = () => { },
   onSelect = () => { },
   filterCallback = inSuggestions
 
@@ -84,10 +84,10 @@ const useAutocompleteField = ({
 
     // Убираем наблюдателя при размонтировании
     return () => observer.disconnect();
-  });
+  }, []);
 
   //manage input value change
-  const handleChange = (e: FormEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: FormEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
     setInputValue(value)
     if (delayRef.current) clearTimeout(delayRef.current)
@@ -101,7 +101,7 @@ const useAutocompleteField = ({
       setOpen(value.trim().length > 0 && filtered.length > 0)
     }, 150)
 
-  }
+  }, [filterCallback, suggestionsList])
 
   //clear timer on unmount
   useEffect(() => {
@@ -110,8 +110,15 @@ const useAutocompleteField = ({
     }
   }, [])
 
+  //manage select from autocomplete popover
+  const handleSelect = useCallback((value: string) => {
+    setInputValue(value)
+    onSelect(value)
+    setOpen(false)
+    setActiveIndex(null)
+  }, [onSelect])
 
-  const handleOpenKeyDown = (e: KeyboardEvent) => {
+  const onOpenPopoverKeyDown = useCallback((e: KeyboardEvent) => {
     if (!open || suggestions.length === 0) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -124,29 +131,20 @@ const useAutocompleteField = ({
       handleSelect(suggestions[activeIndex]);
     }
 
-  }
-
-  const handleClosedKeyDown = (e: KeyboardEvent) => {
-    if (!open && e.key === 'Enter') {
-      e.preventDefault()
-      onConfirm(inputValue)
-    }
-  }
+  }, [activeIndex, handleSelect, open, suggestions]
+  )
   //manage navigation in content using arrows
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (open) {
-      handleOpenKeyDown(e)
+      onOpenPopoverKeyDown(e)
     } else {
-      handleClosedKeyDown(e)
+      if (e.key === 'Enter') {
+        onEnterConfirm(inputValue, e)
+      }
     }
-  }
-  //manage select from autocomplete popover
-  const handleSelect = (value: string) => {
-    setInputValue(value)
-    onSelect(value)
-    setOpen(false)
-    setActiveIndex(null)
-  }
+  }, [inputValue, onEnterConfirm, onOpenPopoverKeyDown, open])
+
+
 
   return {
     suggestions,
@@ -163,7 +161,7 @@ const useAutocompleteField = ({
   }
 }
 
-type TProps = { popoverStyles?: string }
+type TProps = { ref?: Ref<HTMLInputElement>, popoverStyles?: string, onItemSelect?: (value: string) => void }
   & TAutocompleteFieldHook
   & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue'>
 
@@ -178,8 +176,8 @@ type TProps = { popoverStyles?: string }
  *
  * @param defaultValue - Initial value of the input
  * @param suggestionsList - List of suggestions
- * @param onConfirm - Called when Enter is pressed and popover is closed
- * @param onSelect - Called when a suggestion is selected
+ * @param onEnterConfirm - Callback triggered when the user confirms input by pressing Enter while the popover is closed. Receives the current input value and the keyboard event. Calling e.preventDefault() prevents the form from submitting at this field.
+ * @param onItemSelect - Called when a suggestion is selected
  * @param filterCallback - Optional custom filter for suggestions
  * @param onChange - Optional input change handler
  * @param onKeyDown - Optional keydown handler
@@ -189,12 +187,13 @@ type TProps = { popoverStyles?: string }
  */
 
 export const AutocompleteField = ({
+  ref,
   className,
   popoverStyles,
   defaultValue,
   suggestionsList = [],
-  onConfirm,
-  onSelect,
+  onEnterConfirm,
+  onItemSelect,
   filterCallback,
   onChange = () => { },
   onKeyDown = () => { },
@@ -211,7 +210,10 @@ export const AutocompleteField = ({
     handleSelect,
     handleChange,
     setActiveIndex
-  } = useAutocompleteField({ defaultValue, suggestionsList, onConfirm, onSelect, filterCallback });
+  } = useAutocompleteField({ defaultValue, suggestionsList, onEnterConfirm, onSelect: onItemSelect, filterCallback });
+
+  // Connect the outer ref to the internal input ref.
+  useImperativeHandle(ref, () => inputRef.current as HTMLInputElement, [inputRef])
 
   return (
     <Popover open={open} onOpenChange={(state) => { if (!state) setActiveIndex(null) }}>
@@ -234,7 +236,7 @@ export const AutocompleteField = ({
 
       <PopoverContent
         {...popoverWidth && { style: { width: `${popoverWidth}px` } }}
-        className={cn(popoverStyles)}
+        className={cn('p-0', popoverStyles)}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onEscapeKeyDown={() => { setOpen(false) }}
         onPointerDownOutside={() => { setOpen(false) }}

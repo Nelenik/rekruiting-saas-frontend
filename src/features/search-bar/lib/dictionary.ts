@@ -3,6 +3,7 @@ export const JOB_SUGGESTIONS = [
   "Frontend-разработчик",
   "Frontend developer",
   "React-разработчик",
+  "React разработчик",
   "React developer",
   "Разработчик на React",
   "React + Redux",
