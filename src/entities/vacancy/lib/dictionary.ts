@@ -30,9 +30,9 @@ export const vacancyWorkFormatDict: Record<string, string> = {
 };
 
 export const vacancyExperienceDict: Record<string, string> = {
-  [EVacancyExperience.LESS_THAN_1]: "0-1 год",
-  [EVacancyExperience.FROM_1_TO_3]: "1-3 года",
-  [EVacancyExperience.FROM_3_TO_5]: "3-5 лет",
+  [EVacancyExperience.LESS_THAN_1]: "до года",
+  [EVacancyExperience.FROM_1_TO_3]: "от 1 года до 3 лет",
+  [EVacancyExperience.FROM_3_TO_5]: "от 3 до 5 лет",
   [EVacancyExperience.MORE_THAN_5]: "более 5 лет",
 };
 

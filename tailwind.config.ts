@@ -94,6 +94,18 @@ export default {
             height: "var(--radix-collapsible-content-height)",
           },
         },
+        "fade-up": {
+          to: {
+            opacity: "0%",
+            transform: "translateY(-1rem)",
+          },
+        },
+        "fade-down": {
+          from: {
+            opacity: "0%",
+            transform: "translateY(-1rem)",
+          },
+        },
         "fade-in-out": {
           "0%": {
             opacity: "0",
@@ -112,8 +124,10 @@ export default {
         },
       },
       animation: {
-        "slide-up": "slide-up 200ms ease",
-        "slide-down": "slide-down 200ms ease",
+        "slide-fade-up": "slide-up 150ms ease, fade-up 150ms ease 10ms",
+        "slide-fade-down": "slide-down 150ms ease , fade-down 150ms ease",
+        "slide-up": "slide-up 150ms ease",
+        "slide-down": "slide-down 150ms ease",
         "fade-in-out": "2s fade-in-out 200ms ease ",
         "move-border": "30s move-border linear infinite", //for moving border
       },

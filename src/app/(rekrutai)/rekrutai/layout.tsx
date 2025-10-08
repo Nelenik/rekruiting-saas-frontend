@@ -1,5 +1,5 @@
 import { Roboto } from 'next/font/google'
-import "../../rekrutai-globals.css";
+import "../../rekrutai.css";
 import type { Metadata } from "next";
 import { Toaster } from "@/shared/ui/shadcn/toaster";
 import { TenantProvider } from "@/shared/providers/TenantProvider";

@@ -60,7 +60,7 @@ export const VacancyParams = ({
           color="#17499d"
           className="text-base px-3.5 py-1 rounded-lg font-medium"
         >
-          {capitalizeSentences(level || 'junior')}
+          {capitalizeSentences(level || 'any')}
         </StatusBadge>
       </div>
       <p className="text-primary text-xl font-semibold">

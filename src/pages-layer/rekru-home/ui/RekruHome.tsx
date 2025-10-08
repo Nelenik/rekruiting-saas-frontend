@@ -7,12 +7,16 @@ import { getFilterCompanies } from "@/shared/api/actions";
 
 import { TrustSection } from "./TrustSection";
 import { StepsSection } from "./StepsSection";
+import { getPubVacanciesList } from "@/shared/api/actions/public-vacancy";
+import { TopVacancies } from "./TopVacanices";
 
 
 
 export const RekruHome = async () => {
 
   const companies = await getFilterCompanies()
+
+  const topList = await getPubVacanciesList({ sort: '-publication_at' })
 
   return (
     <>
@@ -54,6 +58,14 @@ export const RekruHome = async () => {
       <section className="my-10">
         <div className="rekru-container">
           <StepsSection />
+        </div>
+      </section>
+
+      <section className="my-10">
+        <div className="rekru-container">
+          <TopVacancies
+            topList={topList.data.slice(0, 10)}
+          />
         </div>
       </section>
 

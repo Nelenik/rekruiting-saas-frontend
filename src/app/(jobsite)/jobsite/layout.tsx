@@ -4,7 +4,7 @@ import { Roboto } from 'next/font/google'
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import "../../rekru-globals.css";
+import "../../rekru.css";
 
 import { cn } from "@/shared/lib/utils";
 import Link from "next/link";

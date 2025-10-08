@@ -4,6 +4,8 @@ export { VacancySummaryCard } from "./ui/VacancySummaryCard";
 export { VacancyForm } from "./ui/VacancyForm";
 export { PositionSelect } from "./ui/PositionSelect";
 
+export { RekruVacancyCard } from "./ui/RekruVacancyCard";
+
 export * from "./model/SingleVacancyProvider";
 export * from "./model/VacanciesProvider";
 export * from "./model/VacancyMatchStatusesProvider";

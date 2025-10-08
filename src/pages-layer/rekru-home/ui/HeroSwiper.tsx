@@ -28,19 +28,19 @@ export const HeroSwiper = ({ }) => {
 
           )}>
             <h1 className={cn(
-              'w-[550px] mb-5 text-5xl  font-medium hyphens-auto [overflow-wrap:anywhere]',
+              'max-w-[550px] md:max-w-none mb-5 text-3xl sm:text-5xl text-center md:text-start font-medium hyphens-auto [overflow-wrap:anywhere]',
               "lg:text-7xl lg:-tracking-[3px] md:w-full"
             )}>
               Премиум вакансии
               для профессионалов
             </h1>
-            <p className='mb-10 -tracking-[1px] max-w-[550px] text-base'>
+            <p className='mb-10 -tracking-[1px] max-w-[550px] text-base text-center md:text-start'>
               Ваш карьерный рост начинается здесь: только лучшие предложения от ведущих работодателей. Доверяйте экспертам, выбирайте будущее
             </p>
             <RekruCTA
               view="dark"
               className={cn(
-                ' text-lg font-semibold tracking-[2.5px]',
+                'text-base sm:text-lg font-semibold sm:tracking-[2.5px]',
 
               )}
             >

@@ -165,7 +165,6 @@ export const apiMutate = async <T = unknown>(
 
   // If body is provided, ensure it is a FormData object or convert it to JSON
   const preparedBody = prepareBody(body);
-  console.log("preparedBody", preparedBody);
   try {
     // Perform the mutation request with the specified URL, method, body, and headers
     const response = await fetch(API_URL + url, {
