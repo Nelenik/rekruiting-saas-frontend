@@ -44,7 +44,7 @@ export const RekruVacancyCard = ({
     <Card className={cn('flex flex-col gap-4 p-8 rounded-3xl border border-border', className)}>
       <div
         className={cn(
-          'flex gap-8 justify-between'
+          'flex gap-4 sm:gap-8 justify-between flex-wrap'
         )}
       >
         <p
@@ -62,7 +62,7 @@ export const RekruVacancyCard = ({
       <h3
         className={cn(
           'w-full max-w-[635px]',
-          "text-[28px] leading-[110%] font-medium tracking-tighter hyphens-auto [overflow-wrap:anywhere]"
+          "text-xl lg:text-[28px] leading-[110%] font-medium lg:tracking-tighter hyphens-auto [overflow-wrap:anywhere]"
         )}
       >
         {name}

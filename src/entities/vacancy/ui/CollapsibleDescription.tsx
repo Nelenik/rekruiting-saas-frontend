@@ -34,10 +34,10 @@ export const CollapsibleDescription = ({
         />
       </CollapsibleContent>
       <div
-        className="flex  justify-between gap-8"
+        className="flex  justify-between gap-4 sm:gap-8 flex-wrap"
       >
         <CollapsibleTrigger
-          className="py-3 flex items-center gap-2 text-base text-secondary-foreground"
+          className="shrink-0 py-3 flex items-center gap-2 text-base text-secondary-foreground"
         >
           {isOpen
             ? <>Скрыть описание <ChevronUp /></>
