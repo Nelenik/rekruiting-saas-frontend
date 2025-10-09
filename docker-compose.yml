@@ -4,16 +4,17 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - API_URL=${API_URL}
-        - NEXT_PUBLIC_REKRUTAI_HOST=${NEXT_PUBLIC_REKRUTAI_HOST}
-        - NEXT_PUBLIC_JOBSITE_HOST=${NEXT_PUBLIC_JOBSITE_HOST}
+        - API_URL=${API_URL:-}
+        - NEXT_PUBLIC_REKRUTAI_HOST=${NEXT_PUBLIC_REKRUTAI_HOST:-}
+        - NEXT_PUBLIC_JOBSITE_HOST=${NEXT_PUBLIC_JOBSITE_HOST:-}
     container_name: rekrutai-frontend
     ports:
       - '3000:3000'
     environment:
       - NODE_ENV=production
-    env_file:
-      - .env.local
+      - API_URL=${API_URL}
+      - NEXT_PUBLIC_REKRUTAI_HOST=${NEXT_PUBLIC_REKRUTAI_HOST}
+      - NEXT_PUBLIC_JOBSITE_HOST=${NEXT_PUBLIC_JOBSITE_HOST}
     restart: unless-stopped
     networks:
       - rekrutai-network
