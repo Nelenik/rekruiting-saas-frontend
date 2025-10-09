@@ -14,6 +14,17 @@ RUN npm ci --legacy-peer-deps
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+
+# Accept build arguments
+ARG API_URL
+ARG NEXT_PUBLIC_REKRUTAI_HOST
+ARG NEXT_PUBLIC_JOBSITE_HOST
+
+# Set environment variables for build
+ENV API_URL=$API_URL
+ENV NEXT_PUBLIC_REKRUTAI_HOST=$NEXT_PUBLIC_REKRUTAI_HOST
+ENV NEXT_PUBLIC_JOBSITE_HOST=$NEXT_PUBLIC_JOBSITE_HOST
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
