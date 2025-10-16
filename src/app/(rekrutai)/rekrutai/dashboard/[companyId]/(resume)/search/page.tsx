@@ -1,21 +1,15 @@
 import { THhCheckboxGroupItem } from "@/features/add-hh-matches/api/types";
-import { CheckboxGroup } from "@/features/add-hh-matches/ui/CheckboxGroup";
+import { mapToCheckboxItems } from "@/features/add-hh-matches/lib/utils";
+import { Test } from "@/features/add-hh-matches/ui/multilevel-checkbox/test";
 import { fetchJson } from "@/shared/api/common/fetchJson";
 
 const SearchPage = async () => {
   const groups: THhCheckboxGroupItem[] = await fetchJson('/data/roles/categories.json')
+  const normalizedGroups = mapToCheckboxItems(groups)
   return (
     <div>Search page
       <div>
-        {groups.map(item => (
-          <CheckboxGroup
-            key={item.id}
-            name="professional_role"
-            enableSendRoot={false}
-            checkboxItem={item}
-            url={`/data/roles/${item.id}.json`}
-          />
-        ))}
+        <Test items={normalizedGroups} />
       </div>
     </div>
   );
