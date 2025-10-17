@@ -8,7 +8,7 @@ import { Button } from "@/shared/ui/shadcn/button";
 import { RefObject } from "react";
 import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
 import { launchMatchFromHh } from "@/shared/api/actions";
-import { THhEmployment, THhMatchRequest } from "../api/types";
+import { THhCheckboxGroupItem, THhEmployment, THhMatchRequest } from "../api/types";
 
 type TProps = {
   className?: string,
@@ -46,6 +46,64 @@ export const HhMatchForm = ({
       {/* Hidden inputs vacancyId and search text = vacancy name */}
       <input type="hidden" name="vacancy_id" defaultValue={vacancyId} />
       <input type="hidden" name="text" defaultValue={vacancyName} />
+
+      {/* Area */}
+      <FormItem
+        labelText="Местоположение"
+        className="gap-1"
+        error={errors.area}
+      >
+        {HH_FIELDS_DICT.area.map((area: THhCheckboxGroupItem) => {
+
+          const isChecked = (defaultValues?.area || []).includes(String(area.id))
+          return (
+            <label
+              key={area.id}
+              className="flex items-center gap-2"
+            >
+              <Input
+                type="checkbox"
+                name="area[]"
+                value={area.id}
+                className="inline w-5 h-5 accent-primary"
+                onChange={(e) => removeError(e.target.name)}
+                defaultChecked={isChecked}
+              />
+              <span>{capitalizeSentences(area.name)}</span>
+            </label>
+          )
+        })}
+      </FormItem>
+
+      {/* Professional_role */}
+      <FormItem
+        labelText="Специализация"
+        className=""
+        error={errors.professional_role}
+      >
+        <div className="columns-2">
+
+          {HH_FIELDS_DICT.professional_role.map((role: THhCheckboxGroupItem) => {
+            const isChecked = (defaultValues?.professional_role || []).includes(String(role.id))
+            return (
+              <label
+                key={role.id}
+                className="flex items-center gap-2"
+              >
+                <Input
+                  type="checkbox"
+                  name="professional_role[]"
+                  value={role.id}
+                  className="inline w-5 h-5 accent-primary shrink-0"
+                  onChange={(e) => removeError(e.target.name)}
+                  defaultChecked={isChecked}
+                />
+                <span>{capitalizeSentences(role.name)}</span>
+              </label>
+            )
+          })}
+        </div>
+      </FormItem>
 
       {/* Search period in days */}
       <FormItem

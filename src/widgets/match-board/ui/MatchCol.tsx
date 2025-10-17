@@ -30,7 +30,7 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
     refetchInterval: (data) => {
       const hasData = data.state.data && data.state.data.length > 0
       if (!hasData) return 5000; // часто, пока колонка пустая
-      return 15000; // реже, если там "всё спокойно"
+      return 8000; // реже, если там "всё спокойно"
     },
     refetchIntervalInBackground: false,
     staleTime: 1000,

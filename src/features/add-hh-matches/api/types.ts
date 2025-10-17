@@ -16,8 +16,8 @@ export type THhEmployment =
 export type THhMatchRequest = {
   vacancy_id: number | string;
   text: string;
-  professional_role: number[];
-  area: number[];
+  professional_role: (number | string)[];
+  area: (number | string)[];
   search_period: number;
   age_from: number;
   age_to: number;

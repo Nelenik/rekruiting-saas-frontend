@@ -23,7 +23,10 @@ export const prepareBody = (
  * @template T - The type of the object to be returned.
  * @returns
  */
-export const parseFormData = <T>(formData: FormData): T => {
+export const parseFormData = <T>(
+  formData: FormData,
+  enableCastToNumber: boolean = false
+): T => {
   const resultObject = {} as Record<string, unknown>;
 
   for (const [key, value] of formData.entries()) {
@@ -34,10 +37,10 @@ export const parseFormData = <T>(formData: FormData): T => {
       const cleanedKey = key.slice(0, -2);
       resultObject[cleanedKey] = [
         ...((resultObject[cleanedKey] as unknown[]) || []),
-        value,
+        castToNumber(value, enableCastToNumber),
       ];
     } else {
-      resultObject[key] = value;
+      resultObject[key] = castToNumber(value, enableCastToNumber);
     }
   }
 
@@ -72,4 +75,14 @@ export const convertToFormData = (
 
 export const formDataToJson = (formData: FormData): string => {
   return JSON.stringify(parseFormData(formData));
+};
+
+// This function casts the value to number if enable flag is turned on
+export const castToNumber = (value: unknown, enable: boolean = false) => {
+  if (!enable) return value;
+  if (typeof value === "number") return value;
+  if (typeof value === "string" && /^-?\d+(\.\d+)?$/.test(value.trim())) {
+    return Number(value);
+  }
+  return value;
 };
