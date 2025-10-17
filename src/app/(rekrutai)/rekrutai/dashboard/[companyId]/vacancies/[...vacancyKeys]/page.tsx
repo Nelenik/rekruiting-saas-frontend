@@ -9,7 +9,8 @@ import { AddMatchesForm } from '@/features/add-matches/ui/AddMatchesForm';
 import { getVacancy } from '@/shared/api/actions';
 import { redirect } from 'next/navigation';
 import { encodeSegment } from '@/shared/lib/encodeSegments';
-import { AddHhMatches } from '@/features/add-hh-matches/ui/AddHhMatches';
+import { AddHhMatches } from '@/features/add-hh-matches';
+import { ParseResponses } from '@/features/add-matches-from-responses/ui/ParseResponses';
 
 
 type TProps = {
@@ -56,6 +57,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
 
               <AddMatchesForm vacancyId={vacancyId} />
               <AddHhMatches vacancyId={vacancyId} vacancyName={vacancy.name} />
+              <ParseResponses vacancyId={vacancyId} externalId={vacancy.external_id} />
             </div>
 
             <MatchBoard />

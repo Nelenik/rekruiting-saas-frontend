@@ -115,3 +115,20 @@ export const launchMatchFromHh = async (_: TMutationState, data: FormData) => {
   });
   return result;
 };
+
+/**
+ * Parses responses to job postings published on external platforms.
+ * @param _
+ * @param data
+ * @returns
+ */
+export const parseVacancyResponses = async (
+  _: TMutationState,
+  data: FormData
+) => {
+  const result = await apiMutate("/match/parse-vacancy-responses", {
+    body: parseFormData(data, true),
+    method: "POST",
+  });
+  return result;
+};
