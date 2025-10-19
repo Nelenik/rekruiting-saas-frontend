@@ -13,6 +13,13 @@ export type THhEmployment =
   | "volunteer"
   | "probation";
 
+export type THhStatus =
+  | "active_search"
+  | "looking_for_offers"
+  | "not_looking_for_job"
+  | "has_job_offer"
+  | "accepted_job_offer";
+
 export type THhMatchRequest = {
   vacancy_id: number | string;
   text: string;
@@ -25,6 +32,7 @@ export type THhMatchRequest = {
   gender: THhGender;
   salary: number;
   employment: THhEmployment[];
+  status: THhStatus[];
 };
 
 export type THhCheckboxGroupItem = {

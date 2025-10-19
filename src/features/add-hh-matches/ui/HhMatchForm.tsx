@@ -8,7 +8,7 @@ import { Button } from "@/shared/ui/shadcn/button";
 import { RefObject } from "react";
 import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
 import { launchMatchFromHh } from "@/shared/api/actions";
-import { THhCheckboxGroupItem, THhEmployment, THhMatchRequest } from "../api/types";
+import { THhCheckboxGroupItem, THhEmployment, THhMatchRequest, THhStatus } from "../api/types";
 
 type TProps = {
   className?: string,
@@ -37,15 +37,26 @@ export const HhMatchForm = ({
       action={formAction}
       ref={ref}
       className={cn(
-        'flex flex-col gap-4 px-2',
-        'h-full overflow-y-auto pb-16 text-lg',
+        'flex flex-col gap-8 px-2',
+        'h-full overflow-y-auto pb-16 text-base',
         className
       )}
 
     >
       {/* Hidden inputs vacancyId and search text = vacancy name */}
       <input type="hidden" name="vacancy_id" defaultValue={vacancyId} />
-      <input type="hidden" name="text" defaultValue={vacancyName} />
+
+      {/* Cv name */}
+      <FormItem
+        labelText="Название резюме"
+        error={errors.text}
+      >
+        <Input
+          name="text"
+          defaultValue={defaultValues?.text || vacancyName}
+          className="text-inherit"
+        />
+      </FormItem>
 
       {/* Area */}
       <FormItem
@@ -81,7 +92,7 @@ export const HhMatchForm = ({
         className=""
         error={errors.professional_role}
       >
-        <div className="columns-2">
+        <div className="sm:columns-2">
 
           {HH_FIELDS_DICT.professional_role.map((role: THhCheckboxGroupItem) => {
             const isChecked = (defaultValues?.professional_role || []).includes(String(role.id))
@@ -105,21 +116,7 @@ export const HhMatchForm = ({
         </div>
       </FormItem>
 
-      {/* Search period in days */}
-      <FormItem
-        labelText="Период поиска (в днях)"
-        className="max-w-[300px]"
-        error={errors.search_period}
-      >
-        <Input
-          placeholder="Количество дней"
-          title="Введите только цифры"
-          pattern="[0-9]+"
-          name="search_period"
-          defaultValue={defaultValues?.search_period}
-          onChange={(e) => removeError(e.target.name)}
-        />
-      </FormItem>
+
 
       {/* Experience */}
       <FormItem
@@ -155,6 +152,7 @@ export const HhMatchForm = ({
         <div className="flex gap-4">
           <FormItem
             error={errors.age_from}
+            className="grow"
           >
             <Input
               type="number"
@@ -168,6 +166,7 @@ export const HhMatchForm = ({
           </FormItem>
           <FormItem
             error={errors.age_to}
+            className="grow"
           >
             <Input
               type="number"
@@ -209,10 +208,37 @@ export const HhMatchForm = ({
         })}
       </FormItem>
 
+      {/* Status */}
+      <FormItem
+        labelText="Статус поиска"
+        className="gap-1"
+        error={errors.status}
+      >
+        {HH_FIELDS_DICT.job_search_statuses_employer.map((status) => {
+          const isChecked = (defaultValues?.status || []).includes(status.id as THhStatus)
+          return (
+            <label
+              key={status.id}
+              className="flex items-center gap-2"
+            >
+              <Input
+                type="checkbox"
+                // name="status[]"
+                value={status.id}
+                className="inline w-5 h-5 accent-primary shrink-0"
+                onChange={(e) => removeError(e.target.name)}
+                defaultChecked={isChecked}
+              />
+              <span>{capitalizeSentences(status.name)}</span>
+            </label>
+          )
+        })}
+      </FormItem>
+
       {/* Salary */}
       <FormItem
         labelText="Зарплата"
-        className="max-w-[300px]"
+        className=""
         error={errors.salary}
       >
         <Input
@@ -250,6 +276,23 @@ export const HhMatchForm = ({
             </label>
           )
         })}
+      </FormItem>
+
+
+      {/* Search period in days */}
+      <FormItem
+        labelText="Учитывать резюме за последние {X} дней"
+        className=""
+        error={errors.search_period}
+      >
+        <Input
+          placeholder="Количество дней"
+          title="Введите только цифры"
+          pattern="[0-9]+"
+          name="search_period"
+          defaultValue={defaultValues?.search_period}
+          onChange={(e) => removeError(e.target.name)}
+        />
       </FormItem>
 
       <div className={cn("absolute left-0 right-0 bottom-0 ", "px-12 py-2.5 bg-white shadow-[0px_-2px_5px_-2px_rgba(0,_0,_0,_0.35)] flex justify-end gap-4")}>

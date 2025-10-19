@@ -23,12 +23,12 @@
 // };
 
 export const HH_FIELDS_DICT = {
-  job_search_statuses_applicant: [
-    { id: "active_search", name: "активно ищу работу" },
-    { id: "looking_for_offers", name: "рассматриваю предложения" },
-    { id: "not_looking_for_job", name: "не ищу работу" },
-    { id: "has_job_offer", name: "предложили работу, пока думаю" },
-    { id: "accepted_job_offer", name: "уже выхожу на новое место" },
+  job_search_statuses_employer: [
+    { id: "active_search", name: "Активно ищет работу" },
+    { id: "looking_for_offers", name: "Рассматривает предложения" },
+    { id: "not_looking_for_job", name: "Не ищет работу" },
+    { id: "has_job_offer", name: "Предложили работу, решает" },
+    { id: "accepted_job_offer", name: "Вышел на новое место" },
   ],
   gender: [
     { id: "male", name: "мужской" },

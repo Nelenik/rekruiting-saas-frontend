@@ -21,7 +21,7 @@ export const AddHhMatches = ({
 
   return (
     <SheetModal
-      className="overflow-visible w-[min(100%,700px)]"
+      className="overflow-visible w-[min(100%,600px)]"
       renderContent={({ closeSheetModal }) => (
         <HhMatchForm
           ref={formRef}
