@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from "@tanstack/react-query";
-import { ChangeEvent, memo, useEffect, useRef, useState } from "react";
+import { ChangeEvent, memo, useEffect, useMemo, useRef, useState } from "react";
 import { useCheckbox } from "./CheckboxProvider";
 import { TCheckboxItem } from "./types";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/shared/ui/shadcn/collapsible";
@@ -25,7 +25,6 @@ export const CheckboxNode = memo(function CheckboxNode({
     includeParent
   } = useCheckbox()
 
-  console.log('selectedIds', selectedIds)
 
   const [isOpen, setIsOpen] = useState(false);
   const [children, setChildren] = useState<TCheckboxItem[]>(item.staticChildren || []);
@@ -33,40 +32,56 @@ export const CheckboxNode = memo(function CheckboxNode({
   const hasChildren = !!item.childrenUrl || !!item.staticChildren?.length;
   const checkboxRef = useRef<HTMLInputElement>(null);
 
-
-
-  // вычисляем состояния на основе selectedIds
-  const childIds = children.map(c => c.id);
+  // Memoize child IDs
+  const childIds = children.map(c => c.id)
+  // Calculate selection states
   const allChildrenSelected = childIds.length > 0 && childIds.every(id => selectedIds.has(id));
   const someChildrenSelected = childIds.some(id => selectedIds.has(id));
 
-  // verify if is parent checkbox checked
-  const isParentChecked = allChildrenSelected
-    || (!hasChildren && selectedIds.has(item.id))
-    || (!includeParent && hasChildren && selectedIds.has(`__virtual__${item.id}`));
+  //Calculate parentIsSelected for choise logic
+  const parentIsSelected = useMemo(() => {
+    const virtualId = `__virtual__${item.id}`
+    return includeParent
+      ? selectedIds.has(item.id)
+      : selectedIds.has(virtualId)
+  }, [includeParent, item.id, selectedIds])
 
-  // загрузка детей
+  // Calculate isParentChecked for the parent checkbox in the UI
+  const isParentChecked = useMemo(() => {
+    if (!hasChildren) return selectedIds.has(item.id)
+    if (children.length) return allChildrenSelected && someChildrenSelected
+    return parentIsSelected
+  }, [allChildrenSelected, children.length, hasChildren, item.id, parentIsSelected, selectedIds, someChildrenSelected])
+
+  // Load children with error handling
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: ["multilevel_checkbox", item.id + item.childrenUrl],
     queryFn: () => onLoadChildren(item),
     enabled: !!item.childrenUrl && isOpen,
+    retry: 2,
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
+  // Update children when data loads
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       setChildren(data)
     };
   }, [isSuccess, data]);
 
-  // useEffect(() => {
-  //   if (children.length && isParentChecked) {
-  //     const dataSet = new Set(children.map(item => item.id))
-  //     const union = selectedIds.union(dataSet)
-  //     onSelectionChange(union)
-  //   }
-  // }, [children, isParentChecked, onSelectionChange, selectedIds])
+  // Auto-select children when parent is checked (only once on load)
+  // this ref is used to avoid exceed callstack 
+  const hasInitializedRef = useRef(false);
+  useEffect(() => {
+    if (parentIsSelected && children.length && !hasInitializedRef.current) {
+      hasInitializedRef.current = true;
+      const newSelected = new Set(selectedIds)
+      children.forEach(c => newSelected.add(c.id));
+      onSelectionChange(newSelected)
+    }
+  }, [children, parentIsSelected, onSelectionChange, selectedIds])
 
-  // indeterminate для промежуточного состояния
+  // Set indeterminate state
   useEffect(() => {
     if (checkboxRef.current) {
       checkboxRef.current.indeterminate = hasChildren && someChildrenSelected && !allChildrenSelected;
@@ -80,16 +95,11 @@ export const CheckboxNode = memo(function CheckboxNode({
 
     const virtualId = `__virtual__${item.id}`
 
-    const toggleIds = (items: TCheckboxItem[]) => {
-      for (const checkboxItem of items) {
-        if (checked) newSelected.add(checkboxItem.id);
-        else newSelected.delete(checkboxItem.id);
-      }
-    };
-
-    if (children.length) {
-      toggleIds(children)
-    }
+    // Toggle children
+    children.forEach(c => {
+      if (checked) newSelected.add(c.id);
+      else newSelected.delete(c.id);
+    });
 
     if ((hasChildren && includeParent) || !hasChildren) {
       if (checked) newSelected.add(item.id);
