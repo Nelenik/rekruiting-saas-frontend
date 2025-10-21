@@ -5,9 +5,15 @@ import { TCheckboxItem } from "./types"
 
 type TCheckboxContext = {
   selectedIds: Set<string>,
-  onSelectionChange: (selected: Set<string>) => void,
+  onSelectionChange: (updated: Set<string> | ((prev: Set<string>) => Set<string>)) => void,
   includeParent: boolean,
   onLoadChildren: (item: TCheckboxItem) => Promise<TCheckboxItem[]>
+  styles: {
+    checkboxLabelClassName?: string,
+    checkboxInputClassName?: string,
+    collapsibleTriggerClassName?: string,
+    collapsibleContentClassName?: string
+  }
 }
 export const CheckboxContext = createContext<TCheckboxContext | null>(null)
 

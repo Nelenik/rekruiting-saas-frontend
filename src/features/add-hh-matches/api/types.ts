@@ -35,10 +35,14 @@ export type THhMatchRequest = {
   status: THhStatus[];
 };
 
-export type THhCheckboxGroupItem = {
+export type THhRole = {
   id: number;
   name: string;
-  hasChildren?: boolean;
-  parent_id?: number | null;
-  url?: string;
+  [key: string]: unknown;
+};
+
+export type THhRoleGroup = {
+  id: number;
+  name: string;
+  roles: THhRole[];
 };
