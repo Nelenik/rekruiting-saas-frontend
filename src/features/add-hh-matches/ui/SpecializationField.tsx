@@ -1,7 +1,7 @@
 'use client'
 
 import { TCheckboxItem, TStaticCheckboxItem } from "@/shared/ui/form-elements/multilevel-checkbox"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { SpecializationModal } from "./SpecializationModal"
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence"
 import { Input } from "@/shared/ui/shadcn/input"
@@ -127,7 +127,17 @@ export const SpecializationField = ({
 }: TProps) => {
   const [values, setValues] = useState<string[]>(defaultValues)
 
-  console.log('render')
+
+  // Keeps track of the last applied defaultValues to prevent unnecessary re-syncs.
+  const defaultValuesOnMount = useRef<string[]>(defaultValues)
+
+  useEffect(() => {
+    if (String(defaultValuesOnMount.current) !== String(defaultValues)) {
+      setValues(defaultValues);
+      defaultValuesOnMount.current = defaultValues
+    }
+  }, [defaultValues]);
+
   const { data = [] } = useQuery({
     queryKey: ['hh', 'specializations'],
     queryFn: getSpecialization,
@@ -136,7 +146,6 @@ export const SpecializationField = ({
   const specializationMap = useMemo(() => flattenToMap(data), [data])
 
   const selectedItems = useMemo(() => {
-    console.log('values', values)
     if (values.length) return extractSelectedItems(values, specializationMap)
     return initCheckboxes
   }, [specializationMap, values])
@@ -147,8 +156,6 @@ export const SpecializationField = ({
     const fd = new FormData(formRef.current)
     return fd.getAll(name).map(String)
   }
-
-  // console.log('selectedItems', selectedItems)
   return (
     <>
       {selectedItems.map((role: TCheckboxItem) => {

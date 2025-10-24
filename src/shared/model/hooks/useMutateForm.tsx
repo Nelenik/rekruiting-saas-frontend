@@ -41,6 +41,7 @@ export const useMutateForm = <TPayload,>(
 
   //Handle whether the submission is successful or not.
   useEffect(() => {
+
     if (state.sent && state.error) {
       if (state.error.details) {
         setErrors((prevErrors) => ({
@@ -61,7 +62,7 @@ export const useMutateForm = <TPayload,>(
       setIsSuccess(false)
     }
 
-  }, [state.error, state.sent, toast, toastMessage])
+  }, [state, toast, toastMessage])
 
   useEffect(() => {
     if (isSuccess) {

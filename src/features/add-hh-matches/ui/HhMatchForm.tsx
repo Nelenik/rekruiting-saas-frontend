@@ -68,8 +68,7 @@ export const HhMatchForm = ({
         error={errors.area}
       >
         {HH_FIELDS_DICT.area.map((area: { id: number, name: string }) => {
-
-          const isChecked = (defaultValues?.area || []).includes(String(area.id))
+          const isChecked = (defaultValues?.area || []).includes(area.id)
           return (
             <label
               key={area.id}
