@@ -1,11 +1,6 @@
-import { SpecializationModal } from "@/features/add-hh-matches/ui/SpecializationModal";
-
-const SearchPage = async () => {
+const SearchPage = () => {
   return (
     <div>Search page
-      <div>
-        <SpecializationModal />
-      </div>
     </div>
   );
 }

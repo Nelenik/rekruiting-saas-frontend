@@ -5,25 +5,28 @@ import { Input } from "@/shared/ui/shadcn/input";
 import { HH_FIELDS_DICT } from "../lib/dictionary";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
 import { Button } from "@/shared/ui/shadcn/button";
-import { RefObject } from "react";
+// import { RefObject } from "react";
 import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
 import { launchMatchFromHh } from "@/shared/api/actions";
 import { THhEmployment, THhMatchRequest, THhStatus } from "../api/types";
+import { useRef } from "react";
+import { SpecializationField } from "./SpecializationField";
 
 type TProps = {
   className?: string,
   vacancyId: string | number,
   vacancyName: string,
-  ref?: RefObject<HTMLFormElement | null>
+  // ref?: RefObject<HTMLFormElement | null>
   onSuccess?: () => void
 }
 export const HhMatchForm = ({
   className,
   vacancyId,
   vacancyName,
-  ref,
+  // ref,
   onSuccess = () => { }
 }: TProps) => {
+  const formRef = useRef<HTMLFormElement>(null)
 
   const { formAction, pending, defaultValues, errors, removeError } = useMutateForm<THhMatchRequest>({
     mutationAction: launchMatchFromHh,
@@ -35,7 +38,7 @@ export const HhMatchForm = ({
   return (
     <form
       action={formAction}
-      ref={ref}
+      ref={formRef}
       className={cn(
         'flex flex-col gap-8 px-2',
         'h-full overflow-y-auto pb-16 text-base',
@@ -87,36 +90,13 @@ export const HhMatchForm = ({
       </FormItem>
 
       {/* Professional_role */}
-      <FormItem
-        labelText="Специализация"
-        className=""
-        error={errors.professional_role}
-      >
-        <div className="sm:columns-2">
-
-          {HH_FIELDS_DICT.professional_role.map((role: { id: number, name: string }) => {
-            const isChecked = (defaultValues?.professional_role || []).includes(String(role.id))
-            return (
-              <label
-                key={role.id}
-                className="flex items-center gap-2"
-              >
-                <Input
-                  type="checkbox"
-                  name="professional_role[]"
-                  value={role.id}
-                  className="inline w-5 h-5 accent-primary shrink-0"
-                  onChange={(e) => removeError(e.target.name)}
-                  defaultChecked={isChecked}
-                />
-                <span>{capitalizeSentences(role.name)}</span>
-              </label>
-            )
-          })}
-        </div>
+      <FormItem labelText="Специализация" className="gap-1">
+        <SpecializationField
+          defaultValues={defaultValues?.professional_role?.map(String)}
+          name='professional_role[]'
+          formRef={formRef}
+        />
       </FormItem>
-
-
 
       {/* Experience */}
       <FormItem
@@ -296,7 +276,7 @@ export const HhMatchForm = ({
       </FormItem>
 
       <div className={cn("absolute left-0 right-0 bottom-0 ", "px-12 py-2.5 bg-white shadow-[0px_-2px_3px_-2px_rgba(0,_0,_0,_0.35)] flex justify-end gap-4")}>
-        <Button type="button" variant="ghost" className="mr-2" onClick={() => ref?.current?.reset()}>
+        <Button type="button" variant="ghost" className="mr-2" onClick={() => formRef?.current?.reset()}>
           Сбросить
         </Button>
         <Button type="submit">

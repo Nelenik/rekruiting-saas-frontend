@@ -1,7 +1,6 @@
 'use client'
 
 import { SheetModal } from "@/shared/ui/modals/SheetModal";
-import { useRef } from "react";
 import { HhMatchForm } from "./HhMatchForm";
 import { Button } from "@/shared/ui/shadcn/button";
 import HhSvg from '@/assets/sources/hh.ru.svg?rc'
@@ -17,14 +16,14 @@ export const AddHhMatches = ({
   vacancyId,
   vacancyName
 }: TProps) => {
-  const formRef = useRef<HTMLFormElement>(null)
+
 
   return (
     <SheetModal
       className="overflow-visible w-[min(100%,600px)]"
       renderContent={({ closeSheetModal }) => (
         <HhMatchForm
-          ref={formRef}
+          // ref={formRef}
           vacancyId={vacancyId}
           vacancyName={vacancyName}
           onSuccess={closeSheetModal}
