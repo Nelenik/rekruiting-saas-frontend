@@ -109,8 +109,7 @@ export const updateMatch = async (
  * @returns
  */
 export const launchMatchFromHh = async (_: TMutationState, data: FormData) => {
-  console.log(parseFormData(data, true));
-  const result = await apiMutate("/api/v1/match/search", {
+  const result = await apiMutate("/api/v1/match/search-hh-resumes", {
     body: parseFormData(data, true),
     method: "POST",
   });
