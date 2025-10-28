@@ -18,16 +18,26 @@ export const ScrollCTA = ({ ctaLink = '#!' }: TProps) => {
   const isDesktop = useMatchMedia('(min-width: 992px)')
 
   useEffect(() => {
-
+    let ticking = false
     const checkScroll = () => {
-      const scrollY = window.scrollY || window.pageYOffset
-      setShow(scrollY > 300)
+      if (!ticking) {
+        requestAnimationFrame(() => {
+
+          const scrollY = window.scrollY || window.pageYOffset
+          setShow(prev => {
+            const isVisible = scrollY > 300
+            return prev !== isVisible ? isVisible : prev
+          })
+          ticking = false
+        })
+        ticking = true
+      }
 
     }
 
+    window.addEventListener('scroll', checkScroll)
     checkScroll()
 
-    window.addEventListener('scroll', checkScroll)
 
     return () => window.removeEventListener('scroll', checkScroll)
 

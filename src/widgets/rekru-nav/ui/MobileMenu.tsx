@@ -8,7 +8,7 @@ import { RekruProfileMenu } from "./RekruProfileMenu";
 import { Separator } from "@/shared/ui/shadcn/separator";
 import { Button, ButtonProps } from "@/shared/ui/shadcn/button";
 import { X } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 type TProps = {
   className?: string;
@@ -26,7 +26,7 @@ interface BurgerButtonProps extends ButtonProps {
 
 const BurgerButton = ({ className, ...props }: BurgerButtonProps) => {
   return (
-    <Button {...props} variant={'ghost'} className={cn("w-12 h-12 p-3.5 flex flex-col gap-1 items-end ring ring-secondary", 'hover:bg-secondary transition-colors', className)}>
+    <Button {...props} variant={'ghost'} className={cn("w-10 h-10 p-2 flex flex-col gap-1 items-end ring ring-secondary", 'hover:bg-secondary transition-colors', className)}>
       <span className="w-full h-0.5 rounded-full bg-secondary-foreground"></span>
       <span className="w-3/4 h-0.5 rounded-full bg-secondary-foreground"></span>
       <span className="w-full h-0.5 rounded-full bg-secondary-foreground"></span>
@@ -80,4 +80,25 @@ export const MobileMenu = ({
       }}
     </BurgerBase>
   );
+}
+
+// this component is used at vacancy page in the sticky top block
+export const FixedMobileMenu = () => {
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true)
+
+  useEffect(() => {
+    const header = document.querySelector('header')
+    if (!header) return
+    const observrer = new IntersectionObserver(([entry]) => setIsHeaderVisible(entry.isIntersecting), { threshold: 0 })
+
+    observrer.observe(header)
+    return () => observrer.disconnect()
+  }, [])
+
+  // if (isHeaderVisible) return null
+  return (
+    <MobileMenu
+      className={cn(isHeaderVisible ? 'hidden invisible' : 'flex visible opacity')}
+    />
+  )
 }

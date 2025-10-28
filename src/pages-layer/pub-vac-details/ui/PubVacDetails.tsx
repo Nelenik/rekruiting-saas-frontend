@@ -3,9 +3,9 @@ import { cn } from "@/shared/lib/utils";
 import { VacancyParams } from "./VacancyParams";
 import { CompanyInfoCard } from "@/entities/company/ui/CompanyInfoCard";
 import { VacancyDescription } from "./VacancyDescription";
-import { MobileMenu } from "@/widgets/rekru-nav";
 import { GoBackLink } from "@/shared/ui/navigation/GoBackLink";
 import { ScrollCTA } from "@/features/rekru-scroll-cta/ui/ScrollCTA";
+import { FixedMobileMenu } from "@/widgets/rekru-nav/ui/MobileMenu";
 
 type TProps = {
   vacancy: TPublicVacancy;
@@ -43,12 +43,10 @@ export const PubVacDetails = ({
             className='p-0'
             text='Назад к списку вакансий'
           />
-          <MobileMenu
-            className="md-lg:hidden md-lg:invisible shrink-0"
-          />
+          <FixedMobileMenu />
         </div>
       </section>
-      <section className="pt-5 pb-8 md-lg:pt-0">
+      <section className=" pb-8">
         <div className={cn(
           "rekru-container gap-8 flex flex-col",
           "md-lg:grid md-lg:grid-cols-12 md-lg:grid-row-2"
