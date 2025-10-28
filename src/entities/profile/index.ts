@@ -1,1 +1,2 @@
-export { UserPreview } from "./ui/UserPreview";
+export { UserAvatar } from "./ui/UserAvatar";
+export { UserMenu } from "./ui/UserMenu";

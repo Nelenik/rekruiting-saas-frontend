@@ -20,10 +20,6 @@ export const createJobsitePublicNavConfig = (): TNavConfig[] => [
     href: '/vacancies'
   },
   {
-    routeName: 'Компании',
-    href: '/companies'
-  },
-  {
     routeName: 'О проекте',
     href: '/pages/about'
   },

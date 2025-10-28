@@ -7,11 +7,11 @@ import { NavList } from "@/shared/ui/navigation/NavList";
 import { Logo } from "@/shared/ui/navigation/Logo";
 import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
 
-import LogoImg from '@/assets/logo-short.png';
+import LogoImg from '@/assets/rekru-logo.webp';
 import profileSampleImg from '@/assets/profile-sample.png'
-import { UserPreview } from "@/entities/profile";
 import { useMemo } from "react";
 import { createJobsitePublicNavConfig } from "@/shared/config/jobsiteNavConfig";
+import { UserAvatar } from "@/entities/profile";
 
 
 
@@ -56,14 +56,14 @@ export const Header = ({
         {/* Logo */}
         {/* Logo is always shown */}
         <Logo
-          width={64}
-          height={64}
+          width={352}
+          height={123}
           alt="Rekruru - jobsite logo"
           href="/"
           image={LogoImg}
           className={cn(
             'm-auto shrink-0',
-            'md:w-[64px] md:m-0'
+            'md:w-[182px] md:h-[64px] md:m-0'
           )}
         />
 
@@ -84,7 +84,7 @@ export const Header = ({
           />
         </nav>
 
-        <div className="flex gap-6 lg:gap-10 items-center">
+        <div className="flex gap-6 items-center">
           <RekruCTA view="dark">
             <Plus />
             Добавить вакансию
@@ -93,7 +93,11 @@ export const Header = ({
           <Link
             href='/profile'
           >
-            <UserPreview user={userSample} className="w-56" />
+            <UserAvatar
+              userName={userSample.name}
+              profileImage={userSample.profile_image}
+              className='w-10 h-10'
+            />
           </Link>
         </div>
       </div>

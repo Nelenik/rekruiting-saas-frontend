@@ -14,7 +14,7 @@ import { SignOutForm, useSession } from "@/features/auth";
 import NavPanelBtn from "@/shared/ui/buttons/NavPanelBtn";
 import { CollapsibleSidebar } from "@/shared/ui/navigation/CollapsibleSidebar";
 import { Separator } from "@/shared/ui/shadcn/separator";
-import { UserAvatar } from "@/shared/ui/navigation/UserAvatar";
+import { UserAvatar } from "@/entities/profile";
 import { ScrollArea, ScrollBar } from "@/shared/ui/shadcn/scroll-area";
 
 interface ISidebarProps {

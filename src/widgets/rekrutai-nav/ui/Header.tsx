@@ -5,7 +5,7 @@ import { cn } from '@/shared/lib/utils';
 import { SidebarItem } from './SidebarItem';
 import { SignOutForm, useSession } from '@/features/auth';
 import { ScrollArea } from '@/shared/ui/shadcn/scroll-area';
-import { UserAvatar } from '@/shared/ui/navigation/UserAvatar';
+import { UserAvatar } from '@/entities/profile';
 import { Separator } from '@/shared/ui/shadcn/separator';
 import { Logo } from '@/shared/ui/navigation/Logo';
 import LogoImg from '@/assets/logo-short.png';
