@@ -1,7 +1,6 @@
 import { cn } from "@/shared/lib/utils";
 import { GoBackLink } from "@/shared/ui/navigation/GoBackLink";
 import { NothingYet } from "@/shared/ui/NothingYet";
-import { MobileMenu } from "@/widgets/rekru-nav";
 
 export default async function JobsiteProfilePage() {
   return (
@@ -15,7 +14,6 @@ export default async function JobsiteProfilePage() {
             className='p-0'
             text='Назад'
           />
-          <MobileMenu />
         </div>
       </section>
       <section className="pt-2 pb-6 md-lg:py-8">

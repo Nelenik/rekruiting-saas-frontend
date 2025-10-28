@@ -1,15 +1,15 @@
 'use client'
 import { UserPreview } from "@/entities/profile";
 import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
-import { LogOut, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 
 import profileSampleImg from '@/assets/profile-sample.png'
 import { cn } from "@/shared/lib/utils";
-import { useMemo } from "react";
-import { createJobsiteProfileNavConfig } from "@/shared/config/jobsiteNavConfig";
-import { NavList } from "@/shared/ui/navigation/NavList";
-import { SignOutForm } from "@/features/auth";
+// import { useMemo } from "react";
+// import { createJobsiteProfileNavConfig } from "@/shared/config/jobsiteNavConfig";
+// import { NavList } from "@/shared/ui/navigation/NavList";
+// import { SignOutForm } from "@/features/auth";
 
 const userSample = {
   id: 1,
@@ -23,8 +23,8 @@ type TProps = {
   onLinkClick?: () => void
   theme?: 'dark' | 'light'
 }
-export const RekruProfileMenu = ({ className, onLinkClick = () => { }, theme = 'dark' }: TProps) => {
-  const profileRoutes = useMemo(() => createJobsiteProfileNavConfig(), [])
+export const RekruProfileMenu = ({ className }: TProps) => {
+  // const profileRoutes = useMemo(() => createJobsiteProfileNavConfig(), [])
   return (
     <div className={cn('flex flex-col gap-10', className)}>
       <div className="flex flex-col gap-5">
@@ -38,7 +38,7 @@ export const RekruProfileMenu = ({ className, onLinkClick = () => { }, theme = '
           Добавить вакансию
         </RekruCTA>
       </div>
-      <NavList
+      {/* <NavList
         routes={profileRoutes}
         theme={theme}
         className='flex flex-col gap-4'
@@ -54,7 +54,7 @@ export const RekruProfileMenu = ({ className, onLinkClick = () => { }, theme = '
       >
         <LogOut className="w-5 h-20" />
         Выйти из аккаунта
-      </SignOutForm>
+      </SignOutForm> */}
     </div>
   );
 }

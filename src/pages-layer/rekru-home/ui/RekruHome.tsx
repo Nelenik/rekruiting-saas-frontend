@@ -1,6 +1,5 @@
 import { cn } from "@/shared/lib/utils";
 import { HeroSwiper } from "./HeroSwiper";
-import { MobileMenu } from "@/widgets/rekru-nav";
 import { SearchBar } from "@/features/search-bar/ui/SearchBar";
 import { CompaniesSwiper } from "./CompaniesSwiper";
 import { getFilterCompanies } from "@/shared/api/actions";
@@ -20,15 +19,6 @@ export const RekruHome = async () => {
 
   return (
     <>
-      <section className={cn(
-        "py-4 bg-background sticky top-0 z-[10]",
-        ' md-lg:hidden md-lg:invisible'
-      )}>
-        <div className="rekru-container flex items-center justify-end gap-20 ">
-          <MobileMenu />
-        </div>
-      </section>
-
       <section
         className='min-h-[495px] overflow-hidden'
       >

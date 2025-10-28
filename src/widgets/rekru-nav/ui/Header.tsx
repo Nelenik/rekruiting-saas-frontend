@@ -12,6 +12,7 @@ import profileSampleImg from '@/assets/profile-sample.png'
 import { useMemo } from "react";
 import { createJobsitePublicNavConfig } from "@/shared/config/jobsiteNavConfig";
 import { UserAvatar } from "@/entities/profile";
+import { MobileMenu } from "./MobileMenu";
 
 
 
@@ -41,8 +42,7 @@ export const Header = ({
 
     <header
       className={cn(
-        'py-4 hidden invisible ',
-        'md-lg:block md-lg:visible',
+        'py-4',
         className
       )}
     >
@@ -58,21 +58,19 @@ export const Header = ({
         <Logo
           width={352}
           height={123}
-          alt="Rekruru - jobsite logo"
+          alt="Rekru.ru - jobsite logo"
           href="/"
           image={LogoImg}
           className={cn(
-            'm-auto shrink-0',
-            'md:w-[182px] md:h-[64px] md:m-0'
+            'shrink-0 w-[160px] h-[56px]',
+            'md:w-[182px] md:h-[64px]'
           )}
         />
 
-        {/* show nav on screen from md screen = 768px */}
         <nav
           className={cn(
             'hidden invisible max-w-[450px] grow mx-auto',
-            // show on md screen
-            'md:flex md:visible '
+            'md-lg:flex md-lg:visible '
           )}>
           <NavList
             routes={publicRoutes}
@@ -84,7 +82,10 @@ export const Header = ({
           />
         </nav>
 
-        <div className="flex gap-6 items-center">
+        <div className={cn(
+          'hidden invisible',
+          "md-lg:visible md-lg:flex gap-6 items-center"
+        )}>
           <RekruCTA view="dark">
             <Plus />
             Добавить вакансию
@@ -100,6 +101,11 @@ export const Header = ({
             />
           </Link>
         </div>
+
+        {/* mobile menu to 992px*/}
+        <MobileMenu
+          className="md-lg:ivisible md-lg:hidden"
+        />
       </div>
     </header >
   );
