@@ -21,10 +21,10 @@ export default async function JobSiteVacanciesLayout({
         <div
           className={cn(
             'rekru-container flex flex-col justify-between  gap-8 ',
-            'md:grid md:grid-cols-[250px_minmax(0,1fr)] md:gap-x-6 md:gap-y-4',
+            'md:gap-10',
           )}
         >
-          <PositionsFilterToggle className="hidden md:flex md:col-span-2 md:mb-8" />
+          <PositionsFilterToggle className="hidden md:flex" />
 
           <div
             className="flex gap-4  md:col-span-2"

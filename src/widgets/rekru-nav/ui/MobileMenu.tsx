@@ -9,6 +9,7 @@ import { Separator } from "@/shared/ui/shadcn/separator";
 import { Button, ButtonProps } from "@/shared/ui/shadcn/button";
 import { X } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { useMatchMedia } from "@/shared/model/hooks/useMatchMedia";
 
 type TProps = {
   className?: string;
@@ -85,6 +86,7 @@ export const MobileMenu = ({
 // this component is used at vacancy page in the sticky top block
 export const FixedMobileMenu = () => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true)
+  const isDesktop = useMatchMedia('(min-width: 992px)')
 
   useEffect(() => {
     const header = document.querySelector('header')
@@ -95,7 +97,7 @@ export const FixedMobileMenu = () => {
     return () => observrer.disconnect()
   }, [])
 
-  // if (isHeaderVisible) return null
+  if (isDesktop) return null
   return (
     <MobileMenu
       className={cn(isHeaderVisible ? 'hidden invisible' : 'flex visible opacity')}

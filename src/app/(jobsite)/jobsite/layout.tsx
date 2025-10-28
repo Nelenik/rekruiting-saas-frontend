@@ -42,7 +42,7 @@ export default async function JobSiteLayout({
   return (
     <html lang="ru" className={`${roboto.variable}`}>
       <body
-        className={`font-roboto text-sm antialiased [scrollbar-gutter:stable] bg-background text-foreground`}
+        className={`font-roboto text-base antialiased [scrollbar-gutter:stable] bg-background text-foreground`}
       >
         <Analytics />
         <TenantProvider tenant={tenant}>

@@ -22,8 +22,9 @@ const PositionToggleItem = ({ positionValue, ...props }: PositionItemProps) => {
       value={position}
       {...props}
       className={cn(
-        'px-4',
-        'data-[state=on]:bg-primary data-[state=on]:text-white'
+        'px-6 py-3.5 h-auto font-normal mr-2 tracking-tighter rounded-lg border-accent2/10 shadow-[0px_4px_4px_rgba(88,119,174,0.1)]',
+        'data-[state=on]:bg-primary data-[state=on]:text-white',
+        "hover:bg-accent2/10"
       )}
     >
       {positionText}
@@ -47,7 +48,7 @@ export const PositionsFilterToggle = ({
       type="single"
       variant={'outline'}
       value={activeFilters.position || ''}
-      className={cn('flex-wrap justify-start gap-2', className)}
+      className={cn('flex flex-wrap gap-6 justify-start', className)}
       onValueChange={updateFilter(0)}
     >
       {positionsList.map((item) => (
