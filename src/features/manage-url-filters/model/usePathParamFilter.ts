@@ -1,53 +1,40 @@
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 /**
- * A custom React hook for managing a single dynamic path segment (filter) in a Next.js route.
+ * A custom React hook for working with dynamic path segments in a Next.js route.
  *
- * ⚠️ This hook is designed to work specifically with catch-all route segments (e.g., `[...filters]`)
- * where each filter is located at a known and fixed position in the URL path.
+ * 🧭 Designed for routes that use a catch-all segment (e.g. `[...filters]`),
+ * where each segment in the URL represents a distinct filter or category.
  *
- * Useful for cases where part of the filter state is encoded directly in the pathname,
- * such as `/vacancies/:position/:company`, and you want to update a specific segment programmatically.
+ * This hook helps read and update specific path segments programmatically
+ * while preserving query parameters.
  *
- * @param baseUrl - The static base URL (e.g., `/vacancies`) that precedes the dynamic segments.
- * @param paramIndex - The index of the segment to control in the catch-all path array (e.g., 0 for position, 1 for company).
+ * @param baseUrl - The static base path (e.g. `/vacancies`) that precedes dynamic segments.
  *
  * @returns An object containing:
- * - `value`: The current decoded value of the path segment at the specified index.
- * - `updatePathParam`: A function to update that path segment and push a new route, preserving existing query parameters.
+ * - `pathFilters`: An array of current dynamic path segments (decoded).
+ * - `updatePathParam`: A function factory that returns an updater for a specific segment.
  *
  * @example
  * ```tsx
- * const { value: position, updatePathParam: updatePosition } = usePathParamFilter('/vacancies', 0);
+ * // URL: /vacancies/frontend/google?sort=desc
+ * const { pathFilters, updatePathParam } = usePathParamFilter('/vacancies');
  *
- * return (
- *   <PositionSelect
- *     value={position}
- *     onValueChange={updatePosition}
- *   />
- * );
+ * console.log(pathFilters); // ["frontend", "google"]
+ *
+ * const updateCompany = updatePathParam(1);
+ * updateCompany('meta'); // Navigates to /vacancies/frontend/meta?sort=desc
+ * ```
+ *
+ * @remarks
+ * - Empty segments are automatically removed from the path when updating.
+ * - Query parameters are preserved when navigating.
+ * - The hook expects the catch-all segment to be named `filters` in your route definition.
+ *
+ * Example route definition:
+ * ```
+ * /vacancies/[...filters]/page.tsx
  * ```
  */
-// export const usePathParamFilter = (baseUrl: string, paramIndex: number) => {
-//   const router = useRouter();
-//   const params = useParams();
-//   const searchParams = useSearchParams();
-
-//   const { filters = [] } = params;
-//   const value = filters[paramIndex] || "";
-
-//   console.log(filters);
-
-//   const query = searchParams ? `?${searchParams.toString()}` : "";
-
-//   const updatePathParam = (newValue: string) => {
-//     const newFilters = [...filters];
-//     newFilters[paramIndex] = encodeURIComponent(newValue);
-//     //clean empty values
-//     const cleanedParams = newFilters.filter(Boolean).join("/");
-//     router.push(`${baseUrl}/${cleanedParams}${query}`);
-//   };
-//   return { value, updatePathParam };
-// };
 export const usePathParamFilter = (baseUrl: string) => {
   const router = useRouter();
   const params = useParams();

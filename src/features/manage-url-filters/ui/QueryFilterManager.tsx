@@ -1,11 +1,9 @@
 'use client'
 
-import { cn } from "@/shared/lib/utils";
 import { FC, ReactNode } from "react";
 import { useQueryFilters } from "../model/useQueryFilters";
 
 type TProps = {
-  className?: string
   render: (props: {
     updateFilter: (filterValues: Record<string, string>) => void
     filters: Record<string, string>
@@ -36,18 +34,17 @@ type TProps = {
  */
 
 export const QueryFilterManager: FC<TProps> = ({
-  className,
   render
 }) => {
 
   const { filters, updateFilter } = useQueryFilters()
 
   return (
-    <div className={cn(className)}>
+    <>
       {render({
         updateFilter,
         filters,
       })}
-    </div>
+    </>
   );
 }

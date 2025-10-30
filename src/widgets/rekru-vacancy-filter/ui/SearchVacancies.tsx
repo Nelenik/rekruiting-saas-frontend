@@ -12,12 +12,12 @@ export const SearchVacancies = ({
 }: TProps) => {
   return (
     <QueryFilterManager
-      className={cn(
-        'relative',
-        className
-      )}
+
       render={({ filters, updateFilter }) => (
-        <div className="relative">
+        <div className={cn(
+          'relative',
+          className
+        )}>
           <Search
             className="hidden sm:block absolute top-1/2 -translate-y-1/2 left-4 stroke-accent2"
           />

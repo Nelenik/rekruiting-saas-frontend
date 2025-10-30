@@ -116,18 +116,17 @@ type TProps = {
 export const SortingVacancies = ({ className }: TProps) => {
   return (
     <QueryFilterManager
-      className={cn(
-        'relative',
-        className
-      )}
       render={({ filters, updateFilter }) => (
-        <>
+        <div className={cn(
+          'relative',
+          className
+        )}>
           <SortingVacanciesField
             value={filters.sort || ''}
             onValueChange={(value: string) => updateFilter({ 'sort': value })}
             className=""
           />
-        </>
+        </div>
       )}
     />
   );

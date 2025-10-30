@@ -8,13 +8,16 @@ export const CompaniesFilter = () => {
   return (
     <QueryFilterManager
       render={({ filters, updateFilter }) => (
-        <Input
-          value={filters['name'] || ''}
-          onChange={(e) => {
-            updateFilter({ 'name': e.target.value })
-          }}
-          placeholder="Поиск по компании"
-          className="w-[clamp(200px,35%,400px)]" />
+        <div>
+
+          <Input
+            value={filters['name'] || ''}
+            onChange={(e) => {
+              updateFilter({ 'name': e.target.value })
+            }}
+            placeholder="Поиск по компании"
+            className="w-[clamp(200px,35%,400px)]" />
+        </div>
       )}
     />
   )

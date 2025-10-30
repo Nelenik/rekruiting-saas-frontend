@@ -25,10 +25,9 @@ export const ReserveFilter = ({
 
   return (
     <QueryFilterManager
-      className={cn(className, "flex flex-col gap-6")}
       render={({ filters, updateFilter }) => {
         return (
-          <>
+          <div className={cn(className, "flex flex-col gap-6")}>
             <div className="flex flex-wrap @3xl:flex-col gap-6">
               <FormItem labelText="Специализация" className="grow min-w-[250px]">
                 <CancelButton
@@ -95,7 +94,7 @@ export const ReserveFilter = ({
             >
               <FilterX /> Сбросить
             </Button>
-          </>
+          </div>
 
         )
       }}
