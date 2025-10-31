@@ -74,11 +74,21 @@ export const convertToFormData = (
   return result;
 };
 
+/**
+ *
+ * @param formData
+ * @returns
+ */
 export const formDataToJson = (formData: FormData): string => {
   return JSON.stringify(parseFormData(formData));
 };
 
-// This function casts the value to number if enable flag is turned on
+/**
+ * This function casts the numeric values to number type if enable flag is turned on
+ * @param value
+ * @param enable
+ * @returns
+ */
 export const castToNumber = (value: unknown, enable: boolean = false) => {
   if (!enable) return value;
   if (typeof value === "number") return value;

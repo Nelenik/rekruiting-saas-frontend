@@ -9,7 +9,7 @@ export const CancelButton = ({ className, ...props }: ButtonProps) => {
       className={cn("hover:bg-transparent hover:opacity-60 h-max aspect-square rounded-full p-0.5", className)}
       {...props}
     >
-      <X className="stroke-destructive" />
+      <X />
     </Button>
   );
 }

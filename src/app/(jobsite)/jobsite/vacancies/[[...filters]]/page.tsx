@@ -75,6 +75,7 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
 
   const getParams = (await searchParams)
   const pathParams = (await params).filters || []
+  console.log('query params', getParams)
 
   //if there more than 2 catch-all segments then redirect to the 404 page
   if (pathParams.length > 2) {

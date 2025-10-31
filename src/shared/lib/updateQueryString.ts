@@ -48,3 +48,76 @@ export function updateQueryString(
 
   return newQs.toString();
 }
+
+/**
+ * Converts a `ReadonlyURLSearchParams` object into a plain JavaScript object.
+ *
+ * Each query parameter becomes a key in the resulting object.
+ * - If a parameter appears multiple times, its value will be stored as an array.
+ * - Otherwise, it will be stored as a string (or number, if applicable).
+ *
+ * @param searchParams - The `ReadonlyURLSearchParams` instance containing URL query parameters.
+ * @returns An object representing the query parameters, where:
+ * - Keys are parameter names.
+ * - Values are either a string, number, or an array of strings/numbers if the parameter is repeated.
+ *
+ * @example
+ * ```ts
+ * const params = new URLSearchParams("a=1&b=2&a=3");
+ * const result = getObjectFromSearchParams(params);
+ * // result = { a: ["1", "3"], b: "2" }
+ * ```
+ */
+export const getObjectFromSearchParams = (
+  searchParams: ReadonlyURLSearchParams
+) => {
+  const result: Record<string, string | number | (string | number)[]> = {};
+
+  for (const [key, value] of searchParams.entries()) {
+    if (key in result) {
+      const currentValue = result[key];
+      result[key] = Array.isArray(currentValue)
+        ? [...currentValue, value]
+        : [currentValue, value];
+    } else {
+      result[key] = value;
+    }
+  }
+  return result;
+};
+
+/**
+ * Builds a URL query string from a filters object.
+ *
+ * Converts an object of key-value pairs into a URL-encoded query string.
+ * - If a value is an array, multiple key-value pairs are added (e.g. `a=1&a=2`).
+ * - If a value is a string or number, a single key-value pair is added.
+ *
+ * @param filters - An object representing query parameters.
+ * Keys are parameter names, and values can be:
+ * - a string or number (single value), or
+ * - an array of strings/numbers (multiple values for the same parameter).
+ *
+ * @returns A URL-encoded query string (without a leading `?`).
+ *
+ * @example
+ * ```ts
+ * const filters = { a: ["1", "3"], b: "2" };
+ * const result = buildQueryString(filters);
+ * // result = "a=1&a=3&b=2"
+ * ```
+ */
+
+export const buildQueryString = (
+  filters: Record<string, string | number | (string | number)[]>
+) => {
+  const params = new URLSearchParams();
+  Object.entries(filters).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach((v) => params.append(key, String(v)));
+    } else {
+      params.set(key, String(value));
+    }
+  });
+  return params.toString();
+};

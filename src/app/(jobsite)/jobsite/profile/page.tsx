@@ -1,5 +1,5 @@
 import { NothingYet } from "@/shared/ui/NothingYet";
-import { FilterBasePopover } from "@/widgets/rekru-vacancy-filter/ui/FilterBasePopover";
+import { RekruVacancyFilter } from "@/widgets/rekru-vacancy-filter/ui/RekruVacancyFilter";
 
 export default async function JobsiteProfilePage() {
   return (
@@ -9,9 +9,7 @@ export default async function JobsiteProfilePage() {
 
         <div className="flex justify-center">
 
-          <FilterBasePopover
-            triggerText="Open"
-          />
+          <RekruVacancyFilter />
         </div>
       </section>
 
