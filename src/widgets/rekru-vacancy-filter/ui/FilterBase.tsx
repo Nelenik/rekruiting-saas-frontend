@@ -28,7 +28,9 @@ export const FilterBase = ({
     <div className="relative group/filter">
       <CancelButton
         onClick={() => onCancel()}
-        className="absolute left-[92%] bottom-[92%] z-10 text-foreground opacity-0 group-hover/filter:opacity-100 transition-opacity"
+        className={cn("absolute left-[92%] bottom-[92%] z-10 text-foreground opacity-0  transition-opacity",
+          !open && 'group-hover/filter:opacity-100'
+        )}
       />
 
       <Popover open={open} onOpenChange={setOpen}>
@@ -57,7 +59,10 @@ export const FilterBase = ({
           <RekruCTA
             view="dark"
             className="w-full"
-            onClick={() => onSave()}
+            onClick={() => {
+              onSave()
+              setOpen(false)
+            }}
           >
             Сохранить
           </RekruCTA>

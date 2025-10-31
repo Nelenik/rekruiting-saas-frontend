@@ -16,7 +16,7 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 
 export function updateQueryString(
   currentSearchParams: ReadonlyURLSearchParams,
-  newValues: { [key: string]: string | number } | null
+  newValues: { [key: string]: string | string[] } | null
 ) {
   const qs = new URLSearchParams(currentSearchParams);
 
@@ -25,12 +25,22 @@ export function updateQueryString(
   }
 
   for (const [paramName, value] of Object.entries(newValues)) {
-    if (paramName) {
-      if (value) {
-        qs.set(paramName, decodeURIComponent(String(value)));
-      } else {
-        qs.delete(paramName);
-      }
+    if (!paramName) continue;
+
+    // multiple value (array)
+    if (Array.isArray(value)) {
+      qs.delete(paramName);
+      value.filter(Boolean).forEach((v) => {
+        qs.append(paramName, decodeURIComponent(String(v)));
+      });
+      continue;
+    }
+
+    //single value
+    if (value) {
+      qs.set(paramName, decodeURIComponent(String(value)));
+    } else {
+      qs.delete(paramName);
     }
   }
 
@@ -43,7 +53,7 @@ export function updateQueryString(
   }
 
   for (const [key, val] of qs.entries()) {
-    newQs.set(key, val);
+    newQs.append(key, val);
   }
 
   return newQs.toString();
@@ -71,7 +81,7 @@ export function updateQueryString(
 export const getObjectFromSearchParams = (
   searchParams: ReadonlyURLSearchParams
 ) => {
-  const result: Record<string, string | number | (string | number)[]> = {};
+  const result: Record<string, string | string[]> = {};
 
   for (const [key, value] of searchParams.entries()) {
     if (key in result) {
@@ -109,12 +119,12 @@ export const getObjectFromSearchParams = (
  */
 
 export const buildQueryString = (
-  filters: Record<string, string | number | (string | number)[]>
+  filters: Record<string, string | string[]>
 ) => {
   const params = new URLSearchParams();
   Object.entries(filters).forEach(([key, value]) => {
     if (Array.isArray(value)) {
-      value.forEach((v) => params.append(key, String(v)));
+      value.filter(Boolean).forEach((v) => params.append(key, String(v)));
     } else {
       params.set(key, String(value));
     }

@@ -5,8 +5,8 @@ import { useQueryFilters } from "../model/useQueryFilters";
 
 type TProps = {
   render: (props: {
-    updateFilter: (filterValues: Record<string, string>) => void
-    filters: Record<string, string>
+    updateFilter: (filterValues: Record<string, string | string[]>) => void
+    filters: Record<string, string | string[]>
   }) => ReactNode
 }
 
@@ -20,7 +20,9 @@ type TProps = {
  * @component
  *
  * @param {string} [className] - Optional class name to apply to the outer container.
- * @param {(props: { updateFilter: (filterValues: Record<string, string>) => void; filters: Record<string, string> }) => ReactNode} render - A render function that receives the `filters` state and an `updateFilter` function to update them.
+ * @param {(props: {
+ *  updateFilter: (filterValues: Record<string, string|string[]>) => void; 
+ * filters: Record<string, string|string[]> }) => ReactNode} render - A render function that receives the `filters` state and an `updateFilter` function to update them.
  *
  * @example
  * ```tsx

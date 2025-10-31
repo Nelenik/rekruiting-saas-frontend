@@ -1,9 +1,7 @@
 'use client'
 import { QueryFilterManager } from "@/features/manage-url-filters";
 import { cn } from "@/shared/lib/utils";
-import { FilterBase } from "./FilterBase";
-import { Input } from "@/shared/ui/shadcn/input";
-import { useState } from "react";
+import { SalaryFilterField } from "./SalaryFilterField";
 
 
 const defaultState = {
@@ -21,7 +19,6 @@ type TProps = {
 export const RekruVacancyFilter = ({
   className
 }: TProps) => {
-  const [localFiltersState, setLocalFiltersState] = useState(defaultState)
 
   return (
     <div className={cn('', className)}>
@@ -30,25 +27,14 @@ export const RekruVacancyFilter = ({
         render={({ filters, updateFilter }) => {
           return (
             <>
+              <SalaryFilterField
+                defaultValues={{
+                  salary_from: (filters.salary_from || '') as string,
+                  salary_to: (filters.salary_to || '') as string
+                }}
+                updateCb={updateFilter}
+              />
 
-              <FilterBase
-                triggerText="Доход"
-              >
-                <Input
-                  value={filters.salary_from || ''}
-                  onChange={(e) => {
-                    setLocalFiltersState(prev => ({ ...prev, salary_from: e.target.value }))
-                  }}
-                  placeholder="От"
-                />
-
-                <Input
-                  value={filters.salary_to || ''}
-                  onChange={(e) => updateFilter({ salary_to: e.target.value })}
-                  placeholder="До"
-                />
-
-              </FilterBase>
             </>
           )
         }}

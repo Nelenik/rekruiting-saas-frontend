@@ -11,6 +11,7 @@ import { PositionFilterField } from "./PositionFilterField";
 import { useRouter, useSearchParams } from "next/navigation";
 import { removeEmptyValues } from "@/shared/lib/object_manipulations/filterFalsyFields";
 import { CompanyFilterFiled } from "./CompanyFilterFiled";
+import { buildQueryString, getObjectFromSearchParams } from "@/shared/lib/updateQueryString";
 
 const defaultState = {
   salary_from: '',
@@ -32,10 +33,10 @@ export const PubVacanciesFilter = ({
   const searchParams = useSearchParams()
 
   const handleReset = () => {
-    const currentFilters = Object.fromEntries(searchParams.entries());
+    const currentFilters = getObjectFromSearchParams(searchParams);
     const merged = { ...currentFilters, ...defaultState };
     const cleaned = removeEmptyValues(merged);
-    const query = new URLSearchParams(cleaned).toString();
+    const query = buildQueryString(cleaned);
 
     router.push(`/vacancies${query ? `?${query}` : ''}`);
   }

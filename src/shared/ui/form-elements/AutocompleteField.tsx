@@ -99,7 +99,7 @@ const useAutocompleteField = ({
       setSuggestions(filtered)
       setActiveIndex(0)
       setOpen(value.trim().length > 0 && filtered.length > 0)
-    }, 150)
+    }, 300)
 
   }, [filterCallback, suggestionsList])
 
