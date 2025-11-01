@@ -12,9 +12,9 @@ export type Area = {
 // Cache the areas data and traverse to create a map for quick lookup
 export const getAreasCached = cache(async (): Promise<Map<string, Area>> => {
   const res = await fetch("https://api.hh.ru/areas", {
-    next: {
-      revalidate: 86400,
-    },
+    // next: {
+    //   revalidate: 86400,
+    // },
   });
   const data: Area[] = await res.json();
 

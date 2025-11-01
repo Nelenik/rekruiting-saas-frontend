@@ -97,7 +97,7 @@ const useAutocompleteField = ({
       )
 
       setSuggestions(filtered)
-      setActiveIndex(0)
+      // setActiveIndex(0)
       setOpen(value.trim().length > 0 && filtered.length > 0)
     }, 300)
 
@@ -118,33 +118,49 @@ const useAutocompleteField = ({
     setActiveIndex(null)
   }, [onSelect])
 
-  const onOpenPopoverKeyDown = useCallback((e: KeyboardEvent) => {
-    if (!open || suggestions.length === 0) return;
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setActiveIndex((i) => (i === null ? 0 : (i + 1) % suggestions.length));
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setActiveIndex((i) => ((i ?? 0) - 1 + suggestions.length) % suggestions.length);
-    } else if (e.key === "Enter" && activeIndex !== null) {
-      e.preventDefault();
-      handleSelect(suggestions[activeIndex]);
-    }
+  // const onOpenPopoverKeyDown = useCallback((e: KeyboardEvent) => {
+  //   if (!open || suggestions.length === 0) return;
+  //   if (e.key === "ArrowDown") {
+  //     e.preventDefault();
+  //     setActiveIndex((i) => (i === null ? 0 : (i + 1) % suggestions.length));
+  //   } else if (e.key === "ArrowUp") {
+  //     e.preventDefault();
+  //     setActiveIndex((i) => ((i ?? 0) - 1 + suggestions.length) % suggestions.length);
+  //   } else if (e.key === "Enter" && activeIndex !== null) {
+  //     e.preventDefault();
+  //     handleSelect(suggestions[activeIndex]);
+  //   }
 
-  }, [activeIndex, handleSelect, open, suggestions]
-  )
-  //manage navigation in content using arrows
+  // }, [activeIndex, handleSelect, open, suggestions]
+  // )
+  // //manage navigation in content using arrows
+  // const handleKeyDown = useCallback((e: KeyboardEvent) => {
+  //   if (open) {
+  //     onOpenPopoverKeyDown(e)
+  //   } else {
+  //     if (e.key === 'Enter') {
+  //       onEnterConfirm(inputValue, e)
+  //     }
+  //   }
+  // }, [inputValue, onEnterConfirm, onOpenPopoverKeyDown, open])
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (open) {
-      onOpenPopoverKeyDown(e)
-    } else {
-      if (e.key === 'Enter') {
+    if (open && suggestions.length > 0) {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setActiveIndex((i) => (i === null ? 0 : (i + 1) % suggestions.length));
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setActiveIndex((i) => ((i ?? 0) - 1 + suggestions.length) % suggestions.length);
+      } else if (e.key === "Enter" && activeIndex !== null) {
+        e.preventDefault();
+        handleSelect(suggestions[activeIndex]);
+      } else if (e.key === 'Enter' && activeIndex === null) {
         onEnterConfirm(inputValue, e)
       }
+    } else if (e.key === "Enter") {
+      onEnterConfirm(inputValue, e)
     }
-  }, [inputValue, onEnterConfirm, onOpenPopoverKeyDown, open])
-
-
+  }, [activeIndex, handleSelect, inputValue, onEnterConfirm, open, suggestions])
 
   return {
     suggestions,

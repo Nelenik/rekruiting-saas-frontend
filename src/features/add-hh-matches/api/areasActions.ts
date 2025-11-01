@@ -30,6 +30,7 @@ export const searchAreasByName = async (
   const areasMap = await getAreasCached();
   try {
     const params = new URLSearchParams({ text: searchText });
+    console.log(params.toString());
     const res = await fetch(
       `https://api.hh.ru/suggests/areas?${params.toString()}`
     );

@@ -5,14 +5,14 @@ import { SalaryFilterField } from "./SalaryFilterField";
 import { LocationFilterField } from "./LocationFilterField";
 
 
-const defaultState = {
-  salary_from: '',
-  salary_to: '',
-  location: '',
-  page: '',
-  work_format: [],
-  level: []
-}
+// const defaultState = {
+//   salary_from: '',
+//   salary_to: '',
+//   location: '',
+//   page: '',
+//   work_format: [],
+//   level: []
+// }
 
 type TProps = {
   className?: string
