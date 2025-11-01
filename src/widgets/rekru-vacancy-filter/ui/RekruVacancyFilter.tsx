@@ -2,6 +2,7 @@
 import { QueryFilterManager } from "@/features/manage-url-filters";
 import { cn } from "@/shared/lib/utils";
 import { SalaryFilterField } from "./SalaryFilterField";
+import { LocationFilterField } from "./LocationFilterField";
 
 
 const defaultState = {
@@ -21,7 +22,7 @@ export const RekruVacancyFilter = ({
 }: TProps) => {
 
   return (
-    <div className={cn('', className)}>
+    <div className={cn('flex gap-4', className)}>
       <QueryFilterManager
 
         render={({ filters, updateFilter }) => {
@@ -35,6 +36,10 @@ export const RekruVacancyFilter = ({
                 updateCb={updateFilter}
               />
 
+              <LocationFilterField
+                defaultValue={filters.location as string || ''}
+                updateCb={updateFilter}
+              />
             </>
           )
         }}

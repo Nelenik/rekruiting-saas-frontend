@@ -23,7 +23,7 @@ export const SearchVacancies = ({
           />
           <SearchBar
             inputStyles="sm:pl-12"
-            initialValue={filters['search'] || ''}
+            initialValue={filters['search'] as string || ''}
             onConfirm={(value: string) => {
               updateFilter({ 'search': value })
             }}

@@ -3,6 +3,7 @@
 import { removeEmptyValues } from "@/shared/lib/object_manipulations/filterFalsyFields";
 import { apiGet, TApiListResponse, TApiSuccessResponse } from "../common/api";
 import { TPublicVacancy, TVacancyPosition } from "../types";
+import { buildQueryString } from "@/shared/lib/updateQueryString";
 
 /**
  * Fetches the list of public vacancies for a given account.
@@ -25,9 +26,8 @@ export const getPubVacanciesList = async (
   filters: Record<string, string> = {}
 ) => {
   try {
-    const filterString = new URLSearchParams(
-      removeEmptyValues(filters)
-    ).toString();
+    const filterString = buildQueryString(removeEmptyValues(filters));
+
     const query = filterString ? `?${filterString}` : "";
     const response = await apiGet<TApiListResponse<TPublicVacancy>>(
       `/api/v1/vacancy/public/crawled` + `${query}`,

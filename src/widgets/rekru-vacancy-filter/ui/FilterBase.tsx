@@ -12,6 +12,7 @@ type TProps = {
   className?: string
   triggerText: string
   children?: ReactNode
+  disableSave?: boolean
   onSave?: () => void
   onCancel?: () => void
 }
@@ -20,6 +21,7 @@ export const FilterBase = ({
   className,
   triggerText,
   children,
+  disableSave = false,
   onSave = () => { },
   onCancel = () => { }
 }: TProps) => {
@@ -57,6 +59,7 @@ export const FilterBase = ({
         >
           {children}
           <RekruCTA
+            disabled={disableSave}
             view="dark"
             className="w-full"
             onClick={() => {

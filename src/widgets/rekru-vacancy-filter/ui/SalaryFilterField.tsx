@@ -26,6 +26,7 @@ export const SalaryFilterField = ({
   return (
     <FilterBase
       triggerText="Доход"
+      disableSave={!salary_to && !salary_from}
       onSave={() => updateCb({ salary_from, salary_to })}
       onCancel={() => updateCb(initValues)}
     >
