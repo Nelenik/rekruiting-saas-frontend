@@ -127,7 +127,7 @@ export const parseVacancyResponses = async (
   data: FormData
 ) => {
   const result = await apiMutate("/api/v1/match/parse-vacancy-responses", {
-    body: parseFormData(data, true),
+    body: parseFormData(data, false),
     method: "POST",
   });
   return result;
