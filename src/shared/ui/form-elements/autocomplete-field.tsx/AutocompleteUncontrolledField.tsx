@@ -21,7 +21,7 @@ export const AutocompleteUncontrolledField = ({
   ref,
   popoverStyles,
   className,
-  onItemSelect,
+  onItemSelect = () => { },
   suggestionsList,
   defaultValue,
   onEnterConfirm,
@@ -32,6 +32,7 @@ export const AutocompleteUncontrolledField = ({
 
 }: TProps) => {
   const [value, setValue] = useState(defaultValue || '')
+
   const debounced = useDebounce(value, 150)
 
   const {
@@ -43,19 +44,19 @@ export const AutocompleteUncontrolledField = ({
     inputRef,
     handleKeyDown,
     handleSelect,
-    handleChange,
     setActiveIndex
   } = useAutocompleteCore({
     value: debounced,
     suggestionsList,
     onEnterConfirm,
-    onSelect: onItemSelect,
+    onItemSelect: setValue,
     shouldFilter: true,
     filterCallback
   });
 
   // Connect the outer ref to the internal input ref.
   useImperativeHandle(ref, () => inputRef.current as HTMLInputElement, [inputRef])
+
   return (
     <Popover open={open} onOpenChange={(state) => { if (!state) setActiveIndex(null) }}>
       <PopoverAnchor asChild>
@@ -63,8 +64,7 @@ export const AutocompleteUncontrolledField = ({
           {...props}
           ref={inputRef}
           onChange={(e) => {
-            se
-            handleChange(e.target.value);
+            setValue(e.target.value)
             onChange(e)
           }}
           onKeyDown={(e) => {
@@ -92,6 +92,7 @@ export const AutocompleteUncontrolledField = ({
                 className={cn(idx === activeIndex ? "bg-accent text-accent-foreground" : "")}
                 onSelect={(value) => {
                   handleSelect(value)
+                  onItemSelect(value)
                   inputRef.current?.focus()
                 }}
               >

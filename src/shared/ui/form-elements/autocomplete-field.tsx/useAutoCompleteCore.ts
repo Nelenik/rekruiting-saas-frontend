@@ -33,7 +33,7 @@ type TAutocompleteFieldHook = {
   /**
    * Callback triggered when a suggestion is selected from the popover.
    */
-  onSelect?: (value: string) => void;
+  onItemSelect?: (value: string) => void;
   /**
    * Custom filter callback for suggestions.
    * Receives the input string and should return a predicate function for filtering.
@@ -57,29 +57,25 @@ export const useAutocompleteCore = ({
   shouldFilter,
   suggestionsList,
   onEnterConfirm = () => {},
-  onSelect = () => {},
+  onItemSelect = () => {},
   filterCallback = inSuggestions,
 }: TAutocompleteFieldHook) => {
   const [open, setOpen] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState<null | number>(null);
 
-  const delayRef = useRef<NodeJS.Timeout | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!shouldFilter) {
+    if (shouldFilter) {
+      const filtered = suggestionsList.filter(filterCallback(value));
+      setSuggestions(filtered);
+      setOpen(value.trim().length > 0 && filtered.length > 0);
+    } else {
       setSuggestions(suggestionsList);
       setOpen(suggestionsList.length > 0 && value.trim().length > 0);
     }
-  }, [value, suggestionsList, shouldFilter]);
-
-  //clear timer on unmount
-  useEffect(() => {
-    return () => {
-      if (delayRef.current) clearTimeout(delayRef.current);
-    };
-  }, []);
+  }, [filterCallback, shouldFilter, suggestionsList, value]);
 
   // --- ResizeObserver for popoover width ---
   const [popoverWidth, setPopoverWidth] = useState<number | undefined>();
@@ -97,32 +93,14 @@ export const useAutocompleteCore = ({
     return () => observer.disconnect();
   }, []);
 
-  //manage input value change with enabled filtration
-  const handleChange = useCallback(
-    (value: string) => {
-      if (shouldFilter) {
-        if (delayRef.current) clearTimeout(delayRef.current);
-
-        delayRef.current = setTimeout(() => {
-          const filtered = suggestionsList.filter(filterCallback(value));
-
-          setSuggestions(filtered);
-          // setActiveIndex(0);
-          setOpen(value.trim().length > 0 && filtered.length > 0);
-        }, 300);
-      }
-    },
-    [filterCallback, shouldFilter, suggestionsList]
-  );
-
   //manage select from autocomplete popover
   const handleSelect = useCallback(
     (value: string) => {
-      onSelect(value);
+      onItemSelect(value);
       setOpen(false);
       setActiveIndex(null);
     },
-    [onSelect]
+    [onItemSelect]
   );
 
   const handleKeyDown = useCallback(
@@ -160,7 +138,6 @@ export const useAutocompleteCore = ({
     inputRef,
     handleKeyDown,
     handleSelect,
-    handleChange,
     setActiveIndex,
   };
 };

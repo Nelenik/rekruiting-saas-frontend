@@ -38,13 +38,12 @@ export const AutocompleteControlledField = ({
     inputRef,
     handleKeyDown,
     handleSelect,
-    handleChange,
     setActiveIndex
   } = useAutocompleteCore({
     value,
     suggestionsList,
     onEnterConfirm,
-    onSelect: onItemSelect,
+    onItemSelect,
     shouldFilter: false
   });
 
@@ -57,10 +56,7 @@ export const AutocompleteControlledField = ({
         <Input
           {...props}
           ref={inputRef}
-          onChange={(e) => {
-            handleChange(e.target.value);
-            onChange(e)
-          }}
+          onChange={onChange}
           onKeyDown={(e) => {
             handleKeyDown(e);
             onKeyDown(e)
