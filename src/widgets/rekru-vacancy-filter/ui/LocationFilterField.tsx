@@ -3,10 +3,10 @@
 import { FilterBase } from "./FilterBase"
 import { useQuery } from "@tanstack/react-query"
 import { searchAreasByName } from "@/features/add-hh-matches/api/areasActions"
-import { useState } from "react"
-import { AutocompleteControlledField } from "@/shared/ui/form-elements/autocomplete-field.tsx"
+import { useEffect, useState } from "react"
 import { useDebounce } from "@/shared/model/hooks/useDebounce"
 import { Search } from "lucide-react"
+import { AutocompleteField } from "@/shared/ui/form-elements/AutocompleteField"
 
 type TProps = {
   defaultValue?: string
@@ -17,6 +17,10 @@ export const LocationFilterField = ({
   updateCb = () => { }
 }: TProps) => {
   const [searchText, setSearchText] = useState(defaultValue)
+
+  useEffect(() => {
+    setSearchText(defaultValue)
+  }, [defaultValue])
 
   const debouncedSearchText = useDebounce(searchText, 300)
 
@@ -32,20 +36,19 @@ export const LocationFilterField = ({
       triggerText="Город"
       onSave={() => updateCb({ location: searchText })}
       onCancel={() => updateCb({ location: '' })}
-      disableSave={searchText.length < 2}
     >
 
       <div className="relative">
         <Search
           className="absolute top-1/2 left-2 -translate-y-1/2"
         />
-        <AutocompleteControlledField
+        <AutocompleteField
           value={searchText}
-          suggestionsList={searchLocations.map(item => item.name)}
+          suggestionList={searchLocations.map(item => item.name)}
+          onChange={setSearchText}
+          onSelect={setSearchText}
+          shouldFilter
           isFetching={isFetching}
-          onChange={(e) => setSearchText(e.target.value)}
-          onItemSelect={(value) => setSearchText(value)}
-          popoverStyles="p-4"
           placeholder="Введите город, область или страну"
           className='pl-10'
         />

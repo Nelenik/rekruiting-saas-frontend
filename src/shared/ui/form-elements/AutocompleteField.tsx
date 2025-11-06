@@ -4,6 +4,7 @@ import { Command, CommandItem, CommandList } from "../shadcn/command";
 import { cn } from "@/shared/lib/utils";
 import { Popover, PopoverAnchor, PopoverContent } from "../shadcn/popover";
 import { Input } from "../shadcn/input";
+import { CommandLoading } from "cmdk";
 
 const inSuggestions =
   (inputValue: string) =>
@@ -27,8 +28,55 @@ type TProps = {
   className?: string
   popoverStyles?: string
   shouldFilter?: boolean
+  isFetching?: boolean //for async suggestions
   filterCallback?: (inputValue: string) => (item: string) => boolean
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'onSelect'>
+
+/**
+ * AutocompleteField is a text input with an optional popover showing suggestions.
+ * 
+ * This component supports both controlled and uncontrolled usage:
+ * - **Controlled**: provide `value` and `onChange` to fully control the input state.
+ * - **Uncontrolled**: provide `defaultValue` and allow the component to manage its own state.
+ * 
+ * Suggestions are filtered based on user input, using a default or custom filter function.
+ * The popover opens only when there are suggestions and the input length exceeds a configurable minimum.
+ * 
+ * Keyboard support:
+ * - ArrowDown / ArrowUp to navigate suggestions.
+ * - Enter to select an active suggestion or confirm input if no suggestion is active.
+ * - Escape closes the popover.
+ * 
+ * @param ref Optional React ref forwarded to the internal input element.
+ * @param defaultValue Initial value for uncontrolled mode.
+ * @param value Value for controlled mode.
+ * @param onChange Callback invoked when the input value changes.
+ * @param onSelect Callback invoked when a suggestion is selected.
+ * @param onEnterConfirm Callback invoked when Enter is pressed without selecting a suggestion.
+ * @param suggestionList Array of suggestion strings to display in the popover.
+ * @param className Optional additional className for the input element.
+ * @param popoverStyles Optional additional className or styles for the popover content.
+ * @param shouldFilter Whether to filter suggestions based on input. Defaults to true.
+ * @param filterCallback Custom function to filter suggestions. Receives the input value and returns a predicate function.
+ * @param isFetching For async lists
+ * @param props Additional standard Input HTML attributes excluding `value`, `defaultValue`, `onChange`, and `onSelect`.
+ *
+ * @example
+ * <AutocompleteField
+ *   defaultValue="apple"
+ *   suggestionList={['apple', 'banana', 'orange']}
+ *   onSelect={(val) => console.log('Selected:', val)}
+ * />
+ *
+ * @example
+ * // Controlled usage
+ * const [value, setValue] = useState('');
+ * <AutocompleteField
+ *   value={value}
+ *   onChange={setValue}
+ *   suggestionList={['apple', 'banana', 'orange']}
+ * />
+ */
 
 export const AutocompleteField = ({
   ref,
@@ -42,6 +90,7 @@ export const AutocompleteField = ({
   popoverStyles,
   shouldFilter = true,
   filterCallback = inSuggestions,
+  isFetching = false,
   ...props
 }: TProps) => {
 
@@ -163,18 +212,21 @@ export const AutocompleteField = ({
       >
         <Command shouldFilter={false} >
           <CommandList>
-            {suggestions.map((item, idx) => (
-              <CommandItem
-                key={item + idx}
-                value={item}
-                className={cn(
-                  idx === activeIndex ? "bg-accent text-accent-foreground" : ""
-                )}
-                onSelect={handleSelect}
-              >
-                {item}
-              </CommandItem>
-            ))}
+            {isFetching
+              ? <CommandLoading />
+              : suggestions.map((item, idx) => (
+                <CommandItem
+                  key={item + idx}
+                  value={item}
+                  className={cn(
+                    idx === activeIndex ? "bg-accent text-accent-foreground" : ""
+                  )}
+                  onSelect={handleSelect}
+                >
+                  {item}
+                </CommandItem>
+              ))
+            }
           </CommandList>
         </Command>
       </PopoverContent>
