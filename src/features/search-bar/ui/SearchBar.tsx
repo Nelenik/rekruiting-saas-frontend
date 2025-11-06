@@ -1,15 +1,15 @@
 'use client'
 import { cn } from "@/shared/lib/utils";
-import { AutocompleteField } from "@/shared/ui/form-elements/AutocompleteField";
 import { JOB_SUGGESTIONS } from "../lib/dictionary";
 import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
-import { ChangeEvent, useRef } from "react";
+import { useRef } from "react";
 import { Search } from "lucide-react";
 
+import { AutocompleteField } from "@/shared/ui/form-elements/AutocompleteField";
 type TProps = {
   className?: string
   onConfirm?: (value: string) => void
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (value: string) => void
   initialValue?: string
   inputStyles?: string
 }
@@ -27,7 +27,7 @@ export const SearchBar = ({
     <div className={cn('flex items-center gap-2 md:gap-5', '@container/search', className)}>
       <AutocompleteField
         defaultValue={initialValue}
-        suggestionsList={JOB_SUGGESTIONS}
+        suggestionList={JOB_SUGGESTIONS}
         className={cn("px-5 py-3 rounded-lg placeholder:text-base [&:not(.ring-destructive)]:focus-visible:ring-accent2", inputStyles)}
         placeholder="Поиск вакансии"
         ref={ref}
@@ -37,6 +37,7 @@ export const SearchBar = ({
         }}
         onChange={onChange}
       />
+
       <RekruCTA
         onClick={() => { onConfirm(ref.current?.value || '') }}
         type="submit"

@@ -1,4 +1,4 @@
-import { AutocompleteField } from "@/shared/ui/form-elements/autocomplete-field/AutocompleteField";
+import { AutocompleteField } from "@/shared/ui/form-elements/AutocompleteField";
 import { NothingYet } from "@/shared/ui/NothingYet";
 
 export default async function JobsiteProfilePage() {
