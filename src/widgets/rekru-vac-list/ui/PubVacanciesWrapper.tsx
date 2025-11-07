@@ -2,7 +2,7 @@ import { Paginate } from "@/features/pagination";
 import { PubVacancyList } from "./PubVacancyList";
 import { getPubVacanciesList } from "@/shared/api/actions/public-vacancy";
 import { cn } from "@/shared/lib/utils";
-import { SortingVacancies } from "@/widgets/rekru-vacancy-filter";
+import { SortingVacancies } from "@/widgets/rekru-sort-vacancies";
 
 type TProps = {
   filters: Record<string, string>
