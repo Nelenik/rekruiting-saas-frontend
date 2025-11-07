@@ -26,7 +26,7 @@ export const FiltersSheet = ({
           />
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full max-w-[300px] bg-white  overflow-y-auto pt-20" >
+      <SheetContent className="w-full max-w-[320px] bg-white pl-4 pr-1 pt-16" >
         <SheetClose className={cn(
           "absolute left-4 top-4 rounded-sm p-1 text-muted-foreground transition-colors",
           'hover:text-foreground '
@@ -45,22 +45,5 @@ export const FiltersSheet = ({
 
       </SheetContent>
     </Sheet>
-    // <Popover
-    // >
-    //   <PopoverTrigger asChild
-    //     className={className}>
-    //     <Button
-    //       variant="outline"
-    //       className="h-auto w-[50px] [&_svg]:size-6 hover:bg-input text-muted-foreground"
-    //       aria-label="Открыть фильтры"
-    //     >
-    //       <FunnelPlus
-    //       />
-    //     </Button>
-    //   </PopoverTrigger>
-    //   <PopoverContent className="w-full max-w-[300px]">
-    //     {children}
-    //   </PopoverContent>
-    // </Popover>
   );
 }

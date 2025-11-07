@@ -8,7 +8,7 @@ type TPositionsContext = {
   positionsList: TVacancyPosition[],
   filterCompanies: TFilterCompanies[]
   activeFilters: { position: string, company: string };
-  updatePathParams: (newValues: string[]) => void
+  updatePathParams: (newValues: string[], options?: { dryRun?: boolean }) => void
 }
 export const PathFiltersContext = createContext<TPositionsContext | null>(null)
 

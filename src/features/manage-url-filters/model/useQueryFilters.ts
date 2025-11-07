@@ -46,5 +46,15 @@ export const useQueryFilters = () => {
     },
     []
   );
-  return { filters, updateFilter };
+
+  //Get query string without router navigation
+  const getUpdatedQueryString = useCallback(
+    (newFilters: Record<string, string | string[]>) => {
+      const newQS = updateQueryString(searchParams, newFilters);
+      return newQS;
+    },
+    [searchParams]
+  );
+
+  return { filters, updateFilter, getUpdatedQueryString };
 };

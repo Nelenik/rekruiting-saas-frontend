@@ -9,6 +9,41 @@ import { Search } from "lucide-react"
 import { AutocompleteField } from "@/shared/ui/form-elements/AutocompleteField"
 import { cn } from "@/shared/lib/utils"
 
+export const LocationSearch = ({
+  locationText,
+  setLocationText
+}: {
+  locationText: string, setLocationText: (value: string) => void
+}) => {
+
+  const debouncedSearchText = useDebounce(locationText, 300)
+
+  // Get areas based on search text
+  const { data: searchLocations = [], isFetching } = useQuery({
+    queryKey: ['search-locations', debouncedSearchText],
+    queryFn: () => searchAreasByName(debouncedSearchText),
+    enabled: debouncedSearchText.length >= 2
+  })
+
+  return (
+    <div className="relative">
+      <Search
+        className="absolute top-1/2 left-2 -translate-y-1/2"
+      />
+      <AutocompleteField
+        value={locationText}
+        suggestionList={searchLocations.map(item => item.name)}
+        onChange={setLocationText}
+        onSelect={setLocationText}
+        shouldFilter={false}
+        isFetching={isFetching}
+        placeholder="Введите город, область или страну"
+        className='pl-10'
+      />
+    </div>
+  )
+}
+
 type TProps = {
   defaultValue?: string
   updateCb?: (newValues: Record<string, string>) => void
@@ -23,14 +58,14 @@ export const LocationFilterField = ({
     setSearchText(defaultValue)
   }, [defaultValue])
 
-  const debouncedSearchText = useDebounce(searchText, 300)
+  // const debouncedSearchText = useDebounce(searchText, 300)
 
-  // Get areas based on search text
-  const { data: searchLocations = [], isFetching } = useQuery({
-    queryKey: ['search-locations', debouncedSearchText],
-    queryFn: () => searchAreasByName(debouncedSearchText),
-    enabled: debouncedSearchText.length >= 2
-  })
+  // // Get areas based on search text
+  // const { data: searchLocations = [], isFetching } = useQuery({
+  //   queryKey: ['search-locations', debouncedSearchText],
+  //   queryFn: () => searchAreasByName(debouncedSearchText),
+  //   enabled: debouncedSearchText.length >= 2
+  // })
 
   return (
     <FilterBase
@@ -39,8 +74,13 @@ export const LocationFilterField = ({
       onCancel={() => updateCb({ location: '' })}
       className={cn(defaultValue && 'ring-2 ring-primary ring-offset-1')}
     >
+      <LocationSearch
+        locationText={searchText}
+        setLocationText={setSearchText}
+      />
 
-      <div className="relative">
+
+      {/* <div className="relative">
         <Search
           className="absolute top-1/2 left-2 -translate-y-1/2"
         />
@@ -54,7 +94,7 @@ export const LocationFilterField = ({
           placeholder="Введите город, область или страну"
           className='pl-10'
         />
-      </div>
+      </div> */}
     </FilterBase>
   );
 }

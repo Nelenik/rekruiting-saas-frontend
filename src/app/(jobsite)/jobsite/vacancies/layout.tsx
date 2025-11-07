@@ -3,7 +3,7 @@ import { getPubVacancyPositions } from "@/shared/api/actions/public-vacancy";
 import { cn } from "@/shared/lib/utils";
 import { FiltersSheet } from "@/shared/ui/modals/FiltersSheet";
 import { SearchVacancies } from "@/widgets/rekru-search-vacancies";
-import { PathFiltersProvider, PositionsFilterToggle, PubVacanciesFilter, RekruVacancyFilter } from "@/widgets/rekru-filter-vacancies";
+import { PathFiltersProvider, PositionsFilterToggle, RekruVacancyFilter, RekruVacancyMobFilter } from "@/widgets/rekru-filter-vacancies";
 
 export default async function JobSiteVacanciesLayout({
   children,
@@ -42,7 +42,7 @@ export default async function JobSiteVacanciesLayout({
             <FiltersSheet
               className="md:hidden"
             >
-              <PubVacanciesFilter />
+              <RekruVacancyMobFilter />
             </FiltersSheet>
           </div>
           {children}

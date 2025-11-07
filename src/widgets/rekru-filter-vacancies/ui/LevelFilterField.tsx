@@ -50,7 +50,7 @@ export const LevelFilterField = ({
               <Input
                 type="checkbox"
                 value={item}
-                className="inline w-5 h-5 accent-primary shrink-0"
+                className="inline w-5 h-5 accent-accent2 shrink-0"
                 defaultChecked={isChecked}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => handleToggleLevels(e.target.value)}
               />

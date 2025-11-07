@@ -72,8 +72,6 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
   const queryParams = (await searchParams)
   const pathParams = (await params).filters || []
 
-  console.log('pathparams from page', pathParams.map(item => decodeSegment(item)))
-
   //if there more than 2 catch-all segments then redirect to the 404 page
   if (pathParams.length > 2) {
     notFound()

@@ -68,13 +68,33 @@ export const usePathParamFilter = (baseUrl: string) => {
   };
 
   /**
-   * Creates a function that updates a all the prescribed path segments in the URL
-   * and navigates to the new route.
-   * @param newValues array of new path segment values
+   * Updates all dynamic path segments in the URL and navigates to the new route.
+   * Removes empty segments automatically.
+   *
+   * If `dryRun` is `true`, returns the new path string without navigation —
+   * useful for combining with query updates before pushing manually.
+   *
+   * @param newValues - Array of new path segment values.
+   * @param options - Optional settings.
+   * @param options.dryRun - When `true`, returns the new path instead of navigating.
+   * @returns The new path if `dryRun` is enabled, otherwise nothing.
+   *
+   * @example
+   * updatePathParams(['frontend', 'meta']);
+   * // → navigates to /vacancies/frontend/meta?sort=desc
+   *
+   * updatePathParams(['frontend', 'meta'], { dryRun: true });
+   * // → "/vacancies/frontend/meta"
    */
-  const updatePathParams = (newValues: string[]) => {
+  const updatePathParams = (
+    newValues: string[],
+    options?: { dryRun?: boolean }
+  ) => {
     const newFilters = newValues.map((item) => encodeSegment(item));
     const cleanedParams = newFilters.filter(Boolean).join("/");
+    if (options?.dryRun) {
+      return `${baseUrl}/${cleanedParams}`;
+    }
     router.push(`${baseUrl}/${cleanedParams}${query}`);
   };
   return { pathFilters: filters, updatePathParam, updatePathParams };
