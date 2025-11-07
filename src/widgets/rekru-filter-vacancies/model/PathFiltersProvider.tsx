@@ -27,14 +27,6 @@ type TProps = {
 export const PathFiltersProvider = ({ children, positionsList, filterCompanies }: TProps) => {
 
   const { pathFilters, updatePathParams } = usePathParamFilter('/vacancies')
-  // console.log('pathfilters from provider', pathFilters)
-  // const [position = '', company = ''] = pathFilters
-  // const parsedPosition = position === 'all' ? '' : position
-
-  // const activeFilters = {
-  //   position: decodeSegment(parsedPosition),
-  //   company: decodeSegment(company)
-  // }
 
   const activeFilters = normalizeVacanciesFilterPath(pathFilters as string[])
 

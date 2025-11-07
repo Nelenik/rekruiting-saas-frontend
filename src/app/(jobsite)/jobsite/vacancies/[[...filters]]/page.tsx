@@ -15,17 +15,12 @@ type TProps = {
 export async function generateMetadata({ params }: TProps): Promise<Metadata> {
   const { filters = [] } = await params;
   const { position, company } = normalizeVacanciesFilterPath(filters)
-  // const [position, company] = filters;
 
   const baseUrl = 'https://rekru.ru/vacancies';
   const metadata: Metadata = {};
 
   const positionName = vacancyPositionsDict[position] || position;
   const companyName = company ? capitalizeSentences(company) : '';
-
-
-
-  // const isAll = !filters.length || (filters.length === 1 && position === 'all');
 
   // --- 1. Все вакансии ---
   if (!filters.length) {
@@ -85,17 +80,6 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
   }
 
   const { company, position } = normalizeVacanciesFilterPath(pathParams)
-
-  // const [position = '', company = ''] = pathParams
-
-  //if first params is not available position consider it as company and redirect to all/{compnay}
-  // if (pathParams.length === 1) {
-  //   if (!isSegmentPosition(position) && position !== 'all') {
-  //     redirect(`/vacancies/all/${position}?${buildQueryString(queryParams)}`)
-  //   }
-  // }
-
-  // const normPosition = position === 'all' ? '' : position
 
   //find choosen company id to make request
   const companyData = filterCompaniesList.find((item) => decodeSegment(company || '').toLowerCase() === item.name.toLowerCase())
