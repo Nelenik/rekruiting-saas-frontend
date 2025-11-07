@@ -27,8 +27,8 @@ export const SearchVacancies = ({
             onConfirm={(value: string) => {
               updateFilter({ 'search': value })
             }}
-            onChange={(e) => {
-              if (e.target.value.length === 0) {
+            onChange={(value) => {
+              if (value.length === 0) {
                 updateFilter({ 'search': '' })
               }
             }}

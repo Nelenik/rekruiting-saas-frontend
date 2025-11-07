@@ -1,6 +1,7 @@
 'use client'
 import { usePathParamFilter } from "@/features/manage-url-filters"
 import { TFilterCompanies, TVacancyPosition } from "@/shared/api/types"
+import { decodeSegment } from "@/shared/lib/encodeSegments"
 import { createContext, ReactNode, useContext } from "react"
 
 type TPositionsContext = {
@@ -30,8 +31,8 @@ export const PathFiltersProvider = ({ children, positionsList, filterCompanies }
   const parsedPosition = position === 'all' ? '' : position
 
   const activeFilters = {
-    position: parsedPosition,
-    company: company
+    position: decodeSegment(parsedPosition),
+    company: decodeSegment(company)
   }
 
   return (<PathFiltersContext value={{ positionsList, filterCompanies, activeFilters, updateFilter }}>

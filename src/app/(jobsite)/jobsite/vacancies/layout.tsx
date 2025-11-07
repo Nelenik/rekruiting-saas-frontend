@@ -2,7 +2,8 @@ import { getFilterCompanies } from "@/shared/api/actions";
 import { getPubVacancyPositions } from "@/shared/api/actions/public-vacancy";
 import { cn } from "@/shared/lib/utils";
 import { FiltersSheet } from "@/shared/ui/modals/FiltersSheet";
-import { PathFiltersProvider, PositionsFilterToggle, PubVacanciesFilter, SearchVacancies } from "@/widgets/rekru-vacancy-filter";
+import { SearchVacancies } from "@/widgets/rekru-search-vacancies";
+import { PathFiltersProvider, PositionsFilterToggle, PubVacanciesFilter, RekruVacancyFilter } from "@/widgets/rekru-filter-vacancies";
 
 export default async function JobSiteVacanciesLayout({
   children,
@@ -27,15 +28,19 @@ export default async function JobSiteVacanciesLayout({
           <PositionsFilterToggle className="hidden md:flex" />
 
           <div
-            className="flex gap-2 md:gap-4"
+            className="flex gap-2 md:gap-5 md:flex-col"
           >
 
 
             <SearchVacancies
               className="grow"
             />
+            {/* desktop filters */}
+            <RekruVacancyFilter className="hidden md:flex" />
 
+            {/* mobile filters */}
             <FiltersSheet
+              className="md:hidden"
             >
               <PubVacanciesFilter />
             </FiltersSheet>

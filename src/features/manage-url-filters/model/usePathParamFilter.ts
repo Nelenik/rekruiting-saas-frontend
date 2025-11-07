@@ -1,3 +1,4 @@
+import { encodeSegment } from "@/shared/lib/encodeSegments";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 /**
  * A custom React hook for working with dynamic path segments in a Next.js route.
@@ -60,7 +61,7 @@ export const usePathParamFilter = (baseUrl: string) => {
    */
   const updatePathParam = (paramIndex: number) => (newValue: string) => {
     const newFilters = [...filters];
-    newFilters[paramIndex] = encodeURIComponent(newValue);
+    newFilters[paramIndex] = encodeSegment(newValue);
     //clean empty values
     const cleanedParams = newFilters.filter(Boolean).join("/");
     router.push(`${baseUrl}/${cleanedParams}${query}`);

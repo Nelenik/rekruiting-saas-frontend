@@ -3,6 +3,7 @@ import { isSegmentPosition } from "@/entities/vacancy";
 import { getFilterCompanies } from "@/shared/api/actions";
 import { decodeSegment } from "@/shared/lib/encodeSegments";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
+import { buildQueryString } from "@/shared/lib/updateQueryString";
 import { PubVacanciesWrapper } from "@/widgets/rekru-vac-list";
 import { PubVacancyListSkeleton } from "@/widgets/rekru-vac-list/ui/Skeleton";
 import { Metadata } from "next";
@@ -73,9 +74,8 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
 
   const filterCompaniesList = await getFilterCompanies()
 
-  const getParams = (await searchParams)
+  const queryParams = (await searchParams)
   const pathParams = (await params).filters || []
-  console.log('query params', getParams)
 
   //if there more than 2 catch-all segments then redirect to the 404 page
   if (pathParams.length > 2) {
@@ -87,17 +87,17 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
   //if first params is not available position consider it as company and redirect to all/{compnay}
   if (pathParams.length === 1) {
     if (!isSegmentPosition(position) && position !== 'all') {
-      redirect(`/vacancies/all/${position}`)
+      redirect(`/vacancies/all/${position}?${buildQueryString(queryParams)}`)
     }
   }
 
   const normPosition = position === 'all' ? '' : position
 
   //find choosen company id to make request
-  const companyData = filterCompaniesList.find((item) => decodeSegment(company) === item.name.toLowerCase())
+  const companyData = filterCompaniesList.find((item) => decodeSegment(company).toLowerCase() === item.name.toLowerCase())
   const companyId = companyData ? String(companyData.id) : ''
 
-  const filters = { ...getParams, position: normPosition, company: companyId }
+  const filters = { ...queryParams, position: normPosition, company: companyId }
 
   return (
     <Suspense fallback={<PubVacancyListSkeleton />}>

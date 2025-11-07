@@ -3,6 +3,7 @@
 import { Input } from "@/shared/ui/shadcn/input";
 import { FilterBase } from "./FilterBase";
 import { useEffect, useState } from "react";
+import { cn } from "@/shared/lib/utils";
 
 type TProps = {
   defaultValues?: Record<string, string>
@@ -26,9 +27,9 @@ export const SalaryFilterField = ({
   return (
     <FilterBase
       triggerText="Доход"
-      disableSave={!salary_to && !salary_from}
       onSave={() => updateCb({ salary_from, salary_to })}
       onCancel={() => updateCb(initValues)}
+      className={cn(Object.values(defaultValues).filter(Boolean).length && 'ring-2 ring-primary ring-offset-1')}
     >
       <Input
         value={salary_from}

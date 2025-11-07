@@ -14,4 +14,5 @@ export type TFilterCompanies = {
   name: string;
   full_name: string;
   count: number;
+  it_accreditation?: boolean;
 };

@@ -30,7 +30,7 @@ export const FilterBase = ({
     <div className="relative group/filter">
       <CancelButton
         onClick={() => onCancel()}
-        className={cn("absolute left-[92%] bottom-[92%] z-10 text-foreground opacity-0  transition-opacity",
+        className={cn("absolute left-[93%] bottom-[92%] z-10 text-foreground opacity-0  transition-opacity",
           !open && 'group-hover/filter:opacity-100'
         )}
       />
@@ -39,7 +39,7 @@ export const FilterBase = ({
         <PopoverTrigger asChild>
           <Button variant="outline"
             className={cn(
-              'gap-1 text-xs w-max px-3 py-1 text-foreground font-semibold border-accent2/40 [&_svg]:size-6',
+              'gap-1 text-xs w-max px-3 py-1 text-foreground font-semibold border-accent2/40 [&_svg]:size-4',
               'hover:bg-primary hover:text-white transition-colors',
               open && 'bg-primary text-white',
               className,

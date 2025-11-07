@@ -3,16 +3,10 @@ import { QueryFilterManager } from "@/features/manage-url-filters";
 import { cn } from "@/shared/lib/utils";
 import { SalaryFilterField } from "./SalaryFilterField";
 import { LocationFilterField } from "./LocationFilterField";
+import { LevelFilterField } from "./LevelFilterField";
+import { WorkFormatFilterField } from "./WorkFormatFilterField";
+import { CompaniesFilterField } from "./CompaniesFilterField";
 
-
-// const defaultState = {
-//   salary_from: '',
-//   salary_to: '',
-//   location: '',
-//   page: '',
-//   work_format: [],
-//   level: []
-// }
 
 type TProps = {
   className?: string
@@ -40,7 +34,18 @@ export const RekruVacancyFilter = ({
                 defaultValue={filters.location as string || ''}
                 updateCb={updateFilter}
               />
+              <LevelFilterField
+                defaultValues={filters.level as string[]}
+                updateCb={updateFilter}
+              />
+              <WorkFormatFilterField
+                defaultValues={filters.work_format as string[]}
+                updateCb={updateFilter}
+              />
+              <CompaniesFilterField
+              />
             </>
+
           )
         }}
       />
