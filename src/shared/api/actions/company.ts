@@ -8,7 +8,7 @@ import {
   TApiSuccessResponse,
   TMutationState,
 } from "../common/api";
-import { TCompany, TFilterCompanies } from "../types";
+import { TCompany, TShortCompany } from "../types";
 import { revalidatePath } from "next/cache";
 import { parseFormData } from "../common/utils";
 
@@ -112,9 +112,9 @@ export const updateCompany = async (
  *
  * @returns Companies list for public vacancies filter
  */
-export const getFilterCompanies = async (): Promise<TFilterCompanies[]> => {
+export const getFilterCompanies = async (): Promise<TShortCompany[]> => {
   try {
-    const response = await apiGet<TApiListResponse<TFilterCompanies>>(
+    const response = await apiGet<TApiListResponse<TShortCompany>>(
       "/api/v1/company/stat/crawled",
       {
         withAuth: false,
@@ -126,5 +126,30 @@ export const getFilterCompanies = async (): Promise<TFilterCompanies[]> => {
   } catch (error) {
     console.error(error);
     return [];
+  }
+};
+/**
+ *  getPublicCompany - Fetches a single company by its ID, public method
+ * @param companyId
+ * @returns
+ */
+export const getPublicCompany = async (companyId: string) => {
+  try {
+    const response = await apiGet<TApiSuccessResponse<TCompany>>(
+      `/api/v1/company/${companyId}/public`,
+      {
+        withAuth: false,
+        cache: "force-cache",
+        next: { revalidate: 900 },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить компанию. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };

@@ -1,12 +1,12 @@
 'use client'
 import { normalizeVacanciesFilterPath } from "@/entities/vacancy"
 import { usePathParamFilter } from "@/features/manage-url-filters"
-import { TFilterCompanies, TVacancyPosition } from "@/shared/api/types"
+import { TShortCompany, TVacancyPosition } from "@/shared/api/types"
 import { createContext, ReactNode, useContext } from "react"
 
 type TPositionsContext = {
   positionsList: TVacancyPosition[],
-  filterCompanies: TFilterCompanies[]
+  companiesList: TShortCompany[]
   activeFilters: { position: string, company: string };
   updatePathParams: (newValues: string[], options?: { dryRun?: boolean }) => void
 }
@@ -21,16 +21,16 @@ export const PathFiltersContext = createContext<TPositionsContext | null>(null)
 type TProps = {
   children: ReactNode,
   positionsList: TVacancyPosition[]
-  filterCompanies: TFilterCompanies[]
+  companiesList: TShortCompany[]
 }
 
-export const PathFiltersProvider = ({ children, positionsList, filterCompanies }: TProps) => {
+export const PathFiltersProvider = ({ children, positionsList, companiesList }: TProps) => {
 
   const { pathFilters, updatePathParams } = usePathParamFilter('/vacancies')
 
   const activeFilters = normalizeVacanciesFilterPath(pathFilters as string[])
 
-  return (<PathFiltersContext value={{ positionsList, filterCompanies, activeFilters, updatePathParams }}>
+  return (<PathFiltersContext value={{ positionsList, companiesList, activeFilters, updatePathParams }}>
     {children}
   </PathFiltersContext>)
 }

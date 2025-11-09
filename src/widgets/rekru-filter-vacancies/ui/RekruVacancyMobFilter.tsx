@@ -43,7 +43,7 @@ export const RekruVacancyMobFilter = ({
 }: TProps) => {
   const router = useRouter()
   // filters from path params
-  const { positionsList, filterCompanies, activeFilters, updatePathParams } = usePathFilters()
+  const { positionsList, companiesList, activeFilters, updatePathParams } = usePathFilters()
   //filtres from search params
   const { filters, getUpdatedQueryString } = useQueryFilters()
 
@@ -127,7 +127,7 @@ export const RekruVacancyMobFilter = ({
                   }))
                 }
                 suggestionList={
-                  filterCompanies.map(item => item.name + ` (${item.count})`)
+                  companiesList.map(item => item.name + ` (${item.count})`)
                 }
                 shouldFilter
                 placeholder="Введите название компании"

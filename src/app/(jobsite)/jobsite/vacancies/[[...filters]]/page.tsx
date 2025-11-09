@@ -1,11 +1,10 @@
 import { vacancyPositionsDict, normalizeVacanciesFilterPath } from "@/entities/vacancy";
-import { getFilterCompanies } from "@/shared/api/actions";
-import { decodeSegment } from "@/shared/lib/encodeSegments";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
 import { PubVacanciesWrapper, PubVacancyListSkeleton } from "@/pages-layer/rekru-vac-list";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { resolveRekruVacanciesCtx } from "@/entities/vacancy/lib/resolveRekruVacanciesCtx";
 
 type TProps = {
   searchParams: Promise<Record<string, string>>
@@ -66,29 +65,19 @@ export async function generateMetadata({ params }: TProps): Promise<Metadata> {
 }
 
 export default async function JobsiteVacanciesPage({ searchParams, params }: TProps) {
-
-  const filterCompaniesList = await getFilterCompanies()
-
   const queryParams = (await searchParams)
   const pathParams = (await params).filters || []
-
   //if there more than 2 catch-all segments then redirect to the 404 page
   if (pathParams.length > 2) {
     notFound()
   }
-
-  const { company, position } = normalizeVacanciesFilterPath(pathParams)
-
-  //find choosen company id to make request
-  const companyData = filterCompaniesList.find((item) => decodeSegment(company || '').toLowerCase() === item.name.toLowerCase())
-  const companyId = companyData ? String(companyData.id) : ''
+  const { position, companyId } = await resolveRekruVacanciesCtx(pathParams)
 
   const filters = { ...queryParams, position, company: companyId }
 
   return (
     <Suspense fallback={<PubVacancyListSkeleton />}>
       <PubVacanciesWrapper
-        className="w-full"
         filters={filters}
       />
     </Suspense>

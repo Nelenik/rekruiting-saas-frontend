@@ -8,7 +8,7 @@ import { cn } from "@/shared/lib/utils";
 
 export const CompaniesFilterField = ({
 }) => {
-  const { filterCompanies, activeFilters, updatePathParams } = usePathFilters()
+  const { companiesList, activeFilters, updatePathParams } = usePathFilters()
 
   const [, startTransition] = useTransition()
 
@@ -17,9 +17,9 @@ export const CompaniesFilterField = ({
   const [company, setCompany] = useState('')
 
   const companiesSuggests = useMemo(() => {
-    const filteredByAccreditation = itAccreditation ? filterCompanies.filter(item => item?.it_accreditation) : filterCompanies
+    const filteredByAccreditation = itAccreditation ? companiesList.filter(item => item?.it_accreditation) : companiesList
     return filteredByAccreditation.map(item => item.name + ` (${item.count})`)
-  }, [filterCompanies, itAccreditation])
+  }, [companiesList, itAccreditation])
 
 
   useEffect(() => {

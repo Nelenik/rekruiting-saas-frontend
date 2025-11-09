@@ -1,26 +1,19 @@
 'use client'
 
-import { TFilterCompanies } from "@/shared/api/types";
-import { Card } from "@/shared/ui/shadcn/card";
+import { TShortCompany } from "@/shared/api/types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from 'swiper/modules'
 import { Button } from "@/shared/ui/shadcn/button";
-import { CompanyLogo } from "@/shared/ui/CompanyLogo";
 
 import ArrowLeftSvg from '@/assets/icons/arrow-left.svg?rc'
 import ArrowRightSvg from "@/assets/icons/arrow-right.svg?rc"
-import AwardBlueSvg from '@/assets/icons/award-blue.svg?rc'
 
-import { getCompanyLogoByName } from "@/entities/company/lib/companies-dict";
-import { Star } from "@/shared/ui/Star";
-import { Separator } from "@/shared/ui/shadcn/separator";
-import Link from "next/link";
-import { encodeSegment } from "@/shared/lib/encodeSegments";
 import { cn } from "@/shared/lib/utils";
+import { CompanyShortInfo } from "@/entities/company/ui/CompanyShortInfo";
 
 type TProps = {
   className?: string,
-  companiesList: TFilterCompanies[]
+  companiesList: TShortCompany[]
 }
 export const CompaniesSwiper = ({
   className,
@@ -52,7 +45,13 @@ export const CompaniesSwiper = ({
 
       {companiesList.map(company => (
         <SwiperSlide key={company.id}>
-          <Card
+          <CompanyShortInfo
+            name={company.name}
+            count={company.count}
+            logo={company.logo}
+            rating={company.rating}
+          />
+          {/* <Card
             className="p-4 flex flex-col gap-2 items-center rounded-3xl border-accent2/10"
           >
             <h3 className="flex gap-2 text-[28px] leading-tight font-medium">{company.name} <AwardBlueSvg className="h-[2cap]" /></h3>
@@ -84,7 +83,7 @@ export const CompaniesSwiper = ({
               Вакансии компании ({company.count})
 
             </Link>
-          </Card>
+          </Card> */}
         </SwiperSlide>
       ))}
 
