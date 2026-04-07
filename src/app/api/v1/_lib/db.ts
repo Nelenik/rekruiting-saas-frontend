@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync } from "fs";
+import { NextResponse } from "next/server";
 import path from "path";
 
 const DB_PATH = path.join(process.cwd(), "db.json");
@@ -31,16 +32,19 @@ export const paginate = <T>(
   };
 };
 
-export const ok = (data: unknown) => Response.json({ success: true, data });
+export const ok = (data: unknown) => NextResponse.json({ success: true, data });
 
 export const list = (result: Record<string, unknown>) =>
-  Response.json({ success: true, ...result });
+  NextResponse.json({ success: true, ...result });
 
 export const notFound = () =>
-  Response.json({ success: false, message: "Not found" }, { status: 404 });
+  NextResponse.json({ success: false, message: "Not found" }, { status: 404 });
 
 export const unauthorized = () =>
-  Response.json({ success: false, message: "Unauthorized" }, { status: 401 });
+  NextResponse.json(
+    { success: false, message: "Unauthorized" },
+    { status: 401 },
+  );
 
 /**
  * This is a helper function to enrich vacancy data with related status and match statuses.

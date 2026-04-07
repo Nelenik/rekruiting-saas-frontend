@@ -113,9 +113,9 @@ export const CvInfoBlock: FC<TProps> = ({
               "hover:bg-input"
             )}
           >
-            {<cvSource.hh.HhIcon
+            {<cvSource.hh.HunterIcon
               className="h-[2cap]"
-            />} hh.ru
+            />} {cvSource.hh.name || 'Источник не указан'}
           </a>
         </Button>
       </div>

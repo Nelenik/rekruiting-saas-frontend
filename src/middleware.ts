@@ -125,6 +125,6 @@ export async function middleware(request: NextRequest) {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|api-next/|css/|js/|images/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|woff|html|json)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|api-next/|css/|js/|images/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|woff|html|json|pdf)$).*)",
   ],
 };

@@ -10,7 +10,7 @@ import { Button } from '@/shared/ui/shadcn/button';
 import { Input } from '@/shared/ui/shadcn/input';
 import { Textarea } from '@/shared/ui/shadcn/textarea';
 import { useQueryClient } from '@tanstack/react-query';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { storeCv, updateCV } from '@/shared/api/actions';
 import { useMutateForm } from '@/shared/model/hooks/useMutateForm';
 import { TagSelect } from '@/shared/ui/form-elements/TagSelect';
@@ -57,12 +57,15 @@ export const CvForm: FC<TProps> = ({
   //define toast message
   const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
 
+  const handleSuccess = useCallback(() => {
+    onSuccess()
+    queryClient.invalidateQueries({ queryKey: ["reserve-infinite-list"] })
+  }, [onSuccess, queryClient])
+
+
   const { formAction, pending, defaultValues, errors, removeError } = useMutateForm({
     mutationAction: action,
-    onSuccess: () => {
-      onSuccess()
-      queryClient.invalidateQueries({ queryKey: ["reserve-infinite-list"] })
-    },
+    onSuccess: handleSuccess,
     initialData,
     toastMessage
   })

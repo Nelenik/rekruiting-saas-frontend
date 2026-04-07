@@ -24,7 +24,7 @@
       "full_name": "ООО «ТехноКорп»",
       "description": "Крупная IT-компания, специализирующаяся на разработке корпоративного ПО",
       "inn": "7701234567",
-      "rate": "A",
+      "rate": "pro",
       "rate_at": "2025-01-15T00:00:00.000Z",
       "created_at": "2024-01-10T08:00:00.000Z",
       "partner": true,
@@ -1014,6 +1014,29 @@
       "created_at": "2025-03-20T10:00:00.000Z",
       "published_at": "2025-03-20T10:00:00.000Z",
       "workExperiences": []
+    },
+    {
+      "external_id": "",
+      "workExperiences": [],
+      "skills": [],
+      "experience": null,
+      "from": "manual",
+      "candy_photo": "",
+      "summary": "",
+      "bio": "Опытный разработчик React с фокусом на производительность",
+      "candy_name": "Иван Иванов",
+      "name": "Frontend Разработчик",
+      "experience_months": 36,
+      "salary": 120000,
+      "candy_phone": "+7 900 000 0000",
+      "candy_tg": "",
+      "candy_email": "ivan@example.com",
+      "candy_location": "Москва",
+      "link": "/assets/cv-template.pdf",
+      "experience_raw": "Senior Frontend Developer в МойСклад (2021–2024)",
+      "id": 7,
+      "created_at": "2026-04-07T21:34:06.406Z",
+      "published_at": "2026-04-07T21:34:06.406Z"
     }
   ],
   "matches": [

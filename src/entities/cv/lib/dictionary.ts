@@ -1,6 +1,6 @@
 import { ECvStatus } from "@/shared/api/types";
 
-import HhIcon from "@/assets/sources/hh.ru.svg?rc";
+import HunterIcon from "@/assets/sources/hunter.svg?rc";
 
 export const workStatusDict = {
   [ECvStatus.LOOKING]: "в поиске",
@@ -11,8 +11,9 @@ export const workStatusDict = {
 
 export const cvSource = {
   hh: {
-    url: "https://hh.ru/resume/",
-    HhIcon,
+    url: "https://hunter.io/resume/",
+    HunterIcon,
+    name: "hunter.io",
   },
 };
 

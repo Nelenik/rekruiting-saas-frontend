@@ -29,6 +29,14 @@ export async function GET(req: NextRequest) {
   if (sp.get("level")) data = data.filter((c) => c.level === sp.get("level"));
   if (sp.get("schedule"))
     data = data.filter((c) => c.schedule === sp.get("schedule"));
+  if (sp.get("position")) {
+    const q = sp.get("position")!.toLowerCase();
+    data = data.filter((c) => c.name?.toLowerCase().includes(q));
+  }
+  if (sp.get("location")) {
+    const q = sp.get("location")!.toLowerCase();
+    data = data.filter((c) => c.candy_location?.toLowerCase().includes(q));
+  }
   if (sp.get("salary_from"))
     data = data.filter(
       (c) => (c.salary || 0) >= parseInt(sp.get("salary_from")!),

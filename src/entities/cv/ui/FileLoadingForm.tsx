@@ -25,7 +25,7 @@ export const FileLoadingForm = ({
   //Actions on successful form submitting
   const handleSucces = useCallback((state: TMutationState) => {
     const { data, filePathPublic } = state.payload as { data: TResume, filePathPublic: string }
-    //update data.link with filePathPublic befor write it to the initial data
+    //update data.link with filePathPublic before write it to the initial data
     setInitialData({ ...data, link: FILE_STORE_BASE_URL + filePathPublic })
     fileUploadRef.current?.clearFiles()
   }, [setInitialData])

@@ -21,7 +21,6 @@ export const CvFormWithFileParsing = ({
 
   const clearedInitialData = initialData ? filterFalsyFields(initialData) : undefined
 
-  console.log('cv form with file parsing', clearedInitialData)
 
   return (
     <div

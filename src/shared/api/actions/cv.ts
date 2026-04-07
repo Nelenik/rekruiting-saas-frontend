@@ -30,11 +30,11 @@ import { getSyntheticError } from "../common/errors";
 export const getResumeList = async (filters: Record<string, string> = {}) => {
   try {
     const filterString = new URLSearchParams(
-      filterFalsyFields(filters)
+      filterFalsyFields(filters),
     ).toString();
 
     const response = await apiGet<TApiListResponse<TResume>>(
-      "/api/v1/cv?" + filterString
+      "/api/v1/cv?" + filterString,
     );
     return {
       data: response.data,
@@ -66,7 +66,7 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
 export const getResumeById = async (id: number | string): Promise<TResume> => {
   try {
     const response = await apiGet<TApiSuccessResponse<TResume>>(
-      `/api/v1/cv/${id}`
+      `/api/v1/cv/${id}`,
     );
     return response.data;
   } catch (error) {
@@ -93,7 +93,7 @@ export const getResumeById = async (id: number | string): Promise<TResume> => {
  */
 export const storeCv = async (
   _: TMutationState,
-  data: FormData
+  data: FormData,
 ): Promise<TMutationState> => {
   const result = await apiMutate("/api/v1/cv", { body: parseFormData(data) });
   if (!result.error) {
@@ -118,7 +118,7 @@ export const storeCv = async (
 export const updateCV = async (
   cvId: number | string,
   _: TMutationState,
-  data: FormData
+  data: FormData,
 ): Promise<TMutationState> => {
   const result = await apiMutate(`/api/v1/cv/${cvId}`, {
     body: parseFormData(data),
