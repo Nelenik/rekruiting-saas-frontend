@@ -1,259 +1,118 @@
-# Rekrut - Recruitment Management System
+# Rekrut — Recruitment Management System
 
-A modern recruitment management system built with Next.js 15, React 19, and TypeScript.
+> **Demo version.** Live demo: _[ссылка на демо]_
 
-## 🚀 Features
+A frontend application for a recruitment management platform. This repository showcases the **client-side architecture** of a real-world product — with a mock API layer added to make it fully runnable without an external backend.
 
-- Modern UI with Tailwind CSS and Shadcn UI components
-- Drag-and-drop functionality with dnd-kit
-- Date handling with date-fns
-- Command palette interface with cmdk
-- Type-safe development with TypeScript
-- SVG component support with SVGR
-- Commit standardization with Commitizen
+---
 
-## 📋 Prerequisites
+## What this project demonstrates
 
-- Node.js (LTS version recommended)
-- npm, yarn, or pnpm
-- Git
+### Multi-tenant architecture on Next.js App Router
 
-## 🛠️ Installation
+The application serves **two independent products** from a single Next.js codebase, each on its own domain:
 
-1. Clone the repository:
-```bash
-git clone [repository-url]
-cd rekrutai-fe
+- **rekrutai** — recruiter's internal dashboard (pipeline management, candidate tracking)
+- **jobsite** — public job board for applicants
+
+Tenant routing is handled entirely by a custom **middleware** that reads the request domain and transparently rewrites the URL to the correct internal Route Group — no tenant prefix ever appears in the browser's address bar.
+
+```
+rekrutai.com/dashboard  →  (internal) /rekrutai/dashboard
+jobsite.com/vacancies   →  (internal) /jobsite/vacancies
 ```
 
-2. Install dependencies:
+The middleware also:
+- persists the origin host in a cookie so Server Actions (which don't carry `host` headers) can resolve tenant context;
+- guards `/dashboard` routes with cookie-based auth checks;
+- throws a dev-time error if a forbidden route prefix collision is detected.
+
+### Feature-Sliced Design (FSD)
+
+The `src/` directory follows FSD strictly: `shared → entities → features → widgets → pages-layer → app`. Each layer imports only from layers below it. Every module exposes a public API via `index.ts` — internal paths are never imported directly.
+
+### Typed server-side API layer
+
+All data fetching lives in `shared/api/`. The `apiGet`, `apiPost`, `apiPatch`, `apiDelete` helpers are Server Actions marked with `"use server"` — they automatically attach the Bearer token from cookies and handle error extraction in a typed way. `fetchJson` resolves the `baseUrl` from the current request's `host` header, which correctly handles the multi-tenant context.
+
+### Mock API that preserves real architecture
+
+In production, the app communicates with an **external REST backend**. For this demo, a mock backend is implemented as Next.js API Routes at `src/app/api/v1/`, backed by a flat `db.json` file.
+
+> The client-side code is unchanged: it still makes HTTP requests through the same `shared/api` layer. The author is aware that calling data sources directly via Server Actions would be more efficient within Next.js — but doing so would have required reworking the client architecture that was designed around an external API.
+
+### Drag-and-drop candidate board
+
+The match/pipeline board uses **@dnd-kit** (core + sortable) for drag-and-drop interactions, wrapped in composable `DndBoard`, `DndDraggable`, `DndDroppable`, and `DndSortable` components under `features/dnd/`.
+
+### Server Component + React Query hybrid
+
+Pages use Next.js Server Components for initial data fetching (with `revalidate`) and TanStack React Query v5 for client-side mutations and cache invalidation — giving the best of both worlds without a global store.
+
+---
+
+## Tech stack
+
+| | |
+|---|---|
+| Framework | Next.js 15 (App Router), React 19 |
+| Language | TypeScript 5 |
+| Styling | Tailwind CSS v3, Shadcn UI (Radix UI), tailwind-merge |
+| Data fetching | TanStack React Query v5, Server Actions |
+| Drag-and-drop | @dnd-kit/core, @dnd-kit/sortable |
+| Validation | Zod |
+| SVG | @svgr/webpack (`import Icon from '*.svg?rc'`) |
+| Docs | TypeDoc |
+| Commits | Commitizen + cz-conventional-changelog |
+---
+
+## Quick start
+
 ```bash
+# 1. Install dependencies
 npm install
-# or
-yarn install
-# or
-pnpm install
-```
 
-## 🚀 Development
+# 2. Configure environment
+cp .env.example .env.local
+# Set NEXT_PUBLIC_REKRUTAI_HOST and NEXT_PUBLIC_JOBSITE_HOST
 
-Run the development server:
-
-```bash
+# 3. Run dev server (clears .next cache automatically)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-
-## 📦 Available Scripts
-
-- `npm run dev` - Starts the development server
-- `npm run build` - Builds the application for production
-- `npm run start` - Runs the production build
-- `npm run lint` - Runs ESLint to check code quality
+For local multi-domain testing, map subdomains in your `hosts` file and set matching env vars. Full setup instructions: [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 
-## 🎨 Styling
+## Scripts
 
-This project uses:
-- Tailwind CSS for utility-first styling
-- Shadcn UI for accessible components
-- Tailwind Merge for class name management
+| Command | Description |
+|---|---|
+| `npm run dev` | Dev server (with `.next` cache cleared) |
+| `npm run build` | Production build |
+| `npm run start` | Run production build |
+| `npm run lint` | ESLint |
+| `npm run docs` | Generate TypeDoc API docs |
+| `npm run serve:docs` | Serve docs at http://localhost:5000 |
 
-## 🏢 Multitenancy & Routing Structure
+---
 
-This project follows a **multi-tenant architecture**, where each domain (or subdomain) maps to a dedicated application "space" within the `app` directory.
+## Architecture reference
 
-### 💡 Concept
+For a detailed breakdown of the FSD layer structure, mock API internals and multi-tenant middleware — see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
-Each tenant (e.g., `rekrutai`, `jobsite`) is isolated within its own subfolder under `/app`, like:
+---
 
-```
-/app
-  /rekrutai
-    ...
-  /jobsite
-    ...
-```
+## Internal navigation rules
 
-A **middleware** dynamically rewrites incoming requests based on the request’s domain, routing them to the correct app space. This enables clean URLs like:
+- Inside a tenant, always use paths **without the tenant prefix**: `<Link href="/dashboard">` not `<Link href="/rekrutai/dashboard">`
+- Cross-tenant navigation requires a full URL via `<a href="https://other-domain.com">` (triggers a full page reload for proper cookie/session isolation)
 
-```
-https://site1.com/dashboard       → mapped internally to /rekrutai/dashboard
-https://site2.com/dashboard       → mapped internally to /jobsite/dashboard
-```
+---
 
-> ❗ URLs should not include app-space prefixes like `/rekrutai` or `/jobsite` externally — these are handled internally by the middleware.
-
-### 📌 App Space Rules
-
-To ensure clean separation between tenants and avoid routing conflicts:
-
-1. **Do not** create routes inside one space (e.g., `/rekrutai`) using the name of another space (e.g., `/rekrutai/jobsite/...`)  
-   This will result in a critical error during development.
-
-2. Each app space owns its own subdirectory in `/app`.
-
-### 🔗 Internal Navigation (`next/link`)
-
-- Inside a tenant space (e.g., `rekrutai`), always use absolute paths **without the space prefix**:
-
-```tsx
-import Link from 'next/link';
-
-<Link href="/dashboard">Go to Dashboard</Link> // ✅ Correct
-<Link href="/rekrutai/dashboard">... </Link>    // 🚫 Wrong: hardcoded prefix
-```
-
-The middleware ensures the request will be routed to the correct internal directory based on the domain.
-
-### 🌐 Cross-Site Navigation
-
-Navigating between spaces (e.g., from `rekrutai` to `jobsite`) **should use `<a>` tags with full URLs**, as it involves changing domains:
-
-```tsx
-<a href="https://site2.com" target="_blank" rel="noopener noreferrer">
-  Go to Jobsite
-</a>
-```
-
-This allows for full-page reloads and proper cookie/session isolation between tenants.
-
-### 🚧 Top-Level Route Prefix Restrictions
-
-When defining routes within the space, ensure that **only one top-level route prefix is allowed per space**. For example:
-
-- `jobsite.com/jobsite/*` or `rekrutai.com/rekrutai/*` is **not allowed**.
-- This restriction applies to **top-level segments** relative to the space, meaning paths like `/jobsite/dashboard` are fine, but `/jobsite/jobsite/dashboard` is not.
-
-If a user attempts to access an invalid route like `/jobsite/jobsite/dashboard`, they will be redirected to a 404 page or an error will be thrown.
-
-#### Example of the validation in the middleware:
-
-```ts
-const forbiddenPrefixes = ["/rekrutai", "/jobsite"];
-
-// Check if the first segment matches any forbidden prefix
-const firstSegment = pathname.split("/")[1]; // Get the first path segment
-
-if (forbiddenPrefixes.includes(`/${firstSegment}`)) {
-  // If the first segment matches a forbidden space, redirect to 404
-  return NextResponse.redirect(new URL("/404", request.url)); // Or throw an error if needed
-}
-```
-
-This validation ensures that users cannot accidentally access a space from the wrong domain or mix up the routing structure.
-
-### 🌍 Environment Variables
-
-Each tenant domain must be declared using environment variables with the `NEXT_PUBLIC_` prefix so they are available on both server and client.
-
-In your `.env` file:
-
-```env
-NEXT_PUBLIC_REKRUTAI_HOST=rekrutai.com
-NEXT_PUBLIC_JOBSITE_HOST=jobsite.com
-```
-
-These values are used by the middleware to determine the internal route prefix for each domain. The mapping looks like this:
-
-```ts
-const rekrutaiHost = process.env.NEXT_PUBLIC_REKRUTAI_HOST || "";
-const jobsiteHost = process.env.NEXT_PUBLIC_JOBSITE_HOST || "";
-const hostMapping: HostMapping = {
-  [rekrutaiHost]: "/rekrutai",
-  [jobsiteHost]: "/jobsite",
-};
-```
-
-> ✅ **Important**:
-> - Avoid hardcoding domain names or route prefixes in your app.
-> - The middleware will rewrite requests based on the matched host.
-> - Always define all active tenant domains in the environment file.
-
-## 🔧 Development Guidelines
-
-### 🌍 Local Development with Multiple Domains
-
-To simulate a multi-domain setup locally (for testing purposes), you can use different subdomains for each tenant. Here’s how to set it up:
-
-1. **Update your `hosts` file** to map subdomains to `localhost`:
-   - On **Windows**, edit `C:\Windows\System32\drivers\etc\hosts`.
-   - On **macOS/Linux**, edit `/etc/hosts`.
-
-   Add the following lines:
-
-   ```txt
-   127.0.0.1   rekrutai.local
-   127.0.0.1   jobsite.local
-   ```
-
-2. **Set up environment variables**:
-   In your `.env.local` file, set the following:
-
-   ```env
-   NEXT_PUBLIC_REKRUTAI_HOST=rekrutai.local
-   NEXT_PUBLIC_JOBSITE_HOST=jobsite.local
-   ```
-
-3. **Start the application**:
-   Run the app as usual with `npm run dev`, and access it from the following URLs:
-   - [http://rekrutai.local:3000](http://rekrutai.local:3000) for `rekrutai` space
-   - [http://jobsite.local:3000](http://jobsite.local:3000) for `jobsite` space
-
-### SVG Usage
-- To import SVG as a React component: `import SvgIcon from '*.svg?rc'`
-- For regular SVG imports, use without the `?rc` suffix
-
-### Committing Changes
-This project uses Commitizen for standardized commit messages. Instead of `git commit`, use:
-```bash
-git cz
-# or
-cz
-# or
-git-cz
-```
-
-### Project Architecture (FSD)
-
-- **`pages-layer`** — Page-level components composed of widgets, features, and entities.. 
-- **`widgets`** — Composite components (e.g., `Header`, `Sidebar`).  
-- **`features`** — Features dependent on business logic (e.g., `Auth`, `Profile`).  
-- **`entities`** — Business entities (e.g., `User`, `Product`).  
-- **`shared`** — Shared utilities, API, styles.  
-
-> The `app` directory contains only Next.js routing and is not documented.
-
-### Generating Documentation
-
-1. Generate API documentation:
-```bash
-npm run docs
-```
-
-2. View documentation locally (requires global `serve`):
-```bash
-npm run serve:docs
-```
-
-The documentation will be available at [http://localhost:5000](http://localhost:5000).
-
-### Contributing to Documentation
-
-When contributing to the documentation:
-1. Use JSDoc comments for all exported functions and components
-2. Include usage examples in component documentation
-3. Update relevant README files when making significant changes
-4. Follow the established documentation structure
-
-## 📚Docs
+## Links
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [React Documentation](https://react.dev)
 - [Tailwind CSS Documentation](https://v3.tailwindcss.com/docs/installation)
 - [Shadcn UI Documentation](https://ui.shadcn.com/docs)
-
+- [Feature-Sliced Design](https://feature-sliced.design)
