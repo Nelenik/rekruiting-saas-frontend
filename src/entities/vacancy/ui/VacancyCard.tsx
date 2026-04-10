@@ -1,6 +1,5 @@
 import { FC } from 'react';
 
-import { formatWordEndings } from '@/shared/lib/formatters/formatWordEndings';
 import { cn } from '@/shared/lib/utils';
 import { Card, CardFooter, CardHeader, CardTitle } from '@/shared/ui/shadcn/card';
 import { TVacancy } from '@/shared/api/types';

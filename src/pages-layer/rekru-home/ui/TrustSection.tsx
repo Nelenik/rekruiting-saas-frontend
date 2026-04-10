@@ -21,7 +21,7 @@ export const TrustSection = () => {
               <ReviewSvg />
             </span>
             <h3 className="text-xl lg:text-[28px] leading-[110%] font-medium lg:tracking-tighter text-end">Anna, marketing specialist</h3>
-            <p className="max-w-[425px] text-base text-accent2/80 text-end ">"The site was very convenient and easy to use. I found a suitable vacancy here and got a job that I really enjoy"</p>
+            <p className="max-w-[425px] text-base text-accent2/80 text-end ">&quot;The site was very convenient and easy to use. I found a suitable vacancy here and got a job that I really enjoy&quot;</p>
           </div>
           <div className="hidden xs:block basis-1/2 ">
             <Image

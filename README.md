@@ -1,4 +1,4 @@
-# Rekrut — Recruitment Management System
+# Recruitment Management System
 
 > **Demo version.** Live demo: _[ссылка на демо]_
 

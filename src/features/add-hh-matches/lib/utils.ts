@@ -1,9 +1,8 @@
 import { THhRoleGroup } from "../api/types";
 import { TCheckboxItem } from "../../../shared/ui/form-elements/multilevel-checkbox/types";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const mapHhRolesToCheckboxItems = (
-  raw: THhRoleGroup[]
+  raw: THhRoleGroup[],
 ): TCheckboxItem[] => {
   return raw.map((group: THhRoleGroup) => ({
     id: String(group.id),

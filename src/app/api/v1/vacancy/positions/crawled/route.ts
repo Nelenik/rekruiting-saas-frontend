@@ -1,7 +1,6 @@
-import { NextRequest } from "next/server";
 import { loadDb, list } from "@/app/api/v1/_lib/db";
 
-export async function GET(_req: NextRequest) {
+export async function GET() {
   const db = loadDb();
   const posMap: Record<string, number> = {};
   db.vacancies.forEach((v) => {

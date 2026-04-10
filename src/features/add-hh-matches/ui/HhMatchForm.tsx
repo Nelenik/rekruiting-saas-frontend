@@ -275,7 +275,7 @@ export const HhMatchForm = ({
           Reset
         </Button>
         <Button type="submit">
-          {pending ? 'Processing...' : 'Search'}}
+          {pending ? 'Processing...' : 'Search'}
 
         </Button>
       </div>
