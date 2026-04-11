@@ -12,7 +12,7 @@ export default async function JobSiteVacanciesLayout({
   params
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ filters: string[] }>
+  params: Promise<{ filters?: string[] }>
 }>) {
 
   const pathParams = (await params).filters || []
