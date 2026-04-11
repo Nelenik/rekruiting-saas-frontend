@@ -1,6 +1,8 @@
 # Recruitment Management System
 
-> **Demo version.** Live demo: _[ссылка на демо]_
+> **Demo version.** Live demo for recruiters admin panel: _[hiringrocket.vercel.app](https://hiringrocket.vercel.app)_
+
+>  **Demo version.** Live demo for jobsite: _[jobeast.vercel.app](https://jobeast.vercel.app)_
 
 A frontend application for a recruitment management platform. This repository showcases the **client-side architecture** of a real-world product — with a mock API layer added to make it fully runnable without an external backend.
 

@@ -9,7 +9,7 @@ export const mutationInitialState: TMutationState = {
 
 export const API_URL = process.env.API_URL;
 
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = API_URL;
 
 // export const INTERNAL_BASE_URL = isDev ? "http://localhost:3000" : API_URL;
 
