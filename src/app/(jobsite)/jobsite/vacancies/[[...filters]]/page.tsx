@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: TProps): Promise<Metadata> {
 
   // --- 1. All vacancies ---
   if (!filters.length) {
-    metadata.title = "All vacancies on Rekru.ru";
+    metadata.title = "All vacancies";
     metadata.description = "Find your dream job among current vacancies";
     metadata.alternates = {
       canonical: baseUrl,
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: TProps): Promise<Metadata> {
   // --- 2. All vacancies at a company (vacancies/company) ---
   if (!position && company) {
     metadata.title = `All vacancies at ${companyName}`;
-    metadata.description = `View current vacancies at ${companyName} on Rekru.ru`;
+    metadata.description = `View current vacancies at ${companyName}`;
     metadata.alternates = {
       canonical: `${baseUrl}/${company}`,
     };
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: TProps): Promise<Metadata> {
 
   // --- 4. By position only ---
   if (position && !company) {
-    metadata.title = `All ${positionName} vacancies on Rekru.ru`;
+    metadata.title = `All ${positionName} vacancies`;
     metadata.description = `Find your dream job among current ${positionName} vacancies`;
     metadata.alternates = {
       canonical: `${baseUrl}/${position}`,

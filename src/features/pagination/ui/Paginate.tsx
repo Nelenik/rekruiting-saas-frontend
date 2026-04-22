@@ -47,7 +47,9 @@ export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_P
       <Pagination className={className}>
         <PaginationContent>
           <PaginationItem>
-            <Link href={`?${getHref(prev)}`} passHref legacyBehavior>
+            <Link href={`?${getHref(prev)}`}>
+              {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
+              }
               <PaginationPrevious className="[&_span]:hidden" />
             </Link>
           </PaginationItem>
@@ -60,16 +62,20 @@ export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_P
           {Array.from({ length: rightVisible - leftVisible + 1 }, (_, i) => {
             const pageNum = i + leftVisible
             const isActive = currentPage === pageNum
-            return (<PaginationItem key={pageNum}>
-              <Link href={`?${getHref(pageNum)}`} passHref legacyBehavior >
-                <PaginationLink
-                  isActive={isActive}
-                  className={cn('border-2', isActive ? 'border-ring' : ' border-accent2/10', paginationButtonStyles)}
-                >
-                  {pageNum}
-                </PaginationLink>
-              </Link>
-            </PaginationItem>)
+            return (
+              <PaginationItem key={pageNum}>
+                <Link href={`?${getHref(pageNum)}`}>
+                  {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
+                  }
+                  <PaginationLink
+                    isActive={isActive}
+                    className={cn('border-2', isActive ? 'border-ring' : ' border-accent2/10', paginationButtonStyles)}
+                  >
+                    {pageNum}
+                  </PaginationLink>
+                </Link>
+              </PaginationItem>
+            );
           })}
           {
             rightVisible < pagesCount
@@ -78,7 +84,7 @@ export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_P
             </PaginationItem>
           }
           <PaginationItem>
-            <Link href={`?${getHref(next)}`} passHref >
+            <Link href={`?${getHref(next)}`}>
               <PaginationNext className="[&_span]:hidden" />
             </Link>
           </PaginationItem>
