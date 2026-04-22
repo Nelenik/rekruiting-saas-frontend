@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { AUTH_COOKIE_NAME, BASE_URL } from "../constants";
+import { AUTH_COOKIE_NAME, API_URL } from "../constants";
 import {
   extractSyntheticErrorFromApi,
   getSyntheticError,
@@ -81,7 +81,7 @@ export const apiGet = async <T = unknown>(
 
   // Perform the GET request with the specified URL and headers
   // Use `no-store` cache policy to ensure fresh data
-  const response = await fetch(BASE_URL + url, {
+  const response = await fetch(API_URL + url, {
     method: "GET",
     cache: "no-store",
     headers: actualHeaders,
@@ -174,7 +174,7 @@ export const apiMutate = async <T = unknown>(
   const preparedBody = prepareBody(body);
   try {
     // Perform the mutation request with the specified URL, method, body, and headers
-    const response = await fetch(BASE_URL + url, {
+    const response = await fetch(API_URL + url, {
       method,
       cache: "no-store",
       body: preparedBody,

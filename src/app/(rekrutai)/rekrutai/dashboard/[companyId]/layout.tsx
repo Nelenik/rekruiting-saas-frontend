@@ -10,7 +10,7 @@ import { Suspense } from 'react';
 
 
 export const metadata: Metadata = {
-  title: 'RekrutAI|Dashboard',
+  title: 'Dashboard',
 };
 
 

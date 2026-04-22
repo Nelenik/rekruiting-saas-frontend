@@ -15,7 +15,7 @@ export default function NotFound() {
         priority
       />
 
-      <Button asChild >
+      <Button asChild className='bg-accent2 '>
         <Link href="/vacancies">Home</Link>
       </Button>
     </div>

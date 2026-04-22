@@ -78,7 +78,7 @@ export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_P
             </PaginationItem>
           }
           <PaginationItem>
-            <Link href={`?${getHref(next)}`} passHref legacyBehavior>
+            <Link href={`?${getHref(next)}`} passHref >
               <PaginationNext className="[&_span]:hidden" />
             </Link>
           </PaginationItem>

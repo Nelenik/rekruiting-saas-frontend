@@ -75,25 +75,25 @@ export default async function JobSiteLayout({
                   <ul className={cn('flex flex-col gap-2',
                     "text-base text-sidebar-foreground")}>
                     <li>
-                      <Link className="link-footer" href={'/pages/about'}>About</Link>
+                      <Link className="link-footer" href={'/pages'}>About</Link>
                     </li>
                     <li>
-                      <Link className="link-footer" href={'/pages/team'}>Team</Link>
+                      <Link className="link-footer" href={'/pages'}>Team</Link>
                     </li>
                     <li>
                       <Link className="link-footer" href={'/vacancies'}>Our Vacancies</Link>
                     </li>
                     <li>
-                      <Link className="link-footer" href={'/pages/partners'}>For Partners</Link>
+                      <Link className="link-footer" href={'/pages'}>For Partners</Link>
                     </li>
                     <li>
-                      <Link className="link-footer" href={'/pages/investors'}>For Investors</Link>
+                      <Link className="link-footer" href={'/pages'}>For Investors</Link>
                     </li>
                     <li>
-                      <Link className="link-footer" href="/pages/news">News</Link>
+                      <Link className="link-footer" href="/pages">News</Link>
                     </li>
                     <li>
-                      <Link className="link-footer" href="/pages/bot">Our Bots</Link>
+                      <Link className="link-footer" href="/pages">Our Bots</Link>
                     </li>
                   </ul>
                 </div>
@@ -108,16 +108,16 @@ export default async function JobSiteLayout({
                   <ul className={cn('flex flex-col gap-2',
                     "text-base text-sidebar-foreground")}>
                     <li>
-                      <Link className="link-footer" href={'/pages/jobposting'}>Job Posting</Link>
+                      <Link className="link-footer" href={'/pages'}>Job Posting</Link>
                     </li>
                     <li>
-                      <Link className="link-footer" href={'/pages/advertising'}>Advertising on the site</Link>
+                      <Link className="link-footer" href={'/pages'}>Advertising on the site</Link>
                     </li>
                     <li>
-                      <Link className="link-footer" href={'/pages/requirements'}>Software Requirements</Link>
+                      <Link className="link-footer" href={'/pages'}>Software Requirements</Link>
                     </li>
                     <li>
-                      <Link className="link-footer" href={'/pages/help'}>Help</Link>
+                      <Link className="link-footer" href={'/pages'}>Help</Link>
                     </li>
                   </ul>
                 </div>
@@ -136,7 +136,7 @@ export default async function JobSiteLayout({
                       <Link className="link-footer" href={'/companies'}>Companies</Link>
                     </li>
                     <li>
-                      <Link className="link-footer" href={'/pages/help'}>Help</Link>
+                      <Link className="link-footer" href={'/pages'}>Help</Link>
                     </li>
 
                   </ul>

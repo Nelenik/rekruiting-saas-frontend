@@ -6,7 +6,7 @@ import { TAuthorized } from '@/shared/api/types';
 import { UnauthorizedFallback } from '@/features/auth/ui/UnauthorizedFallback';
 
 export const metadata: Metadata = {
-  title: 'RekrutAI|Dashboard',
+  title: 'Dashboard',
 };
 
 // robots: {

@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { resolveRekruVacanciesCtx } from "@/entities/vacancy/lib/resolveRekruVacanciesCtx";
+import { JOBSITE_DOMAIN } from "@/shared/api/constants";
 
 type TProps = {
   searchParams: Promise<Record<string, string>>
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: TProps): Promise<Metadata> {
   const { filters = [] } = await params;
   const { position, company } = normalizeVacanciesFilterPath(filters)
 
-  const baseUrl = 'https://rekru.ru/vacancies';
+  const baseUrl = `https://${JOBSITE_DOMAIN}/vacancies`;
   const metadata: Metadata = {};
 
   const positionName = vacancyPositionsDict[position] || position;

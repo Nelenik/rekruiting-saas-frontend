@@ -9,7 +9,8 @@ export const mutationInitialState: TMutationState = {
 
 export const API_URL = process.env.API_URL;
 
-export const BASE_URL = API_URL;
+export const ATS_DOMAIN = process.env.NEXT_PUBLIC_REKRUTAI_HOST;
+export const JOBSITE_DOMAIN = process.env.NEXT_PUBLIC_JOBSITE_HOST;
 
 // export const INTERNAL_BASE_URL = isDev ? "http://localhost:3000" : API_URL;
 
